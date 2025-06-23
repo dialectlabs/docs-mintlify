@@ -1,0 +1,218 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Dialect Developer Documentation",
+  "logo": {
+    "dark": "https://res.cloudinary.com/dnxjhra4h/image/upload/dialect-docs/logo-dark.svg",
+    "light": "https://res.cloudinary.com/dnxjhra4h/image/upload/dialect-docs/logo-light.svg",
+    "text": "Dialect"
+  },
+  "favicon": "https://res.cloudinary.com/dnxjhra4h/image/upload/dialect-docs/favicon.svg",
+  "theme": "mint",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#55D799",
+    "dark": "#0D9373"
+  },
+  "seo": {
+    "metatags": {
+      "og:image": "https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/dialect-docs/og-image.png"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/dialectlabs"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Discord",
+    "url": "https://discord.gg/saydialect"
+  },
+  "tabs": [
+    {
+      "name": "Blinks",
+      "url": "blinks"
+    },
+    {
+      "name": "Alerts",
+      "url": "alerts"
+    },
+    {
+      "name": "API Reference",
+      "url": "api"
+    }
+  ],
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Blinks",
+        "groups": [
+          {
+            "group": "GETTING STARTED",
+            "pages": [
+              "blinks/index"
+            ]
+          },
+          {
+            "group": "CLIENT",
+            "pages": [
+              "blinks/blinks-client/index",
+              {
+                "group": "Integration",
+                "pages": [
+                  "blinks/blinks-client/integrate/headless/index",
+                  {
+                    "group": "UI Components",
+                    "pages": [
+                      "blinks/blinks-client/integrate/ui-components/blinks",
+                      "blinks/blinks-client/integrate/ui-components/miniblinks",
+                      "blinks/blinks-client/integrate/ui-components/styling"
+                    ]
+                  },
+                  "blinks/blinks-client/integrate/chrome/index"
+                ]
+              },
+              "blinks/blinks-client/measure/index"
+            ]
+          },
+          {
+            "group": "PROVIDER (API)",
+            "pages": [
+              "blinks/blinks-provider/index",
+              "blinks/blinks-provider/build-your-first-blink",
+              "blinks/blinks-provider/fallbacks",
+              "blinks/blinks-provider/blink-registry",
+              {
+                "group": "Advanced",
+                "pages": [
+                  "blinks/blinks-provider/advanced/forms",
+                  "blinks/blinks-provider/advanced/metadata",
+                  "blinks/blinks-provider/advanced/action-chaining",
+                  "blinks/blinks-provider/advanced/track-tx"
+                ]
+              },
+              {
+                "group": "Guides",
+                "pages": [
+                  "blinks/blinks-provider/guides/index",
+                  "blinks/blinks-provider/guides/tip-blink"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "SCAFFOLDS",
+            "pages": [
+              "blinks/blinks-scaffolds/index",
+              "blinks/blinks-scaffolds/solana",
+              "blinks/blinks-scaffolds/monad"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Alerts",
+        "groups": [
+          {
+            "group": "GETTING STARTED",
+            "pages": [
+              "alerts/index",
+              "alerts/quick-start",
+              "alerts/faq"
+            ]
+          },
+          {
+            "group": "SETUP",
+            "pages": [
+              "alerts/setup/register-app",
+              "alerts/setup/topics-channels-subscribers",
+              "alerts/setup/dashboard-introduction"
+            ]
+          },
+          {
+            "group": "INTEGRATE AN INBOX",
+            "pages": [
+              "alerts/integrate-inbox/index",
+              "alerts/integrate-inbox/user-management",
+              {
+                "group": "API",
+                "pages": [
+                  "alerts/integrate-inbox/api/index",
+                  "alerts/integrate-inbox/api/authentication",
+                  "alerts/integrate-inbox/api/notifications",
+                  "alerts/integrate-inbox/api/push-notifications"
+                ]
+              },
+              {
+                "group": "SDK",
+                "pages": [
+                  "alerts/integrate-inbox/sdk/setup-configuration",
+                  "alerts/integrate-inbox/sdk/notifications-button",
+                  "alerts/integrate-inbox/sdk/notifications"
+                ]
+              },
+              "alerts/integrate-inbox/universal-inbox"
+            ]
+          },
+          {
+            "group": "SEND ALERTS",
+            "pages": [
+              "alerts/send/index",
+              {
+                "group": "API",
+                "pages": [
+                  "alerts/send/api/index",
+                  "alerts/send/api/authentication",
+                  "alerts/send/api/send-messages",
+                  "alerts/send/api/push-notifications"
+                ]
+              },
+              {
+                "group": "SDK",
+                "pages": [
+                  "alerts/send/sdk/index",
+                  "alerts/send/sdk/setup-configuration",
+                  "alerts/send/sdk/send-messages"
+                ]
+              },
+              "alerts/send/dashboard"
+            ]
+          },
+          {
+            "group": "MOBILE ALERTS STACK",
+            "pages": [
+              "alerts/mobile-alerts/index"
+            ]
+          },
+          {
+            "group": "EVENT DETECTION & MONITORING",
+            "pages": [
+              "alerts/alerts-and-monitoring/index",
+              "alerts/alerts-and-monitoring/setup-event-detection",
+              "alerts/alerts-and-monitoring/integrate-existing-system"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Reference",
+            "pages": [
+              "api-reference/index",
+              "api-reference/blinks-api",
+              "api-reference/alerts-api",
+              "api-reference/standard-blinks-library"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footerSocials": {
+    "x": "https://x.com/saydialect",
+    "github": "https://github.com/dialectlabs",
+    "discord": "https://discord.gg/saydialect"
+  }
+}

@@ -1,0 +1,78 @@
+---
+title: "Overview"
+description: "Pre-configured templates to help you build Blinks out of the box."
+---
+
+## What Are Scaffolds?
+
+Scaffolds are ready-to-use project templates that handle initial setup and configuration. They come with essential dependencies, tools, and examples so you can focus on building your blockchain experiences.
+
+## Why Use Scaffolds?
+
+Every `Blink` consists of two core components: a `Blinks Provider` (backend) and a `Blinks Client` (frontend). Our scaffolds make working with both seamless:
+
+<CardGroup cols={2}>
+  <Card
+    title="Next.js Foundation"
+    icon="code"
+  >
+    Built on Next.js for robust provider-client communication
+  </Card>
+  
+  <Card
+    title="Zero Config"
+    icon="wand-magic-sparkles"
+  >
+    Pre-wired with wallet connections, blockchain SDKs, and dev tools
+  </Card>
+  
+  <Card
+    title="Local Testing"
+    icon="flask"
+  >
+    Ready-made examples to test your full Blink locally
+  </Card>
+  
+  <Card
+    title="Chain Agnostic"
+    icon="globe"
+  >
+    Deploy to any blockchain by updating the chainId
+  </Card>
+</CardGroup>
+
+## Getting Started
+
+To get you started, all you have to do is run the command below in your terminal. This will guide you through a small config process that helps you setup your project with our latest tools, install dependencies etc.
+
+```bash
+npx create-blinks-app
+```
+
+After you've executed the command, just `cd` into your new scaffold project folder and run:
+
+```bash
+npm run dev
+```
+
+## Available Scaffolds
+
+<Card
+  title="Solana Scaffold"
+  icon="link"
+  href="/blinks/blinks-scaffolds/solana"
+  cta="Get Started"
+>
+  Ready-to-use template for building Blinks on the Solana blockchain with pre-configured wallet connections and dev tools.
+</Card>
+
+<Card
+  title="Monad Scaffold" 
+  icon="cube"
+  href="/blinks/blinks-scaffolds/monad"
+  cta="Get Started"
+>
+  Complete starter template for Monad blockchain development with EVM compatibility and optimized tooling.
+</Card>
+
+{/* Looking to build for other chains? Check out our [Integration Guide](#). */}

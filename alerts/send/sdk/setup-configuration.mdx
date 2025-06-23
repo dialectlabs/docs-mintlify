@@ -1,0 +1,141 @@
+---
+title: Setup & Configuration
+description: Install and configure the Dialect TypeScript SDK for sending notifications from your Node.js and React applications
+---
+
+Get the Dialect TypeScript SDK installed and configured in your environment. This guide covers installation, client setup, authentication, and environment configuration.
+
+## Installation
+
+Install the core SDK and blockchain-specific packages for your needs:
+
+<Tabs>
+<Tab title="npm">
+
+```bash
+# Core SDK (required)
+npm install @dialectlabs/sdk
+
+# Blockchain SDK for Solana
+npm install @dialectlabs/blockchain-sdk-solana
+```
+
+</Tab>
+<Tab title="yarn">
+
+```bash
+# Core SDK (required)
+yarn add @dialectlabs/sdk
+
+# Blockchain SDK for Solana
+yarn add @dialectlabs/blockchain-sdk-solana
+```
+
+</Tab>
+<Tab title="pnpm">
+
+```bash
+# Core SDK (required)
+pnpm add @dialectlabs/sdk
+
+# Blockchain SDK for Solana
+pnpm add @dialectlabs/blockchain-sdk-solana
+```
+
+</Tab>
+</Tabs>
+
+## App Registration
+
+Before using the SDK, you need to register your app. You can do this either:
+
+1. **Via Dashboard**: Follow our [Dashboard registration guide](/alerts/setup/register-app) to register
+2. **Via SDK**: Register programmatically using the [SDK tab in the registration guide](/alerts/setup/register-app#sdk)
+
+## Wallet Credentials Setup
+
+**If you registered via SDK**: Your `DIALECT_SDK_CREDENTIALS` should already be set up from the registration process.
+
+**If you registered via Dashboard**: You need to extract the private key from the wallet you used to register and format it as `DIALECT_SDK_CREDENTIALS`. Your app is tied to the specific keypair used during registration:
+
+1. **Export from your wallet app**: Open Phantom, Solflare, etc. → Settings → Export Private Key → Copy the private key
+2. **Convert to array format**: Use a tool like [this](https://www.npmjs.com/package/@solana/web3.js) to convert base58 private key to JSON array format `[170,23,...,300]`
+3. **Set in environment**: Add the array format to your `.env` file as `DIALECT_SDK_CREDENTIALS`
+
+<Warning>
+**You must use the same wallet that was used to register your app.** The app registration is tied to that specific keypair and cannot be changed to a different wallet.
+</Warning>
+
+<Warning>
+**Secure Your Credentials**: Keep your `DIALECT_SDK_CREDENTIALS` secure. This is your app's private key and should never be exposed in client-side code or committed to version control.
+</Warning>
+
+## SDK Client Setup
+
+### Basic SDK Initialization
+
+```typescript
+import { Dialect, DialectCloudEnvironment, DialectSdk } from "@dialectlabs/sdk";
+import {
+  Solana,
+  SolanaSdkFactory,
+  NodeDialectSolanaWalletAdapter,
+} from "@dialectlabs/blockchain-sdk-solana";
+
+// Initialize SDK
+const environment: DialectCloudEnvironment = "development";
+const dialectSolanaSdk: DialectSdk<Solana> = Dialect.sdk(
+  {
+    environment,
+  },
+  SolanaSdkFactory.create({
+    // IMPORTANT: must set environment variable DIALECT_SDK_CREDENTIALS
+    // to your dapp's Solana messaging wallet keypair e.g. [170,23, . . . ,300]
+    wallet: NodeDialectSolanaWalletAdapter.create(),
+  })
+);
+
+// Load your dApp
+const dapp = await dialectSolanaSdk.dapps.find();
+
+if (!dapp) {
+  throw new Error("Dapp not found. Please register your app first.");
+}
+
+console.log('✅ SDK initialized and dApp loaded!');
+```
+
+### Environment-Specific Setup
+
+```typescript
+// For production deployment, update the environment
+const environment: DialectCloudEnvironment = "production"; // Change to "development" for testing
+
+const dialectSolanaSdk = Dialect.sdk(
+  {
+    environment,
+  },
+  SolanaSdkFactory.create({
+    // IMPORTANT: must set environment variable DIALECT_SDK_CREDENTIALS
+    // to your dapp's Solana messaging wallet keypair e.g. [170,23, . . . ,300]
+    wallet: NodeDialectSolanaWalletAdapter.create(),
+  })
+);
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**1. Invalid Credentials**
+```bash
+Error: Invalid wallet credentials
+# Solution: Check your DIALECT_SDK_CREDENTIALS format
+echo $DIALECT_SDK_CREDENTIALS | jq . # Should be valid JSON array
+```
+
+**2. Dapp Not Found**
+```bash
+Error: Dapp not found
+# Solution: Register your app first via dashboard or SDK
+```

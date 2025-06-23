@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+package-lock.json
+package.json
+
+# Environment variables & sensitive information
+.env
+.env.local
+.env.production
+.env.development
+*.key
+*.pem
+secrets.json
+config/secrets.*
+
+# Images folder (served from CDN)
+images/
+
+# Scripts
+*.sh
+*.bat
+scripts/
+sync-images.js
+IMAGE-WORKFLOW.md
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

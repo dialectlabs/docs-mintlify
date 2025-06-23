@@ -1,0 +1,78 @@
+---
+title: Standard Blinks Library (SBL)
+description: Discover and integrate ready-to-use Blinks from Solana's top ecosystem projects.
+---
+
+The Standard Blinks Library (SBL) is a curated collection of production-ready Blinks from leading Solana ecosystem projects. Instead of building from scratch, discover, test, and integrate proven Blinks that users already know and trust.
+
+## What is the Standard Blinks Library?
+
+SBL is your gateway to the most popular and reliable Blinks in the Solana ecosystem. Each Blink in our library has been tested, verified, and optimized for performance across different platforms and wallets.
+
+## Featured Blinks
+
+Currently supported protocols in our Standard Blinks Library:
+- **Raydium**: Decentralized exchange and liquidity provision
+- **Drift**: Perpetual trading and derivatives
+- **Kamino**: Yield farming and automated strategies  
+- **Meteora**: Dynamic liquidity pools
+- **Lulo**: Yield optimization
+- **Solana**: Native staking and validator operations
+- **MarginFi**: Lending and borrowing
+- **Orca**: Automated market maker and concentrated liquidity
+
+## How to Use SBL
+
+### 1. Browse the Library
+Visit our interactive library to explore available Blinks:
+
+**[Browse Standard Blinks Library →](https://sbl.dial.to)**
+
+### 2. Copy Blink URLs
+Find the action you want and copy the Blink URL directly from the library interface.
+
+### 3. Integrate into Your App
+
+#### Using UI Components
+Paste the Blink URL into any of our supported UI components:
+- [Blinks Component](/blinks/blinks-client/integrate/ui-components/blinks)
+- [MiniBlinks Component](/blinks/blinks-client/integrate/ui-components/miniblinks)
+
+#### Using Headless Integration
+Fetch and execute Blinks programmatically:
+```javascript
+// Fetch Blink metadata and actions
+const response = await fetch(blinkUrl, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ account: userPublicKey })
+});
+```
+
+Learn more in our [Headless Integration Guide](/blinks/blinks-client/integrate/headless/index).
+
+## API Access
+
+For programmatic access to the SBL catalog and metadata:
+
+**[SBL API Documentation →](https://sbl.dial.to)**
+
+## Benefits of Using SBL
+
+### For Developers
+- **Faster Integration**: Skip the development phase and integrate proven actions
+- **Reduced Testing**: All Blinks are pre-tested across multiple environments
+- **Consistent UX**: Users get familiar interfaces they already know
+
+### For Users
+- **Trusted Actions**: All Blinks come from verified ecosystem partners
+- **Seamless Experience**: Consistent behavior across different applications
+- **Wide Compatibility**: Works across wallets, social platforms, and apps
+
+## Submitting Your Blinks
+
+If you've built a Blink that you'd like to include in SBL, get in touch with our team on [Discord](https://discord.gg/saydialect) to discuss including your Blinks in the Standard Library.
+
+## Something Missing?
+
+Don't see a Blink you need? Tell us which protocols and actions you'd like to see added to our Standard Blinks Library. Join our [Discord](https://discord.gg/saydialect) and let us know what's missing!

@@ -1,0 +1,54 @@
+---
+title: "Monad Scaffold"
+description: "The blink scaffold for Monad is the fastest way to start with your blink project."
+---
+
+Blink scaffold Monad acts as a downloadable and reusable template that utilizes `NextJS` and `Tailwind` as the front end framework plus API routes for the backend. It comes with all necessary dependencies and configuration out of the box, so that you can immediately start building.
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/dialect-docs/monad-scaffold-preview.png"
+  alt="Screenshot from blink scaffold monad landing page"
+/>
+
+### Features
+
+- Nextjs React framework
+- Tailwind
+- Blink SDK
+- Solana Actions
+- Dark/Light Mode
+- Connectkit
+- Wagmi
+- Viem
+
+### Installation
+
+#### Run our Scaffold command
+
+To install the scaffold, all you have to do is run the command below in your terminal.
+
+```bash
+npx create-blinks-app
+```
+
+#### Set RPC URL 
+
+By default, we use the Monad testnet RPC in our examples. If you have your own RPC, please update it in the `.env`-file. If you add your private RPC, don't forget to add the `.env` to your `.gitignore`.
+
+```
+# file: .env
+
+# Fill in the URL of your Monad RPC (optional)
+
+NEXT_PUBLIC_RPC_URL=https://testnet-rpc.monad.xyz
+```
+
+### Run on localhost
+
+Run the following command in your terminal
+
+```bash
+npm run dev
+```
+
+Open your browser and visit `http://localhost:3000`. Please be reminded that the port 3000 could also be a different port. It is recommended to check the port in your terminal.
