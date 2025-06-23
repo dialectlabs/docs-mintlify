@@ -1,0 +1,22 @@
+/* Global styles for Dialect documentation */
+
+/* Add border radius to YouTube videos (iframes) */
+iframe[src*="youtube.com"] {
+    border-radius: 12px;
+}
+
+iframe[src*="youtu.be"] {
+    border-radius: 12px;
+}
+
+/* Add border radius to all images */
+img {
+    border-radius: 12px;
+}
+
+/* Ensure iframe videos maintain responsive behavior */
+iframe[src*="youtube.com"],
+iframe[src*="youtu.be"] {
+    border-radius: 12px;
+    overflow: hidden;
+}
