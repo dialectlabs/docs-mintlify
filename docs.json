@@ -201,11 +201,13 @@
       }
     ]
   },
-  "footerSocials": {
-    "website": "https://www.dialect.to/",
-    "x": "https://x.com/saydialect",
-    "github": "https://github.com/dialectlabs",
-    "discord": "https://discord.gg/saydialect",
-    "youtube": "https://www.youtube.com/@dialectlabs"
+  "footer": {
+    "socials": {
+      "website": "https://www.dialect.to/",
+      "x": "https://x.com/saydialect",
+      "github": "https://github.com/dialectlabs",
+      "discord": "https://discord.gg/saydialect",
+      "youtube": "https://www.youtube.com/@dialectlabs"
+    }
   }
 }

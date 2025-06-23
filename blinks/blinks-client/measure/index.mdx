@@ -8,7 +8,7 @@ With [Dialect's Terminal](https://terminal.dial.to), you can measure the perform
 Best part: It works instantly - no new code or time consuming app re-deployments required.
 
 <Info>
-**Important**: To track blink performance, make sure you're using Dialect's API for your implementations. While our SDK handles this automatically, if you're using a headless implementation, you'll need to properly construct your links to enable analytics tracking. See our [headless integration documentation](../integrate/headless/index.mdx) for details.
+**Important**: To track blink performance, make sure you're using Dialect's API for your implementations. While our SDK handles this automatically, if you're using a headless implementation, you'll need to properly construct your links to enable analytics tracking. See our [headless integration documentation](/blinks/blinks-client/integrate/headless/index) for details.
 </Info>
 
 ## What we measure
@@ -17,7 +17,7 @@ We measure the performance of your lists and individual blinks through three key
 
 - **GET**: Represents how often your blink was displayed to a user (similar to impressions in ad platforms)
 - **POST**: Records when a user clicks on a button
-- **Transactions**: Tracks completed transactions after button clicks. If a user clicks on the button (POST), e.g., to mint an NFT, it's not guaranteed they will sign the transaction and mint. They can still cancel. The transactions number tells you how many transactions were actually completed after the button click. To learn how to track individual transactions, visit our [track transaction](../../blinks-provider/advanced/track-tx.mdx) section.
+- **Transactions**: Tracks completed transactions after button clicks. If a user clicks on the button (POST), e.g., to mint an NFT, it's not guaranteed they will sign the transaction and mint. They can still cancel. The transactions number tells you how many transactions were actually completed after the button click. To learn how to track individual transactions, visit our [track transaction](/blinks/blinks-provider/advanced/track-tx) section.
 
 Do you need more metrics? Send us a message and let's discuss how we can help you!
 
@@ -47,7 +47,7 @@ To view list analytics:
 2. Click on the list in the left menu
 3. Check the data on the top of the right side
 
-If you want to learn how to create lists, visit our [manage section](../manage/index.mdx).
+If you want to learn how to create lists, visit our [manage section](/blinks/blinks-client/manage/index).
 
 ## Implementation Requirements
 
@@ -57,7 +57,7 @@ If you're using our SDK, analytics tracking is automatically implemented. No add
 
 ### Headless Implementation
 
-For headless implementations, ensure your links are properly constructed using the Dialect's API to enable analytics tracking. For more information see [headless integration](../integrate/headless/index.mdx).
+For headless implementations, ensure your links are properly constructed using the Dialect's API to enable analytics tracking. For more information see [headless integration](/blinks/blinks-client/integrate/headless/index).
 
 This ensures all user interactions are correctly captured and reflected in your analytics dashboard.
  
