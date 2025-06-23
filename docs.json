@@ -20,6 +20,10 @@
   },
   "topbarLinks": [
     {
+      "name": "Website",
+      "url": "https://www.dialect.to/"
+    },
+    {
       "name": "GitHub",
       "url": "https://github.com/dialectlabs"
     }
@@ -28,22 +32,14 @@
     "name": "Discord",
     "url": "https://discord.gg/saydialect"
   },
-  "tabs": [
-    {
-      "name": "Blinks",
-      "url": "blinks"
-    },
-    {
-      "name": "Alerts",
-      "url": "alerts"
-    },
-    {
-      "name": "API Reference",
-      "url": "api"
-    }
-  ],
   "navigation": {
     "tabs": [
+      {
+        "tab": "Introduction",
+        "pages": [
+          "index"
+        ]
+      },
       {
         "tab": "Blinks",
         "groups": [
@@ -196,23 +192,20 @@
       },
       {
         "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Reference",
-            "pages": [
-              "api-reference/index",
-              "api-reference/blinks-api",
-              "api-reference/alerts-api",
-              "api-reference/standard-blinks-library"
-            ]
-          }
+        "pages": [
+          "api-reference/index",
+          "api-reference/blinks-api",
+          "api-reference/alerts-api",
+          "api-reference/standard-blinks-library"
         ]
       }
     ]
   },
   "footerSocials": {
+    "website": "https://www.dialect.to/",
     "x": "https://x.com/saydialect",
     "github": "https://github.com/dialectlabs",
-    "discord": "https://discord.gg/saydialect"
+    "discord": "https://discord.gg/saydialect",
+    "youtube": "https://www.youtube.com/@dialectlabs"
   }
 }
