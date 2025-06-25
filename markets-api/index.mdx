@@ -1,0 +1,100 @@
+---
+title: "Markets API"
+sidebarTitle: "Introduction"
+description: "Get real-time lending rates and market data for MarginFi and Kamino lending protocols"
+---
+
+The Dialect Markets API provides real-time lending market data for Solana's top lending protocols: **MarginFi Lending** and **Kamino Lending**. This powerful endpoint delivers all the market information you need to build lending applications without integrating multiple protocol SDKs.
+
+## What it does
+
+The Markets API delivers a JSON document (6,000+ lines) containing:
+- **Real-time lending rates** - Current deposit and borrow APYs for all markets
+- **Market liquidity data** - Total deposits, borrows, and available capacity
+- **Token information** - Token addresses, symbols, and decimal precision
+- **Market limits** - Maximum deposit and borrow amounts per market
+- **Ready-to-use Blinks** - Pre-built transaction URLs for deposits and withdrawals
+
+## Key Features
+
+<CardGroup cols={2}>
+  <Card
+    title="Hourly Updates"
+    icon="clock"
+  >
+    Fresh market data updated every hour with the latest lending rates.
+  </Card>
+
+  <Card
+    title="Multi-Protocol Support"
+    icon="building-columns"
+  >
+    Unified data format across MarginFi and Kamino lending protocols.
+  </Card>
+
+  <Card
+    title="Blinks Integration"
+    icon="bolt"
+  >
+    Ready-to-sign transaction URLs - no need to learn individual protocol SDKs.
+  </Card>
+
+  <Card
+    title="Complete Market Data"
+    icon="chart-bar"
+  >
+    APY rates, deposits, borrows, limits, token metadata, and protocol data.
+  </Card>
+</CardGroup>
+
+## Example Market Data
+
+The API returns all lending markets from both protocols. Here's one example market from the full response:
+
+```json
+{
+  "markets": [
+    // ... other markets above
+    {
+      "id": "kamino.F22tnLsbv66vEU2GZRc7coaqZsr8UcBbyp9V2kqWAiWK",
+      "type": "lending",
+      "provider": {
+        "id": "kamino",
+        "name": "Kamino"
+      },
+      "token": {
+        "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "symbol": "USDC",
+        "decimals": 6
+      },
+      "depositApy": 0.1457,
+      "borrowApy": 0.215,
+      "totalDeposit": 799920.62695,
+      "totalDepositUsd": 799807.59,
+      "totalBorrow": 698168.641609,
+      "totalBorrowUsd": 698069.98,
+      "maxDeposit": 10000000,
+      "maxBorrow": 8000000,
+      "actions": {
+        "deposit": {
+          "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/..."
+        },
+        "withdraw": {
+          "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/..."
+        }
+      }
+    }
+    // ... more markets below (SOL, USDT, JitoSOL, etc.)
+  ]
+}
+```
+
+
+  <Card
+    title="Get Started"
+    icon="arrow-right"
+    href="/api-reference/list-all-markets"
+  >
+  Try the **List all markets** endpoint to get real-time lending rates.
+</Card>
+

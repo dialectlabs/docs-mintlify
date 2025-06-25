@@ -198,6 +198,18 @@
           "api-reference/alerts-api",
           "api-reference/standard-blinks-library"
         ]
+      },
+      {
+        "tab": "Markets API",
+        "groups": [
+          {
+            "group": "GETTING STARTED",
+            "pages": [
+              "markets-api/index"
+            ]
+          }
+        ],
+        "openapi": "https://markets.dial.to/api/openapi.json"
       }
     ]
   },
