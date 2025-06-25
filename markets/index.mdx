@@ -1,14 +1,16 @@
 ---
-title: "Markets API"
+title: "Markets (Beta)"
 sidebarTitle: "Introduction"
-description: "Get real-time lending rates and market data for MarginFi and Kamino lending protocols"
+description: "Real-time market data from Solana's top protocols with ready-to-use Blinks for seamless DeFi interactions."
 ---
 
-The Dialect Markets API provides real-time lending market data for Solana's top lending protocols: **MarginFi Lending** and **Kamino Lending**. This powerful endpoint delivers all the market information you need to build lending applications without integrating multiple protocol SDKs.
+Get information on markets from across the Solana ecosystem, including APYs, TVL, LP fees, and blockchain link URLs for key actions like Deposit and Withdraw. 
+
+The Markets product is in beta, starting today with lending markets. For more information on upcoming additional market types, or to submit a market type request, [reach out to us](https://form.typeform.com/to/WlSWtZDY).
 
 ## What it does
 
-The Markets API delivers a JSON document (6,000+ lines) containing:
+Markets delivers an extensive JSON document containing:
 - **Real-time lending rates** - Current deposit and borrow APYs for all markets
 - **Market liquidity data** - Total deposits, borrows, and available capacity
 - **Token information** - Token addresses, symbols, and decimal precision
@@ -89,12 +91,29 @@ The API returns all lending markets from both protocols. Here's one example mark
 }
 ```
 
+## Supported Markets and Protocols
 
-  <Card
-    title="Get Started"
-    icon="arrow-right"
-    href="/api-reference/list-all-markets"
-  >
+### Market Types
+
+- **Lending** - Deposit and borrow assets with real-time APY rates
+- **Yield Aggregator** (soon) - Automated yield optimization strategies
+- **Staking** (soon) - SOL and asset staking with reward tracking
+- **Multiply** (soon) - Leveraged position strategies (also called looping)
+- **Market Making** (soon) - AMM, CLMM, and DLMM liquidity provision
+- **Perps Liquidity Providing** (soon) - Perpetual futures liquidity strategies
+
+### Supported Protocols
+
+- **Kamino** - Lending and yield optimization protocol
+- **MarginFi** - Decentralized lending and borrowing platform
+
+## Get Started
+
+<Card
+  title="Try the API"
+  icon="arrow-right"
+  href="api-reference/list-all-markets"
+>
   Try the **List all markets** endpoint to get real-time lending rates.
 </Card>
 
