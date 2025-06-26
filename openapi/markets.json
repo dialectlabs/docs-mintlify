@@ -12,7 +12,6 @@
       "url": "https://markets.dial.to/api"
     }
   ],
-  "openapi": "3.1.1",
   "paths": {
     "/v0/markets": {
       "get": {
