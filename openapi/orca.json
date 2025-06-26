@@ -137,6 +137,9 @@
         "operationId": "v0.pools.openPosition",
         "summary": "Open position",
         "description": "Open position. If lowerPrice and upperPrice are provided, open a position with a specific price range. If not, open a full range position.",
+        "tags": [
+          "Pools"
+        ],
         "parameters": [
           {
             "name": "tokenA",
@@ -269,6 +272,9 @@
         "operationId": "v0.pools.getAddLiquidityBlink",
         "summary": "Blink add liquidity",
         "description": "Get a blink for adding liquidity to a position",
+        "tags": [
+          "Pools"
+        ],
         "parameters": [
           {
             "name": "tokenA",
@@ -399,6 +405,9 @@
         "operationId": "v0.pools.addLiquidity",
         "summary": "Add liquidity",
         "description": "Add liquidity to a position.",
+        "tags": [
+          "Pools"
+        ],
         "parameters": [
           {
             "name": "tokenA",
@@ -522,6 +531,9 @@
         "operationId": "v0.pools.getRemoveLiquidityBlink",
         "summary": "Blink remove liquidity",
         "description": "Get a blink for removing liquidity from a position",
+        "tags": [
+          "Pools"
+        ],
         "parameters": [
           {
             "name": "tokenA",
@@ -652,6 +664,9 @@
         "operationId": "v0.pools.removeLiquidity",
         "summary": "Remove liquidity",
         "description": "Remove liquidity from a position.",
+        "tags": [
+          "Pools"
+        ],
         "parameters": [
           {
             "name": "tokenA",
@@ -775,6 +790,9 @@
         "operationId": "v0.pools.getClosePositionBlink",
         "summary": "Blink close position",
         "description": "Get a blink for closing a position",
+        "tags": [
+          "Pools"
+        ],
         "parameters": [
           {
             "name": "tokenA",
@@ -905,6 +923,9 @@
         "operationId": "v0.pools.closePosition",
         "summary": "Close position",
         "description": "Close a position and withdraw all liquidity.",
+        "tags": [
+          "Pools"
+        ],
         "parameters": [
           {
             "name": "tokenA",
