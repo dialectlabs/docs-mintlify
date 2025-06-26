@@ -97,11 +97,11 @@
             ]
           },
           {
-            "group": "SCAFFOLDS",
+            "group": "STARTERS",
             "pages": [
-              "blinks/blinks-scaffolds/index",
-              "blinks/blinks-scaffolds/solana",
-              "blinks/blinks-scaffolds/monad"
+              "blinks/blinks-starters/index",
+              "blinks/blinks-starters/solana",
+              "blinks/blinks-starters/monad"
             ]
           }
         ]
