@@ -12,7 +12,6 @@
       "url": "https://orca.dial.to/api"
     }
   ],
-  "openapi": "3.1.1",
   "paths": {
     "/v0/pools/{tokenA}/{tokenB}/open-position": {
       "get": {
