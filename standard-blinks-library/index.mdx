@@ -26,17 +26,20 @@ Get a Blink running in under 5 minutes with zero SDK complexity. Just copy, past
 ```typescript
 import { Blink } from '@dialectlabs/blinks';
 
-<Blink url="https://sbl.dial.to/api/raydium/actions/swap" />
+// Render a Blink component for swapping USDC to SOL
+<Blink url="https://jupiter.dial.to/api/v0/swap/USDC-SOL" />
 ```
 
 Or use our headless integration for full control:
 
 ```typescript
-// Fetch ready-to-sign transaction
-const response = await fetch('https://sbl.dial.to/api/raydium/actions/swap', {
+// Fetch ready-to-sign transaction for swapping 100 USDC to SOL
+const response = await fetch('https://jupiter.dial.to/api/v0/swap/USDC-SOL/100', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ account: userPublicKey, amount: '100' })
+  body: JSON.stringify({ 
+    account: userPublicKey // User's wallet address
+  })
 });
 const { transaction } = await response.json();
 ```

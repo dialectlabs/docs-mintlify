@@ -18,6 +18,9 @@
         "operationId": "v0.pools.getOpenPositionBlink",
         "summary": "Blink open position",
         "description": "Get a blink for opening a position",
+        "tags": [
+          "Pools"
+        ],
         "parameters": [
           {
             "name": "tokenA",
