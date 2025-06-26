@@ -1,0 +1,101 @@
+---
+title: "Standard Blinks Library"
+sidebarTitle: "Introduction"
+description: "Production-ready API endpoints for Solana's top protocols. Instantly integrate verified Blinks from leading DeFi projects."
+---
+
+<img src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1750961824/dialect-docs/standard-blinks-library-landing.png" alt="Standard Blinks Library - Ready-to-use protocol endpoints" />
+
+The Standard Blinks Library (SBL) provides production-ready API endpoints for creating Blinks with Solana's most popular protocols. Instead of building integrations from scratch or learning complex protocol SDKs, use our tested and optimized endpoints to create reliable blockchain experiences.
+
+
+## What is the Standard Blinks Library?
+
+SBL is a collection of API endpoints that return ready-to-sign transactions for major Solana protocols. Each endpoint follows the [Solana Actions specification](https://solana.com/docs/advanced/actions) and provides:
+
+- **Ready-to-sign transactions** with validated parameters
+- **Optimized metadata** for rich UI experiences  
+- **Error handling** with clear user messages
+- **Rate limiting** and **monitoring** built-in
+
+
+## Supported Protocols
+
+<CardGroup cols={2}>
+  <Card
+    title="Raydium"
+    icon="arrow-right-arrow-left"
+  >
+    DEX swaps, liquidity provision, and yield farming on Solana's leading AMM
+  </Card>
+  
+  <Card
+    title="Drift"
+    icon="chart-line"
+  >
+    Perpetual trading, spot trading, and derivatives with advanced order types
+  </Card>
+  
+  <Card
+    title="Kamino"
+    icon="leaf"
+  >
+    Automated yield strategies and optimized liquidity management
+  </Card>
+  
+  <Card
+    title="Meteora"
+    icon="droplet"
+  >
+    Dynamic liquidity pools with variable fees and concentrated liquidity
+  </Card>
+  
+  <Card
+    title="Solana"
+    icon="coins"
+  >
+    Native staking, validator delegation, and SOL transfers
+  </Card>
+  
+  <Card
+    title="MarginFi"
+    icon="building-columns"
+  >
+    Decentralized lending, borrowing, and yield optimization
+  </Card>
+</CardGroup>
+
+
+## Getting Started
+
+Get a Blink running in under 5 minutes with zero SDK complexity. Just copy, paste, and customize:
+
+```typescript
+import { Blink } from '@dialectlabs/blinks';
+
+<Blink url="https://sbl.dial.to/api/raydium/actions/swap" />
+```
+
+Or use our headless integration for full control:
+
+```typescript
+// Fetch ready-to-sign transaction
+const response = await fetch('https://sbl.dial.to/api/raydium/actions/swap', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ account: userPublicKey, amount: '100' })
+});
+const { transaction } = await response.json();
+```
+
+**Low maintenance, high value**: Each endpoint handles protocol complexity, validation, and optimization so you can focus on your user experience. Ready-to-sign transactions come pre-validated with optimal parameters.
+
+Want to learn more about Blink integration? Check out our [comprehensive integration guide](/blinks/blinks-client).
+
+## Support & Feedback
+
+- **Discord**: Join our [Discord community](https://discord.gg/saydialect) for support
+- **Issues**: Report bugs or request new protocols
+- **Contributions**: Help us expand the library with new endpoints
+
+Ready to start building? Choose a protocol from the API documentation.

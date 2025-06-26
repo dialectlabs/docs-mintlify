@@ -1,0 +1,772 @@
+{
+  "openapi": "3.1.1",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "Meteora Blinks",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://meteora.dial.to/api"
+    }
+  ],
+  "paths": {
+    "/v0/bonding-curve/launch-token": {
+      "get": {
+        "operationId": "v0.bondingCurve.getLaunchTokenBlink",
+        "summary": "Blink launch token",
+        "description": "Get a blink for launching a token on Meteora bonding curve",
+        "tags": [
+          "Bonding Curve"
+        ],
+        "parameters": [
+          {
+            "name": "configAddress",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Pool configuration address",
+              "examples": [
+                "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.bondingCurve.launchToken",
+        "summary": "Launch token",
+        "description": "Launch a token on Meteora bonding curve",
+        "tags": [
+          "Bonding Curve"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Token name"
+            }
+          },
+          {
+            "name": "symbol",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 10,
+              "description": "Token symbol"
+            }
+          },
+          {
+            "name": "imageUri",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "description": "Token image URI"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Token description"
+            }
+          },
+          {
+            "name": "configAddress",
+            "in": "query",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Pool configuration address",
+              "examples": [
+                "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "DUCKmhqoQi26MJ4yWbogEHqN1gs8sZajmBsg9TGnNXq"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "post"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/bonding-curve/success": {
+      "post": {
+        "operationId": "v0.bondingCurve.getLaunchTokenSuccessBlink",
+        "summary": "Token launch success",
+        "description": "Get success blink after token launch",
+        "tags": [
+          "Bonding Curve"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mint": {
+                    "type": "string",
+                    "description": "Token mint address"
+                  },
+                  "ticker": {
+                    "type": "string",
+                    "description": "Token ticker/symbol"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Token name"
+                  }
+                },
+                "required": [
+                  "mint",
+                  "ticker",
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "post"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "inline-link"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "icon",
+                    "title",
+                    "description",
+                    "label",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/dlmm/{dlmmPool}/add-liquidity": {
+      "get": {
+        "operationId": "v0.dlmm.getAddLiquidityBlink",
+        "summary": "Blink add liquidity to DLMM pool",
+        "description": "Get a blink for adding liquidity to a DLMM pool",
+        "tags": [
+          "DLMM"
+        ],
+        "parameters": [
+          {
+            "name": "dlmmPool",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "DLMM pool address",
+              "examples": [
+                "2dBPJGLgNDZnzA32452zV2u6vensbo28dveBvecDg6X1"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.dlmm.addLiquidityToDlmm",
+        "summary": "Add liquidity to DLMM pool",
+        "description": "Add liquidity to a DLMM pool",
+        "tags": [
+          "DLMM"
+        ],
+        "parameters": [
+          {
+            "name": "dlmmPool",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "DLMM pool address",
+              "examples": [
+                "2dBPJGLgNDZnzA32452zV2u6vensbo28dveBvecDg6X1"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount of tokenX to add"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "DUCKmhqoQi26MJ4yWbogEHqN1gs8sZajmBsg9TGnNXq"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/dlmm/{dlmmPool}/remove-liquidity": {
+      "get": {
+        "operationId": "v0.dlmm.getRemoveLiquidityBlink",
+        "summary": "Blink remove liquidity from DLMM pool",
+        "description": "Get a blink for removing liquidity from a DLMM pool",
+        "tags": [
+          "DLMM"
+        ],
+        "parameters": [
+          {
+            "name": "dlmmPool",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "DLMM pool address",
+              "examples": [
+                "2dBPJGLgNDZnzA32452zV2u6vensbo28dveBvecDg6X1"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.dlmm.removeLiquidityFromDlmm",
+        "summary": "Remove liquidity from DLMM pool",
+        "description": "Remove liquidity from a DLMM pool",
+        "tags": [
+          "DLMM"
+        ],
+        "parameters": [
+          {
+            "name": "dlmmPool",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "DLMM pool address",
+              "examples": [
+                "2dBPJGLgNDZnzA32452zV2u6vensbo28dveBvecDg6X1"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of liquidity to remove (0-100)"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "DUCKmhqoQi26MJ4yWbogEHqN1gs8sZajmBsg9TGnNXq"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

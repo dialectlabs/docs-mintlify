@@ -1,0 +1,308 @@
+{
+  "openapi": "3.1.1",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "Markets API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://markets.dial.to/api"
+    }
+  ],
+  "openapi": "3.1.1",
+  "paths": {
+    "/v0/markets": {
+      "get": {
+        "operationId": "marketsV0Api.listMarkets",
+        "summary": "List all markets",
+        "description": "Supported providers: MarginFi Lending, Kamino Lending.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "markets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "const": "lending"
+                          },
+                          "provider": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          },
+                          "token": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "string"
+                              },
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "decimals": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "address",
+                              "symbol",
+                              "decimals"
+                            ]
+                          },
+                          "depositApy": {
+                            "type": "number"
+                          },
+                          "borrowApy": {
+                            "type": "number"
+                          },
+                          "totalDeposit": {
+                            "type": "number"
+                          },
+                          "totalDepositUsd": {
+                            "type": "number"
+                          },
+                          "totalBorrow": {
+                            "type": "number"
+                          },
+                          "totalBorrowUsd": {
+                            "type": "number"
+                          },
+                          "maxDeposit": {
+                            "type": "number"
+                          },
+                          "maxBorrow": {
+                            "type": "number"
+                          },
+                          "additionalData": {
+                            "type": "object",
+                            "propertyNames": {
+                              "type": "string"
+                            },
+                            "additionalProperties": {}
+                          },
+                          "actions": {
+                            "type": "object",
+                            "properties": {
+                              "deposit": {
+                                "type": "object",
+                                "properties": {
+                                  "blinkUrl": {
+                                    "type": "string",
+                                    "pattern": "^blink:.*"
+                                  }
+                                },
+                                "required": [
+                                  "blinkUrl"
+                                ]
+                              },
+                              "withdraw": {
+                                "type": "object",
+                                "properties": {
+                                  "blinkUrl": {
+                                    "type": "string",
+                                    "pattern": "^blink:.*"
+                                  }
+                                },
+                                "required": [
+                                  "blinkUrl"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "provider",
+                          "token",
+                          "depositApy",
+                          "borrowApy",
+                          "totalDeposit",
+                          "totalBorrow",
+                          "maxDeposit",
+                          "maxBorrow",
+                          "actions"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "markets"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/marketsByType": {
+      "get": {
+        "operationId": "marketsV0Api.listMarketsGroupedByType",
+        "summary": "List all markets grouped by type",
+        "description": "Supported providers: MarginFi Lending, Kamino Lending.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "lending": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "const": "lending"
+                          },
+                          "provider": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          },
+                          "token": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "string"
+                              },
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "decimals": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "address",
+                              "symbol",
+                              "decimals"
+                            ]
+                          },
+                          "depositApy": {
+                            "type": "number"
+                          },
+                          "borrowApy": {
+                            "type": "number"
+                          },
+                          "totalDeposit": {
+                            "type": "number"
+                          },
+                          "totalDepositUsd": {
+                            "type": "number"
+                          },
+                          "totalBorrow": {
+                            "type": "number"
+                          },
+                          "totalBorrowUsd": {
+                            "type": "number"
+                          },
+                          "maxDeposit": {
+                            "type": "number"
+                          },
+                          "maxBorrow": {
+                            "type": "number"
+                          },
+                          "additionalData": {
+                            "type": "object",
+                            "propertyNames": {
+                              "type": "string"
+                            },
+                            "additionalProperties": {}
+                          },
+                          "actions": {
+                            "type": "object",
+                            "properties": {
+                              "deposit": {
+                                "type": "object",
+                                "properties": {
+                                  "blinkUrl": {
+                                    "type": "string",
+                                    "pattern": "^blink:.*"
+                                  }
+                                },
+                                "required": [
+                                  "blinkUrl"
+                                ]
+                              },
+                              "withdraw": {
+                                "type": "object",
+                                "properties": {
+                                  "blinkUrl": {
+                                    "type": "string",
+                                    "pattern": "^blink:.*"
+                                  }
+                                },
+                                "required": [
+                                  "blinkUrl"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "provider",
+                          "token",
+                          "depositApy",
+                          "borrowApy",
+                          "totalDeposit",
+                          "totalBorrow",
+                          "maxDeposit",
+                          "maxBorrow",
+                          "actions"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "lending"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

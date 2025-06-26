@@ -1,0 +1,439 @@
+{
+  "openapi": "3.1.1",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "MarginFi Blinks",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://marginfi.dial.to/api"
+    }
+  ],
+  "paths": {
+    "/v0/lend/{tokenSymbol}/deposit": {
+      "get": {
+        "operationId": "v0.lend.getDepositBlink",
+        "summary": "Blink deposit action",
+        "description": "Get a blink to deposit tokens in MarginFi",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "name": "tokenSymbol",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token symbol to deposit",
+              "examples": [
+                "USDC",
+                "SOL",
+                "USDT"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lend.executeDeposit",
+        "summary": "Execute deposit",
+        "description": "Execute a deposit action in MarginFi",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "name": "tokenSymbol",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token symbol to deposit",
+              "examples": [
+                "USDC",
+                "SOL",
+                "USDT"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0.000001,
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of balance to deposit"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lend/{tokenSymbol}/withdraw": {
+      "get": {
+        "operationId": "v0.lend.getWithdrawBlink",
+        "summary": "Blink withdraw action",
+        "description": "Get a blink to withdraw tokens from MarginFi",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "name": "tokenSymbol",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token symbol to withdraw",
+              "examples": [
+                "USDC",
+                "SOL",
+                "USDT"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lend.executeWithdraw",
+        "summary": "Execute withdraw",
+        "description": "Execute a withdraw action in MarginFi",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "name": "tokenSymbol",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token symbol to withdraw",
+              "examples": [
+                "USDC",
+                "SOL",
+                "USDT"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0.000001,
+              "description": "The amount to withdraw. Human readable value, e.g. 100 USDC"
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of balance to withdraw"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

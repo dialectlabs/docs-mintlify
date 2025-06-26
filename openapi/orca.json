@@ -1,0 +1,1001 @@
+{
+  "openapi": "3.1.1",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "Orca Blinks",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://orca.dial.to/api"
+    }
+  ],
+  "openapi": "3.1.1",
+  "paths": {
+    "/v0/pools/{tokenA}/{tokenB}/open-position": {
+      "get": {
+        "operationId": "v0.pools.getOpenPositionBlink",
+        "summary": "Blink open position",
+        "description": "Get a blink for opening a position",
+        "parameters": [
+          {
+            "name": "tokenA",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token A address",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            }
+          },
+          {
+            "name": "tokenB",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token B address",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.pools.openPosition",
+        "summary": "Open position",
+        "description": "Open position. If lowerPrice and upperPrice are provided, open a position with a specific price range. If not, open a full range position.",
+        "parameters": [
+          {
+            "name": "tokenA",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The token A address",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            }
+          },
+          {
+            "name": "tokenB",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The token B address",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 100,
+              "exclusiveMinimum": 0,
+              "description": "The percentage of token amount to deposit"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "lowerPrice",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "The lower price of the position"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "upperPrice",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "The upper price of the position"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/pools/{tokenA}/{tokenB}/add-liquidity": {
+      "get": {
+        "operationId": "v0.pools.getAddLiquidityBlink",
+        "summary": "Blink add liquidity",
+        "description": "Get a blink for adding liquidity to a position",
+        "parameters": [
+          {
+            "name": "tokenA",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token A address",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            }
+          },
+          {
+            "name": "tokenB",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token B address",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "positionAddress",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "examples": [
+                "11111111111111111111111111111111"
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.pools.addLiquidity",
+        "summary": "Add liquidity",
+        "description": "Add liquidity to a position.",
+        "parameters": [
+          {
+            "name": "tokenA",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The token A address",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            }
+          },
+          {
+            "name": "tokenB",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The token B address",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "The amount to add. Human readable value, e.g. 100 USDC"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 100,
+              "exclusiveMinimum": 0,
+              "description": "The percentage of token amount to add"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "positionAddress",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "examples": [
+                "11111111111111111111111111111111"
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/pools/{tokenA}/{tokenB}/remove-liquidity": {
+      "get": {
+        "operationId": "v0.pools.getRemoveLiquidityBlink",
+        "summary": "Blink remove liquidity",
+        "description": "Get a blink for removing liquidity from a position",
+        "parameters": [
+          {
+            "name": "tokenA",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token A address",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            }
+          },
+          {
+            "name": "tokenB",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token B address",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "positionAddress",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "examples": [
+                "11111111111111111111111111111111"
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.pools.removeLiquidity",
+        "summary": "Remove liquidity",
+        "description": "Remove liquidity from a position.",
+        "parameters": [
+          {
+            "name": "tokenA",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The token A address",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            }
+          },
+          {
+            "name": "tokenB",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The token B address",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "The amount to remove. Human readable value, e.g. 100 USDC"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 100,
+              "exclusiveMinimum": 0,
+              "description": "The percentage of position liquidity to remove"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "positionAddress",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "examples": [
+                "11111111111111111111111111111111"
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/pools/{tokenA}/{tokenB}/close-position": {
+      "get": {
+        "operationId": "v0.pools.getClosePositionBlink",
+        "summary": "Blink close position",
+        "description": "Get a blink for closing a position",
+        "parameters": [
+          {
+            "name": "tokenA",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token A address",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            }
+          },
+          {
+            "name": "tokenB",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token B address",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "positionAddress",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "examples": [
+                "11111111111111111111111111111111"
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.pools.closePosition",
+        "summary": "Close position",
+        "description": "Close a position and withdraw all liquidity.",
+        "parameters": [
+          {
+            "name": "tokenA",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The token A address",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            }
+          },
+          {
+            "name": "tokenB",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The token B address",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "positionAddress",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "examples": [
+                "11111111111111111111111111111111"
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

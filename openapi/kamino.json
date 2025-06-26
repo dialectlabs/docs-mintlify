@@ -1,0 +1,1197 @@
+{
+  "openapi": "3.1.1",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "Kamino Blinks API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://kamino.dial.to/api"
+    }
+  ],
+  "paths": {
+    "/v0/lending/reserve/{market}/{reserve}/deposit": {
+      "get": {
+        "operationId": "v0.lending.getLendingReserveDepositBlink",
+        "summary": "Get lending reserve deposit blink",
+        "description": "Get a blink for deposit operations on a reserve",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lending.lendingReserveDeposit",
+        "summary": "Lending reserve deposit operation",
+        "description": "Execute a deposit operation",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of funds to use"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lending/reserve/{market}/{reserve}/withdraw": {
+      "get": {
+        "operationId": "v0.lending.getLendingReserveWithdrawBlink",
+        "summary": "Get lending reserve withdraw blink",
+        "description": "Get a blink for withdraw operations on a reserve",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lending.lendingReserveWithdraw",
+        "summary": "Lending reserve withdraw operation",
+        "description": "Execute a withdraw operation",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of funds to use"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lending/reserve/{market}/{reserve}/metadata": {
+      "get": {
+        "operationId": "v0.lending.getLendingReserveMetadata",
+        "summary": "Get lending reserve metadata",
+        "description": "Get metadata for a lending reserve",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+              ]
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "account": {
+                  "type": "string",
+                  "description": "Account public key",
+                  "examples": [
+                    "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "key": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "title",
+                          "value"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "rows"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lending/reserve/{market}/{reserve}/final": {
+      "post": {
+        "operationId": "v0.lending.lendingReserveFinal",
+        "summary": "Lending reserve final step",
+        "description": "Handle final step of lending operation",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lending/reserve/{market}/{reserve}/redirect": {
+      "post": {
+        "operationId": "v0.lending.lendingReserveRedirect",
+        "summary": "Lending reserve redirect",
+        "description": "Redirect to Kamino website",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "external-link"
+                    },
+                    "externalLink": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "externalLink"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/liquidity/{strategyAddress}/deposit": {
+      "get": {
+        "operationId": "v0.liquidity.getLiquidityStrategyDepositBlink",
+        "summary": "Get liquidity vault deposit blink",
+        "description": "Get a blink for deposit operations on a vault",
+        "tags": [
+          "Liquidity"
+        ],
+        "parameters": [
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Strategy public key",
+              "examples": [
+                "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
+              ]
+            }
+          },
+          {
+            "name": "side",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "enum": [
+                "A",
+                "B"
+              ],
+              "default": "A",
+              "description": "The side of the strategy to deposit to",
+              "examples": [
+                "A"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.liquidity.liquidityStrategyDeposit",
+        "summary": "Liquidity vault deposit operation",
+        "description": "Execute a deposit operation",
+        "tags": [
+          "Liquidity"
+        ],
+        "parameters": [
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Strategy public key",
+              "examples": [
+                "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+            }
+          },
+          {
+            "name": "side",
+            "in": "query",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "enum": [
+                "A",
+                "B"
+              ],
+              "default": "A",
+              "description": "The side of the strategy to deposit to",
+              "examples": [
+                "A"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/liquidity/{strategyAddress}/withdraw": {
+      "get": {
+        "operationId": "v0.liquidity.getLiquidityStrategyWithdrawBlink",
+        "summary": "Get liquidity strategy withdraw blink",
+        "description": "Get a blink for withdraw operations on a strategy",
+        "tags": [
+          "Liquidity"
+        ],
+        "parameters": [
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Strategy public key",
+              "examples": [
+                "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.liquidity.liquidityStrategyWithdraw",
+        "summary": "Liquidity vault withdraw operation",
+        "description": "Execute a withdraw operation",
+        "tags": [
+          "Liquidity"
+        ],
+        "parameters": [
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Strategy public key",
+              "examples": [
+                "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of shares to withdraw"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
