@@ -1,0 +1,404 @@
+{
+  "openapi": "3.1.0",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "Jupiter Blinks API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://jupiter.dial.to"
+    }
+  ],
+  "paths": {
+    "/swap/{tokenPair}": {},
+    "/swap/{tokenPair}/{amount}": {},
+    "/api/v0/swap/{tokenPair}": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "disabled": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "transaction"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "label",
+                              "href"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "icon",
+                    "label",
+                    "title",
+                    "description"
+                  ]
+                }
+              }
+            },
+            "description": "Successful response with swap action details"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Token metadata not found"
+          }
+        },
+        "operationId": "getApiV0SwapByTokenPair",
+        "tags": [
+          "Swap"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tokenPair",
+            "schema": {
+              "type": "string",
+              "example": "SOL-Bonk",
+              "default": "SOL-Bonk",
+              "description": "Token pair in format input-output. Input and output are token symbols or addresses."
+            },
+            "required": true
+          }
+        ],
+        "summary": "Swap token",
+        "description": "Get available swap actions for a token pair",
+        "hide": false
+      }
+    },
+    "/api/v0/swap/{tokenPair}/{amount}": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "disabled": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "transaction"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "label",
+                              "href"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "icon",
+                    "label",
+                    "title",
+                    "description"
+                  ]
+                }
+              }
+            },
+            "description": "Successful response with fixed amount swap action details"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Token metadata not found"
+          }
+        },
+        "operationId": "getApiV0SwapByTokenPairByAmount",
+        "tags": [
+          "Swap"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tokenPair",
+            "schema": {
+              "type": "string",
+              "example": "SOL-Bonk",
+              "default": "SOL-Bonk",
+              "description": "Token pair in format input-output. Input and output are token symbols or addresses."
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "amount",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 0.01,
+              "default": 0.01,
+              "description": "Amount of the input token to swap. If the input token is SOL, this is in SOL, otherwise, this is in USD equivalent of input."
+            },
+            "required": true
+          }
+        ],
+        "summary": "Swap token amount",
+        "description": "Get swap action details for a specific token pair and amount"
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string",
+                      "description": "Base64 encoded serialized transaction"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            },
+            "description": "Successful swap transaction"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Token metadata not found or validation error"
+          }
+        },
+        "operationId": "postApiV0SwapByTokenPairByAmount",
+        "tags": [
+          "Swap"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tokenPair",
+            "schema": {
+              "type": "string",
+              "example": "SOL-Bonk",
+              "default": "SOL-Bonk",
+              "description": "Token pair in format input-output. Input and output are token symbols or addresses."
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "amount",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 0.01,
+              "default": 0.01,
+              "description": "Amount of the input token to swap. If the input token is SOL, this is in SOL, otherwise, this is in USD equivalent of input."
+            },
+            "required": true
+          }
+        ],
+        "summary": "Swap token amount",
+        "description": "Execute a swap transaction for the specified token pair and amount",
+        "hide": false,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "example": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+                  }
+                },
+                "required": [
+                  "account"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

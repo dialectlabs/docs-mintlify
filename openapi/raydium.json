@@ -1,0 +1,1207 @@
+{
+  "openapi": "3.1.1",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "Raydium Blinks API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://raydium.dial.to/api"
+    }
+  ],
+  "paths": {
+    "/v0/clmm/{poolId}/add-liquidity": {
+      "get": {
+        "operationId": "v0.clmm.addLiquidityGetBlink",
+        "summary": "Blink add liquidity CLMM Pool",
+        "description": "Get a blink for adding liquidity to a CLMM pool",
+        "tags": [
+          "CLMM"
+        ],
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The raydium Concentrated Liquidity Pool ID",
+              "examples": [
+                "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.clmm.addLiquidity",
+        "summary": "Add liquidity CLMM Pool",
+        "description": "Add liquidity to a CLMM pool",
+        "tags": [
+          "CLMM"
+        ],
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The raydium Concentrated Liquidity Pool ID",
+              "examples": [
+                "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount of liquidity to add. Human readable value, e.g. 0.1 SOL"
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of liquidity to add"
+            }
+          },
+          {
+            "name": "positionAddress",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "The address of the position to add liquidity to. If not provided, first available position will be used."
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/clmm/{poolId}/remove-liquidity": {
+      "get": {
+        "operationId": "v0.clmm.removeLiquidityGetBlink",
+        "summary": "Blink remove liquidity CLMM Pool",
+        "description": "Get a blink for removing liquidity from a CLMM pool",
+        "tags": [
+          "CLMM"
+        ],
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.clmm.removeLiquidity",
+        "summary": "Remove liquidity from a CLMM pool",
+        "description": "Remove liquidity from a CLMM pool",
+        "tags": [
+          "CLMM"
+        ],
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The raydium Concentrated Liquidity Pool ID",
+              "examples": [
+                "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of liquidity to remove",
+              "examples": [
+                50
+              ]
+            }
+          },
+          {
+            "name": "positionAddress",
+            "in": "query",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "The address of the position to remove liquidity from. If not provided, first available position will be used."
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/amm/{poolId}/add-liquidity": {
+      "get": {
+        "operationId": "v0.amm.addLiquidityGetBlink",
+        "summary": "Blink add liquidity AMM Pool",
+        "description": "Get a blink for adding liquidity to a Standard AMM pool",
+        "tags": [
+          "AMM"
+        ],
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ID of the Standard AMM pool",
+              "examples": [
+                "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.amm.addLiquidity",
+        "summary": "Add liquidity AMM Pool",
+        "description": "Add liquidity to a Standard AMM pool",
+        "tags": [
+          "AMM"
+        ],
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ID of the Standard AMM pool",
+              "examples": [
+                "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of liquidity to add"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount of liquidity to add. Human readable value, e.g. 0.1 SOL"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/amm/{poolId}/remove-liquidity": {
+      "get": {
+        "operationId": "v0.amm.removeLiquidityGetBlink",
+        "summary": "Blink remove liquidity AMM Pool",
+        "description": "Get a blink for removing liquidity from a Standard AMM pool",
+        "tags": [
+          "AMM"
+        ],
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ID of the Standard AMM pool",
+              "examples": [
+                "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.amm.removeLiquidity",
+        "summary": "Remove liquidity AMM Pool",
+        "description": "Remove liquidity from a Standard AMM pool",
+        "tags": [
+          "AMM"
+        ],
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ID of the Standard AMM pool",
+              "examples": [
+                "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of liquidity to remove"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/farm/RAY/stake": {
+      "get": {
+        "operationId": "v0.farm.stakeRAYGetBlink",
+        "summary": "Stake RAY",
+        "description": "Stake RAY in Raydium Farm product",
+        "tags": [
+          "Farm"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.farm.stakeRAY",
+        "summary": "Stake RAY",
+        "description": "Stake RAY in Raydium Farm product. Either percentage or amount is required.",
+        "tags": [
+          "Farm"
+        ],
+        "parameters": [
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of RAY to stake"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount of RAY to stake. Human readable value, e.g. 0.1 RAY"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/farm/RAY/unstake": {
+      "get": {
+        "operationId": "v0.farm.unstakeRAYGetBlink",
+        "summary": "Unstake RAY",
+        "description": "Unstake RAY in Raydium Farm product",
+        "tags": [
+          "Farm"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.farm.unstakeRAY",
+        "summary": "Unstake RAY",
+        "description": "Unstake RAY in Raydium Farm product. Either percentage or amount is required.",
+        "tags": [
+          "Farm"
+        ],
+        "parameters": [
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "The percentage of RAY to unstake"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount of RAY to unstake. Human readable value, e.g. 0.1 RAY"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

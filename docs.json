@@ -107,6 +107,49 @@
         ]
       },
       {
+        "tab": "Standard Blinks Library",
+        "groups": [
+          {
+            "group": "GETTING STARTED",
+            "pages": [
+              "standard-blinks-library/index"
+            ]
+          },
+          {
+            "group": "RAYDIUM",
+            "openapi": "./openapi/raydium.json"
+          },
+          {
+            "group": "DRIFT",
+            "openapi": "./openapi/drift.json"
+          },
+          {
+            "group": "KAMINO",
+            "openapi": "./openapi/kamino.json"
+          },
+          {
+            "group": "LULO",
+            "openapi": "./openapi/lulo.json"
+          },
+          {
+            "group": "MARGINFI",
+            "openapi": "./openapi/marginfi.json"
+          },
+          {
+            "group": "METEORA",
+            "openapi": "./openapi/meteora.json"
+          },
+          {
+            "group": "ORCA",
+            "openapi": "./openapi/orca.json"
+          },
+          {
+            "group": "SOLANA",
+            "openapi": "./openapi/solana.json"
+          }
+        ]
+      },
+      {
         "tab": "Alerts",
         "groups": [
           {
@@ -207,8 +250,7 @@
         "pages": [
           "api-guide/index",
           "api-guide/blinks-api",
-          "api-guide/alerts-api",
-          "api-guide/standard-blinks-library"
+          "api-guide/alerts-api"
         ]
       }
     ]

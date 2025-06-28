@@ -1,0 +1,697 @@
+{
+  "openapi": "3.1.1",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "Lulo Blinks",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://lulo.dial.to/api"
+    }
+  ],
+  "paths": {
+    "/v0/deposit/{token}/{type}": {
+      "get": {
+        "operationId": "v0.deposit.getDepositTokenBlink",
+        "summary": "Blink deposit token",
+        "description": "Get a blink to deposit a token into protected or boosted deposits",
+        "tags": [
+          "Deposit"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token ticker or mint address",
+              "examples": [
+                "USDC"
+              ]
+            }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "protected",
+                "boosted"
+              ],
+              "description": "Deposit type: protected or boosted",
+              "examples": [
+                "protected",
+                "boosted"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.deposit.depositToken",
+        "summary": "Deposit token",
+        "description": "Deposit a specific amount of a token as protected (PUSD) or boosted (LUSD)",
+        "tags": [
+          "Deposit"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token ticker or mint address",
+              "examples": [
+                "USDC"
+              ]
+            }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "protected",
+                "boosted"
+              ],
+              "description": "Deposit type: protected (PUSD) or boosted (LUSD)",
+              "examples": [
+                "protected",
+                "boosted"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of balance to deposit"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/withdraw/{token}/{type}": {
+      "get": {
+        "operationId": "v0.withdraw.getWithdrawTokenBlink",
+        "summary": "Blink withdraw token",
+        "description": "Get a blink to withdraw tokens from protected or regular deposits",
+        "tags": [
+          "Withdraw"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token ticker or mint address",
+              "examples": [
+                "USDC"
+              ]
+            }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "protected",
+                "regular"
+              ],
+              "description": "Withdraw type: protected or regular",
+              "examples": [
+                "protected",
+                "regular"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.withdraw.withdrawToken",
+        "summary": "Withdraw token",
+        "description": "Withdraw a specific amount of tokens from protected or regular deposits",
+        "tags": [
+          "Withdraw"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token ticker or mint address",
+              "examples": [
+                "USDC"
+              ]
+            }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "protected",
+                "regular"
+              ],
+              "description": "Withdraw type: protected or regular",
+              "examples": [
+                "protected",
+                "regular"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to withdraw. Human readable value, e.g. 100 USDC"
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of balance to withdraw"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/withdraw/{token}/regular/complete": {
+      "get": {
+        "operationId": "v0.withdraw.getCompleteRegularWithdrawalBlink",
+        "summary": "Blink complete regular withdrawal",
+        "description": "Get a blink for completing regular withdrawal of tokens",
+        "tags": [
+          "Withdraw"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token ticker or mint address",
+              "examples": [
+                "USDC"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.withdraw.completeRegularWithdrawal",
+        "summary": "Complete regular withdrawal",
+        "description": "Complete regular withdrawal of tokens using pending withdrawal ID",
+        "tags": [
+          "Withdraw"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token ticker or mint address",
+              "examples": [
+                "USDC"
+              ]
+            }
+          },
+          {
+            "name": "withdrawalId",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991,
+              "description": "The pending withdrawal ID",
+              "examples": [
+                1,
+                2,
+                3
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
