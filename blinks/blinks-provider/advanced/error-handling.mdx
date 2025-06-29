@@ -1,0 +1,113 @@
+---
+title: "Error Handling"
+description: "Learn how to implement proper error handling in Blinks to provide users with clear feedback and prevent failed transactions."
+---
+
+<img src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1751209550/dialect-docs/error-msg-example.png" alt="Example of error message displayed in Blink UI" />
+
+Proper error handling is crucial for Blinks as it provides users with clear feedback when something goes wrong. When an error occurs, the `ActionError` object displays the error message directly in the Blink UI, preventing failed transactions and improving user experience.
+
+## Key Concepts
+
+- **ActionError Object**: Wrap error messages in `ActionError` to display them in the Blink UI
+- **Input Validation**: Always validate user inputs before processing transactions
+- **User-Friendly Messages**: Provide clear, actionable error messages that help users understand what went wrong
+- **HTTP Status Codes**: Use appropriate status codes (400 for validation errors, 500 for server errors)
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Input Validation" icon="shield-check">
+    Validate all inputs before expensive operations
+  </Card>
+  <Card title="User-Friendly Messages" icon="message">
+    Use specific error messages that guide users to the solution
+  </Card>
+  <Card title="Graceful Error Handling" icon="handshake">
+    Always catch and handle errors gracefully
+  </Card>
+  <Card title="Server-Side Logging" icon="terminal">
+    Log errors server-side for debugging while showing user-friendly messages in the UI
+  </Card>
+</CardGroup>
+
+## Error Handling Example
+
+Here's how to implement input validation and error handling in our [donation Blink](/blinks/blinks-provider/build-your-first-blink) example:
+
+```typescript  
+import {
+  ActionPostRequest,
+  ActionPostResponse,
+  ActionError,
+  ACTIONS_CORS_HEADERS,
+} from "@solana/actions";
+import { PublicKey } from "@solana/web3.js";
+
+// Other code, such as headers, GET and OPTIONS request, etc. 
+
+export const POST = async (req: Request) => {
+  try {
+    const url = new URL(req.url);
+    const amount = Number(url.searchParams.get("amount"));
+    
+    // Validate donation amount
+    if (!amount || isNaN(amount)) {
+      throw new Error("Please enter a valid donation amount");
+    }
+    
+    if (amount < 0.05) {
+      throw new Error("Minimum donation is 0.05 SOL");
+    }
+    
+    if (amount > 10) {
+      throw new Error("Maximum donation is 10 SOL per transaction");
+    }
+    
+    const request: ActionPostRequest = await req.json();
+    
+    // Nested validation example: Validate wallet address
+    let payer: PublicKey;
+    try {
+      payer = new PublicKey(request.account);
+    } catch {
+      throw new Error("Invalid wallet address format");
+    }
+    
+    // Process transaction (simplified for example)
+    const transaction = await prepareTransaction(
+      connection,
+      payer,
+      receiver,
+      amount
+    );
+    
+    const response: ActionPostResponse = {
+      type: "transaction",
+      transaction: Buffer.from(transaction.serialize()).toString("base64"),
+    };
+    
+    return Response.json(response, {
+      status: 200,
+      headers
+    });
+    
+  } catch (error) {
+    console.error("Donation error:", error);
+    
+    // Return ActionError for Blink UI display
+    const errorResponse: ActionError = {
+      message: error instanceof Error ? error.message : "Internal server error"
+    };
+    
+    return new Response(JSON.stringify(errorResponse), {
+      status: 500,
+      headers
+    });
+  }
+};
+
+// prepareTransaction function ... 
+
+```
+

@@ -41,115 +41,6 @@
         ]
       },
       {
-        "tab": "Blinks",
-        "groups": [
-          {
-            "group": "GETTING STARTED",
-            "pages": [
-              "blinks/index"
-            ]
-          },
-          {
-            "group": "CLIENT",
-            "pages": [
-              "blinks/blinks-client/index",
-              {
-                "group": "Integration",
-                "pages": [
-                  "blinks/blinks-client/integrate/headless/index",
-                  {
-                    "group": "UI Components",
-                    "pages": [
-                      "blinks/blinks-client/integrate/ui-components/blinks",
-                      "blinks/blinks-client/integrate/ui-components/miniblinks",
-                      "blinks/blinks-client/integrate/ui-components/styling"
-                    ]
-                  },
-                  "blinks/blinks-client/integrate/chrome/index"
-                ]
-              },
-              "blinks/blinks-client/measure/index"
-            ]
-          },
-          {
-            "group": "PROVIDER (API)",
-            "pages": [
-              "blinks/blinks-provider/index",
-              "blinks/blinks-provider/build-your-first-blink",
-              "blinks/blinks-provider/fallbacks",
-              "blinks/blinks-provider/blink-registry",
-              {
-                "group": "Advanced",
-                "pages": [
-                  "blinks/blinks-provider/advanced/forms",
-                  "blinks/blinks-provider/advanced/metadata",
-                  "blinks/blinks-provider/advanced/action-chaining",
-                  "blinks/blinks-provider/advanced/track-tx"
-                ]
-              },
-              {
-                "group": "Guides",
-                "pages": [
-                  "blinks/blinks-provider/guides/index",
-                  "blinks/blinks-provider/guides/tip-blink"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "STARTERS",
-            "pages": [
-              "blinks/blinks-starters/index",
-              "blinks/blinks-starters/solana",
-              "blinks/blinks-starters/monad"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Standard Blinks Library",
-        "groups": [
-          {
-            "group": "GETTING STARTED",
-            "pages": [
-              "standard-blinks-library/index"
-            ]
-          },
-          {
-            "group": "RAYDIUM",
-            "openapi": "./openapi/raydium.json"
-          },
-          {
-            "group": "DRIFT",
-            "openapi": "./openapi/drift.json"
-          },
-          {
-            "group": "KAMINO",
-            "openapi": "./openapi/kamino.json"
-          },
-          {
-            "group": "LULO",
-            "openapi": "./openapi/lulo.json"
-          },
-          {
-            "group": "MARGINFI",
-            "openapi": "./openapi/marginfi.json"
-          },
-          {
-            "group": "METEORA",
-            "openapi": "./openapi/meteora.json"
-          },
-          {
-            "group": "ORCA",
-            "openapi": "./openapi/orca.json"
-          },
-          {
-            "group": "SOLANA",
-            "openapi": "./openapi/solana.json"
-          }
-        ]
-      },
-      {
         "tab": "Alerts",
         "groups": [
           {
@@ -230,6 +121,116 @@
               "alerts/alerts-and-monitoring/setup-event-detection",
               "alerts/alerts-and-monitoring/integrate-existing-system"
             ]
+          }
+        ]
+      },
+      {
+        "tab": "Blinks",
+        "groups": [
+          {
+            "group": "GETTING STARTED",
+            "pages": [
+              "blinks/index"
+            ]
+          },
+          {
+            "group": "CLIENT",
+            "pages": [
+              "blinks/blinks-client/index",
+              {
+                "group": "Integration",
+                "pages": [
+                  "blinks/blinks-client/integrate/headless/index",
+                  {
+                    "group": "UI Components",
+                    "pages": [
+                      "blinks/blinks-client/integrate/ui-components/blinks",
+                      "blinks/blinks-client/integrate/ui-components/miniblinks",
+                      "blinks/blinks-client/integrate/ui-components/styling"
+                    ]
+                  },
+                  "blinks/blinks-client/integrate/chrome/index"
+                ]
+              },
+              "blinks/blinks-client/measure/index"
+            ]
+          },
+          {
+            "group": "PROVIDER (API)",
+            "pages": [
+              "blinks/blinks-provider/index",
+              "blinks/blinks-provider/build-your-first-blink",
+              "blinks/blinks-provider/fallbacks",
+              "blinks/blinks-provider/blink-registry",
+              {
+                "group": "Advanced",
+                "pages": [
+                  "blinks/blinks-provider/advanced/forms",
+                  "blinks/blinks-provider/advanced/metadata",
+                  "blinks/blinks-provider/advanced/action-chaining",
+                  "blinks/blinks-provider/advanced/track-tx",
+                  "blinks/blinks-provider/advanced/error-handling"
+                ]
+              },
+              {
+                "group": "Guides",
+                "pages": [
+                  "blinks/blinks-provider/guides/index",
+                  "blinks/blinks-provider/guides/tip-blink"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "STARTERS",
+            "pages": [
+              "blinks/blinks-starters/index",
+              "blinks/blinks-starters/solana",
+              "blinks/blinks-starters/monad"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Standard Blinks Library",
+        "groups": [
+          {
+            "group": "GETTING STARTED",
+            "pages": [
+              "standard-blinks-library/index"
+            ]
+          },
+          {
+            "group": "RAYDIUM",
+            "openapi": "./openapi/raydium.json"
+          },
+          {
+            "group": "DRIFT",
+            "openapi": "./openapi/drift.json"
+          },
+          {
+            "group": "KAMINO",
+            "openapi": "./openapi/kamino.json"
+          },
+          {
+            "group": "LULO",
+            "openapi": "./openapi/lulo.json"
+          },
+          {
+            "group": "MARGINFI",
+            "openapi": "./openapi/marginfi.json"
+          },
+          {
+            "group": "METEORA",
+            "openapi": "./openapi/meteora.json"
+          },
+          {
+            "group": "ORCA",
+            "openapi": "./openapi/orca.json"
+          },
+          {
+            "group": "SOLANA",
+            "openapi": "./openapi/solana.json"
           }
         ]
       },
