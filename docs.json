@@ -247,6 +247,12 @@
         "openapi": "https://markets.dial.to/api/openapi.json"
       },
       {
+        "tab": "MCP",
+        "pages": [
+          "mcp/index"
+        ]
+      },
+      {
         "tab": "API Guide",
         "pages": [
           "api-guide/index",
