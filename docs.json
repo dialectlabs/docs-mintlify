@@ -259,6 +259,12 @@
           "api-guide/blinks-api",
           "api-guide/alerts-api"
         ]
+      },
+      {
+        "tab": "Release Notes",
+        "pages": [
+          "release-notes/index"
+        ]
       }
     ]
   },
