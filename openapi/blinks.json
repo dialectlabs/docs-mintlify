@@ -1,0 +1,1218 @@
+{
+  "openapi": "3.1.0",
+  "x-mcp": {
+    "enabled": true
+  },
+  "components": {
+    "securitySchemes": {
+      "clientKey": {
+        "type": "apiKey",
+        "description": "Client key to authorize requests.",
+        "name": "x-blink-client-key",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "BlinkPreviewResponse": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "cta": {
+            "type": "string"
+          },
+          "context": {
+            "$ref": "#/components/schemas/BlinkContext"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "blink": {
+                "type": "string"
+              },
+              "dataTable": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "blink"
+            ]
+          }
+        },
+        "required": [
+          "image",
+          "title",
+          "description",
+          "context",
+          "links"
+        ],
+        "description": "Blink Preview Response"
+      },
+      "BlinkContext": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "websiteUrl": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/BlinkProvider"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "description": "Blink Context"
+      },
+      "BlinkProvider": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "Blink Provider"
+      },
+      "ActionError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "description": "Error"
+      },
+      "BlinkPreviewQuery": {
+        "type": "string",
+        "format": "uri",
+        "description": "Blink API URL",
+        "default": "https://jito.dial.to/stake",
+        "example": "https://jito.dial.to/stake"
+      },
+      "Blink": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "action",
+              "completed"
+            ]
+          },
+          "icon": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "extendedDescription": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "actions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LinkedAction"
+                }
+              },
+              "dataTable": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "$ref": "#/components/schemas/ActionError"
+          },
+          "context": {
+            "$ref": "#/components/schemas/BlinkContext"
+          },
+          "preview": {
+            "$ref": "#/components/schemas/BlinkPreview"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "icon",
+          "title",
+          "description",
+          "label",
+          "context",
+          "preview"
+        ],
+        "description": "Blink"
+      },
+      "LinkedAction": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/LinkedActionType"
+          },
+          "href": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "type",
+          "href",
+          "label"
+        ],
+        "description": "Linked Action"
+      },
+      "LinkedActionType": {
+        "type": "string",
+        "enum": [
+          "transaction",
+          "message",
+          "post",
+          "external-link",
+          "inline-link"
+        ],
+        "description": "Linked Action Type"
+      },
+      "BlinkPreview": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "cta": {
+            "type": "string"
+          },
+          "context": {
+            "$ref": "#/components/schemas/BlinkContext"
+          }
+        },
+        "required": [
+          "image",
+          "title",
+          "description",
+          "context"
+        ],
+        "description": "Blink Preview"
+      },
+      "TransactionResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "transaction"
+          },
+          "message": {
+            "type": "string"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "$ref": "#/components/schemas/NextActionLink"
+              }
+            },
+            "required": [
+              "next"
+            ]
+          },
+          "transaction": {
+            "type": "string"
+          },
+          "lifecycle": {
+            "type": "object",
+            "properties": {
+              "executing": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              },
+              "success": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "links": {
+                    "type": "object",
+                    "properties": {
+                      "actions": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "const": "inline-link"
+                            },
+                            "label": {
+                              "type": "string"
+                            },
+                            "link": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "label",
+                            "link"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "actions"
+                    ]
+                  }
+                }
+              },
+              "error": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "type",
+          "transaction"
+        ],
+        "description": "Transaction Response"
+      },
+      "NextActionLink": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "post"
+              },
+              "href": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "href"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "inline"
+              },
+              "action": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "action",
+                      "completed"
+                    ]
+                  },
+                  "icon": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "extendedDescription": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "disabled": {
+                    "type": "boolean"
+                  },
+                  "links": {
+                    "type": "object",
+                    "properties": {
+                      "actions": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/LinkedAction"
+                        }
+                      }
+                    },
+                    "required": [
+                      "actions"
+                    ]
+                  },
+                  "error": {
+                    "$ref": "#/components/schemas/ActionError"
+                  },
+                  "context": {
+                    "$ref": "#/components/schemas/BlinkContext"
+                  },
+                  "preview": {
+                    "$ref": "#/components/schemas/BlinkPreview"
+                  }
+                },
+                "required": [
+                  "type",
+                  "icon",
+                  "title",
+                  "description",
+                  "label",
+                  "context",
+                  "preview"
+                ]
+              }
+            },
+            "required": [
+              "type",
+              "action"
+            ]
+          }
+        ],
+        "description": "Next Action Link"
+      },
+      "PostResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "post"
+          },
+          "message": {
+            "type": "string"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "$ref": "#/components/schemas/NextActionLink"
+              }
+            },
+            "required": [
+              "next"
+            ]
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Post Response"
+      },
+      "ExternalLinkResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "external-link"
+          },
+          "message": {
+            "type": "string"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "$ref": "#/components/schemas/NextActionLink"
+              }
+            },
+            "required": [
+              "next"
+            ]
+          },
+          "externalLink": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "externalLink"
+        ],
+        "description": "External Link Response"
+      },
+      "SignMessageResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "message"
+          },
+          "message": {
+            "type": "string"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "$ref": "#/components/schemas/PostNextActionLink"
+              }
+            },
+            "required": [
+              "next"
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/SignMessageData"
+              }
+            ]
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "links",
+          "data"
+        ],
+        "description": "Sign Message Response"
+      },
+      "PostNextActionLink": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "post"
+          },
+          "href": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "href"
+        ],
+        "description": "Post Next Action Link"
+      },
+      "SignMessageData": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "statement": {
+            "type": "string"
+          },
+          "nonce": {
+            "type": "string",
+            "minLength": 8
+          },
+          "issuedAt": {
+            "type": "string"
+          },
+          "chainId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "domain",
+          "address",
+          "statement",
+          "nonce",
+          "issuedAt"
+        ],
+        "description": "Sign Message Data"
+      },
+      "ActionPostRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "transaction",
+              "message",
+              "post",
+              "external-link"
+            ]
+          },
+          "account": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "account"
+        ],
+        "description": "Action Post Request"
+      },
+      "CompletedAction": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "completed"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "icon",
+          "title",
+          "description",
+          "label"
+        ],
+        "description": "Completed Action"
+      },
+      "NextActionPostRequest": {
+        "type": "object",
+        "properties": {
+          "signature": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "account": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "account"
+        ],
+        "description": "Next Action Post Request"
+      },
+      "MessageNextActionPostRequest": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/SignMessageData"
+              }
+            ]
+          }
+        },
+        "required": [
+          "account",
+          "signature",
+          "data"
+        ],
+        "description": "Message Next Action Post Request"
+      },
+      "BlinkDataTable": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "key",
+                "title",
+                "value"
+              ]
+            }
+          },
+          "context": {
+            "$ref": "#/components/schemas/BlinkContext"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "blink": {
+                "type": "string"
+              },
+              "preview": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "blink",
+              "preview"
+            ]
+          }
+        },
+        "required": [
+          "rows",
+          "context",
+          "links"
+        ],
+        "description": "Blink Data Table"
+      },
+      "BlinkList": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BlinkListEntry"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "entries"
+        ],
+        "description": "Blink List"
+      },
+      "BlinkListEntry": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "cta": {
+            "type": "string"
+          },
+          "context": {
+            "$ref": "#/components/schemas/BlinkContext"
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "blink": {
+                "type": "string"
+              },
+              "dataTable": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "blink"
+            ]
+          }
+        },
+        "required": [
+          "image",
+          "title",
+          "description",
+          "context",
+          "links"
+        ],
+        "description": "Blink List Entry"
+      }
+    }
+  },
+  "security": [
+    {
+      "clientKey": []
+    }
+  ],
+  "info": {
+    "title": "Dialect Blinks API",
+    "description": "Blockchain Links (Blinks) are the fastest way to take onchain experiences and make them distributable and actionable everywhere. This API enables applications to unbundle their product experiences from their apps and sites, allowing users to take instant, no-redirect actions wherever they are. Blinks transform URLs into complete, interactive blockchain experiences that can be embedded in any client application with automatic unfurling and transaction capabilities.",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.dial.to",
+      "description": "Dialect Production"
+    },
+    {
+      "url": "http://localhost:8770",
+      "description": "Local Server"
+    }
+  ],
+  "paths": {
+    "/v1/blink-preview": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlinkPreviewResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to fetch data from Blink Provider",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionError"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "generateBlinkPreview",
+        "summary": "Get Blink Preview",
+        "tags": [
+          "Blink Preview"
+        ],
+        "description": "Retrieve a small, marketing-optimized preview with different images, titles, and CTA",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiUrl",
+            "schema": {
+              "$ref": "#/components/schemas/BlinkPreviewQuery"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/v1/blink": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blink"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to fetch data from Blink Provider",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionError"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getFullBlink",
+        "summary": "Get Full Blink",
+        "tags": [
+          "Blink"
+        ],
+        "description": "Retrieve complete interactive Blink with all available actions and metadata",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiUrl",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "description": "Blink API URL",
+              "default": "https://jito.dial.to/stake",
+              "example": "https://jito.dial.to/stake"
+            },
+            "required": true
+          }
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/TransactionResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PostResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExternalLinkResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SignMessageResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to fetch data from Blink Provider",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionError"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "executeBlinkAction",
+        "summary": "Execute Blink Action",
+        "tags": [
+          "Blink"
+        ],
+        "description": "Returns a ready-to-sign transaction",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActionPostRequest"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiUrl",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "description": "Blink API URL",
+              "default": "https://jito.dial.to/stake",
+              "example": "https://jito.dial.to/stake"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/v1/blink/chain": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "transaction",
+                            "message",
+                            "post",
+                            "external-link"
+                          ]
+                        },
+                        "message": {
+                          "type": "string"
+                        },
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "next": {
+                              "$ref": "#/components/schemas/NextActionLink"
+                            }
+                          },
+                          "required": [
+                            "next"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/CompletedAction"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to fetch data from Blink Provider",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionError"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "executeChainedAction",
+        "summary": "Execute Chained Action",
+        "tags": [
+          "Blink"
+        ],
+        "description": "Endpoint for action chaining (multi-step workflows)",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiUrl",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "description": "Blink API URL",
+              "default": "https://jito.dial.to/stake",
+              "example": "https://jito.dial.to/stake"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/NextActionPostRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/MessageNextActionPostRequest"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/blink-data-table": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlinkDataTable"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to fetch data from Blink Provider"
+          }
+        },
+        "operationId": "getBlinkDataTable",
+        "summary": "Get Blink Data Table",
+        "tags": [
+          "Blink Data Table"
+        ],
+        "description": "Retrieve structured data in table format. Great for displaying key data, such as APY, available balance, etc.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiUrl",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "description": "Blink API URL",
+              "default": "https://jito.dial.to/stake",
+              "example": "https://jito.dial.to/stake"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "account",
+            "schema": {
+              "type": "string",
+              "description": "Wallet address of the user"
+            },
+            "required": false
+          }
+        ]
+      }
+    },
+    "/v1/blink-lists/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlinkList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Client Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "List not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionError"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getBlinkList",
+        "summary": "Get Blink List",
+        "tags": [
+          "Blink Lists"
+        ],
+        "description": "Retrieve curated list of Blinks by ID from the terminal",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "account",
+            "schema": {
+              "type": "string",
+              "description": "Wallet address of the user"
+            }
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ]
+      }
+    }
+  }
+}
