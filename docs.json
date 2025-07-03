@@ -188,6 +188,10 @@
               "blinks/blinks-starters/solana",
               "blinks/blinks-starters/monad"
             ]
+          },
+          {
+            "group": "API REFERENCE",
+            "openapi": "./openapi/blinks.json"
           }
         ]
       },
