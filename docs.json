@@ -261,14 +261,6 @@
         ]
       },
       {
-        "tab": "API Guide",
-        "pages": [
-          "api-guide/index",
-          "api-guide/blinks-api",
-          "api-guide/alerts-api"
-        ]
-      },
-      {
         "tab": "Release Notes",
         "pages": [
           "release-notes/index"
