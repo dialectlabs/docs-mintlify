@@ -121,6 +121,10 @@
               "alerts/alerts-and-monitoring/setup-event-detection",
               "alerts/alerts-and-monitoring/integrate-existing-system"
             ]
+          },
+          {
+            "group": "API REFERENCE",
+            "openapi": "./openapi/alerts.json"
           }
         ]
       },
