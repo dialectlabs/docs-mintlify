@@ -213,6 +213,10 @@
             "openapi": "./openapi/raydium.json"
           },
           {
+            "group": "SAVE",
+            "openapi": "./openapi/save.json"
+          },
+          {
             "group": "DRIFT",
             "openapi": "./openapi/drift.json"
           },

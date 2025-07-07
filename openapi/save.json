@@ -1,0 +1,471 @@
+{
+  "openapi": "3.1.0",
+  "x-mcp": {
+    "enabled": true
+  },
+  "info": {
+    "title": "Save Blinks",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://save.dial.to/api"
+    }
+  ],
+  "paths": {
+    "/v0/lending/{marketAddress}/reserves/{reserve}/deposit": {
+      "get": {
+        "operationId": "v0.lending.getDepositTokenBlink",
+        "summary": "Blink deposit token to reserve",
+        "description": "Get a blink to deposit a token into protected or boosted deposits",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market address",
+              "examples": [
+                "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve address",
+              "examples": [
+                "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lending.depositToken",
+        "summary": "Deposit token to reserve",
+        "description": "Deposit a specific amount of a token to a reserve",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market address",
+              "examples": [
+                "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve address",
+              "examples": [
+                "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 100,
+              "exclusiveMinimum": 0,
+              "description": "The percentage of balance to deposit"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lending/{marketAddress}/reserves/{reserve}/withdraw": {
+      "get": {
+        "operationId": "v0.lending.getWithdrawTokenBlink",
+        "summary": "Blink withdraw token from reserve",
+        "description": "Get a blink to withdraw a token from a reserve",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market address",
+              "examples": [
+                "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve address",
+              "examples": [
+                "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lending.withdrawToken",
+        "summary": "Withdraw token from reserve",
+        "description": "Withdraw a specific amount of a token from a reserve",
+        "tags": [
+          "Lending"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market address",
+              "examples": [
+                "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve address",
+              "examples": [
+                "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 100,
+              "exclusiveMinimum": 0,
+              "description": "The percentage of balance to withdraw"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "11111111111111111111111111111111"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
