@@ -10,6 +10,23 @@ Before managing notifications, ensure you have:
 - **App Registration**: Your app must be registered with Dialect ([registration guide](/alerts/setup/register-app))
 - **User Authentication**: Users must be authenticated with JWT tokens ([authentication guide](/alerts/integrate-inbox/api/authentication))
 
+
+## Best Practices
+
+<CardGroup cols={3}>
+<Card title="Performance" icon="gauge">
+Use pagination (25-50 per page), cache data, and implement virtual scrolling for large lists.
+</Card>
+
+<Card title="User Experience" icon="heart">
+Show unread counts, "mark all read" buttons, and relative timestamps with graceful empty states.
+</Card>
+
+<Card title="Real-time Updates" icon="rotate">
+Poll summary endpoint periodically and update local state optimistically when marking as read.
+</Card>
+</CardGroup>
+
 ## Notification History
 
 ### Get Full Notification History
@@ -149,8 +166,6 @@ curl -X GET "https://alerts-api.dial.to/v2/history/summary" \
 }
 ```
 
-## Managing Read States
-
 ### Mark Notifications as Read
 
 Mark all notifications as read for the authenticated user:
@@ -187,19 +202,41 @@ curl -X POST "https://alerts-api.dial.to/v2/history/read" \
 {}
 ```
 
-## Best Practices
+### Clear Notification History
 
-<Tip>
-**Performance**: Use pagination with appropriate limit sizes (25-50 notifications per page), cache notification data to reduce API calls, and implement virtual scrolling for large notification lists.
-</Tip>
+Clear all notifications for the authenticated user. This is a global action that applies across all clients:
 
-<Tip>
-**User Experience**: Show unread count prominently in your UI, provide easy "mark all as read" functionality, display relative timestamps (e.g., "2 hours ago"), and handle empty states gracefully.
-</Tip>
+<CodeGroup>
+```typescript TypeScript
+const response = await fetch('https://alerts-api.dial.to/v2/history/clear', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${jwtToken}`,
+    'X-Dialect-Client-Key': 'YOUR_CLIENT_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    appId: 'YOUR_APP_ID' // Optional: clear notifications for specific app only
+  })
+});
+```
 
-<Tip>
-**Real-time Updates**: Poll the summary endpoint periodically to check for new notifications, consider WebSocket connections for real-time updates (if available), and update local state optimistically when marking as read.
-</Tip>
+```bash cURL
+curl -X POST "https://alerts-api.dial.to/v2/history/clear" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "X-Dialect-Client-Key: YOUR_CLIENT_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"appId": "YOUR_APP_ID"}'
+```
+</CodeGroup>
+
+**Request Body:**
+- `appId` (optional): Single app ID, array of app IDs, or omitted to clear notifications from all apps
+
+**Response:**
+```json
+{}
+```
 
 ## Next Steps
 
