@@ -29,10 +29,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
-              ]
-            }
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            },
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "reserve",
@@ -41,10 +42,9 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "examples": [
-                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
-              ]
-            }
+              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            },
+            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
           }
         ],
         "responses": {
@@ -56,16 +56,28 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit to Kamino"
+                      ]
                     },
                     "description": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit SOL to earn yield on Kamino"
+                      ]
                     },
                     "label": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit"
+                      ]
                     },
                     "icon": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
                     },
                     "links": {
                       "type": "object",
@@ -139,7 +151,7 @@
       "post": {
         "operationId": "v0.lending.lendingReserveDeposit",
         "summary": "Lending reserve deposit operation",
-        "description": "Execute a deposit operation",
+        "description": "Execute a deposit operation. Specify either 'amount' in SOL (e.g., 0.1) OR 'percentage' (1-100), but not both.",
         "tags": [
           "Lending"
         ],
@@ -151,10 +163,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
-              ]
-            }
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            },
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "reserve",
@@ -163,32 +176,29 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "examples": [
-                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
-              ]
-            }
+              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            },
+            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
           },
           {
             "name": "percentage",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
             "schema": {
               "type": "integer",
               "minimum": 0,
               "maximum": 100,
-              "description": "The percentage of funds to use"
+              "description": "The percentage of funds to use (alternative to amount)",
+              "default": 10,
+              "example": 10
             }
           },
           {
             "name": "amount",
             "in": "query",
-            "style": "deepObject",
-            "explode": true,
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+              "description": "The amount to use in SOL (alternative to percentage). Leave empty when using percentage."
             }
           }
         ],
@@ -200,23 +210,33 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
+              },
+              "examples": {
+                "deposit": {
+                  "summary": "Deposit transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
               }
             }
           }
@@ -230,10 +250,16 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction"
+                      "const": "transaction",
+                      "examples": [
+                        "transaction"
+                      ]
                     },
                     "transaction": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      ]
                     }
                   },
                   "required": [
@@ -290,16 +316,28 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Withdraw from Kamino"
+                      ]
                     },
                     "description": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Withdraw SOL from Kamino lending"
+                      ]
                     },
                     "label": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Withdraw"
+                      ]
                     },
                     "icon": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
                     },
                     "links": {
                       "type": "object",
@@ -411,7 +449,10 @@
               "type": "integer",
               "minimum": 0,
               "maximum": 100,
-              "description": "The percentage of funds to use"
+              "description": "The percentage of funds to use",
+              "examples": [
+                50
+              ]
             }
           },
           {
@@ -422,7 +463,10 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL",
+              "examples": [
+                0.5
+              ]
             }
           }
         ],
@@ -434,23 +478,33 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
+              },
+              "examples": {
+                "withdraw": {
+                  "summary": "Withdraw transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
               }
             }
           }
@@ -464,10 +518,16 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction"
+                      "const": "transaction",
+                      "examples": [
+                        "transaction"
+                      ]
                     },
                     "transaction": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      ]
                     }
                   },
                   "required": [
@@ -548,13 +608,16 @@
                         "type": "object",
                         "properties": {
                           "key": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "apy"
                           },
                           "title": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Annual Percentage Yield"
                           },
                           "value": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "5.24%"
                           }
                         },
                         "required": [
@@ -562,7 +625,26 @@
                           "title",
                           "value"
                         ]
-                      }
+                      },
+                      "examples": [
+                        [
+                          {
+                            "key": "apy",
+                            "title": "Annual Percentage Yield",
+                            "value": "5.24%"
+                          },
+                          {
+                            "key": "deposited",
+                            "title": "Your Deposited Amount",
+                            "value": "10.5 SOL"
+                          },
+                          {
+                            "key": "earned",
+                            "title": "Total Earned",
+                            "value": "0.12 SOL"
+                          }
+                        ]
+                      ]
                     }
                   },
                   "required": [
@@ -618,16 +700,28 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit to Kamino"
+                      ]
                     },
                     "description": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit SOL to earn yield on Kamino"
+                      ]
                     },
                     "label": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit"
+                      ]
                     },
                     "icon": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
                     },
                     "links": {
                       "type": "object",
@@ -742,10 +836,12 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "external-link"
+                      "const": "external-link",
+                      "example": "external-link"
                     },
                     "externalLink": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "https://app.kamino.finance/lending/DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
                     }
                   },
                   "required": [
@@ -807,16 +903,28 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit to Kamino"
+                      ]
                     },
                     "description": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit SOL to earn yield on Kamino"
+                      ]
                     },
                     "label": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Deposit"
+                      ]
                     },
                     "icon": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
                     },
                     "links": {
                       "type": "object",
@@ -916,7 +1024,10 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL",
+              "examples": [
+                2.0
+              ]
             }
           },
           {
@@ -946,23 +1057,33 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
+              },
+              "examples": {
+                "deposit": {
+                  "summary": "Deposit transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
               }
             }
           }
@@ -976,10 +1097,16 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction"
+                      "const": "transaction",
+                      "examples": [
+                        "transaction"
+                      ]
                     },
                     "transaction": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      ]
                     }
                   },
                   "required": [
@@ -1024,16 +1151,28 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Withdraw from Kamino Vault"
+                      ]
                     },
                     "description": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Withdraw liquidity from Kamino strategy vault"
+                      ]
                     },
                     "label": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "Withdraw"
+                      ]
                     },
                     "icon": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
                     },
                     "links": {
                       "type": "object",
@@ -1134,7 +1273,10 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 100,
-              "description": "The percentage of shares to withdraw"
+              "description": "The percentage of shares to withdraw",
+              "examples": [
+                75
+              ]
             }
           }
         ],
@@ -1146,23 +1288,33 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
+              },
+              "examples": {
+                "withdraw": {
+                  "summary": "Withdraw transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
               }
             }
           }
@@ -1176,10 +1328,16 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction"
+                      "const": "transaction",
+                      "examples": [
+                        "transaction"
+                      ]
                     },
                     "transaction": {
-                      "type": "string"
+                      "type": "string",
+                      "examples": [
+                        "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      ]
                     }
                   },
                   "required": [
