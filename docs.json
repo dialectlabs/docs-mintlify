@@ -247,7 +247,7 @@
         ]
       },
       {
-        "tab": "Markets (Beta)",
+        "tab": "Markets and Positions (Beta)",
         "groups": [
           {
             "group": "GETTING STARTED",
@@ -256,7 +256,7 @@
             ]
           }
         ],
-        "openapi": "https://markets.dial.to/api/openapi.json"
+        "openapi": "./openapi/markets.json"
       },
       {
         "tab": "MCP",
