@@ -4,7 +4,7 @@
     "enabled": true
   },
   "info": {
-    "title": "Markets & Positions API",
+    "title": "Markets & Positions API (Beta)",
     "version": "0.0.1"
   },
   "servers": [
@@ -321,7 +321,7 @@
         "summary": "List all market positions by wallet address",
         "description": "Supported providers & markets: Kamino Lending.",
         "tags": [
-          "Positions (Alpha)"
+          "Positions"
         ],
         "parameters": [
           {
