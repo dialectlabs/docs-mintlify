@@ -209,6 +209,10 @@
             ]
           },
           {
+            "group": "JUPITER",
+            "openapi": "./openapi/jupiter.json"
+          },
+          {
             "group": "RAYDIUM",
             "openapi": "./openapi/raydium.json"
           },
