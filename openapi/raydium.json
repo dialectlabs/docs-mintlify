@@ -1117,8 +1117,8 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of RAY to stake",
-              "default": 25,
-              "example": 25
+              "default": 10,
+              "example": 10
             }
           },
           {
@@ -1129,9 +1129,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount of RAY to stake. Human readable value, e.g. 0.1 RAY",
-              "default": 10.0,
-              "example": 10.0
+              "description": "The amount of RAY to stake. Human readable value, e.g. 0.1 RAY"
             }
           }
         ],
@@ -1329,8 +1327,8 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of RAY to unstake",
-              "default": 25,
-              "example": 25
+              "default": 10,
+              "example": 10
             }
           },
           {
@@ -1341,9 +1339,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount of RAY to unstake. Human readable value, e.g. 0.1 RAY",
-              "default": 10.0,
-              "example": 10.0
+              "description": "The amount of RAY to unstake. Human readable value, e.g. 0.1 RAY"
             }
           }
         ],
