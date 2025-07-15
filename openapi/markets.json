@@ -17,7 +17,7 @@
       "get": {
         "operationId": "marketsV0Api.listMarkets",
         "summary": "List all markets",
-        "description": "Supported providers: MarginFi Lending, Kamino Lending.",
+        "description": "Supported providers: MarginFi Lending, Kamino Lending, Lulo Lending.",
         "tags": [
           "Markets"
         ],
@@ -168,7 +168,7 @@
       "get": {
         "operationId": "marketsV0Api.listMarketsGroupedByType",
         "summary": "List all markets grouped by type",
-        "description": "Supported providers: MarginFi Lending, Kamino Lending.",
+        "description": "Supported providers: MarginFi Lending, Kamino Lending, Lulo Lending.",
         "tags": [
           "Markets"
         ],
