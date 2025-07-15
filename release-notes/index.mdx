@@ -6,17 +6,42 @@ rss: true
 
 <Update label="July 2025">
 
+## React SDK Updates
+
+Major widget redesign with enhanced user experience and v2 API migration:
+
+- **Widget UI Revamp** - Complete redesign of settings screen with improved UX and modern interface
+- **v2 Migration** - Enhanced channel management and notification controls using v2 API. [View API reference](/api-reference/manage-channels/get-channels)
+- **Live Demo** - Experience the new widget at [alerts-example.dialect.to](https://alerts-example.dialect.to/)
+
+## Positions API 
+
+We've launched our new **Positions API** - a unified way to track wallet positions across multiple DeFi protocols. Instead of querying each protocol individually, developers can now get position data through a single API endpoint.
+
+- **New API Launch** - Real-time per-wallet positions tracking across multiple DeFi protocols with unified data access. [View API reference](/api-reference/positions)
+- **Demo Integration** - Funded demo wallet with active Kamino positions for realistic API testing
+
+## Alerts API Updates
+
+Enhanced notification management capabilities and new channel endpoints:
+
+- **Channel Management Endpoints** - Complete suite of 7 new endpoints for email and Telegram channel management. [View API reference](/api-reference/manage-channels/get-channels)
+- **OpenAPI Documentation** - Fully documented channel endpoints with examples, schemas, and integration guides
+- **Clear Notification History** - New endpoint for clearing all read alerts with safety controls. [View API reference](/api-reference/integrate-an-inbox/clear-notification-history)
+
 ## Standard Blinks Library Updates
 
 Continued expansion of our production-ready protocol integrations:
 
 - **Save Protocol** - Added lending protocol support with protected and boosted deposits. [View Save API docs](/api-reference/lending/blink-deposit-token-to-reserve)
+- **Demo Wallet Integration** - Realistic API examples using funded demo wallet with active positions
 
-## Alerts API Updates
+## Developer Experience Updates
 
-Enhanced notification management capabilities for better user experience:
+Enhanced tools and documentation for improved development workflow:
 
-- **Clear Notification History** - New endpoint for clearing all read alerts with safety controls. [View API reference](/api-reference/integrate-an-inbox/clear-notification-history)
+- **Mintlify Integration** - Improved "Try the API" functionality with pre-filled demo data for seamless testing
+- **Scaffold Updates** - Upgraded dependencies and `action.json` for Monad scaffold
 
 </Update>
 
