@@ -1,5 +1,5 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.1.1",
   "x-mcp": {
     "enabled": true
   },
@@ -13,8 +13,6 @@
     }
   ],
   "paths": {
-    "/swap/{tokenPair}": {},
-    "/swap/{tokenPair}/{amount}": {},
     "/api/v0/swap/{tokenPair}": {
       "get": {
         "responses": {
@@ -148,8 +146,7 @@
           }
         ],
         "summary": "Swap token",
-        "description": "Get available swap actions for a token pair",
-        "hide": false
+        "description": "Get available swap actions for a token pair"
       }
     },
     "/api/v0/swap/{tokenPair}/{amount}": {
@@ -375,7 +372,6 @@
         ],
         "summary": "Swap token amount",
         "description": "Execute a swap transaction for the specified token pair and amount",
-        "hide": false,
         "requestBody": {
           "content": {
             "application/json": {
