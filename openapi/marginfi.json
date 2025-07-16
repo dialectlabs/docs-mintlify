@@ -16,8 +16,8 @@
         "/v0/lend/{tokenSymbol}/deposit": {
             "get": {
                 "operationId": "v0.lend.getDepositBlink",
-                "summary": "Blink deposit action",
-                "description": "Get a blink to deposit tokens in MarginFi",
+                "summary": "Lend Deposit Token",
+                "description": "Get metadata for depositing a token into a MarginFi pool.",
                 "tags": [
                     "Lend"
                 ],
@@ -29,12 +29,11 @@
                         "schema": {
                             "type": "string",
                             "description": "Token symbol to deposit",
-                            "examples": [
-                                "USDC",
-                                "SOL",
-                                "USDT"
-                            ]
-                        }
+                            "default": "USDC",
+                            "x-example": "USDC"
+                        },
+                        "example": "USDC",
+                        "x-default": "USDC"
                     }
                 ],
                 "responses": {
@@ -125,8 +124,8 @@
             },
             "post": {
                 "operationId": "v0.lend.executeDeposit",
-                "summary": "Execute deposit",
-                "description": "Execute a deposit action in MarginFi",
+                "summary": "Lend Deposit Token",
+                "description": "Generate a transaction for depositing a token into a MarginFi pool.",
                 "tags": [
                     "Lend"
                 ],
@@ -138,12 +137,11 @@
                         "schema": {
                             "type": "string",
                             "description": "Token symbol to deposit",
-                            "examples": [
-                                "USDC",
-                                "SOL",
-                                "USDT"
-                            ]
-                        }
+                            "default": "USDC",
+                            "x-example": "USDC"
+                        },
+                        "example": "USDC",
+                        "x-default": "USDC"
                     },
                     {
                         "name": "amount",
@@ -153,7 +151,9 @@
                         "schema": {
                             "type": "number",
                             "minimum": 1e-06,
-                            "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+                            "description": "The amount to deposit. Human readable value, e.g. 100 USDC",
+                            "default": 100,
+                            "example": 100
                         }
                     },
                     {
@@ -177,17 +177,18 @@
                                 "type": "object",
                                 "properties": {
                                     "type": {
-                                        "const": "transaction",
-                                        "examples": [
+                                        "type": "string",
+                                        "enum": [
                                             "transaction"
-                                        ]
+                                        ],
+                                        "default": "transaction",
+                                        "example": "transaction"
                                     },
                                     "account": {
                                         "type": "string",
                                         "description": "The public key of the account that executes the transaction",
-                                        "examples": [
-                                            "11111111111111111111111111111111"
-                                        ]
+                                        "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                                        "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                                     }
                                 },
                                 "required": [
@@ -227,8 +228,8 @@
         "/v0/lend/{tokenSymbol}/withdraw": {
             "get": {
                 "operationId": "v0.lend.getWithdrawBlink",
-                "summary": "Blink withdraw action",
-                "description": "Get a blink to withdraw tokens from MarginFi",
+                "summary": "Lend Withdraw Token",
+                "description": "Get metadata for withdrawing a token from a MarginFi pool.",
                 "tags": [
                     "Lend"
                 ],
@@ -244,7 +245,9 @@
                                 "USDC",
                                 "SOL",
                                 "USDT"
-                            ]
+                            ],
+                            "default": "USDC",
+                            "example": "USDC"
                         }
                     }
                 ],
@@ -336,8 +339,8 @@
             },
             "post": {
                 "operationId": "v0.lend.executeWithdraw",
-                "summary": "Execute withdraw",
-                "description": "Execute a withdraw action in MarginFi",
+                "summary": "Lend Withdraw Token",
+                "description": "Generate a transaction for withdrawing a token from a MarginFi pool.",
                 "tags": [
                     "Lend"
                 ],
@@ -353,7 +356,9 @@
                                 "USDC",
                                 "SOL",
                                 "USDT"
-                            ]
+                            ],
+                            "default": "USDC",
+                            "example": "USDC"
                         }
                     },
                     {
@@ -364,7 +369,9 @@
                         "schema": {
                             "type": "number",
                             "minimum": 1e-06,
-                            "description": "The amount to withdraw. Human readable value, e.g. 100 USDC"
+                            "description": "The amount to withdraw. Human readable value, e.g. 100 USDC",
+                            "default": 100,
+                            "example": 100
                         }
                     },
                     {
@@ -388,17 +395,18 @@
                                 "type": "object",
                                 "properties": {
                                     "type": {
-                                        "const": "transaction",
-                                        "examples": [
+                                        "type": "string",
+                                        "enum": [
                                             "transaction"
-                                        ]
+                                        ],
+                                        "default": "transaction",
+                                        "example": "transaction"
                                     },
                                     "account": {
                                         "type": "string",
                                         "description": "The public key of the account that executes the transaction",
-                                        "examples": [
-                                            "11111111111111111111111111111111"
-                                        ]
+                                        "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                                        "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                                     }
                                 },
                                 "required": [
@@ -437,4 +445,3 @@
         }
     }
 }
-
