@@ -16,8 +16,8 @@
     "/v0/lending/{marketAddress}/reserves/{reserve}/deposit": {
       "get": {
         "operationId": "v0.lending.getDepositTokenBlink",
-        "summary": "Blink deposit token to reserve",
-        "description": "Get a blink to deposit a token into protected or boosted deposits",
+        "summary": "Lending Deposit Token",
+        "description": "Get metadata for depositing a token in a Save reserve.",
         "tags": [
           "Lending"
         ],
@@ -29,10 +29,11 @@
             "schema": {
               "type": "string",
               "description": "Market address",
-              "examples": [
-                "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
-              ]
-            }
+              "default": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+              "x-example": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
+            },
+            "example": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+            "x-default": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
           },
           {
             "name": "reserve",
@@ -41,10 +42,11 @@
             "schema": {
               "type": "string",
               "description": "Reserve address",
-              "examples": [
-                "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
-              ]
-            }
+              "default": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+              "x-example": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
+            },
+            "example": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+            "x-default": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
           }
         ],
         "responses": {
@@ -135,8 +137,8 @@
       },
       "post": {
         "operationId": "v0.lending.depositToken",
-        "summary": "Deposit token to reserve",
-        "description": "Deposit a specific amount of a token to a reserve",
+        "summary": "Lending Deposit Token",
+        "description": "Generate a transaction for depositing a token in a Save reserve.",
         "tags": [
           "Lending"
         ],
@@ -148,10 +150,11 @@
             "schema": {
               "type": "string",
               "description": "Market address",
-              "examples": [
-                "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
-              ]
-            }
+              "default": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+              "x-example": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
+            },
+            "example": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+            "x-default": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
           },
           {
             "name": "reserve",
@@ -160,10 +163,11 @@
             "schema": {
               "type": "string",
               "description": "Reserve address",
-              "examples": [
-                "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
-              ]
-            }
+              "default": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+              "x-example": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
+            },
+            "example": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+            "x-default": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
           },
           {
             "name": "amount",
@@ -171,7 +175,9 @@
             "schema": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC",
+              "default": 100,
+              "example": 100
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -198,17 +204,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -248,8 +255,8 @@
     "/v0/lending/{marketAddress}/reserves/{reserve}/withdraw": {
       "get": {
         "operationId": "v0.lending.getWithdrawTokenBlink",
-        "summary": "Blink withdraw token from reserve",
-        "description": "Get a blink to withdraw a token from a reserve",
+        "summary": "Lending Withdraw Token",
+        "description": "Get metadata for withdrawing a token from a Save reserve.",
         "tags": [
           "Lending"
         ],
@@ -261,10 +268,11 @@
             "schema": {
               "type": "string",
               "description": "Market address",
-              "examples": [
-                "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
-              ]
-            }
+              "default": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+              "x-example": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
+            },
+            "example": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+            "x-default": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
           },
           {
             "name": "reserve",
@@ -273,10 +281,11 @@
             "schema": {
               "type": "string",
               "description": "Reserve address",
-              "examples": [
-                "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
-              ]
-            }
+              "default": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+              "x-example": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
+            },
+            "example": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+            "x-default": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
           }
         ],
         "responses": {
@@ -367,8 +376,8 @@
       },
       "post": {
         "operationId": "v0.lending.withdrawToken",
-        "summary": "Withdraw token from reserve",
-        "description": "Withdraw a specific amount of a token from a reserve",
+        "summary": "Lending Withdraw Token",
+        "description": "Generate a transaction for withdrawing a token from a Save reserve.",
         "tags": [
           "Lending"
         ],
@@ -380,10 +389,11 @@
             "schema": {
               "type": "string",
               "description": "Market address",
-              "examples": [
-                "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
-              ]
-            }
+              "default": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+              "x-example": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
+            },
+            "example": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+            "x-default": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY"
           },
           {
             "name": "reserve",
@@ -392,10 +402,11 @@
             "schema": {
               "type": "string",
               "description": "Reserve address",
-              "examples": [
-                "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
-              ]
-            }
+              "default": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+              "x-example": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
+            },
+            "example": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+            "x-default": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw"
           },
           {
             "name": "percentage",
@@ -406,7 +417,9 @@
               "minimum": -9007199254740991,
               "maximum": 100,
               "exclusiveMinimum": 0,
-              "description": "The percentage of balance to withdraw"
+              "description": "The percentage of balance to withdraw",
+              "default": 50,
+              "example": 50
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -420,17 +433,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
