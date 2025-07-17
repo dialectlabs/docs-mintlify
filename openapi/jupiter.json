@@ -145,8 +145,8 @@
             "required": true
           }
         ],
-        "summary": "Swap token",
-        "description": "Get available swap actions for a token pair"
+        "summary": "Swap Token",
+        "description": "Get metadata for swapping one token to another with Jupiter."
       }
     },
     "/api/v0/swap/{tokenPair}/{amount}": {
@@ -293,8 +293,8 @@
             "required": true
           }
         ],
-        "summary": "Swap token amount",
-        "description": "Get swap action details for a specific token pair and amount"
+        "summary": "Swap Token Amount",
+        "description": "Get metadata for swapping a specific amount of token to another with Jupiter."
       },
       "post": {
         "responses": {
@@ -370,8 +370,8 @@
             "required": true
           }
         ],
-        "summary": "Swap token amount",
-        "description": "Execute a swap transaction for the specified token pair and amount",
+        "summary": "Swap Token Amount",
+        "description": "Generate a transaction for swapping a specific amount of a token to another with Jupiter.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -381,7 +381,8 @@
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "example": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [

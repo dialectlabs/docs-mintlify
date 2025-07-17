@@ -16,8 +16,8 @@
     "/v0/pools/{tokenA}/{tokenB}/open-position": {
       "get": {
         "operationId": "v0.pools.getOpenPositionBlink",
-        "summary": "Blink open position",
-        "description": "Get a blink for opening a position",
+        "summary": "Pools Open Position",
+        "description": "Get metadata for opening a position in an Orca's Pool.",
         "tags": [
           "Pools"
         ],
@@ -29,10 +29,11 @@
             "schema": {
               "type": "string",
               "description": "Token A address",
-              "examples": [
-                "So11111111111111111111111111111111111111112"
-              ]
-            }
+              "default": "So11111111111111111111111111111111111111112",
+              "x-example": "So11111111111111111111111111111111111111112"
+            },
+            "example": "So11111111111111111111111111111111111111112",
+            "x-default": "So11111111111111111111111111111111111111112"
           },
           {
             "name": "tokenB",
@@ -41,10 +42,11 @@
             "schema": {
               "type": "string",
               "description": "Token B address",
-              "examples": [
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-              ]
-            }
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            },
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
           }
         ],
         "responses": {
@@ -135,8 +137,8 @@
       },
       "post": {
         "operationId": "v0.pools.openPosition",
-        "summary": "Open position",
-        "description": "Open position. If lowerPrice and upperPrice are provided, open a position with a specific price range. If not, open a full range position.",
+        "summary": "Pools Open Position",
+        "description": "Generate a transaction for opening a position in an Orca's Pool. If lower and upper prices are provided, it will open a position with a specific price range. Otherwise, it will open a full range position.",
         "tags": [
           "Pools"
         ],
@@ -148,10 +150,11 @@
             "schema": {
               "type": "string",
               "description": "The token A address",
-              "examples": [
-                "So11111111111111111111111111111111111111112"
-              ]
-            }
+              "default": "So11111111111111111111111111111111111111112",
+              "x-example": "So11111111111111111111111111111111111111112"
+            },
+            "example": "So11111111111111111111111111111111111111112",
+            "x-default": "So11111111111111111111111111111111111111112"
           },
           {
             "name": "tokenB",
@@ -160,10 +163,11 @@
             "schema": {
               "type": "string",
               "description": "The token B address",
-              "examples": [
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-              ]
-            }
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            },
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
           },
           {
             "name": "amount",
@@ -171,7 +175,9 @@
             "schema": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC",
+              "default": 100,
+              "example": 100
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -220,17 +226,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -267,52 +274,27 @@
         }
       }
     },
-    "/v0/pools/{tokenA}/{tokenB}/add-liquidity": {
+    "/v0/pools/positions/{positionAddress}/add-liquidity": {
       "get": {
         "operationId": "v0.pools.getAddLiquidityBlink",
-        "summary": "Blink add liquidity",
-        "description": "Get a blink for adding liquidity to a position",
+        "summary": "Pools Add Liquidity",
+        "description": "Get metadata for adding liquidity into an Orca's Pool.",
         "tags": [
           "Pools"
         ],
         "parameters": [
           {
-            "name": "tokenA",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token A address",
-              "examples": [
-                "So11111111111111111111111111111111111111112"
-              ]
-            }
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token B address",
-              "examples": [
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-              ]
-            }
-          },
-          {
             "name": "positionAddress",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
-              "examples": [
-                "11111111111111111111111111111111"
-              ]
+              "description": "The position address",
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "allowEmptyValue": true,
-            "allowReserved": true
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           }
         ],
         "responses": {
@@ -403,35 +385,24 @@
       },
       "post": {
         "operationId": "v0.pools.addLiquidity",
-        "summary": "Add liquidity",
-        "description": "Add liquidity to a position.",
+        "summary": "Pools Add Liquidity",
+        "description": "Generate a transaction for adding liquidity into an Orca's Pool.",
         "tags": [
           "Pools"
         ],
         "parameters": [
           {
-            "name": "tokenA",
+            "name": "positionAddress",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The token A address",
-              "examples": [
-                "So11111111111111111111111111111111111111112"
-              ]
-            }
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "The token B address",
-              "examples": [
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-              ]
-            }
+              "description": "The position address",
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+            },
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           },
           {
             "name": "amount",
@@ -439,7 +410,9 @@
             "schema": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "The amount to add. Human readable value, e.g. 100 USDC"
+              "description": "The amount to add. Human readable value, e.g. 100 USDC",
+              "default": 100,
+              "example": 100
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -456,19 +429,6 @@
             },
             "allowEmptyValue": true,
             "allowReserved": true
-          },
-          {
-            "name": "positionAddress",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
-              "examples": [
-                "11111111111111111111111111111111"
-              ]
-            },
-            "allowEmptyValue": true,
-            "allowReserved": true
           }
         ],
         "requestBody": {
@@ -479,17 +439,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -526,52 +487,27 @@
         }
       }
     },
-    "/v0/pools/{tokenA}/{tokenB}/remove-liquidity": {
+    "/v0/pools/positions/{positionAddress}/remove-liquidity": {
       "get": {
         "operationId": "v0.pools.getRemoveLiquidityBlink",
-        "summary": "Blink remove liquidity",
-        "description": "Get a blink for removing liquidity from a position",
+        "summary": "Pools Remove Liquidity",
+        "description": "Get metadata for removing liquidity from an Orca's Pool.",
         "tags": [
           "Pools"
         ],
         "parameters": [
           {
-            "name": "tokenA",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token A address",
-              "examples": [
-                "So11111111111111111111111111111111111111112"
-              ]
-            }
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token B address",
-              "examples": [
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-              ]
-            }
-          },
-          {
             "name": "positionAddress",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
-              "examples": [
-                "11111111111111111111111111111111"
-              ]
+              "description": "The position address",
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "allowEmptyValue": true,
-            "allowReserved": true
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           }
         ],
         "responses": {
@@ -662,35 +598,24 @@
       },
       "post": {
         "operationId": "v0.pools.removeLiquidity",
-        "summary": "Remove liquidity",
-        "description": "Remove liquidity from a position.",
+        "summary": "Pools Remove Liquidity",
+        "description": "Generate a transaction for removing liquidity from an Orca's Pool.",
         "tags": [
           "Pools"
         ],
         "parameters": [
           {
-            "name": "tokenA",
+            "name": "positionAddress",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The token A address",
-              "examples": [
-                "So11111111111111111111111111111111111111112"
-              ]
-            }
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "The token B address",
-              "examples": [
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-              ]
-            }
+              "description": "The position address",
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+            },
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           },
           {
             "name": "amount",
@@ -698,7 +623,9 @@
             "schema": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "The amount to remove. Human readable value, e.g. 100 USDC"
+              "description": "The amount to remove. Human readable value, e.g. 100 USDC",
+              "default": 100,
+              "example": 100
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -715,19 +642,6 @@
             },
             "allowEmptyValue": true,
             "allowReserved": true
-          },
-          {
-            "name": "positionAddress",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
-              "examples": [
-                "11111111111111111111111111111111"
-              ]
-            },
-            "allowEmptyValue": true,
-            "allowReserved": true
           }
         ],
         "requestBody": {
@@ -738,17 +652,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -785,52 +700,27 @@
         }
       }
     },
-    "/v0/pools/{tokenA}/{tokenB}/close-position": {
+    "/v0/pools/positions/{positionAddress}/close-position": {
       "get": {
         "operationId": "v0.pools.getClosePositionBlink",
-        "summary": "Blink close position",
-        "description": "Get a blink for closing a position",
+        "summary": "Pools Close Position",
+        "description": "Get metadata for closing a position and withdrawing all liquidity from an Orca's Pool.",
         "tags": [
           "Pools"
         ],
         "parameters": [
           {
-            "name": "tokenA",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token A address",
-              "examples": [
-                "So11111111111111111111111111111111111111112"
-              ]
-            }
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token B address",
-              "examples": [
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-              ]
-            }
-          },
-          {
             "name": "positionAddress",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
-              "examples": [
-                "11111111111111111111111111111111"
-              ]
+              "description": "The position address",
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "allowEmptyValue": true,
-            "allowReserved": true
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           }
         ],
         "responses": {
@@ -921,48 +811,24 @@
       },
       "post": {
         "operationId": "v0.pools.closePosition",
-        "summary": "Close position",
-        "description": "Close a position and withdraw all liquidity.",
+        "summary": "Pools Close Position",
+        "description": "Generate a transaction for closing a position and withdrawing all liquidity from an Orca's Pool.",
         "tags": [
           "Pools"
         ],
         "parameters": [
           {
-            "name": "tokenA",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "The token A address",
-              "examples": [
-                "So11111111111111111111111111111111111111112"
-              ]
-            }
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "The token B address",
-              "examples": [
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-              ]
-            }
-          },
-          {
             "name": "positionAddress",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
-              "examples": [
-                "11111111111111111111111111111111"
-              ]
+              "description": "The position address",
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "allowEmptyValue": true,
-            "allowReserved": true
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           }
         ],
         "requestBody": {
@@ -973,17 +839,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [

@@ -16,8 +16,8 @@
     "/v0/deposit/{token}/{type}": {
       "get": {
         "operationId": "v0.deposit.getDepositTokenBlink",
-        "summary": "Blink deposit token",
-        "description": "Get a blink to deposit a token into protected or boosted deposits",
+        "summary": "Deposit",
+        "description": "Get metadata for depositing a token into Lulo.",
         "tags": [
           "Deposit"
         ],
@@ -29,10 +29,11 @@
             "schema": {
               "type": "string",
               "description": "Token ticker or mint address",
-              "examples": [
-                "USDC"
-              ]
-            }
+              "default": "USDC",
+              "example": "USDC"
+            },
+            "example": "USDC",
+            "x-default": "USDC"
           },
           {
             "name": "type",
@@ -44,11 +45,11 @@
                 "boosted"
               ],
               "description": "Deposit type: protected or boosted",
-              "examples": [
-                "protected",
-                "boosted"
-              ]
-            }
+              "default": "protected",
+              "example": "protected"
+            },
+            "example": "protected",
+            "x-default": "protected"
           }
         ],
         "responses": {
@@ -139,8 +140,8 @@
       },
       "post": {
         "operationId": "v0.deposit.depositToken",
-        "summary": "Deposit token",
-        "description": "Deposit a specific amount of a token as protected (PUSD) or boosted (LUSD)",
+        "summary": "Deposit",
+        "description": "Generate a transaction for depositing a token into Lulo.",
         "tags": [
           "Deposit"
         ],
@@ -152,10 +153,11 @@
             "schema": {
               "type": "string",
               "description": "Token ticker or mint address",
-              "examples": [
-                "USDC"
-              ]
-            }
+              "default": "USDC",
+              "example": "USDC"
+            },
+            "example": "USDC",
+            "x-default": "USDC"
           },
           {
             "name": "type",
@@ -167,11 +169,11 @@
                 "boosted"
               ],
               "description": "Deposit type: protected (PUSD) or boosted (LUSD)",
-              "examples": [
-                "protected",
-                "boosted"
-              ]
-            }
+              "default": "protected",
+              "example": "protected"
+            },
+            "example": "protected",
+            "x-default": "protected"
           },
           {
             "name": "amount",
@@ -181,7 +183,9 @@
             "schema": {
               "type": "number",
               "minimum": 1,
-              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC",
+              "default": 100,
+              "example": 100
             }
           },
           {
@@ -205,17 +209,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -255,8 +260,8 @@
     "/v0/withdraw/{token}/{type}": {
       "get": {
         "operationId": "v0.withdraw.getWithdrawTokenBlink",
-        "summary": "Blink withdraw token",
-        "description": "Get a blink to withdraw tokens from protected or regular deposits",
+        "summary": "Withdraw",
+        "description": "Get metadata for withdrawing a token from Lulo.",
         "tags": [
           "Withdraw"
         ],
@@ -268,10 +273,11 @@
             "schema": {
               "type": "string",
               "description": "Token ticker or mint address",
-              "examples": [
-                "USDC"
-              ]
-            }
+              "default": "USDC",
+              "example": "USDC"
+            },
+            "example": "USDC",
+            "x-default": "USDC"
           },
           {
             "name": "type",
@@ -283,11 +289,11 @@
                 "regular"
               ],
               "description": "Withdraw type: protected or regular",
-              "examples": [
-                "protected",
-                "regular"
-              ]
-            }
+              "default": "protected",
+              "example": "protected"
+            },
+            "example": "protected",
+            "x-default": "protected"
           }
         ],
         "responses": {
@@ -378,8 +384,8 @@
       },
       "post": {
         "operationId": "v0.withdraw.withdrawToken",
-        "summary": "Withdraw token",
-        "description": "Withdraw a specific amount of tokens from protected or regular deposits",
+        "summary": "Withdraw",
+        "description": "Generate a transaction for withdrawing a token from Lulo.",
         "tags": [
           "Withdraw"
         ],
@@ -391,10 +397,11 @@
             "schema": {
               "type": "string",
               "description": "Token ticker or mint address",
-              "examples": [
-                "USDC"
-              ]
-            }
+              "default": "USDC",
+              "example": "USDC"
+            },
+            "example": "USDC",
+            "x-default": "USDC"
           },
           {
             "name": "type",
@@ -406,11 +413,11 @@
                 "regular"
               ],
               "description": "Withdraw type: protected or regular",
-              "examples": [
-                "protected",
-                "regular"
-              ]
-            }
+              "default": "protected",
+              "example": "protected"
+            },
+            "example": "protected",
+            "x-default": "protected"
           },
           {
             "name": "amount",
@@ -420,7 +427,9 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to withdraw. Human readable value, e.g. 100 USDC"
+              "description": "The amount to withdraw. Human readable value, e.g. 100 USDC",
+              "default": 100,
+              "example": 100
             }
           },
           {
@@ -444,17 +453,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -494,8 +504,8 @@
     "/v0/withdraw/{token}/regular/complete": {
       "get": {
         "operationId": "v0.withdraw.getCompleteRegularWithdrawalBlink",
-        "summary": "Blink complete regular withdrawal",
-        "description": "Get a blink for completing regular withdrawal of tokens",
+        "summary": "Complete Regular Withdrawal",
+        "description": "Get metadata for withdrawing a token from Lulo Regular after cooldown period.",
         "tags": [
           "Withdraw"
         ],
@@ -507,10 +517,11 @@
             "schema": {
               "type": "string",
               "description": "Token ticker or mint address",
-              "examples": [
-                "USDC"
-              ]
-            }
+              "default": "USDC",
+              "example": "USDC"
+            },
+            "example": "USDC",
+            "x-default": "USDC"
           }
         ],
         "responses": {
@@ -601,8 +612,8 @@
       },
       "post": {
         "operationId": "v0.withdraw.completeRegularWithdrawal",
-        "summary": "Complete regular withdrawal",
-        "description": "Complete regular withdrawal of tokens using pending withdrawal ID",
+        "summary": "Complete Regular Withdrawal",
+        "description": "Generate a transaction for withdrawing a token from Lulo Regular after cooldown period.",
         "tags": [
           "Withdraw"
         ],
@@ -614,10 +625,11 @@
             "schema": {
               "type": "string",
               "description": "Token ticker or mint address",
-              "examples": [
-                "USDC"
-              ]
-            }
+              "default": "USDC",
+              "example": "USDC"
+            },
+            "example": "USDC",
+            "x-default": "USDC"
           },
           {
             "name": "withdrawalId",
@@ -646,17 +658,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "11111111111111111111111111111111"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [

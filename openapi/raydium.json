@@ -16,8 +16,8 @@
     "/v0/clmm/{poolId}/add-liquidity": {
       "get": {
         "operationId": "v0.clmm.addLiquidityGetBlink",
-        "summary": "Blink add liquidity CLMM Pool",
-        "description": "Get a blink for adding liquidity to a CLMM pool",
+        "summary": "CLMM Add Liquidity",
+        "description": "Get metadata for adding liquidity into Raydium's CLMM.",
         "tags": [
           "CLMM"
         ],
@@ -137,8 +137,8 @@
       },
       "post": {
         "operationId": "v0.clmm.addLiquidity",
-        "summary": "Add liquidity CLMM Pool",
-        "description": "Add liquidity to a CLMM pool",
+        "summary": "CLMM Add Liquidity",
+        "description": "Generate a transaction for adding liquidity into Raydium's CLMM.",
         "tags": [
           "CLMM"
         ],
@@ -271,8 +271,8 @@
     "/v0/clmm/{poolId}/remove-liquidity": {
       "get": {
         "operationId": "v0.clmm.removeLiquidityGetBlink",
-        "summary": "Blink remove liquidity CLMM Pool",
-        "description": "Get a blink for removing liquidity from a CLMM pool",
+        "summary": "CLMM Remove Liquidity",
+        "description": "Get metadata for removing liquidity from Raydium's CLMM.",
         "tags": [
           "CLMM"
         ],
@@ -392,8 +392,8 @@
       },
       "post": {
         "operationId": "v0.clmm.removeLiquidity",
-        "summary": "Remove liquidity from a CLMM pool",
-        "description": "Remove liquidity from a CLMM pool",
+        "summary": "CLMM Remove Liquidity",
+        "description": "Generate a transaction for removing liquidity from Raydium's CLMM.",
         "tags": [
           "CLMM"
         ],
@@ -520,8 +520,8 @@
     "/v0/amm/{poolId}/add-liquidity": {
       "get": {
         "operationId": "v0.amm.addLiquidityGetBlink",
-        "summary": "Blink add liquidity AMM Pool",
-        "description": "Get a blink for adding liquidity to a Standard AMM pool",
+        "summary": "AMM Add Liquidity",
+        "description": "Get metadata for adding liquidity into Raydium's AMM.",
         "tags": [
           "AMM"
         ],
@@ -641,8 +641,8 @@
       },
       "post": {
         "operationId": "v0.amm.addLiquidity",
-        "summary": "Add liquidity AMM Pool",
-        "description": "Add liquidity to a Standard AMM pool",
+        "summary": "AMM Add Liquidity",
+        "description": "Generate a transaction for adding liquidity into Raydium's AMM.",
         "tags": [
           "AMM"
         ],
@@ -764,8 +764,8 @@
     "/v0/amm/{poolId}/remove-liquidity": {
       "get": {
         "operationId": "v0.amm.removeLiquidityGetBlink",
-        "summary": "Blink remove liquidity AMM Pool",
-        "description": "Get a blink for removing liquidity from a Standard AMM pool",
+        "summary": "AMM Remove Liquidity",
+        "description": "Get metadata for removing liquidity from Raydium's AMM.",
         "tags": [
           "AMM"
         ],
@@ -885,8 +885,8 @@
       },
       "post": {
         "operationId": "v0.amm.removeLiquidity",
-        "summary": "Remove liquidity AMM Pool",
-        "description": "Remove liquidity from a Standard AMM pool",
+        "summary": "AMM Remove Liquidity",
+        "description": "Generate a transaction for removing liquidity from Raydium's AMM.",
         "tags": [
           "AMM"
         ],
@@ -998,8 +998,8 @@
     "/v0/farm/RAY/stake": {
       "get": {
         "operationId": "v0.farm.stakeRAYGetBlink",
-        "summary": "Stake RAY",
-        "description": "Stake RAY in Raydium Farm product",
+        "summary": "RAY Stake",
+        "description": "Get metadata for staking RAY.",
         "tags": [
           "Farm"
         ],
@@ -1101,8 +1101,8 @@
       },
       "post": {
         "operationId": "v0.farm.stakeRAY",
-        "summary": "Stake RAY",
-        "description": "Stake RAY in Raydium Farm product. Either percentage or amount is required.",
+        "summary": "RAY Stake",
+        "description": "Generate a transaction for staking RAY.",
         "tags": [
           "Farm"
         ],
@@ -1208,8 +1208,8 @@
     "/v0/farm/RAY/unstake": {
       "get": {
         "operationId": "v0.farm.unstakeRAYGetBlink",
-        "summary": "Unstake RAY",
-        "description": "Unstake RAY in Raydium Farm product",
+        "summary": "RAY Unstake",
+        "description": "Get metadata for unstaking RAY.",
         "tags": [
           "Farm"
         ],
@@ -1311,8 +1311,8 @@
       },
       "post": {
         "operationId": "v0.farm.unstakeRAY",
-        "summary": "Unstake RAY",
-        "description": "Unstake RAY in Raydium Farm product. Either percentage or amount is required.",
+        "summary": "RAY Unstake",
+        "description": "Generate a transaction for unstaking RAY.",
         "tags": [
           "Farm"
         ],

@@ -16,8 +16,8 @@
     "/v0/vaults/strategy-vaults/{vaultId}/deposit": {
       "get": {
         "operationId": "v0.vaults.getDepositStrategyVaultBlink",
-        "summary": "Blink deposit strategy vault",
-        "description": "Get a blink for depositing to a strategy vault",
+        "summary": "Strategy Vault Deposit",
+        "description": "Get metadata for depositing a token into Drift's strategy vault.",
         "tags": [
           "Vaults"
         ],
@@ -29,10 +29,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "examples": [
-                "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
-              ]
-            }
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            },
+            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
           }
         ],
         "responses": {
@@ -123,8 +124,8 @@
       },
       "post": {
         "operationId": "v0.vaults.depositStrategyVault",
-        "summary": "Deposit strategy vault",
-        "description": "Deposit to a strategy vault",
+        "summary": "Strategy Vault Deposit",
+        "description": "Generate a transaction for depositing a token into Drift's strategy vault.",
         "tags": [
           "Vaults"
         ],
@@ -136,10 +137,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "examples": [
-                "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
-              ]
-            }
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            },
+            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
           },
           {
             "name": "percentage",
@@ -161,7 +163,9 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL",
+              "default": 0.1,
+              "example": 0.1
             }
           }
         ],
@@ -173,17 +177,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "DUCKmhqoQi26MJ4yWbogEHqN1gs8sZajmBsg9TGnNXq"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -223,8 +228,8 @@
     "/v0/vaults/strategy-vaults/{vaultId}/request-withdraw": {
       "get": {
         "operationId": "v0.vaults.getRequestWithdrawStrategyVaultBlink",
-        "summary": "Blink request withdraw strategy vault",
-        "description": "Get a blink for requesting withdrawal from a strategy vault",
+        "summary": "Strategy Vault Request Withdraw",
+        "description": "Get metadata for requesting a token withdraw from Drift's strategy vault.",
         "tags": [
           "Vaults"
         ],
@@ -236,10 +241,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "examples": [
-                "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
-              ]
-            }
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            },
+            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
           }
         ],
         "responses": {
@@ -330,8 +336,8 @@
       },
       "post": {
         "operationId": "v0.vaults.requestWithdrawStrategyVault",
-        "summary": "Request withdraw strategy vault",
-        "description": "Request withdrawal from a strategy vault",
+        "summary": "Strategy Vault Request Withdraw",
+        "description": "Generate a transaction for requesting a token withdraw from Drift's strategy vault.",
         "tags": [
           "Vaults"
         ],
@@ -343,10 +349,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "examples": [
-                "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
-              ]
-            }
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            },
+            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
           },
           {
             "name": "percentage",
@@ -368,7 +375,9 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL",
+              "default": 0.1,
+              "example": 0.1
             }
           }
         ],
@@ -380,17 +389,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "DUCKmhqoQi26MJ4yWbogEHqN1gs8sZajmBsg9TGnNXq"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -430,8 +440,8 @@
     "/v0/vaults/strategy-vaults/{vaultId}/withdraw": {
       "get": {
         "operationId": "v0.vaults.getWithdrawStrategyVaultBlink",
-        "summary": "Blink withdraw strategy vault",
-        "description": "Get a blink for withdrawing from a strategy vault",
+        "summary": "Strategy Vault Withdraw",
+        "description": "Get metadata for withdrawing a token from Drift's strategy vault.",
         "tags": [
           "Vaults"
         ],
@@ -443,10 +453,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "examples": [
-                "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
-              ]
-            }
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            },
+            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
           }
         ],
         "responses": {
@@ -537,8 +548,8 @@
       },
       "post": {
         "operationId": "v0.vaults.withdrawStrategyVault",
-        "summary": "Withdraw strategy vault",
-        "description": "Withdraw from a strategy vault",
+        "summary": "Strategy Vault Withdraw",
+        "description": "Generate a transaction for withdrawing a token from Drift's strategy vault.",
         "tags": [
           "Vaults"
         ],
@@ -550,10 +561,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "examples": [
-                "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
-              ]
-            }
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            },
+            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
+            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
           }
         ],
         "requestBody": {
@@ -564,17 +576,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction",
+                    "example": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "DUCKmhqoQi26MJ4yWbogEHqN1gs8sZajmBsg9TGnNXq"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [

@@ -16,10 +16,10 @@
         "/v0/transfer/{token}": {
             "get": {
                 "operationId": "v0.transfer.getTransferTokenBlink",
-                "summary": "Blink transfer token",
-                "description": "Get a transfer token blink",
+                "summary": "Transfer Token",
+                "description": "Get metadata for transferring a token on Solana.",
                 "tags": [
-                    "Token Transfer"
+                    "Transfer"
                 ],
                 "parameters": [
                     {
@@ -29,11 +29,11 @@
                         "schema": {
                             "type": "string",
                             "description": "Token to transfer. Can be human readable symbol or mint address",
-                            "examples": [
-                                "USDC",
-                                "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
-                            ]
-                        }
+                            "default": "USDC",
+                            "x-example": "USDC"
+                        },
+                        "example": "USDC",
+                        "x-default": "USDC"
                     }
                 ],
                 "responses": {
@@ -124,10 +124,10 @@
             },
             "post": {
                 "operationId": "v0.transfer.transferTokens",
-                "summary": "Transfer tokens",
-                "description": "Transfer any solana tokens to any address",
+                "summary": "Transfer Token",
+                "description": "Generate a transaction for transferring a token on Solana.",
                 "tags": [
-                    "Token Transfer"
+                    "Transfer"
                 ],
                 "parameters": [
                     {
@@ -137,12 +137,11 @@
                         "schema": {
                             "type": "string",
                             "description": "Token to transfer. Can be human readable symbol or mint address",
-                            "examples": [
-                                "SOL",
-                                "USDC",
-                                "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
-                            ]
-                        }
+                            "default": "USDC",
+                            "x-example": "USDC"
+                        },
+                        "example": "USDC",
+                        "x-default": "USDC"
                     },
                     {
                         "name": "to",
@@ -153,9 +152,8 @@
                         "schema": {
                             "type": "string",
                             "description": "The address to transfer the tokens to",
-                            "examples": [
-                                "11111111111111111111111111111111"
-                            ]
+                            "default": "6tBUD4bQzNehG3hQVtVFaGxre2P8rQoH99pubRtgSbSb",
+                            "example": "6tBUD4bQzNehG3hQVtVFaGxre2P8rQoH99pubRtgSbSb"
                         }
                     },
                     {
@@ -167,7 +165,9 @@
                         "schema": {
                             "type": "number",
                             "minimum": 0,
-                            "description": "The amount to transfer. Human readable value, e.g. 100 USDC"
+                            "description": "The amount to transfer. Human readable value, e.g. 100 USDC",
+                            "default": 100,
+                            "example": 100
                         }
                     }
                 ],
@@ -179,17 +179,18 @@
                                 "type": "object",
                                 "properties": {
                                     "type": {
-                                        "const": "transaction",
-                                        "examples": [
+                                        "type": "string",
+                                        "enum": [
                                             "transaction"
-                                        ]
+                                        ],
+                                        "default": "transaction",
+                                        "example": "transaction"
                                     },
                                     "account": {
                                         "type": "string",
                                         "description": "The public key of the account that executes the transaction",
-                                        "examples": [
-                                            "11111111111111111111111111111111"
-                                        ]
+                                        "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                                        "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                                     }
                                 },
                                 "required": [
@@ -228,4 +229,3 @@
         }
     }
 }
-

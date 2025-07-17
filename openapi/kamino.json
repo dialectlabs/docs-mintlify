@@ -16,8 +16,8 @@
     "/v0/lending/reserve/{market}/{reserve}/deposit": {
       "get": {
         "operationId": "v0.lending.getLendingReserveDepositBlink",
-        "summary": "Get lending reserve deposit blink",
-        "description": "Get a blink for deposit operations on a reserve",
+        "summary": "Lending Reserve Deposit",
+        "description": "Get metadata for depositing a token into Kamino's lending reserve.",
         "tags": [
           "Lending"
         ],
@@ -150,8 +150,8 @@
       },
       "post": {
         "operationId": "v0.lending.lendingReserveDeposit",
-        "summary": "Lending reserve deposit operation",
-        "description": "Execute a deposit operation. Specify either 'amount' in SOL (e.g., 0.1) OR 'percentage' (1-100), but not both.",
+        "summary": "Lending Reserve Deposit",
+        "description": "Generate a transaction for depositing a token into Kamino's lending reserve.",
         "tags": [
           "Lending"
         ],
@@ -276,8 +276,8 @@
     "/v0/lending/reserve/{market}/{reserve}/withdraw": {
       "get": {
         "operationId": "v0.lending.getLendingReserveWithdrawBlink",
-        "summary": "Get lending reserve withdraw blink",
-        "description": "Get a blink for withdraw operations on a reserve",
+        "summary": "Lending Reserve Withdraw",
+        "description": "Get metadata for withdrawing a token from Kamino's lending reserve.",
         "tags": [
           "Lending"
         ],
@@ -289,10 +289,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
-              ]
-            }
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            },
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "reserve",
@@ -301,10 +302,9 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "examples": [
-                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
-              ]
-            }
+              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            },
+            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
           }
         ],
         "responses": {
@@ -410,8 +410,8 @@
       },
       "post": {
         "operationId": "v0.lending.lendingReserveWithdraw",
-        "summary": "Lending reserve withdraw operation",
-        "description": "Execute a withdraw operation",
+        "summary": "Lending Reserve Withdraw",
+        "description": "Generate a transaction for withdrawing a token from Kamino's lending reserve.",
         "tags": [
           "Lending"
         ],
@@ -423,10 +423,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
-              ]
-            }
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            },
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "reserve",
@@ -435,10 +436,9 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "examples": [
-                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
-              ]
-            }
+              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            },
+            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
           },
           {
             "name": "percentage",
@@ -450,9 +450,8 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of funds to use",
-              "examples": [
-                50
-              ]
+              "default": 10,
+              "example": 10
             }
           },
           {
@@ -544,8 +543,8 @@
     "/v0/lending/reserve/{market}/{reserve}/metadata": {
       "get": {
         "operationId": "v0.lending.getLendingReserveMetadata",
-        "summary": "Get lending reserve metadata",
-        "description": "Get metadata for a lending reserve",
+        "summary": "Lending Reserve Metadata",
+        "description": "Get metadata associated to a Kamino lending reserve.",
         "tags": [
           "Lending"
         ],
@@ -557,10 +556,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
-              ]
-            }
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            },
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "reserve",
@@ -569,10 +569,9 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "examples": [
-                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
-              ]
-            }
+              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            },
+            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
           },
           {
             "name": "query",
@@ -586,9 +585,8 @@
                 "account": {
                   "type": "string",
                   "description": "Account public key",
-                  "examples": [
-                    "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                  ]
+                  "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                  "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                 }
               }
             }
@@ -657,147 +655,11 @@
         }
       }
     },
-    "/v0/lending/reserve/{market}/{reserve}/final": {
-      "post": {
-        "operationId": "v0.lending.lendingReserveFinal",
-        "summary": "Lending reserve final step",
-        "description": "Handle final step of lending operation",
-        "tags": [
-          "Lending"
-        ],
-        "parameters": [
-          {
-            "name": "market",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Market public key",
-              "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
-              ]
-            }
-          },
-          {
-            "name": "reserve",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Reserve public key",
-              "examples": [
-                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "title": {
-                      "type": "string",
-                      "examples": [
-                        "Deposit to Kamino"
-                      ]
-                    },
-                    "description": {
-                      "type": "string",
-                      "examples": [
-                        "Deposit SOL to earn yield on Kamino"
-                      ]
-                    },
-                    "label": {
-                      "type": "string",
-                      "examples": [
-                        "Deposit"
-                      ]
-                    },
-                    "icon": {
-                      "type": "string",
-                      "examples": [
-                        "https://kamino.dial.to/icon.png"
-                      ]
-                    },
-                    "links": {
-                      "type": "object",
-                      "properties": {
-                        "actions": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "enum": [
-                                  "transaction",
-                                  "external-link"
-                                ]
-                              },
-                              "href": {
-                                "type": "string"
-                              },
-                              "label": {
-                                "type": "string"
-                              },
-                              "parameters": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "name": {
-                                      "type": "string"
-                                    },
-                                    "type": {
-                                      "type": "string"
-                                    },
-                                    "label": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "name",
-                                    "type",
-                                    "label"
-                                  ]
-                                }
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "href",
-                              "label"
-                            ]
-                          }
-                        }
-                      },
-                      "required": [
-                        "actions"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "title",
-                    "description",
-                    "label",
-                    "icon",
-                    "links"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v0/lending/reserve/{market}/{reserve}/redirect": {
       "post": {
         "operationId": "v0.lending.lendingReserveRedirect",
-        "summary": "Lending reserve redirect",
-        "description": "Redirect to Kamino website",
+        "summary": "Lending Reserve Redirect",
+        "description": "Get a URL to a specific lending reserve on Kamino's website",
         "tags": [
           "Lending"
         ],
@@ -809,10 +671,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
-              ]
-            }
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            },
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "reserve",
@@ -821,10 +684,9 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "examples": [
-                "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
-              ]
-            }
+              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            },
+            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
           }
         ],
         "responses": {
@@ -858,8 +720,8 @@
     "/v0/liquidity/{strategyAddress}/deposit": {
       "get": {
         "operationId": "v0.liquidity.getLiquidityStrategyDepositBlink",
-        "summary": "Get liquidity vault deposit blink",
-        "description": "Get a blink for deposit operations on a vault",
+        "summary": "Liquidity Vault Deposit",
+        "description": "Get metadata for depositing into Kamino's liquidity vault.",
         "tags": [
           "Liquidity"
         ],
@@ -871,10 +733,11 @@
             "schema": {
               "type": "string",
               "description": "Strategy public key",
-              "examples": [
-                "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
-              ]
-            }
+              "default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
+              "x-example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
+            },
+            "example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
+            "x-default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
           },
           {
             "name": "side",
@@ -997,8 +860,8 @@
       },
       "post": {
         "operationId": "v0.liquidity.liquidityStrategyDeposit",
-        "summary": "Liquidity vault deposit operation",
-        "description": "Execute a deposit operation",
+        "summary": "Liquidity Vault Deposit",
+        "description": "Generate a transaction for depositing into Kamino's liquidity vault.",
         "tags": [
           "Liquidity"
         ],
@@ -1010,10 +873,11 @@
             "schema": {
               "type": "string",
               "description": "Strategy public key",
-              "examples": [
-                "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
-              ]
-            }
+              "default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
+              "x-example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
+            },
+            "example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
+            "x-default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
           },
           {
             "name": "amount",
@@ -1025,9 +889,8 @@
               "type": "number",
               "minimum": 0,
               "description": "The amount to use. Human readable value, e.g. 0.1 SOL",
-              "examples": [
-                2.0
-              ]
+              "default": 2.0,
+              "example": 2.0
             }
           },
           {
@@ -1123,8 +986,8 @@
     "/v0/liquidity/{strategyAddress}/withdraw": {
       "get": {
         "operationId": "v0.liquidity.getLiquidityStrategyWithdrawBlink",
-        "summary": "Get liquidity strategy withdraw blink",
-        "description": "Get a blink for withdraw operations on a strategy",
+        "summary": "Liquidity Vault Withdraw",
+        "description": "Get metadata for withdrawing from Kamino's liquidity vault.",
         "tags": [
           "Liquidity"
         ],
@@ -1136,10 +999,11 @@
             "schema": {
               "type": "string",
               "description": "Strategy public key",
-              "examples": [
-                "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
-              ]
-            }
+              "default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
+              "x-example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
+            },
+            "example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
+            "x-default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
           }
         ],
         "responses": {
@@ -1245,8 +1109,8 @@
       },
       "post": {
         "operationId": "v0.liquidity.liquidityStrategyWithdraw",
-        "summary": "Liquidity vault withdraw operation",
-        "description": "Execute a withdraw operation",
+        "summary": "Liquidity Vault Withdraw",
+        "description": "Generate a transaction for withdrawing from Kamino's liquidity vault.",
         "tags": [
           "Liquidity"
         ],
@@ -1258,10 +1122,11 @@
             "schema": {
               "type": "string",
               "description": "Strategy public key",
-              "examples": [
-                "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
-              ]
-            }
+              "default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
+              "x-example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
+            },
+            "example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
+            "x-default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
           },
           {
             "name": "percentage",
@@ -1274,9 +1139,8 @@
               "minimum": 1,
               "maximum": 100,
               "description": "The percentage of shares to withdraw",
-              "examples": [
-                75
-              ]
+              "default": 75,
+              "example": 75
             }
           }
         ],
