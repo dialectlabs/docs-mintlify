@@ -274,7 +274,7 @@
         }
       }
     },
-    "/v0/pools/{tokenA}/{tokenB}/add-liquidity": {
+    "/v0/pools/positions/{positionAddress}/add-liquidity": {
       "get": {
         "operationId": "v0.pools.getAddLiquidityBlink",
         "summary": "Pools Add Liquidity",
@@ -284,43 +284,17 @@
         ],
         "parameters": [
           {
-            "name": "tokenA",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token A address",
-              "default": "So11111111111111111111111111111111111111112",
-              "x-example": "So11111111111111111111111111111111111111112"
-            },
-            "example": "So11111111111111111111111111111111111111112",
-            "x-default": "So11111111111111111111111111111111111111112"
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token B address",
-              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-            },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-          },
-          {
             "name": "positionAddress",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "description": "The position address",
               "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
               "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "allowEmptyValue": true,
-            "allowReserved": true
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           }
         ],
         "responses": {
@@ -418,30 +392,17 @@
         ],
         "parameters": [
           {
-            "name": "tokenA",
+            "name": "positionAddress",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The token A address",
-              "default": "So11111111111111111111111111111111111111112",
-              "x-example": "So11111111111111111111111111111111111111112"
+              "description": "The position address",
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "example": "So11111111111111111111111111111111111111112",
-            "x-default": "So11111111111111111111111111111111111111112"
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "The token B address",
-              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-            },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           },
           {
             "name": "amount",
@@ -465,18 +426,6 @@
               "maximum": 100,
               "exclusiveMinimum": 0,
               "description": "The percentage of token amount to add"
-            },
-            "allowEmptyValue": true,
-            "allowReserved": true
-          },
-          {
-            "name": "positionAddress",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
-              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -538,7 +487,7 @@
         }
       }
     },
-    "/v0/pools/{tokenA}/{tokenB}/remove-liquidity": {
+    "/v0/pools/positions/{positionAddress}/remove-liquidity": {
       "get": {
         "operationId": "v0.pools.getRemoveLiquidityBlink",
         "summary": "Pools Remove Liquidity",
@@ -548,43 +497,17 @@
         ],
         "parameters": [
           {
-            "name": "tokenA",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token A address",
-              "default": "So11111111111111111111111111111111111111112",
-              "x-example": "So11111111111111111111111111111111111111112"
-            },
-            "example": "So11111111111111111111111111111111111111112",
-            "x-default": "So11111111111111111111111111111111111111112"
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token B address",
-              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-            },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-          },
-          {
             "name": "positionAddress",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "description": "The position address",
               "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
               "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "allowEmptyValue": true,
-            "allowReserved": true
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           }
         ],
         "responses": {
@@ -682,30 +605,17 @@
         ],
         "parameters": [
           {
-            "name": "tokenA",
+            "name": "positionAddress",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The token A address",
-              "default": "So11111111111111111111111111111111111111112",
-              "x-example": "So11111111111111111111111111111111111111112"
+              "description": "The position address",
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "example": "So11111111111111111111111111111111111111112",
-            "x-default": "So11111111111111111111111111111111111111112"
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "The token B address",
-              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-            },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           },
           {
             "name": "amount",
@@ -729,18 +639,6 @@
               "maximum": 100,
               "exclusiveMinimum": 0,
               "description": "The percentage of position liquidity to remove"
-            },
-            "allowEmptyValue": true,
-            "allowReserved": true
-          },
-          {
-            "name": "positionAddress",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
-              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -802,7 +700,7 @@
         }
       }
     },
-    "/v0/pools/{tokenA}/{tokenB}/close-position": {
+    "/v0/pools/positions/{positionAddress}/close-position": {
       "get": {
         "operationId": "v0.pools.getClosePositionBlink",
         "summary": "Pools Close Position",
@@ -812,43 +710,17 @@
         ],
         "parameters": [
           {
-            "name": "tokenA",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token A address",
-              "default": "So11111111111111111111111111111111111111112",
-              "x-example": "So11111111111111111111111111111111111111112"
-            },
-            "example": "So11111111111111111111111111111111111111112",
-            "x-default": "So11111111111111111111111111111111111111112"
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Token B address",
-              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-            },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-          },
-          {
             "name": "positionAddress",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "description": "The position address",
               "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
               "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "allowEmptyValue": true,
-            "allowReserved": true
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           }
         ],
         "responses": {
@@ -946,42 +818,17 @@
         ],
         "parameters": [
           {
-            "name": "tokenA",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "The token A address",
-              "default": "So11111111111111111111111111111111111111112",
-              "x-example": "So11111111111111111111111111111111111111112"
-            },
-            "example": "So11111111111111111111111111111111111111112",
-            "x-default": "So11111111111111111111111111111111111111112"
-          },
-          {
-            "name": "tokenB",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "The token B address",
-              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-            },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-          },
-          {
             "name": "positionAddress",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
-              "description": "The position address. If not provided, the first found position in the pool will be used.",
+              "description": "The position address",
               "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
               "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
             },
-            "allowEmptyValue": true,
-            "allowReserved": true
+            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
+            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
           }
         ],
         "requestBody": {
