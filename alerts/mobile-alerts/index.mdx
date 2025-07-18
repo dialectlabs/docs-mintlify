@@ -72,35 +72,43 @@ Choose your implementation approach:
   </Accordion>
 </AccordionGroup>
 
+## Why Mobile Push Notifications?
 
-## Documentation Navigation
+Web3 is increasingly mobile-first, and users expect instant notifications for critical events like liquidation warnings, price alerts, governance proposals, and trading opportunities.
 
-Explore detailed implementation guides:
+Push notifications offer unique advantages:
 
-- **[Push Notifications API](/alerts/send/api/push-notifications)** - Complete API reference for sending push notifications
-- **[User Management](/alerts/integrate-inbox/user-management)** - Managing user subscriptions and preferences
-- **[Universal Inbox Integration](/alerts/integrate-inbox/universal-inbox)** - Cross-app notification system
-- **[Mobile Integration Guide](/alerts/integrate-inbox/api/push-notifications)** - Step-by-step mobile implementation
+- **Instant Delivery**: Push notifications arrive immediately, even when apps aren't open
+- **Native Experience**: Seamless integration with device notification systems  
+- **Higher Engagement**: Push notifications typically see 3-10x higher open rates than email
+- **Privacy-First**: No need to share email addresses or join Telegram channels
+- **Rich Content**: Support for images, actions, and custom data
+
+## Cross-Platform Consistency
+The same notification system powers all channels, ensuring consistent messaging and user experience whether users receive alerts via push, email, or in-app notifications.
+
+Users can choose their preferred channels for different alert types:
+
+| Alert Type | 📱 Push | 📧 Email | 💬 Telegram | 📋 In-App |
+|------------|----------|----------|-------------|-----------|
+| **Critical alerts** (liquidations, security) | ✅ | ✅ | ✅ | ✅ |
+| **Trading signals** (price alerts) | ✅ | ❌ | ❌ | ✅ |
+| **Daily summaries** (portfolio updates) | ❌ | ✅ | ✅ | ❌ |
+| **Governance proposals** (voting deadlines) | ❌ | ✅ | ✅ | ✅ |
+| **Transaction confirmations** (swaps, sends) | ✅ | ❌ | ❌ | ✅ |
+
+This approach ensures your users never miss important information, regardless of their preferred communication method or device.
 
 
 
-## Crossroads Announcement
+## Real-World Example: Jupiter Mobile Radar
 
-<iframe
-  width="100%"
-  height="500"
-  src="https://www.youtube.com/embed/ccL4xdwEtss?start=5257"
-  title="Mobile Alert Stack Introduction at Crossroads"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-></iframe>
+[Jupiter Exchange announced](https://x.com/JupiterExchange/status/1935683989894758759) native push notification support powered by Dialect, bringing real-time alerts directly to users' phones.
 
-## Real-World Example: Jupiter Mobile
+<img src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1752854875/dialect-docs/jup-mobile.jpg" alt="Jupiter Mobile app showcasing real-time push notifications and alerts" />
 
-<Note>
-📱 **Jupiter Mobile Integration:** [Jupiter Exchange announced](https://x.com/JupiterExchange/status/1935683989894758759) native push notification support powered by Dialect, bringing real-time alerts directly to users' phones.
-</Note>
+
+
 
 <CardGroup cols={2}>
   <Card title="Transaction Alerts" icon="credit-card">
@@ -116,31 +124,3 @@ Explore detailed implementation guides:
     Direct delivery to users' phones
   </Card>
 </CardGroup>
-
-
-## Why Mobile Push Notifications?
-
-Web3 is increasingly mobile-first, and users expect instant notifications for critical events like liquidation warnings, price alerts, governance proposals, and trading opportunities.
-
-Push notifications offer unique advantages:
-
-- **Instant Delivery**: Push notifications arrive immediately, even when apps aren't open
-- **Native Experience**: Seamless integration with device notification systems  
-- **Higher Engagement**: Push notifications typically see 3-10x higher open rates than email
-- **Privacy-First**: No need to share email addresses or join Telegram channels
-- **Rich Content**: Support for images, actions, and custom data
-
-### Cross-Platform Consistency
-The same notification system powers all channels, ensuring consistent messaging and user experience whether users receive alerts via push, email, or in-app notifications.
-
-Users can choose their preferred channels for different alert types:
-
-| Alert Type | 📱 Push | 📧 Email | 💬 Telegram | 📋 In-App |
-|------------|----------|----------|-------------|-----------|
-| **Critical alerts** (liquidations, security) | ✅ | ✅ | ✅ | ✅ |
-| **Trading signals** (price alerts) | ✅ | ❌ | ❌ | ✅ |
-| **Daily summaries** (portfolio updates) | ❌ | ✅ | ✅ | ❌ |
-| **Governance proposals** (voting deadlines) | ❌ | ✅ | ✅ | ✅ |
-| **Transaction confirmations** (swaps, sends) | ✅ | ❌ | ❌ | ✅ |
-
-This approach ensures your users never miss important information, regardless of their preferred communication method or device.
