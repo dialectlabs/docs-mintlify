@@ -29,11 +29,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
             },
-            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
           }
         ],
         "responses": {
@@ -137,11 +137,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
             },
-            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
           },
           {
             "name": "percentage",
@@ -241,11 +241,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
             },
-            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
           }
         ],
         "responses": {
@@ -349,11 +349,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
             },
-            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
           },
           {
             "name": "percentage",
@@ -453,11 +453,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
             },
-            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
           }
         ],
         "responses": {
@@ -561,11 +561,11 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-              "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
             },
-            "example": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ",
-            "x-default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
+            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
           }
         ],
         "requestBody": {
