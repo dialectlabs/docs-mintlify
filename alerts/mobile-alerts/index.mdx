@@ -1,60 +1,146 @@
 ---
-title: "Introduction"
-description: "The Mobile Alert Stack extends Dialect's messaging infrastructure to native mobile push notifications, enabling Web3 apps and protocols to deliver timely, engaging alerts directly to users' phones."
+title: "Mobile Alert Stack"
+sidebarTitle: "Introduction"
+description: "The complete mobile alerts stack for Web3 applications. Deliver alerts across any platform, in any programming language."
 ---
+
+<img src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1752851732/dialect-docs/mobile-alerts-stack-intro.png" alt="Mobile Alert Stack - Cross-platform notifications for Web3 applications" />
 
 ## What is the Mobile Alert Stack?
 
-The Mobile Alert Stack is the natural evolution of Dialect's Alert Stack, designed for Web3 applications shipping mobile experiences. As protocols launch native mobile apps, real-time push notifications have become critical for user engagement.
+The Mobile Alert Stack is a comprehensive suite of open APIs bundled with Firebase push notifications that extends Dialect's current alerts stack with cross-platform, cross-language capabilities. It's designed as parts of our product offering that get you ready for mobile—enabling Web3 applications to deliver notifications across mobile, web, email, and messaging platforms from a single integration.
 
-```mermaid
-graph TB
-    subgraph "Alert Stack"
-        InApp[🔔 In-App]
-        Email[📧 Email]
-        Telegram[💬 Telegram]
-        Push[📱 Push Notifications]
-    end
-    
-    Push --> Mobile[📱 Mobile Apps]
-    User[👤 User] --> InApp
-    User --> Email
-    User --> Telegram
-    User --> Push
-```
+Built from the ground up to support the same features as our existing Alert Stack, the Mobile Alert Stack now operates as a set of APIs that can be used cross-platform across React, Swift, Kotlin, React Native, and more to deliver the same experience directly inside your mobile app.
+
+
+## Key Features
+
+### Cross-Platform API Integration
+Build with every programming language you want. Our open APIs enable notifications across any platform—Swift for iOS, Kotlin for Android, React Native for cross-platform mobile, or traditional web frameworks.
+
+**What you get:**
+
+<CardGroup cols={2}>
+  <Card title="Language Flexibility" icon="code">
+    APIs that work with all programming languages
+  </Card>
+  <Card title="Platform Consistency" icon="mobile">
+    Unified notification system across all platforms
+  </Card>
+  <Card title="Development Speed" icon="bolt">
+    Get from nothing to your first alert integrated in 15 minutes
+  </Card>
+  <Card title="Complete Package" icon="box">
+    All the tools you need to add mobile notifications to your application
+  </Card>
+</CardGroup>
+
+### Firebase Push Notifications (Bundled)
+Native mobile push notifications delivered through Firebase, bundled directly with the Mobile Alert Stack. We handle all the routing under the hood, including what users have subscribed for and what they haven't.
+
+**Features:**
+- **Native Integration**: Seamless integration with device notification systems
+- **Automatic Routing**: Smart delivery based on user preferences and subscriptions
+- **Rich Content**: Support for images, actions, and custom data
+- **Cross-App Notifications**: Users can receive alerts from multiple apps they've subscribed to
+
+### Multi-Channel Messaging
+In-App, Email and Telegram are available as separate offerings, providing users choice in how they receive different types of alerts.
+
+## Integration Paths
+
+Choose your implementation approach:
+
+<Tip>
+**Recommended approach:** Start with receiving integration first, then add sending capabilities to enable the full cross-app notification experience.
+</Tip>
+
+
+<AccordionGroup>
+  <Accordion title="For Receiving Notifications" icon="inbox" defaultOpen>
+    Start with the [User Management](/alerts/integrate-inbox/user-management) guide and follow the [integration guide](/alerts/integrate-inbox/api/push-notifications) to:
+    - Implement the [Universal Inbox](/alerts/integrate-inbox/universal-inbox) for cross-app notifications
+    - Enable users to receive push notifications from multiple subscribed apps
+    - Set up in-app notification feeds
+  </Accordion>
+  
+  <Accordion title="For Sending Notifications" icon="paper-plane">
+    Review the [sending guide](/alerts/send/api/push-notifications) to:
+    - Set up Firebase for push notifications
+    - Integrate Dialect's API for multi-channel delivery
+    - Configure notification routing and user preferences
+  </Accordion>
+</AccordionGroup>
+
+
+## Documentation Navigation
+
+Explore detailed implementation guides:
+
+- **[Push Notifications API](/alerts/send/api/push-notifications)** - Complete API reference for sending push notifications
+- **[User Management](/alerts/integrate-inbox/user-management)** - Managing user subscriptions and preferences
+- **[Universal Inbox Integration](/alerts/integrate-inbox/universal-inbox)** - Cross-app notification system
+- **[Mobile Integration Guide](/alerts/integrate-inbox/api/push-notifications)** - Step-by-step mobile implementation
+
+
+
+## Crossroads Announcement
+
+<iframe
+  width="100%"
+  height="500"
+  src="https://www.youtube.com/embed/ccL4xdwEtss?start=5257"
+  title="Mobile Alert Stack Introduction at Crossroads"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+## Real-World Example: Jupiter Mobile
+
+<Note>
+📱 **Jupiter Mobile Integration:** [Jupiter Exchange announced](https://x.com/JupiterExchange/status/1935683989894758759) native push notification support powered by Dialect, bringing real-time alerts directly to users' phones.
+</Note>
+
+<CardGroup cols={2}>
+  <Card title="Transaction Alerts" icon="credit-card">
+    Push notifications for swaps, sends, and receives
+  </Card>
+  <Card title="Community Updates" icon="megaphone">
+    High-fidelity channel for product and company announcements
+  </Card>
+  <Card title="In-App Feed" icon="list">
+    Same amazing alert experience directly in the mobile app
+  </Card>
+  <Card title="Lock Screen Notifications" icon="mobile">
+    Direct delivery to users' phones
+  </Card>
+</CardGroup>
+
 
 ## Why Mobile Push Notifications?
 
-Web3 is increasingly mobile-first. Users expect instant notifications for critical events like liquidation warnings, price alerts, governance proposals, and trading opportunities.
+Web3 is increasingly mobile-first, and users expect instant notifications for critical events like liquidation warnings, price alerts, governance proposals, and trading opportunities.
 
 Push notifications offer unique advantages:
-- **⚡ Instant Delivery**: Push notifications arrive immediately, even when apps aren't open
-- **🎯 Native Experience**: Seamless integration with device notification systems
-- **📊 Higher Engagement**: Push notifications typically see 3-10x higher open rates than email
-- **🔒 Privacy-First**: No need to share email addresses or join Telegram channels
-- **🎨 Rich Content**: Support for images, actions, and custom data
 
-## How It Extends the Alert Stack
-
-The Mobile Alert Stack enhances existing channels by providing unified, multi-channel messaging. Users can choose their preferred channels for different alert types:
-
-- **Critical alerts** (liquidations, security) → Push + Email
-- **Trading signals** (price alerts) → Push only
-- **Daily summaries** (portfolio updates) → Email only
+- **Instant Delivery**: Push notifications arrive immediately, even when apps aren't open
+- **Native Experience**: Seamless integration with device notification systems  
+- **Higher Engagement**: Push notifications typically see 3-10x higher open rates than email
+- **Privacy-First**: No need to share email addresses or join Telegram channels
+- **Rich Content**: Support for images, actions, and custom data
 
 ### Cross-Platform Consistency
 The same notification system powers all channels, ensuring consistent messaging and user experience whether users receive alerts via push, email, or in-app notifications.
 
-## Integration with Universal Inbox
+Users can choose their preferred channels for different alert types:
 
-The Mobile Alert Stack seamlessly integrates with the [Universal Inbox](/alerts/integrate-inbox/universal-inbox), enabling users to receive push notifications from multiple apps they've subscribed to—like Drift liquidation alerts while using Jupiter, or Bonk community updates while trading on Raydium.
+| Alert Type | 📱 Push | 📧 Email | 💬 Telegram | 📋 In-App |
+|------------|----------|----------|-------------|-----------|
+| **Critical alerts** (liquidations, security) | ✅ | ✅ | ✅ | ✅ |
+| **Trading signals** (price alerts) | ✅ | ❌ | ❌ | ✅ |
+| **Daily summaries** (portfolio updates) | ❌ | ✅ | ✅ | ❌ |
+| **Governance proposals** (voting deadlines) | ❌ | ✅ | ✅ | ✅ |
+| **Transaction confirmations** (swaps, sends) | ✅ | ❌ | ❌ | ✅ |
 
-## Getting Started
-
-Choose your implementation path:
-
-**🚀 Sending**: Review the [sending guide](/alerts/send/api/push-notifications), set up Firebase, integrate Dialect's API
-
-**📱 Receiving**: Start with [User Management](/alerts/integrate-inbox/user-management), follow the [integration guide](/alerts/integrate-inbox/api/push-notifications)
-
-**🌐 Both**: Begin with receiving integration, add sending capabilities, enable cross-app notifications
+This approach ensures your users never miss important information, regardless of their preferred communication method or device.
