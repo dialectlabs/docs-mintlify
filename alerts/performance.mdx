@@ -1,0 +1,51 @@
+---
+title: "Performance & Scale"
+description: "Learn about Dialect's alerts infrastructure performance capabilities and how we handle massive scale for time-sensitive notifications."
+---
+
+## Overview
+
+Dialect's Alerts Stack is engineered to handle enterprise-scale messaging with exceptional performance. Our infrastructure is designed to support applications with millions of daily active users while maintaining reliability and speed for time-sensitive notifications.
+
+## What Can the Alerts Stack Handle?
+
+Our alerts infrastructure demonstrates proven performance across three core capabilities:
+
+- **Server-Side Alert Sending**: High-throughput APIs for [sending alerts](/alerts/send) from your backend systems to users at massive scale
+- **Client-Side Inbox Feeds**: Real-time inbox management and message delivery through our [Universal Inbox](/alerts/integrate-inbox/universal-inbox) for millions of concurrent users  
+- **User Subscription Management**: Client-side subscription preferences and notification settings through our [user management system](/alerts/integrate-inbox/user-management) at scale
+- **1M+ Daily Active Users**: Handle north of 1 million DAU across all these capabilities
+
+## Performance Numbers
+
+<CardGroup cols={3}>
+  <Card title="1M+ Daily Active Users" icon="users">
+    Handle north of 1 million DAU across our APIs for both sending alerts server-side and managing inbox feeds & user subscription preferences from the client
+  </Card>
+
+  <Card title="Hundreds of Millions of API Requests" icon="server">
+    Successfully processed across our Alerts Stack in recent weeks, all without a single performance issue
+  </Card>
+
+  <Card title="Zero Downtime" icon="shield-check">
+    Maintained consistent uptime even during peak usage periods
+  </Card>
+</CardGroup>
+
+## Time-Sensitive Alerts
+
+Many time-sensitive alerts need to reach users quickly. We have a "burst mode" that can support orders of magnitude higher usage for up to dozens of minutes at a time:
+
+- **Orders of Magnitude Higher Usage**: Scale up dramatically for urgent notifications
+- **Extended Duration**: Maintain peak performance for up to dozens of minutes at a time
+- **Real-time Processing**: Ensure critical alerts reach users without delay
+
+## Priority Queue
+
+A priority queue handles different kinds of delivery pipelines. For example:
+
+- **High priority alerts** for things like limit orders or liquidation warnings that need fast delivery
+- **Lower priority** for broadcast alerts like company announcements, that can be delivered to users over longer timelines
+
+This tiered approach ensures that urgent, actionable alerts are delivered instantly while less time-sensitive communications are processed efficiently over longer timelines.
+
