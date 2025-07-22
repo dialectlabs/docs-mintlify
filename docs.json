@@ -48,7 +48,6 @@
             "pages": [
               "alerts/index",
               "alerts/quick-start",
-              "alerts/performance",
               "alerts/faq"
             ]
           },
