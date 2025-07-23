@@ -319,7 +319,7 @@
       "get": {
         "operationId": "positionsV0Api.positionsByOwners",
         "summary": "List all market positions by wallet address",
-        "description": "Supported providers & markets: Kamino Lending.",
+        "description": "Supported providers & markets: Kamino Lending, Lulo Lending.",
         "tags": [
           "Positions"
         ],
