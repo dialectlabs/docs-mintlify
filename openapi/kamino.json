@@ -250,7 +250,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction",
+                      "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
                       "examples": [
                         "transaction"
                       ]
@@ -517,7 +520,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction",
+                      "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
                       "examples": [
                         "transaction"
                       ]
@@ -960,7 +966,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction",
+                      "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
                       "examples": [
                         "transaction"
                       ]
@@ -1192,10 +1201,955 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction",
+                      "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
                       "examples": [
                         "transaction"
                       ]
+                    },
+                    "transaction": {
+                      "type": "string",
+                      "examples": [
+                        "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/multiply/{marketAddress}/setup": {
+      "get": {
+        "operationId": "v0.multiply.getMultiplySetupBlink",
+        "summary": "Multiply Setup",
+        "description": "Get metadata for setting up multiply position (LUT creation).",
+        "tags": [
+          "Multiply"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "examples": [
+                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+              ]
+            },
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "examples": [
+                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+              ]
+            },
+            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "examples": [
+                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+              ]
+            },
+            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "examples": [
+                        "Setup Multiply Position"
+                      ]
+                    },
+                    "description": {
+                      "type": "string",
+                      "examples": [
+                        "Setup your multiply position on Kamino"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "examples": [
+                        "Setup"
+                      ]
+                    },
+                    "icon": {
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.multiply.multiplySetup",
+        "summary": "Multiply Setup",
+        "description": "Generate transactions for setting up multiply position (LUT creation).",
+        "tags": [
+          "Multiply"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "examples": [
+                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+              ]
+            },
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "examples": [
+                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+              ]
+            },
+            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "examples": [
+                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+              ]
+            },
+            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
+                    "examples": [
+                      "transaction"
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ],
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+              ,
+              "examples": {
+                "setup": {
+                  "summary": "Setup multiply position",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
+              }            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string",
+                      "examples": [
+                        "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/multiply/{marketAddress}/deposit": {
+      "get": {
+        "operationId": "v0.multiply.getMultiplyDepositBlink",
+        "summary": "Multiply Deposit",
+        "description": "Get metadata for depositing with leverage/multiply.",
+        "tags": [
+          "Multiply"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "examples": [
+                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+              ]
+            },
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "examples": [
+                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+              ]
+            },
+            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "examples": [
+                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+              ]
+            },
+            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "examples": [
+                        "Multiply on Kamino"
+                      ]
+                    },
+                    "description": {
+                      "type": "string",
+                      "examples": [
+                        "Deposit with leverage to multiply your position"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "examples": [
+                        "Multiply"
+                      ]
+                    },
+                    "icon": {
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.multiply.multiplyDeposit",
+        "summary": "Multiply Deposit",
+        "description": "Generate a transaction for depositing with leverage/multiply.",
+        "tags": [
+          "Multiply"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "examples": [
+                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+              ]
+            },
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "examples": [
+                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+              ]
+            },
+            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "examples": [
+                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+              ]
+            },
+            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "leverage",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 2,
+              "maximum": 10,
+              "description": "Leverage multiplier (2-10x)",
+              "default": 3,
+              "examples": [
+                3
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to deposit. Human readable value, e.g. 0.1 SOL",
+              "default": 0.1,
+              "example": 0.1,              "examples": [
+                0.1
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+            "example": 0.1,          },
+          {
+            "name": "slippage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 10,
+              "default": 0.5,
+              "description": "Slippage tolerance in percentage (0.1-10%)",
+              "examples": [
+                0.5
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
+                    "examples": [
+                      "transaction"
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ],
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+              ,
+              "examples": {
+                "deposit": {
+                  "summary": "Multiply deposit transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
+              }            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string",
+                      "examples": [
+                        "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/multiply/{marketAddress}/withdraw": {
+      "get": {
+        "operationId": "v0.multiply.getMultiplyWithdrawBlink",
+        "summary": "Multiply Withdraw",
+        "description": "Get metadata for withdrawing from multiply position.",
+        "tags": [
+          "Multiply"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "examples": [
+                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+              ]
+            },
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "examples": [
+                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+              ]
+            },
+            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "examples": [
+                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+              ]
+            },
+            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "examples": [
+                        "Close Multiply Position"
+                      ]
+                    },
+                    "description": {
+                      "type": "string",
+                      "examples": [
+                        "Withdraw from your multiply position on Kamino"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "examples": [
+                        "Withdraw"
+                      ]
+                    },
+                    "icon": {
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.multiply.multiplyWithdraw",
+        "summary": "Multiply Withdraw",
+        "description": "Generate a transaction for withdrawing from multiply position.",
+        "tags": [
+          "Multiply"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "examples": [
+                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+              ]
+            },
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "examples": [
+                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+              ]
+            },
+            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "examples": [
+                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+              ]
+            },
+            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of position to withdraw",
+              "default": 100,
+              "examples": [
+                100
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "slippage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 10,
+              "default": 3,
+              "description": "Slippage tolerance in percentage (0.1-10%)",
+              "examples": [
+                3
+              ]
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
+                    "examples": [
+                      "transaction"
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ],
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              ,
+              "examples": {
+                "withdraw": {
+                  "summary": "Multiply withdraw transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
+              }              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
                     },
                     "transaction": {
                       "type": "string",
