@@ -1,0 +1,85 @@
+---
+title: "MCP Integration"
+description: "Connect AI agents to Dialect's blockchain infrastructure via Model Context Protocol."
+mode: "center"
+---
+
+Web3 development becomes conversational. Connect your AI agent to Dialect's full stack - APIs, documentation, blinks, market data, and alerts. Your agent gets complete access with built-in usage instructions and examples.
+
+Perfect for building custom blinks in Cursor or integrating Dialect APIs.
+
+## Quick Start
+
+Configure your AI agent and start building with Dialect's MCP server. Choose your client below:
+
+<Tabs>
+  <Tab title="Claude Code">
+    Add the MCP server to your Claude Code configuration:
+
+    ```bash
+    claude mcp add sse https://docs.dialect.to/mcp
+    ```
+  </Tab>
+  
+  <Tab title="Claude Desktop">
+    Go to Claude Desktop Settings:
+    
+    1. Connectors
+    2. Add Custom Connector
+    3. Paste the link into the URL field: https://docs.dialect.to/mcp
+
+    ![Claude Desktop Connectors](https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1753984515/dialect-docs/connectors-claude-desktop.png)
+  </Tab>
+
+  <Tab title="Cursor">
+    Add the MCP server to your Cursor settings:
+
+    1. Open **Cursor Settings** 
+    2. Go to **Tools & Integrations** → **New MCP Server**
+    3. Add the following server configuration:
+
+    ```json
+    {
+      "mcpServers": {
+        "dialect": {
+          "url": "https://docs.dialect.to/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="General / Other Clients">
+    For any MCP-compatible client, add this server URL:
+
+    ```
+    https://docs.dialect.to/mcp
+    ```
+
+    The server provides access to Dialect's full blockchain infrastructure including APIs, blinks, market data, and documentation.
+  </Tab>
+</Tabs>
+
+
+## Core Features
+
+<CardGroup cols={2}>
+  <Card title="Blinks" icon="hammer">
+    Build your own blockchain links with custom logic and branding
+  </Card>
+  <Card title="Standard Blinks Library" icon="cube">
+    Access 40+ pre-built protocol integrations ready to use
+  </Card>
+  <Card title="Markets API" icon="chart-bar">
+    Query real-time rates, TVL, and protocol metrics across DeFi
+  </Card>
+  <Card title="Alerts & Notifications" icon="bell">
+    Send multi-channel alerts and detect complex events
+  </Card>
+  <Card title="Documentation Search" icon="book-open">
+    Search through all guides and examples for context
+  </Card>
+  <Card title="API Integration" icon="code">
+    Access all Dialect endpoints with usage instructions
+  </Card>
+</CardGroup>
