@@ -32,6 +32,15 @@
     "name": "Discord",
     "url": "https://discord.gg/saydialect"
   },
+  "contextual": {
+    "options": [
+      "copy",
+      "chatgpt",
+      "claude",
+      "cursor",
+      "mcp"
+    ]
+  },
   "navigation": {
     "tabs": [
       {

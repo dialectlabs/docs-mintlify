@@ -10,7 +10,21 @@ Perfect for building custom blinks in Cursor or integrating Dialect APIs.
 
 ## Quick Start
 
-Configure your AI agent and start building with Dialect's MCP server. Choose your client below:
+### Remote MCP Server (Recommended)
+
+Our hosted MCP server is maintained for you and provides the best experience. Connect using one of these methods:
+
+#### Using the Contextual Menu
+
+For supported clients like Cursor, simply click the contextual menu button when viewing any page in the docs:
+
+![Contextual Menu](https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1754340439/dialect-docs/contextual-window-2.png)
+
+This instantly configures the MCP server without any manual setup.
+
+#### Manual Configuration
+
+Choose your client below and start integrating:
 
 <Tabs>
   <Tab title="Claude Code">
@@ -59,6 +73,16 @@ Configure your AI agent and start building with Dialect's MCP server. Choose you
     The server provides access to Dialect's full blockchain infrastructure including APIs, blinks, market data, and documentation.
   </Tab>
 </Tabs>
+
+### Local MCP Server
+
+Run a local MCP server on your machine using our one-command installer:
+
+```bash
+npx mint-mcp add dialect
+```
+
+This automatically detects your environment and configures the Dialect MCP server locally for Claude Desktop, Cursor, and other MCP clients.
 
 
 ## Core Features
