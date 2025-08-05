@@ -1,0 +1,61 @@
+---
+title: "Introduction to Events"
+sidebarTitle: "Introduction"
+description: "Send token-specific events to your users with minimal implementation effort."
+---
+
+<Note>
+**Beta Access Required**
+
+Events is currently in beta. To request early access, please contact our team by filling out our [onboarding form](https://form.typeform.com/to/WlSWtZDY).
+</Note>
+
+# Overview 
+
+
+Dialect's Events system enables real-time detection and delivery of token-specific events to help teams provide timely, relevant alerts to their users with minimal implementation effort. No complex monitoring infrastructure required.
+
+## What are Events?
+
+Events are smart notifications triggered when specific market conditions or token activities are met. The system continuously monitors on-chain market data, using sliding window analysis and threshold detection to identify events that matter. When an event is detected, your application receives detailed webhook notifications with context about what happened and why it's significant.
+
+## Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Mobile Wallets" icon="mobile">
+    Notify users about significant price movements in their portfolio
+  </Card>
+  <Card title="Trading Platforms" icon="chart-line">
+    Alert traders to breakthrough tokens and market opportunities
+  </Card>
+  <Card title="Portfolio Trackers" icon="wallet">
+    Provide timely updates on token performance
+  </Card>
+  <Card title="DeFi Applications" icon="coins">
+    Trigger actions based on market conditions
+  </Card>
+</CardGroup>
+
+## Supported Event Types
+
+### Price Change Events
+Detect significant price movements for tokens over configurable time windows:
+- Percentage-based thresholds (e.g., 10% change over 24 hours)
+- Sliding window analysis (1h, 3h, 6h, 12h, 24h, 7d)
+- Smart filtering to reduce noise and increase signal quality (soon)
+
+### Trending Token Events
+Monitor tokens for breakthrough moments:
+- Market cap and trading volume thresholds
+- Audit criteria filtering (mint authority, LP burned, top 10 holders)
+- Smart defaults to deliver only the most interesting opportunities
+
+## How Event Detection Differs from Regular Alerts
+
+Traditional alerts trigger on simple conditions like "SOL price > $150". Event detection is fundamentally different:
+
+- **Contextual Analysis**: Uses sliding windows to understand if a price movement is significant relative to recent history
+- **Quality Filtering**: Applies multiple layers of analysis to distinguish meaningful events from market noise  
+- **Threshold Calibration**: Automatically adjusts sensitivity based on token volatility and market conditions
+- **Spam Prevention**: Built-in debouncing and rate limiting to avoid overwhelming users
+
