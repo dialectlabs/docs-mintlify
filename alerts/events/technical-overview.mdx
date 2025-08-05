@@ -1,6 +1,6 @@
 ---
 title: "Technical Overview"
-description: "Technical details of the Events system"
+description: "Integrate price alerts, trending token notifications, and automated trading triggers using webhook events. Build powerful applications by subscribing to real-time market events. Configure price thresholds, trending token filters, and receive structured webhook payloads to trigger your application logic."
 ---
 
 # Technical Overview
@@ -19,7 +19,6 @@ Dialect's Events system is built on a scalable, real-time architecture designed 
 ### Webhook Delivery
 
 When an event is detected, Dialect sends an HTTP POST request to your configured webhook endpoint with a structured JSON payload.
-
 ## Webhook Payload Schema
 
 All events follow a consistent schema structure:
@@ -75,6 +74,7 @@ Events triggered by significant price movements over sliding time windows.
 **Supported Windows:**
 - 1h, 3h, 6h, 12h, 24h, 7d
 
+<<<<<<< HEAD
 ### Trending Token Events
 
 Events for launchpad tokens meeting specific criteria.
@@ -210,3 +210,6 @@ We track multiple metrics to ensure event quality:
 - Event outcome tracking and success rates
 - Partner-specific performance analytics
 - Market condition impact on event detection
+### Trending Token Events (soon)
+
+Events for tokens meeting specific criteria.
