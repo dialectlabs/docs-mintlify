@@ -1,260 +1,52 @@
 ---
 title: "Trending Tokens Events"
-description: "Trending tokens event detection"
+description: "Send trending token alerts to your users and help them discover high-potential launchpad tokens before they take off. Our detection system identifies a few exceptional tokens per day with genuine staying power to eliminate pump-and-dump noise. Perfect for platforms wanting to deliver meaningful opportunities without overwhelming users with alert spam."
 ---
 
-# Trending Tokens Events
+<Tip>
+Trending token events are currently in beta development with quality-first detection being fine-tuned. Contact us for [early access](https://form.typeform.com/to/WlSWtZDY) or to discuss specific requirements.
+</Tip>
 
-Trending Tokens Events detect launchpad tokens with staying power - not short-lived pumps, but tokens showing genuine traction and sustainable growth potential. Our system focuses on quality over quantity, targeting 2-3 high-conviction events per day rather than overwhelming users with every new launch.
+## Detection Approach
 
-## How It Works
+### Top-Down Tuning Strategy
 
-Dialect monitors tokens from major Solana launchpads (primarily pump.fun and Raydium) and applies rigorous filtering to identify tokens with staying power. Rather than alerting on every pump, our system specifically looks for tokens that demonstrate:
+We use a "top-down" approach - working backward from an ideal user experience rather than forward from available data:
 
-- **Sustainable Growth**: Market cap progression that suggests real adoption, not just speculation
-- **Safety Characteristics**: Proper tokenomics with revoked authorities and reasonable holder distribution  
-- **Community Signals**: Social presence indicating genuine project development
-- **Volume Patterns**: Trading activity that suggests organic interest, not artificial manipulation
-
-The goal is to surface 2-3 exceptional opportunities per day that represent tokens transitioning from "meme" to "legitimate project" rather than short-term pump opportunities.
-
-### Detection Criteria
-
-#### Market Metrics
-- **Market Cap Thresholds**: Configurable thresholds for sub-graduation, graduation, and post-graduation
-- **Trading Volume**: Minimum 24-hour trading volume requirements
-- **Price Performance**: Percentage change over time windows
-- **Liquidity**: Sufficient liquidity for meaningful trading
-
-#### Safety Filters ("Audit Criteria")
-- **Mint Authority**: Revoked to prevent unlimited minting
-- **Freeze Authority**: Revoked to prevent account freezing
-- **LP Burned**: Liquidity provider tokens burned for permanent liquidity
-- **Holder Distribution**: Top 10 holders don't dominate supply
-- **Social Presence**: At least one social media account
-
-## Webhook Payload
-
-When a trending token event is detected, you'll receive a webhook with this structure:
-
-```json
-{
-  "event": "trending_token",
-  "timestamp": "2025-07-04T14:30:00Z",
-  "token": {
-    "symbol": "NEWMEME",
-    "address": "TokenAddress123...",
-    "name": "New Meme Token",
-    "launchpad": "pump.fun"
-  },
-  "trigger": {
-    "type": "launchpad_breakout",
-    "market_cap_threshold": 1000000,
-    "audit_criteria": {
-      "mint_authority": "revoked",
-      "freeze_authority": "revoked",
-      "lp_burned": true,
-      "top_holders_check": true,
-      "social_presence": true
-    }
-  },
-  "metrics": {
-    "current_market_cap": 1250000,
-    "trading_volume_24h": 500000,
-    "liquidity": 100000,
-    "price_change_1h": 15.5,
-    "price_change_24h": 85.2,
-    "holder_count": 1200
-  },
-  "social": {
-    "twitter": "https://twitter.com/newmemetoken",
-    "telegram": "https://t.me/newmemetoken",
-    "website": "https://newmemetoken.com"
-  }
-}
-```
-
-### Field Details
-
-- **launchpad**: Platform where the token was launched (pump.fun, moonshot, etc.)
-- **audit_criteria**: Safety checks that passed
-- **metrics**: Current market performance data
-- **social**: Verified social media presence
-
-## Configuration
-
-### Market Cap Thresholds
-
-| Threshold | Market Cap | Description |
-|-----------|------------|-------------|
-| Sub-graduation | $10K - $100K | Early-stage tokens showing initial traction |
-| Graduation | $100K - $1M | Tokens that have "graduated" from launchpad |
-| Post-graduation | $1M+ | Established tokens with significant momentum |
-
-### Volume Requirements
-
-- **Minimum 24h Volume**: $50K for sub-graduation, $100K for graduation
-- **Volume/Market Cap Ratio**: Minimum 0.1 (10% daily turnover)
-- **Volume Trend**: Increasing volume over the last 4 hours
-
-### Safety Score Calculation
-
-Each token receives a safety score based on audit criteria:
-
-```javascript
-const safetyScore = {
-  mint_authority_revoked: 20,    // Critical
-  freeze_authority_revoked: 20,  // Critical  
-  lp_burned: 15,                 // High importance
-  top_holders_distributed: 15,   // High importance
-  social_presence: 10,           // Medium importance
-  liquidity_adequate: 10,        // Medium importance
-  volume_consistent: 10          // Medium importance
-};
-
-// Minimum score: 60/100 to trigger event
-```
-
-## Target User Persona
-
-The system is designed for users who want:
-- **Hands-off Discovery**: Notifications instead of constant terminal monitoring
-- **Higher Signal Quality**: Fewer, better opportunities rather than noise
-- **Risk Mitigation**: Safety filters to avoid obvious scams
-- **Timely Alerts**: Early enough to participate, not too early to be risky
-
-## MVP Implementation
-
-### Phase 1: Quality-First Approach (Current Beta)
-**Primary Launchpad**: pump.fun (largest volume and data quality)
-**Market Cap Focus**: $100K - $1M (graduation threshold indicating sustainable interest)
-**Daily Target**: 2-3 high-conviction tokens maximum
-**Quality Gate**: All safety criteria must pass + manual validation
-**Success Criteria**: Tokens maintain or grow market cap 7 days post-alert
-
-### Phase 2: Refined Expansion  
-**Additional Source**: Raydium launchpad integration
-**Market Cap Range**: $50K - $2M (broader but still quality-focused)
-**Daily Target**: 3-5 tokens maximum
-**Enhanced Filters**: Community engagement metrics and social sentiment
-
-### Phase 3: Mature Platform
-**Multi-Launchpad**: pump.fun, Raydium, moonshot coverage
-**Adaptive Thresholds**: Market condition-based threshold adjustment
-**Daily Target**: 5-7 tokens maximum (never compromise on quality)
-**User Preferences**: Risk tolerance and category preferences
-
-## Quality Assurance
-
-### Top-Down Tuning: The 2-3 Daily Events Strategy
-
-Our approach prioritizes signal quality over volume by working backward from the ideal user experience:
-
-**Target**: 2-3 exceptional tokens per day (not 20-30 mediocre ones)
-**Method**: Progressively tightens criteria until we achieve this volume
+**Target**: 2-3 exceptional tokens per day (not 20-30 mediocre ones)  
+**Method**: Progressively tighten criteria until we achieve this volume  
 **Validation**: Each event must represent a meaningful opportunity with staying power
 
-#### Calibration Process:
-1. **30-Day Historical Analysis**: Review all pump.fun graduations over 30 days
-2. **Retroactive Filtering**: Apply various threshold combinations to historical data  
-3. **Success Rate Validation**: Track which tokens maintained/grew market cap over 7+ days
-4. **Quality Score Development**: Create composite scores weighting market cap, volume, safety, and social factors
-5. **Daily Volume Tuning**: Adjust thresholds until historical analysis yields 2-3 high-quality events per day
+This prevents alert spam while ensuring users don't miss meaningful opportunities that have genuine potential to transition from "meme" to "legitimate project."
 
-### Spam Prevention
-- **Cooldown Periods**: Minimum time between alerts from same launchpad
-- **Duplicate Detection**: Prevent alerts for rebranded/similar tokens
-- **Velocity Limits**: Rate limiting based on recent alert frequency
-- **Quality Scores**: Prioritize tokens with highest potential
+### Monitoring Sources
 
-## Use Cases
+The system monitors tokens from major Solana launchpads, with initial focus on:
+- **pump.fun** - Primary source due to volume and data quality
+- **Raydium** - Secondary integration planned
+- **Other launchpads** - Future expansion based on market activity
 
-### Mobile Wallet Integration
-```javascript
-// Example webhook handler for trending tokens
-app.post('/webhook/trending-tokens', (req, res) => {
-  const event = req.body;
-  
-  if (event.event === 'trending_token') {
-    // Send targeted push notification
-    sendPushNotification({
-      title: `🚀 ${event.token.symbol} Breaking Out`,
-      body: `${event.token.name} hit $${(event.metrics.current_market_cap / 1000000).toFixed(1)}M market cap on ${event.token.launchpad}`,
-      data: {
-        tokenAddress: event.token.address,
-        marketCap: event.metrics.current_market_cap,
-        safetyScore: calculateSafetyScore(event.trigger.audit_criteria)
-      },
-      actions: [
-        { action: 'view', title: 'View Token' },
-        { action: 'trade', title: 'Trade Now' }
-      ]
-    });
-  }
-  
-  res.status(200).send('OK');
-});
-```
+## Detection Criteria
 
-### Trading Platform Alerts
-- Alert traders to tokens meeting momentum criteria
-- Provide safety assessment for risk management
-- Enable quick access to trading interfaces
-- Track alert performance for strategy refinement
+### Market Metrics
+- **Market Cap Thresholds**: Focus on graduation and post-graduation levels indicating sustainable interest
+- **Trading Volume**: Minimum requirements to ensure genuine activity
+- **Price Performance**: Sustained movement rather than brief spikes
+- **Liquidity**: Sufficient depth for meaningful trading
 
-### Portfolio Discovery Tools
-- Curated feed of promising new tokens  
-- Risk-adjusted recommendations based on safety scores
-- Social sentiment and community growth metrics
-- Historical performance of alerted tokens
+### Safety Filters ("Audit Criteria")
 
-## Smart Defaults vs Customization
+Standard filters used by the trading community to identify legitimate projects:
 
-### MVP: Curated Quality Defaults
-Beta users receive alerts based on rigorously tested criteria optimized for quality:
-- Market cap: $100K - $1M range (graduation sweet spot)
-- All safety criteria must pass (no exceptions for risky tokens)
-- Sustained volume: $100K+ over 24h (not just brief spikes)  
-- **Maximum 2-3 alerts per day** (quality over quantity)
-- Manual validation overlay during beta phase
+- **Mint Authority**: Revoked to prevent unlimited token creation
+- **Freeze Authority**: Revoked to prevent account freezing  
+- **LP Burned**: Liquidity provider tokens burned for permanent liquidity
+- **Holder Distribution**: Top 10 holders don't dominate token supply
+- **Social Presence**: At least one verified social media account
 
-### Future: User Customization
-Power users can customize:
-- Market cap ranges and thresholds
-- Safety score requirements (risk tolerance)
-- Launchpad preferences
-- Alert frequency limits
-- Token category filters
+*Note: "Audit" refers to community trading terminology, not formal security audits.*
 
-## Success Metrics
-
-### Engagement Metrics
-- **Click-through Rate**: Percentage of users who tap notifications
-- **Conversion Rate**: Percentage who view token details or trade
-- **Alert Quality Score**: User ratings of alert relevance
-
-### Performance Metrics  
-- **Token Success Rate**: Percentage of alerted tokens that maintain/grow market cap
-- **False Positive Rate**: Percentage of tokens that quickly lose value
-- **Discovery Efficiency**: How early alerts come relative to major price moves
-
-## Best Practices
-
-### Implementation Guidelines
-1. **Respect User Preferences**: Honor opt-out settings and frequency limits
-2. **Provide Context**: Include safety score and risk assessment
-3. **Enable Quick Actions**: Direct links to token details and trading
-4. **Track Performance**: Monitor which alerts lead to user engagement
-
-### Risk Management
-- Clearly communicate that all crypto investments are risky
-- Provide safety scores as guidance, not guarantees
-- Include disclaimers about potential for total loss
-- Allow users to set their own risk tolerance levels
-
-### User Experience
-- Use clear, actionable language in notifications
-- Provide sufficient context for decision-making
-- Allow easy access to detailed token information
-- Enable quick trading actions for time-sensitive opportunities
-
+### Additional Quality Signals
+- **Community Engagement**: Social media activity and follower growth
+- **Volume Patterns**: Organic trading activity vs artificial manipulation
+- **Sustainability Indicators**: Market cap progression suggesting real adoption
