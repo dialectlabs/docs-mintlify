@@ -1,20 +1,84 @@
 ---
-title: "MCP Integration"
-description: "Connect AI agents to Dialect's blockchain infrastructure via Model Context Protocol."
+title: "Dialect MCP Server"
+description: "Build Web3 apps conversationally. Connect your AI coding assistant to Dialect's infrastructure and get instant access to 40+ DeFi protocol APIs that return ready-to-sign transactions, real-time market data, alerts, and our complete documentation through natural conversation."
 mode: "center"
 ---
 
-Web3 development becomes conversational. Connect your AI agent to Dialect's full stack - APIs, documentation, blinks, market data, and alerts. Your agent gets complete access with built-in usage instructions and examples.
-
-Perfect for building custom blinks in Cursor or integrating Dialect APIs.
-
 ## Quick Start
 
-Configure your AI agent (Claude Code, Cursor, Windsurf, Visual Studio Code, etc.) and start building. Just run the command below and start coding.
+### Remote MCP Server (Recommended)
+
+Our hosted MCP server is maintained for you and provides the best experience. Connect using one of these methods:
+
+#### Via Contextual Menu
+
+For supported clients like Cursor, simply click the contextual menu button when viewing any page in the docs:
+
+![Contextual Menu](https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1754340439/dialect-docs/contextual-window-2.png)
+
+This instantly configures the MCP server without any manual setup.
+
+#### Manual Configuration
+
+Choose your client below and start integrating:
+
+<Tabs>
+  <Tab title="Claude Code">
+    Add the MCP server to your Claude Code configuration:
+
+    ```bash
+    claude mcp add sse https://docs.dialect.to/mcp
+    ```
+  </Tab>
+  
+  <Tab title="Claude Desktop">
+    Go to Claude Desktop Settings:
+    
+    1. Connectors
+    2. Add Custom Connector
+    3. Paste the link into the URL field: https://docs.dialect.to/mcp
+
+    ![Claude Desktop Connectors](https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1753984515/dialect-docs/connectors-claude-desktop.png)
+  </Tab>
+
+  <Tab title="Cursor">
+    Add the MCP server to your Cursor settings:
+
+    1. Open **Cursor Settings** 
+    2. Go to **Tools & Integrations** → **New MCP Server**
+    3. Add the following server configuration:
+
+    ```json
+    {
+      "mcpServers": {
+        "dialect": {
+          "url": "https://docs.dialect.to/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="General / Other Clients">
+    For any MCP-compatible client, add this server URL:
+
+    ```
+    https://docs.dialect.to/mcp
+    ```
+
+    The server provides access to Dialect's full blockchain infrastructure including APIs, blinks, market data, and documentation.
+  </Tab>
+</Tabs>
+
+### Local MCP Server
+
+Run a local MCP server on your machine using our one-command installer:
 
 ```bash
 npx mint-mcp add dialect
 ```
+
+This automatically detects your environment and configures the Dialect MCP server locally for Claude Desktop, Cursor, and other MCP clients.
 
 
 ## Core Features
