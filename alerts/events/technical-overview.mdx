@@ -3,18 +3,13 @@ title: "Technical Overview"
 description: "Integrate price alerts, trending token notifications, and automated trading triggers using webhook events. Build powerful applications by subscribing to real-time market events. Configure price thresholds, trending token filters, and receive structured webhook payloads to trigger your application logic."
 ---
 
-# Technical Overview
-
-Dialect's Events system is built on a scalable, real-time architecture designed to monitor thousands of tokens and deliver high-quality event notifications through webhooks.
-
 ## Architecture
 
 ### Event Detection Pipeline
 
 1. **Data Ingestion**: Real-time price feeds and on-chain data monitoring
 2. **Event Processing**: Sliding window analysis and threshold detection
-3. **Quality Filtering**: Advanced algorithms to reduce noise and increase signal quality
-4. **Webhook Delivery**: Reliable delivery to your infrastructure with retry logic
+3. **Webhook Delivery**: Reliable delivery to your infrastructure 
 
 ### Webhook Delivery
 
@@ -74,142 +69,6 @@ Events triggered by significant price movements over sliding time windows.
 **Supported Windows:**
 - 1h, 3h, 6h, 12h, 24h, 7d
 
-<<<<<<< HEAD
-### Trending Token Events
-
-Events for launchpad tokens meeting specific criteria.
-
-**Example Payload:**
-```json
-{
-  "event": "trending_token",
-  "timestamp": "2025-07-04T14:30:00Z",
-  "token": {
-    "symbol": "EXAMPLE",
-    "address": "TokenAddress123..."
-  },
-  "trigger": {
-    "type": "launchpad_breakout",
-    "market_cap_threshold": 1000000,
-    "audit_criteria": {
-      "mint_authority": "revoked",
-      "freeze_authority": "revoked", 
-      "lp_burned": true,
-      "top_holders_check": true,
-      "social_presence": true
-    }
-  },
-  "metrics": {
-    "current_market_cap": 1250000,
-    "trading_volume_24h": 500000,
-    "liquidity": 100000
-  }
-}
-```
-
-## Quality Assurance Features
-
-### Signal Enhancement
-- **Debouncing**: Prevents rapid-fire notifications for the same token
-- **Rolling Averages**: Smooths out short-term volatility for cleaner signals
-- **Priority Conflicts**: Manages overlapping events to prevent spam
-
-### Rate Limiting
-- Configurable limits per token and per time window
-- Global rate limits to prevent system overload
-- Smart prioritization of the most significant events
-
-### Reliability
-- **Retry Logic**: Automatic retries with exponential backoff
-- **Dead Letter Queues**: Failed webhook deliveries are queued for investigation
-- **Monitoring**: Real-time monitoring of delivery success rates
-
-## Integration Requirements
-
-### Webhook Endpoint Requirements
-
-Your webhook endpoint must:
-- Accept HTTP POST requests
-- Return HTTP 200 status for successful processing
-- Process requests within 30 seconds (timeout)
-- Handle duplicate events gracefully (implement idempotency)
-
-### Security
-
-- **HTTPS Required**: All webhook endpoints must use HTTPS
-- **Signature Verification**: Webhooks include signature headers for verification
-- **IP Allowlisting**: Static IP ranges available for firewall configuration
-
-### Error Handling
-
-Dialect will retry failed webhook deliveries:
-- Initial retry after 1 second
-- Exponential backoff up to 5 minutes
-- Maximum 10 retry attempts
-- Events are marked as failed after all retries are exhausted
-
-## Testing & Validation
-
-### Historical Backtest Process
-
-Before deploying event detection for any token or configuration, Dialect performs extensive backtesting against historical data to validate event quality and timing.
-
-#### Backtest Analysis Steps
-
-1. **Historical Data Collection**: Gather 30-90 days of price data for target tokens
-2. **Event Simulation**: Apply detection algorithms to historical data to identify when events would have triggered
-3. **Chart Visualization**: Generate annotated charts showing detected events overlaid on price movements
-4. **Quality Assessment**: Analyze whether detected events correspond to meaningful price movements
-5. **Threshold Calibration**: Adjust parameters to optimize signal-to-noise ratio
-
-#### Example Backtest Results
-
-```
-SOL Price Change Events (5% threshold, 1h window)
-Date Range: 2024-12-01 to 2024-12-31
-Total Events Detected: 47
-Average Daily Events: 1.5
-Event Success Rate: 78% (events followed by continued momentum)
-False Positive Rate: 22%
-```
-
-### Chart Integration
-
-Event detection results are visualized on price charts to validate timing and significance:
-
-- **Event Markers**: Clear indicators showing when events would have triggered
-- **Price Context**: Event triggers shown relative to support/resistance levels
-- **Volume Correlation**: Trading volume overlays to confirm event significance
-- **Outcome Analysis**: Color-coded markers showing whether events led to continued momentum
-
-<Tip>
-**Validation Partnership**
-
-During beta onboarding, we work with partners to review backtest results together, ensuring event configurations meet your specific quality requirements before going live.
-</Tip>
-
-### Success Metrics
-
-We track multiple metrics to ensure event quality:
-
-- **Precision**: Percentage of events followed by meaningful price action
-- **Recall**: Percentage of significant price movements that triggered events  
-- **Timeliness**: Average time between actual price movement and event detection
-- **User Engagement**: Click-through rates and conversion metrics from partner implementations
-
-## Monitoring and Observability
-
-### Real-time Metrics
-- Event detection rates per token/event type
-- Webhook delivery success rates and latency
-- Quality scores based on subsequent price action
-- User engagement metrics from partner applications
-
-### Historical Analysis
-- Backtesting results for threshold optimization
-- Event outcome tracking and success rates
-- Partner-specific performance analytics
-- Market condition impact on event detection
 ### Trending Token Events (soon)
 
-Events for tokens meeting specific criteria.
+Events for launchpad tokens meeting specific criteria.
