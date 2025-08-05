@@ -99,22 +99,25 @@ To support the Universal Inbox in your application:
 ### 1. App Registration
 Ensure your app is properly registered with Dialect so users can discover and subscribe to it. See the [App Registration guide](/alerts/setup/register-app).
 
-### 2. User Authentication  
+### 2. Request Universal Inbox Access
+Universal Inbox requires manual activation for your project. **[Fill out this form](https://form.typeform.com/to/trDWvM5l)** to request access. Our team will review your request and activate the feature for your app.
+
+### 3. User Authentication  
 Implement the authentication flow so users can manage their cross-app subscriptions. See the [Authentication documentation](/alerts/integrate-inbox/api/authentication).
 
-### 3. Subscription Management
+### 4. Subscription Management
 Build UI that allows users to:
 - Browse available apps using the `/v2/apps` endpoint
 - Subscribe/unsubscribe from apps they're interested in
 - Manage notification preferences per app
 
-### 4. Unified Inbox Display
+### 5. Unified Inbox Display
 Create a notification inbox that shows messages from all subscribed apps:
 - Use `/v2/history` to fetch a unified message stream
 - Display app branding/icons to show message sources
 - Implement filtering options (by app, by type, etc.)
 
-### 5. Cross-App Actions
+### 6. Cross-App Actions
 Consider implementing actions that work across apps:
 - "Subscribe to similar apps" recommendations
 - Cross-app notification batching
