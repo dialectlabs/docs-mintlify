@@ -41,7 +41,7 @@
         ]
       },
       {
-        "tab": "Alerts",
+        "tab": "Alerts & Events",
         "groups": [
           {
             "group": "GETTING STARTED",
@@ -115,7 +115,17 @@
             ]
           },
           {
-            "group": "EVENT DETECTION & MONITORING",
+            "group": "EVENTS (Beta)",
+            "pages": [
+              "alerts/events/index",
+              "alerts/events/technical-overview",
+              "alerts/events/using-events",
+              "alerts/events/price-change-events",
+              "alerts/events/trending-tokens-events"
+            ]
+          },
+          {
+            "group": "MONITORING",
             "pages": [
               "alerts/alerts-and-monitoring/index",
               "alerts/alerts-and-monitoring/setup-event-detection",

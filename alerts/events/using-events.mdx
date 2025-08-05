@@ -1,0 +1,486 @@
+---
+title: "Using Events"
+description: "How to use Events"
+---
+
+# Using Events
+
+This guide walks you through implementing Dialect Events in your application, from initial setup to handling webhooks and building user experiences around real-time token events.
+
+## Quick Start
+
+### 1. Configure Webhook Endpoint
+
+First, set up an endpoint to receive event webhooks:
+
+```javascript
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.post('/webhook/events', (req, res) => {
+  const event = req.body;
+  
+  console.log('Received event:', event.event);
+  console.log('Token:', event.token.symbol);
+  
+  // Process the event
+  handleEvent(event);
+  
+  // Always respond with 200 OK
+  res.status(200).send('OK');
+});
+
+app.listen(3000, () => {
+  console.log('Webhook server running on port 3000');
+});
+```
+
+### 2. Register Your Webhook
+
+Contact Dialect to register your webhook endpoint and configure event types:
+
+- **Endpoint URL**: `https://your-domain.com/webhook/events`
+- **Event Types**: Price change events, trending token events
+- **Token List**: Specify which tokens to monitor (or use defaults)
+
+### 3. Handle Events
+
+Implement event handlers for different event types:
+
+```javascript
+function handleEvent(event) {
+  switch (event.event) {
+    case 'token_price_change':
+      handlePriceChangeEvent(event);
+      break;
+    case 'trending_token':
+      handleTrendingTokenEvent(event);
+      break;
+    default:
+      console.log('Unknown event type:', event.event);
+  }
+}
+```
+
+## Event Handling Patterns
+
+### Price Change Events
+
+```javascript
+async function handlePriceChangeEvent(event) {
+  const { token, change, trigger } = event;
+  
+  // Find users who hold this token
+  const holders = await getUsersHoldingToken(token.address);
+  
+  // Create notification message
+  const message = {
+    title: `${token.symbol} ${change.direction === 'up' ? '📈' : '📉'} ${change.percentage_change.toFixed(1)}%`,
+    body: `${token.symbol} moved ${change.percentage_change.toFixed(1)}% over the last ${trigger.window.duration}`,
+    data: {
+      tokenAddress: token.address,
+      changePercentage: change.percentage_change,
+      direction: change.direction
+    }
+  };
+  
+  // Send notifications to holders
+  for (const user of holders) {
+    if (user.preferences.priceAlerts) {
+      await sendNotification(user.id, message);
+    }
+  }
+  
+  // Log for analytics
+  await logEvent('price_change_processed', {
+    token: token.symbol,
+    holders_notified: holders.length,
+    change_percentage: change.percentage_change
+  });
+}
+```
+
+### Trending Token Events
+
+```javascript
+async function handleTrendingTokenEvent(event) {
+  const { token, metrics, trigger } = event;
+  
+  // Calculate safety score
+  const safetyScore = calculateSafetyScore(trigger.audit_criteria);
+  
+  // Get users interested in trending tokens
+  const interestedUsers = await getUsersByPreference('trending_tokens');
+  
+  // Create rich notification
+  const message = {
+    title: `🚀 ${token.symbol} Breaking Out`,
+    body: `New token on ${token.launchpad} hit $${(metrics.current_market_cap / 1000000).toFixed(1)}M market cap`,
+    data: {
+      tokenAddress: token.address,
+      marketCap: metrics.current_market_cap,
+      safetyScore: safetyScore,
+      launchpad: token.launchpad
+    },
+    image: await getTokenImage(token.address),
+    actions: [
+      { action: 'view', title: 'View Details' },
+      { action: 'trade', title: 'Trade Now' }
+    ]
+  };
+  
+  // Send to interested users with rate limiting
+  const rateLimitedUsers = await applyRateLimit(interestedUsers, 'trending_tokens');
+  
+  for (const user of rateLimitedUsers) {
+    await sendNotification(user.id, message);
+  }
+}
+```
+
+## Security and Verification
+
+### Webhook Signature Verification
+
+Verify webhook authenticity using the signature header:
+
+```javascript
+const crypto = require('crypto');
+
+function verifyWebhookSignature(payload, signature, secret) {
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(payload)
+    .digest('hex');
+    
+  return crypto.timingSafeEqual(
+    Buffer.from(signature, 'hex'),
+    Buffer.from(expectedSignature, 'hex')
+  );
+}
+
+app.post('/webhook/events', (req, res) => {
+  const signature = req.headers['x-dialect-signature'];
+  const payload = JSON.stringify(req.body);
+  
+  if (!verifyWebhookSignature(payload, signature, process.env.WEBHOOK_SECRET)) {
+    return res.status(401).send('Unauthorized');
+  }
+  
+  // Process verified webhook
+  handleEvent(req.body);
+  res.status(200).send('OK');
+});
+```
+
+### Error Handling and Retries
+
+Implement robust error handling to ensure reliable event processing:
+
+```javascript
+app.post('/webhook/events', async (req, res) => {
+  try {
+    await handleEvent(req.body);
+    res.status(200).send('OK');
+  } catch (error) {
+    console.error('Error processing webhook:', error);
+    
+    // Return 500 to trigger Dialect's retry logic
+    if (error.code === 'TEMPORARY_ERROR') {
+      return res.status(500).send('Temporary error, please retry');
+    }
+    
+    // Return 200 for permanent errors to avoid retries
+    res.status(200).send('Permanent error, will not retry');
+  }
+});
+```
+
+## User Experience Patterns
+
+### Mobile Push Notifications
+
+```javascript
+async function sendPushNotification(userId, message) {
+  const user = await getUser(userId);
+  
+  // Respect user preferences
+  if (!user.preferences.notifications.enabled) {
+    return;
+  }
+  
+  // Apply frequency limits
+  const recentNotifications = await getRecentNotifications(userId, '1h');
+  if (recentNotifications.length >= user.preferences.notifications.hourlyLimit) {
+    return;
+  }
+  
+  // Send via push service
+  await pushService.send({
+    to: user.pushToken,
+    title: message.title,
+    body: message.body,
+    data: message.data,
+    sound: 'default',
+    badge: await getUnreadCount(userId)
+  });
+  
+  // Track notification
+  await logNotification(userId, message);
+}
+```
+
+### In-App Notifications
+
+```javascript
+async function createInAppNotification(userId, event) {
+  const notification = {
+    id: generateId(),
+    userId: userId,
+    type: event.event,
+    title: generateTitle(event),
+    message: generateMessage(event),
+    data: event,
+    timestamp: new Date(),
+    read: false,
+    actions: generateActions(event)
+  };
+  
+  // Store in database
+  await saveNotification(notification);
+  
+  // Send real-time update if user is online
+  if (await isUserOnline(userId)) {
+    await sendRealtimeUpdate(userId, notification);
+  }
+}
+
+function generateActions(event) {
+  const actions = [];
+  
+  if (event.event === 'token_price_change') {
+    actions.push({
+      type: 'view_chart',
+      label: 'View Chart',
+      url: `/tokens/${event.token.address}/chart`
+    });
+  }
+  
+  if (event.event === 'trending_token') {
+    actions.push(
+      {
+        type: 'view_token',
+        label: 'View Token',
+        url: `/tokens/${event.token.address}`
+      },
+      {
+        type: 'trade',
+        label: 'Trade',
+        url: `/trade/${event.token.address}`
+      }
+    );
+  }
+  
+  return actions;
+}
+```
+
+## Performance Optimization
+
+### Async Processing
+
+Process webhooks asynchronously to avoid timeouts:
+
+```javascript
+const Queue = require('bull');
+const eventQueue = new Queue('event processing');
+
+app.post('/webhook/events', (req, res) => {
+  // Immediately queue the event for processing
+  eventQueue.add('process-event', req.body);
+  
+  // Respond quickly to avoid timeout
+  res.status(200).send('OK');
+});
+
+// Process events asynchronously
+eventQueue.process('process-event', async (job) => {
+  const event = job.data;
+  await handleEvent(event);
+});
+```
+
+### Database Optimization
+
+Optimize database queries for user lookups:
+
+```javascript
+// Index on token holdings for fast lookups
+// CREATE INDEX idx_holdings_token ON user_holdings(token_address);
+// CREATE INDEX idx_user_preferences ON users(preferences);
+
+async function getUsersHoldingToken(tokenAddress) {
+  return await db.query(`
+    SELECT DISTINCT u.id, u.preferences
+    FROM users u
+    JOIN user_holdings h ON u.id = h.user_id
+    WHERE h.token_address = ? 
+    AND h.balance > 0
+    AND u.preferences->>'notifications.enabled' = 'true'
+  `, [tokenAddress]);
+}
+```
+
+### Caching
+
+Cache frequently accessed data:
+
+```javascript
+const Redis = require('redis');
+const redis = Redis.createClient();
+
+async function getUsersHoldingToken(tokenAddress) {
+  const cacheKey = `holders:${tokenAddress}`;
+  
+  // Try cache first
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    return JSON.parse(cached);
+  }
+  
+  // Query database
+  const users = await db.query(/* ... */);
+  
+  // Cache for 5 minutes
+  await redis.setex(cacheKey, 300, JSON.stringify(users));
+  
+  return users;
+}
+```
+
+## Testing and Development
+
+### Webhook Testing
+
+Test your webhook endpoint locally:
+
+```javascript
+// test-webhook.js
+const axios = require('axios');
+
+const testEvent = {
+  event: 'token_price_change',
+  timestamp: new Date().toISOString(),
+  token: {
+    symbol: 'SOL',
+    address: 'So11111111111111111111111111111111111111112'
+  },
+  trigger: {
+    type: 'sliding_window_percentage_change',
+    window: { duration: '24h' },
+    threshold_percentage: 10.0
+  },
+  change: {
+    direction: 'up',
+    from: { timestamp: '2025-07-03T14:30:00Z', value: 154.25 },
+    to: { timestamp: '2025-07-04T14:30:00Z', value: 171.85 },
+    absolute_change: 17.6,
+    percentage_change: 11.42
+  }
+};
+
+async function testWebhook() {
+  try {
+    const response = await axios.post('http://localhost:3000/webhook/events', testEvent);
+    console.log('Webhook test successful:', response.status);
+  } catch (error) {
+    console.error('Webhook test failed:', error.message);
+  }
+}
+
+testWebhook();
+```
+
+### Integration Testing
+
+```javascript
+// test/events.test.js
+describe('Event Processing', () => {
+  it('should handle price change events', async () => {
+    const mockEvent = createMockPriceChangeEvent();
+    
+    await handleEvent(mockEvent);
+    
+    // Verify notifications were sent
+    const notifications = await getNotificationsForEvent(mockEvent);
+    expect(notifications).toHaveLength(expectedCount);
+  });
+  
+  it('should respect user preferences', async () => {
+    const user = await createTestUser({ notifications: { enabled: false } });
+    const mockEvent = createMockPriceChangeEvent();
+    
+    await handleEvent(mockEvent);
+    
+    // Verify no notification was sent to opted-out user
+    const notifications = await getNotificationsForUser(user.id);
+    expect(notifications).toHaveLength(0);
+  });
+});
+```
+
+## Monitoring and Analytics
+
+### Event Processing Metrics
+
+Track key metrics for your event processing:
+
+```javascript
+const metrics = {
+  eventsReceived: new prometheus.Counter({
+    name: 'events_received_total',
+    help: 'Total number of events received',
+    labelNames: ['event_type']
+  }),
+  
+  processingDuration: new prometheus.Histogram({
+    name: 'event_processing_duration_seconds',
+    help: 'Event processing duration',
+    buckets: [0.1, 0.5, 1, 2, 5]
+  }),
+  
+  notificationsSent: new prometheus.Counter({
+    name: 'notifications_sent_total',
+    help: 'Total notifications sent',
+    labelNames: ['type', 'status']
+  })
+};
+
+async function handleEvent(event) {
+  const timer = metrics.processingDuration.startTimer();
+  metrics.eventsReceived.inc({ event_type: event.event });
+  
+  try {
+    await processEvent(event);
+    metrics.notificationsSent.inc({ type: event.event, status: 'success' });
+  } catch (error) {
+    metrics.notificationsSent.inc({ type: event.event, status: 'error' });
+    throw error;
+  } finally {
+    timer();
+  }
+}
+```
+
+## Best Practices Summary
+
+1. **Reliability**: Always return 200 OK for successfully received webhooks
+2. **Idempotency**: Handle duplicate events gracefully using event IDs
+3. **Performance**: Process webhooks asynchronously to avoid timeouts
+4. **Security**: Verify webhook signatures and use HTTPS
+5. **User Experience**: Respect user preferences and implement rate limiting
+6. **Monitoring**: Track metrics and set up alerting for failures
+7. **Testing**: Implement thorough testing for all event types
+8. **Documentation**: Keep implementation details documented for your team

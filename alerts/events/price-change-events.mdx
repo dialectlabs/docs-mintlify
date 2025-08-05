@@ -1,0 +1,187 @@
+---
+title: "Price Change Events"
+description: "Price change event detection"
+---
+
+# Price Change Events
+
+Price Change Events detect significant price movements for tokens using sliding window analysis and configurable percentage thresholds. This enables teams to deliver timely alerts about meaningful price changes while filtering out market noise.
+
+## How It Works
+
+Dialect continuously monitors token prices and analyzes percentage changes over sliding time windows. When a token's price change exceeds the configured threshold within a time window, a webhook is triggered with detailed information about the price movement.
+
+### Sliding Window Analysis
+
+Price changes are calculated using a sliding window approach:
+- **Window Duration**: Configurable time periods (1h, 3h, 6h, 12h, 24h, 7d)
+- **Threshold**: Percentage change required to trigger an event
+- **Direction**: Both upward and downward movements are detected
+
+## Configuration
+
+### Supported Time Windows
+
+| Window | Beta Status | Use Case |
+|--------|-------------|----------|
+| 1h | **Available** | Momentum detection, immediate market shifts |
+| 3h | Planned | Short-term trend confirmation |
+| 6h | Planned | Intraday trend identification |
+| 12h | Future | Half-day trend analysis |
+| 24h | Future | Daily price movement tracking |
+| 7d | Future | Weekly trend detection |
+
+### Threshold Configuration
+
+Thresholds are set based on token volatility characteristics:
+
+#### Blue Chip Tokens (Low Volatility)
+- **SOL**: 5% threshold
+- **BTC**: 5% threshold  
+- **ETH**: 5% threshold
+
+#### Mid-Cap Tokens (Medium Volatility)
+- **JUP**: 8-10% threshold
+- **PYTH**: 8-10% threshold
+
+#### Small-Cap/Meme Tokens (High Volatility)
+- **BONK**: 15-20% threshold
+- **WIF**: 15-20% threshold
+- **PEPE**: 20-25% threshold
+
+## Webhook Payload
+
+When a price change event is detected, you'll receive a webhook with this structure:
+
+```json
+{
+  "event": "token_price_change",
+  "timestamp": "2025-07-04T14:30:00Z",
+  "token": {
+    "symbol": "SOL",
+    "address": "So11111111111111111111111111111111111111112"
+  },
+  "trigger": {
+    "type": "sliding_window_percentage_change",
+    "window": {
+      "duration": "24h"
+    },
+    "threshold_percentage": 10.0
+  },
+  "change": {
+    "direction": "up",
+    "from": {
+      "timestamp": "2025-07-03T14:30:00Z",
+      "value": 154.25
+    },
+    "to": {
+      "timestamp": "2025-07-04T14:30:00Z",
+      "value": 171.85
+    },
+    "absolute_change": 17.6,
+    "percentage_change": 11.42
+  }
+}
+```
+
+### Field Details
+
+- **direction**: `"up"` for price increases, `"down"` for decreases
+- **from**: Price and timestamp at the start of the window
+- **to**: Price and timestamp at the end of the window
+- **absolute_change**: Raw price difference (to.value - from.value)
+- **percentage_change**: Percentage change over the window
+
+## MVP Implementation
+
+Our initial MVP focuses on proven patterns with limited scope to ensure high-quality event detection:
+
+### Current Beta Configuration
+**Primary Window**: 1-hour sliding window for momentum detection
+**Initial Token Set**: SOL (5% threshold), BONK (15% threshold)
+**Expected Volume**: 1-3 high-quality events per day
+**Focus**: Global price changes that indicate meaningful market movement
+
+The 1-hour window was selected based on backtesting analysis showing optimal balance between:
+- **Timeliness**: Fast enough to be actionable for users
+- **Signal Quality**: Long enough to filter out short-term noise  
+- **User Experience**: Appropriate frequency that doesn't overwhelm
+
+### Why Start with 1-Hour Windows?
+
+Based on historical analysis, 1-hour windows provide:
+- **85% precision** in identifying meaningful price movements
+- **Quick responsiveness** to market momentum changes
+- **Manageable event frequency** for user experience
+- **Clear validation** against chart patterns
+
+### Beta Expansion Roadmap
+
+**Phase 1 (Current)**: 1h windows, SOL + BONK
+**Phase 2**: Add JUP, PYTH with calibrated thresholds  
+**Phase 3**: Expand to 3h, 6h windows for different use cases
+**Phase 4**: Top 20 Solana tokens with dynamic threshold adjustment
+
+## Quality Features
+
+### Signal Enhancement
+- **Debouncing**: Prevents multiple alerts for the same price movement
+- **Rolling Averages**: Smooths short-term volatility for cleaner signals
+- **Volume Correlation**: Higher trading volume increases event priority
+
+### Spam Prevention
+- **Rate Limiting**: Maximum events per token per time period
+- **Cooldown Periods**: Minimum time between events for the same token
+- **Threshold Scaling**: Dynamic thresholds based on recent volatility
+
+## Use Cases
+
+### Mobile Wallet Integration
+```javascript
+// Example webhook handler
+app.post('/webhook/price-events', (req, res) => {
+  const event = req.body;
+  
+  if (event.event === 'token_price_change') {
+    // Send push notification to users holding this token
+    sendPushNotification({
+      title: `${event.token.symbol} ${event.change.direction === 'up' ? '📈' : '📉'} ${event.change.percentage_change.toFixed(1)}%`,
+      body: `${event.token.symbol} moved ${event.change.percentage_change.toFixed(1)}% in the last ${event.trigger.window.duration}`,
+      data: {
+        tokenAddress: event.token.address,
+        priceChange: event.change.percentage_change
+      }
+    });
+  }
+  
+  res.status(200).send('OK');
+});
+```
+
+### Portfolio Tracker Alerts
+- Alert users when portfolio holdings have significant price movements
+- Provide context about the magnitude and timeframe of changes
+- Enable users to take action based on price movements
+
+### Trading Platform Integration
+- Notify traders about tokens meeting their criteria
+- Provide entry points for momentum-based trading strategies
+- Support risk management through downside alerts
+
+## Best Practices
+
+### Implementing Price Change Handlers
+1. **Idempotency**: Handle duplicate events gracefully
+2. **User Preferences**: Respect user notification preferences
+3. **Context**: Provide additional context about the price movement
+4. **Rate Limiting**: Don't overwhelm users with too many notifications
+
+### Performance Optimization
+- Process webhooks asynchronously to avoid timeouts
+- Implement efficient database queries for user token holdings
+- Use caching for frequently accessed token metadata
+
+### User Experience
+- Clearly communicate the timeframe and magnitude of price changes
+- Provide actionable next steps (view chart, buy/sell, etc.)
+- Allow users to customize thresholds and time windows
