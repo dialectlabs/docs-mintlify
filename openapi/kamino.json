@@ -1755,8 +1755,8 @@
               ]
             },
             "allowEmptyValue": true,
-            "allowReserved": true
-            "example": 0.1,          },
+            "allowReserved": true,
+            "example": 0.1          },
           {
             "name": "slippage",
             "in": "query",
