@@ -18,8 +18,6 @@ Price changes are calculated using a sliding window approach:
 - **Threshold**: Percentage change required to trigger an event
 - **Direction**: Both upward and downward movements are detected
 
-## Configuration
-
 ### Supported Time Windows
 
 | Window | Beta Status | Use Case |
@@ -31,25 +29,7 @@ Price changes are calculated using a sliding window approach:
 | 24h | Future | Daily price movement tracking |
 | 7d | Future | Weekly trend detection |
 
-### Threshold Configuration
-
-Thresholds are set based on token volatility characteristics:
-
-#### Blue Chip Tokens (Low Volatility)
-- **SOL**: 5% threshold
-- **BTC**: 5% threshold  
-- **ETH**: 5% threshold
-
-#### Mid-Cap Tokens (Medium Volatility)
-- **JUP**: 8-10% threshold
-- **PYTH**: 8-10% threshold
-
-#### Small-Cap/Meme Tokens (High Volatility)
-- **BONK**: 15-20% threshold
-- **WIF**: 15-20% threshold
-- **PEPE**: 20-25% threshold
-
-## Webhook Payload
+### Webhook Payload
 
 When a price change event is detected, you'll receive a webhook with this structure:
 
@@ -84,55 +64,13 @@ When a price change event is detected, you'll receive a webhook with this struct
 }
 ```
 
-### Field Details
+#### Field Details
 
 - **direction**: `"up"` for price increases, `"down"` for decreases
 - **from**: Price and timestamp at the start of the window
 - **to**: Price and timestamp at the end of the window
 - **absolute_change**: Raw price difference (to.value - from.value)
 - **percentage_change**: Percentage change over the window
-
-## MVP Implementation
-
-Our initial MVP focuses on proven patterns with limited scope to ensure high-quality event detection:
-
-### Current Beta Configuration
-**Primary Window**: 1-hour sliding window for momentum detection
-**Initial Token Set**: SOL (5% threshold), BONK (15% threshold)
-**Expected Volume**: 1-3 high-quality events per day
-**Focus**: Global price changes that indicate meaningful market movement
-
-The 1-hour window was selected based on backtesting analysis showing optimal balance between:
-- **Timeliness**: Fast enough to be actionable for users
-- **Signal Quality**: Long enough to filter out short-term noise  
-- **User Experience**: Appropriate frequency that doesn't overwhelm
-
-### Why Start with 1-Hour Windows?
-
-Based on historical analysis, 1-hour windows provide:
-- **85% precision** in identifying meaningful price movements
-- **Quick responsiveness** to market momentum changes
-- **Manageable event frequency** for user experience
-- **Clear validation** against chart patterns
-
-### Beta Expansion Roadmap
-
-**Phase 1 (Current)**: 1h windows, SOL + BONK
-**Phase 2**: Add JUP, PYTH with calibrated thresholds  
-**Phase 3**: Expand to 3h, 6h windows for different use cases
-**Phase 4**: Top 20 Solana tokens with dynamic threshold adjustment
-
-## Quality Features
-
-### Signal Enhancement
-- **Debouncing**: Prevents multiple alerts for the same price movement
-- **Rolling Averages**: Smooths short-term volatility for cleaner signals
-- **Volume Correlation**: Higher trading volume increases event priority
-
-### Spam Prevention
-- **Rate Limiting**: Maximum events per token per time period
-- **Cooldown Periods**: Minimum time between events for the same token
-- **Threshold Scaling**: Dynamic thresholds based on recent volatility
 
 ## Use Cases
 
@@ -168,20 +106,3 @@ app.post('/webhook/price-events', (req, res) => {
 - Provide entry points for momentum-based trading strategies
 - Support risk management through downside alerts
 
-## Best Practices
-
-### Implementing Price Change Handlers
-1. **Idempotency**: Handle duplicate events gracefully
-2. **User Preferences**: Respect user notification preferences
-3. **Context**: Provide additional context about the price movement
-4. **Rate Limiting**: Don't overwhelm users with too many notifications
-
-### Performance Optimization
-- Process webhooks asynchronously to avoid timeouts
-- Implement efficient database queries for user token holdings
-- Use caching for frequently accessed token metadata
-
-### User Experience
-- Clearly communicate the timeframe and magnitude of price changes
-- Provide actionable next steps (view chart, buy/sell, etc.)
-- Allow users to customize thresholds and time windows
