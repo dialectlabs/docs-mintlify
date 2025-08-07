@@ -54,7 +54,7 @@ Think of topics as notification categories or event types:
 
 ### Topic Best Practices
 
-**1. Granular but not overwhelming**
+#### 1. Granular but not overwhelming
 
 Choose topics that are specific enough to be actionable but not so granular that they become overwhelming.
 
@@ -68,7 +68,7 @@ Avoid:
 - "Everything" - Too broad and not actionable
 - "BTC price up 1%" - Too specific and noisy
 
-**2. Clear naming**
+#### 2. Clear naming
 
 Use clear, descriptive names that users can easily understand.
 
@@ -81,7 +81,7 @@ Avoid technical jargon like:
 - "tx-confirmed-evt"
 - "usr-auth-req"
 
-**3. User-focused descriptions**
+#### 3. User-focused descriptions
 
 Write descriptions that focus on user benefits rather than technical details.
 
@@ -90,6 +90,10 @@ Good example:
 
 Instead of:
 "Automated liquidation risk calculation notifications"
+
+<Card title="Learn More: Topic Management" icon="user-gear" href="/alerts/integrate-inbox/user-management">
+  Explore detailed topic management workflows and user subscription patterns
+</Card>
 
 ## Channels
 
@@ -135,6 +139,10 @@ Instead of:
 - **Restriction**: Only available to app owners for their own users
 - **Best for**: Critical alerts, time-sensitive information
 
+<Card title="Learn More: Channel Configuration" icon="gear" href="/alerts/setup/dashboard-introduction">
+  Configure channels and manage notification delivery settings through the dashboard
+</Card>
+
 ## Subscribers
 
 **Subscribers** represent *who* receives notifications. Each subscriber is a user who has opted in to receive alerts from your application.
@@ -143,16 +151,22 @@ Instead of:
 
 There are three ways to subscribe users to notifications:
 
-1. **React Widget**: Users can subscribe by clicking the notification bell and signing a message to verify their wallet ownership. This is the simplest way to get started and works well for most dapps. For more information checkout our [quickstart section](/alerts/quick-start#step-4-user-subscribes-to-notifications-2-minutes).
+1. **React Widget**: Users can subscribe by clicking the notification bell and signing a message to verify their wallet ownership. This is the simplest way to get started and works well for most dapps. For more information checkout our [Quick Start guide](/alerts/quick-start#step-4-user-subscribes-to-notifications-2-minutes).
 
-2. **API Integration**: For wallet applications that can sign messages on behalf of users, we recommend using our API to programmatically subscribe users. This provides more control over the subscription flow and a smoother user experience.
+2. **API Integration**: For wallet applications that can sign messages on behalf of users, we recommend using our API to programmatically subscribe users. This provides more control over the subscription flow and a smoother user experience. Learn more about [API Authentication](/alerts/integrate-inbox/api/authentication).
 
-3. **SDK Integration**: Use our TypeScript/JavaScript SDK to programmatically manage subscriptions from your backend or frontend applications. This approach offers the most flexibility and is ideal for custom subscription flows and backend integrations. Learn more in our [SDK documentation](/alerts/integrate-inbox/sdk).
+3. **SDK Integration**: Use our TypeScript/JavaScript SDK to programmatically manage subscriptions from your backend or frontend applications. This approach offers the most flexibility and is ideal for custom subscription flows and backend integrations. Learn more in our [SDK Setup Configuration](/alerts/integrate-inbox/sdk/setup-configuration).
+
+<Card title="Learn More: Subscriber Management" icon="users" href="/alerts/integrate-inbox/user-management">
+  Master subscriber workflows, API integration, and SDK setup for complete user management
+</Card>
 
 ## Next Steps
 
 Now that you understand the core concepts:
 
-1. **[Dashboard introduction](dashboard-introduction)** - Learn to manage topics and subscribers
-2. **[Send your first alert](/alerts/send)** - Start sending notifications to subscribers
-3. **[Integrate a Universal Inbox](/alerts/integrate-inbox/universal-inbox)** - Receive alerts in your app
+1. **[Dashboard Introduction](/alerts/setup/dashboard-introduction)** - Learn to manage topics and subscribers through the web interface
+2. **[User Management](/alerts/integrate-inbox/user-management)** - Deep dive into subscriber workflows and topic management
+3. **[Send Your First Alert](/alerts/send)** - Start sending notifications to subscribers
+4. **[Universal Inbox Integration](/alerts/integrate-inbox/universal-inbox)** - Add notification receiving capabilities to your app
+5. **[Quick Start Guide](/alerts/quick-start)** - Complete setup walkthrough with examples
