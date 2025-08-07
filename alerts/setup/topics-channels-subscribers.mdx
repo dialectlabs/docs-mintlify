@@ -1,5 +1,5 @@
 ---
-title: "Topics, Channels & Subscribers"
+title: "Topics & Channels Logic"
 description: "Understanding the core concepts of Dialect's notification system: how topics organize notifications, channels deliver them, and subscribers receive them."
 ---
 
@@ -18,22 +18,16 @@ description: "Understanding the core concepts of Dialect's notification system: 
 
 Dialect's notification system is built around three fundamental concepts that work together to create flexible, scalable notification experiences.
 
-### How It All Works Together
-
-```mermaid
-flowchart LR
-    User[👤 User] --> Subscribe[Subscribe to Topics]
-    Subscribe --> Choose[Choose Channels]
-    Choose --> Receive[📱 Receive Notifications]
-    
-    App[🏗️ Your App] --> Send[Send to Topics]
-    Send --> Deliver[📮 Dialect Delivers]
-    Deliver --> Receive
-    
-    style User fill:#e8f5e8
-    style App fill:#e1f5fe
-    style Receive fill:#f3e5f5
-```
+<img
+  className="block dark:hidden"
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1754583102/dialect-docs/topics-and-channels-how-it-all-works-together.png"
+  alt="Diagram showing how topics, channels, and subscribers work together in Dialect's notification system"
+/>
+<img
+  className="hidden dark:block"
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1754583102/dialect-docs/topics-and-channels-how-it-all-works-together.png"
+  alt="Diagram showing how topics, channels, and subscribers work together in Dialect's notification system"
+/>
 
 ### The Flow
 1. **Users subscribe** to topics they care about and choose how they want to be notified
