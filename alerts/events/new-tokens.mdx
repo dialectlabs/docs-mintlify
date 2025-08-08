@@ -1,0 +1,51 @@
+---
+title: "New Token Events"
+description: "New Token events trigger when there is a newly-launched token that is outpeforming the many thousands of others that are launched every day. Integrate New Token events into your application or infrastructure via webhooks, or bundled with Dialect's Alerts Stack."
+---
+
+<Tip>
+New Token Events are currently in beta. Contact us for [early access](https://form.typeform.com/to/WlSWtZDY) or to discuss specific requirements.
+</Tip>
+
+## Data sources
+
+### Supported launchpads
+
+New token events support the 40+ launchpads available on [Jupiter Pro](https://jup.ag/pro?tab=launchpads), including:
+
+- pump.fun 
+- Letsbonk.fun 
+- BAGS
+- & 40 more
+
+
+## Detection Criteria
+
+A variety of criteria must be met for an event to trigger, including familiar community "audit" filters, as well as additional analyses we have developed in-house to set a higher bar. Hundreds of tokens satisfy the audit criteria every day. Our added analysis sets a higher bar to just two to five daily.
+
+### Community Audit Filters
+
+All events must meet the familiar community "audit" filters: 
+
+- **✅ Mint Authority**: Revoked to prevent unlimited token creation.
+- **✅ Freeze Authority**: Revoked to prevent account freezing.
+- **✅ LP Burned**: Liquidity provider tokens burned for permanent liquidity.
+- **✅ Holder Distribution**: Top 10 holders hold less than 20% of the total supply.
+- **✅ Social Presence**: At least one verified social media account.
+
+*Note: "Audit" refers to community trading terminology, not formal security audits.*
+
+### Advanced Criteria
+
+We employ an additional set of more advanced, in-house criteria to further filter the number of new token events per day. These include: 
+
+- **✅ Market cap**
+- **✅ Liquidity**
+- **✅ Price change**
+- **✅ Trading volume change**
+
+If you'd like to better understand what criteria we have in place, please reach out.
+
+### Top-Down Tuning
+
+Using the criteria above, we then apply a "top-down" tuning approach to achieve an ideal number of events per day, in this case two to five.
