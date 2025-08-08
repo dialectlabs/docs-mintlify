@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Events"
 sidebarTitle: "Introduction"
-description: "Send token-specific events to your users with minimal implementation effort."
+description: "Integrate onchain and other market events into your products, as webhooks or bundled with Dialect's Alerts Stack."
 ---
 
 <Note>
@@ -13,11 +13,15 @@ Events is currently in beta. To request early access, please contact our team by
 # Overview 
 
 
-Dialect's Events system enables real-time detection and delivery of token-specific events to help teams provide timely, relevant alerts to their users with minimal implementation effort. No complex monitoring infrastructure required.
+Dialect's Events system provides real-time detection and delivery of blockchain-specific events. These events can be used standalone via webhook delivery, or bundled with Dialect's Alerts Stack as off-the-shelf topics.
+
+Developers of all types can use Events for different purposes: to deliver timely alerts to their users, power other custom wallet app event-based capabilities, or even to power trading tools. No complex monitoring infrastructure required.
 
 ## What are Events?
 
-Events are smart notifications triggered when specific market conditions or token activities are met. The system continuously monitors on-chain market data, using sliding window analysis and threshold detection to identify events that matter. When an event is detected, your application receives detailed webhook notifications with context about what happened and why it's significant.
+Events are triggered when specific onchain or market conditions are met, such as an interesting price change for a token held in a wallet, or a new token is trending.
+
+When an event is detected, the Events system executes the configured behavior: either a webhook delivery or an Alerts Stack notification.
 
 ## Use Cases
 
@@ -38,24 +42,29 @@ Events are smart notifications triggered when specific market conditions or toke
 
 ## Supported Event Types
 
+Dialect supports two event types:
+
+1. Price Change Events
+2. New Token Events
+
 ### Price Change Events
-Detect significant price movements for tokens over configurable time windows:
-- Percentage-based thresholds (e.g., 10% change over 24 hours)
-- Sliding window analysis (1h, 3h, 6h, 12h, 24h, 7d)
-- Smart filtering to reduce noise and increase signal quality (soon)
+Price change events detect when there has been a significant price movement in a token.
 
-### Trending Token Events
-Monitor tokens for breakthrough moments:
-- Market cap and trading volume thresholds
-- Audit criteria filtering (mint authority, LP burned, top 10 holders)
-- Smart defaults to deliver only the most interesting opportunities
+To read more about this event type, see [Price Change Events](./events/price-change).
 
-## How Event Detection Differs from Regular Alerts
+### New Token Events
+New token events trigger when there is a newly-launched token that is outperforming others.
 
-Traditional alerts trigger on simple conditions like "SOL price > $150". Event detection is fundamentally different:
+To read more about this event type, see [New Token Events](./events/new-tokens).
 
-- **Contextual Analysis**: Uses sliding windows to understand if a price movement is significant relative to recent history
-- **Quality Filtering**: Applies multiple layers of analysis to distinguish meaningful events from market noise  
-- **Threshold Calibration**: Automatically adjusts sensitivity based on token volatility and market conditions
-- **Spam Prevention**: Built-in debouncing and rate limiting to avoid overwhelming users
+## Detecting Interesting Events
 
+Most interesting events are difficult to detect. Some events like "SOL is over $150" may be easy to detect and can sometimes be useful. But it is much more interesting, and much harder, to detect that a token is undergoing unusual price movement, or that one new token is outperforming the many thousands of others that were launched on the same day.
+
+It is also difficult to build an events system that is real time, capable of detecting optimally interesting events, and is rate limited.
+
+Dialect's Events uses sophisticated techniques to satisfy all three of these across all of of our Event types. To read more about it, see [Technical Overview](./events/technical-overview).
+
+## New event types
+
+We are building more event types every month. Have one in mind? Get in touch with us.

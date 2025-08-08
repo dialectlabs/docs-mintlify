@@ -129,8 +129,8 @@
               "alerts/events/index",
               "alerts/events/technical-overview",
               "alerts/events/using-events",
-              "alerts/events/price-change-events",
-              "alerts/events/trending-tokens-events"
+              "alerts/events/price-change",
+              "alerts/events/new-tokens"
             ]
           },
           {
