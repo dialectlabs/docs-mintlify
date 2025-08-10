@@ -2169,6 +2169,925 @@
           }
         }
       }
+    },
+    "/v0/leverage/{marketAddress}/setup": {
+      "get": {
+        "operationId": "v0.leverage.getLeverageSetupBlink",
+        "summary": "Leverage Setup",
+        "description": "Get metadata for setting up leverage position (LUT creation).",
+        "tags": [
+          "Leverage"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+              "examples": [
+                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+              ]
+            },
+            "example": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "So11111111111111111111111111111111111111112",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            },
+            "example": "So11111111111111111111111111111111111111112",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            },
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "examples": [
+                        "Setup Leverage Position"
+                      ]
+                    },
+                    "description": {
+                      "type": "string",
+                      "examples": [
+                        "Create LUT for leverage position on Kamino"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "examples": [
+                        "Setup"
+                      ]
+                    },
+                    "icon": {
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.leverage.leverageSetup",
+        "summary": "Leverage Setup",
+        "description": "Generate transactions for setting up leverage position (LUT creation).",
+        "tags": [
+          "Leverage"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+              "examples": [
+                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+              ]
+            },
+            "example": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "So11111111111111111111111111111111111111112",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            },
+            "example": "So11111111111111111111111111111111111111112",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            },
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["transaction"],
+                    "example": "transaction",
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              },
+              "examples": {
+                "setup": {
+                  "summary": "Setup leverage position",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/leverage/{marketAddress}/deposit": {
+      "get": {
+        "operationId": "v0.leverage.getLeverageDepositBlink",
+        "summary": "Leverage Deposit",
+        "description": "Get metadata for depositing with leverage.",
+        "tags": [
+          "Leverage"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+              "examples": [
+                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+              ]
+            },
+            "example": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "So11111111111111111111111111111111111111112",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            },
+            "example": "So11111111111111111111111111111111111111112",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            },
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "examples": [
+                        "Leverage Deposit"
+                      ]
+                    },
+                    "description": {
+                      "type": "string",
+                      "examples": [
+                        "Deposit with leverage on Kamino"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "examples": [
+                        "Deposit"
+                      ]
+                    },
+                    "icon": {
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.leverage.leverageDeposit",
+        "summary": "Leverage Deposit",
+        "description": "Generate a transaction for depositing with leverage.",
+        "tags": [
+          "Leverage"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+              "examples": [
+                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+              ]
+            },
+            "example": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "So11111111111111111111111111111111111111112",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            },
+            "example": "So11111111111111111111111111111111111111112",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            },
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "leverage",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 1.1,
+              "maximum": 10,
+              "description": "Leverage multiplier (1.1-10x)",
+              "default": 2.0,
+              "example": 2.0,
+              "examples": [
+                2.0
+              ]
+            },
+            "example": 2.0,
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to deposit. Human readable value, e.g. 0.1 SOL",
+              "default": 0.1,
+              "example": 0.1,
+              "examples": [
+                0.1
+              ]
+            },
+            "example": 0.1,
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "slippage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 10,
+              "default": 0.5,
+              "description": "Slippage tolerance in percentage (0.1-10%)",
+              "example": 0.5,
+              "examples": [
+                0.5
+              ]
+            },
+            "example": 0.5,
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["transaction"],
+                    "example": "transaction",
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              },
+              "examples": {
+                "deposit": {
+                  "summary": "Leverage deposit transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/leverage/{marketAddress}/withdraw": {
+      "get": {
+        "operationId": "v0.leverage.getLeverageWithdrawBlink",
+        "summary": "Leverage Withdraw",
+        "description": "Get metadata for withdrawing from leverage position.",
+        "tags": [
+          "Leverage"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+              "examples": [
+                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+              ]
+            },
+            "example": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "So11111111111111111111111111111111111111112",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            },
+            "example": "So11111111111111111111111111111111111111112",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            },
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "examples": [
+                        "Leverage Withdraw"
+                      ]
+                    },
+                    "description": {
+                      "type": "string",
+                      "examples": [
+                        "Withdraw from your leverage position on Kamino"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "examples": [
+                        "Withdraw"
+                      ]
+                    },
+                    "icon": {
+                      "type": "string",
+                      "examples": [
+                        "https://kamino.dial.to/icon.png"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.leverage.leverageWithdraw",
+        "summary": "Leverage Withdraw",
+        "description": "Generate a transaction for withdrawing from leverage position.",
+        "tags": [
+          "Leverage"
+        ],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "default": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+              "examples": [
+                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+              ]
+            },
+            "example": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+          },
+          {
+            "name": "collTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Collateral token mint address",
+              "default": "So11111111111111111111111111111111111111112",
+              "examples": [
+                "So11111111111111111111111111111111111111112"
+              ]
+            },
+            "example": "So11111111111111111111111111111111111111112",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "debtTokenMint",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Debt token mint address",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "examples": [
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            },
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of position to withdraw",
+              "default": 50,
+              "example": 50,
+              "examples": [
+                50
+              ]
+            },
+            "example": 50,
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "slippage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 10,
+              "default": 3,
+              "description": "Slippage tolerance in percentage (0.1-10%)",
+              "example": 3,
+              "examples": [
+                3
+              ]
+            },
+            "example": 3,
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["transaction"],
+                    "example": "transaction",
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              },
+              "examples": {
+                "withdraw": {
+                  "summary": "Leverage withdraw transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
