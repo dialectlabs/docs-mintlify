@@ -1,49 +1,76 @@
 ---
 title: "Trending Token Events"
-description: "New Token events trigger when there is a newly-launched token that is outpeforming the many thousands of others that are launched every day. Integrate New Token events into your application or infrastructure via webhooks, or bundled with Dialect's Alerts Stack."
+description: "Trending Token events trigger when a newly-launched token graduates from a launchpad and meets strict performance criteria. Get notified of high-potential tokens with built-in audit filters and advanced analytics."
 ---
 
 <Tip>
-New Token Events are currently in beta. Contact us for [early access](https://form.typeform.com/to/WlSWtZDY) or to discuss specific requirements.
+Trending Token Events are currently in beta. Contact us for [early access](https://form.typeform.com/to/WlSWtZDY) or to discuss specific requirements.
 </Tip>
 
 ## Webhooks
 
-Webhooks for new tokens can be delivered to power custom behavior in your infrastructure and apps. Reach out to the Dialect team for early access using the form above.
+Webhooks for trending tokens can be delivered to power custom behavior in your infrastructure and apps. Reach out to the Dialect team for early access using the form above.
 
-### Schema
+### Webhook Payload
 
-New token webhooks use the following schema.
+When a trending token event is detected, you'll receive a webhook with this structure:
 
 ```json
-
 {
-  "event": "string", // "trending_token"
-  "timestamp": "string", // ISO 8601
+  "event": "trending_token",
+  "timestamp": "2025-08-05T12:45:30Z",
   "token": {
-    "symbol": "string",
-    "address": "string"
+    "symbol": "BOSS",
+    "address": "GUy9Tu8YtvvHoL3DcXLJxXvEN8PqEus6mWQUEchcbonk"
   },
   "trigger": {
-    "type": "string" // always "launchpad_graduated"
+    "type": "launchpad_graduated"
   },
   "metrics": {
-    "graduatedAt": "string", // ISO 8601
-    "marketCap": "number",  // market cap in USD
-    "liquidity": "number", // liquidity in USD
-    "holders": "number", // number of unique token holders
-    "price": "number",  // current token price in USD
-    "launchpad": "string",  // launchpad platform name
-    "mintAuthorityDisabled": "boolean",
-    "freezeAuthorityDisabled": "boolean",
-    "topHoldersPercentage": "number",
-    "socialCount": "number",
-    "priceChange1h": "number",  // 1h price change percentage
-    "priceChange6h": "number", // 6h price change percentage
-    "priceChange24h": "number"  // 24h price change percentage
+    "graduatedAt": "2025-08-05T12:31:03Z",
+    "marketCap": 9866748.92,
+    "liquidity": 850000,
+    "holders": 20324,
+    "price": 0.0106,
+    "launchpad": "raydium",
+    "mintAuthorityDisabled": true,
+    "freezeAuthorityDisabled": true,
+    "topHoldersPercentage": 15.2,
+    "socialCount": 1,
+    "priceChange1h": -2.1,
+    "priceChange6h": 8.5,
+    "priceChange24h": 12.3
   }
 }
 ```
+
+#### Field Details
+
+**Event Information**
+- **event**: Always `"trending_token"` for trending token events
+- **timestamp**: ISO 8601 timestamp when the event was detected
+
+**Token Details**
+- **symbol**: Token symbol (e.g., "BOSS")
+- **address**: Solana token mint address
+
+**Trigger Information**
+- **type**: Always `"launchpad_graduated"` indicating token graduated from launchpad
+
+**Token Metrics**
+- **graduatedAt**: ISO 8601 timestamp when token graduated from launchpad
+- **marketCap**: Current market capitalization in USD
+- **liquidity**: Current liquidity pool value in USD
+- **holders**: Number of unique token holders
+- **price**: Current token price in USD
+- **launchpad**: Name of the launchpad platform (e.g., "Raydium Launchpad")
+- **mintAuthorityDisabled**: `true` if mint authority revoked, `false` otherwise
+- **freezeAuthorityDisabled**: `true` if freeze authority revoked, `false` otherwise
+- **topHoldersPercentage**: Percentage of total supply held by top 10 holders
+- **socialCount**: Number of verified social media accounts
+- **priceChange1h**: Price change percentage over 1 hour window
+- **priceChange6h**: Price change percentage over 6 hour window
+- **priceChange24h**: Price change percentage over 24 hour window
 
 ## Data Sources
 
