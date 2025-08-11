@@ -1,5 +1,5 @@
 ---
-title: "New Token Events"
+title: "Trending Token Events"
 description: "New Token events trigger when there is a newly-launched token that is outpeforming the many thousands of others that are launched every day. Integrate New Token events into your application or infrastructure via webhooks, or bundled with Dialect's Alerts Stack."
 ---
 
@@ -7,7 +7,45 @@ description: "New Token events trigger when there is a newly-launched token that
 New Token Events are currently in beta. Contact us for [early access](https://form.typeform.com/to/WlSWtZDY) or to discuss specific requirements.
 </Tip>
 
-## Data sources
+## Webhooks
+
+Webhooks for new tokens can be delivered to power custom behavior in your infrastructure and apps. Reach out to the Dialect team for early access using the form above.
+
+### Schema
+
+New token webhooks use the following schema.
+
+```json
+
+{
+  "event": "string", // "trending_token"
+  "timestamp": "string", // ISO 8601
+  "token": {
+    "symbol": "string",
+    "address": "string"
+  },
+  "trigger": {
+    "type": "string" // always "launchpad_graduated"
+  },
+  "metrics": {
+    "graduatedAt": "string", // ISO 8601
+    "marketCap": "number",  // market cap in USD
+    "liquidity": "number", // liquidity in USD
+    "holders": "number", // number of unique token holders
+    "price": "number",  // current token price in USD
+    "launchpad": "string",  // launchpad platform name
+    "mintAuthorityDisabled": "boolean",
+    "freezeAuthorityDisabled": "boolean",
+    "topHoldersPercentage": "number",
+    "socialCount": "number",
+    "priceChange1h": "number",  // 1h price change percentage
+    "priceChange6h": "number", // 6h price change percentage
+    "priceChange24h": "number"  // 24h price change percentage
+  }
+}
+```
+
+## Data Sources
 
 ### Supported launchpads
 
