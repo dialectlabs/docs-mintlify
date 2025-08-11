@@ -16,15 +16,16 @@ Webhooks for new tokens can be delivered to power custom behavior in your infras
 New token webhooks use the following schema.
 
 ```json
+
 {
-  "event": "string", // "new-token"
+  "event": "string", // "trending_token"
   "timestamp": "string", // ISO 8601
   "token": {
     "symbol": "string",
     "address": "string"
   },
   "trigger": {
-    "type": "string" // always "launchpad-graduated"
+    "type": "string" // always "launchpad_graduated"
   },
   "metrics": {
     "graduatedAt": "string", // ISO 8601
