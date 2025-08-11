@@ -28,36 +28,40 @@ Price changes are calculated using a sliding window approach:
 
 ### Webhook Payload
 
-When a price change event is detected, you'll receive a webhook with this structure:
+When price change events are detected, you'll receive a webhook with an array structure. Each individual event within the array has this structure:
 
 ```json
 {
-  "event": "token_price_change",
-  "timestamp": "2025-07-04T14:30:00Z",
-  "token": {
-    "symbol": "SOL",
-    "address": "So11111111111111111111111111111111111111112"
-  },
-  "trigger": {
-    "type": "sliding_window_percentage_change",
-    "window": {
-      "duration": "24h"
-    },
-    "threshold_percentage": 10.0
-  },
-  "change": {
-    "direction": "up",
-    "from": {
-      "timestamp": "2025-07-03T14:30:00Z",
-      "value": 154.25
-    },
-    "to": {
+  "events": [
+    {
+      "event": "token_price_change",
       "timestamp": "2025-07-04T14:30:00Z",
-      "value": 171.85
-    },
-    "absolute_change": 17.6,
-    "percentage_change": 11.42
-  }
+      "token": {
+        "symbol": "SOL",
+        "address": "So11111111111111111111111111111111111111112"
+      },
+      "trigger": {
+        "type": "sliding_window_percentage_change",
+        "window": {
+          "duration": "24h"
+        },
+        "threshold": 10.0
+      },
+      "change": {
+        "direction": "up",
+        "from": {
+          "timestamp": "2025-07-03T14:30:00Z",
+          "value": 154.25
+        },
+        "to": {
+          "timestamp": "2025-07-04T14:30:00Z",
+          "value": 171.85
+        },
+        "absolute": 17.6,
+        "percentage": 11.42
+      }
+    }
+  ]
 }
 ```
 
@@ -66,8 +70,9 @@ When a price change event is detected, you'll receive a webhook with this struct
 - **direction**: `"up"` for price increases, `"down"` for decreases
 - **from**: Price and timestamp at the start of the window
 - **to**: Price and timestamp at the end of the window
-- **absolute_change**: Raw price difference (to.value - from.value)
-- **percentage_change**: Percentage change over the window
+- **absolute**: Raw price difference (to.value - from.value)
+- **percentage**: Percentage change over the window
+- **threshold**: Percentage change required to trigger the event
 
 ## Use Cases
 

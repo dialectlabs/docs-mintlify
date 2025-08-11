@@ -16,55 +16,77 @@ description: "Integrate price alerts and automated trading triggers using webhoo
 When an event is detected, Dialect sends an HTTP POST request to your configured webhook endpoint with a structured JSON payload.
 ## Webhook Payload Schema
 
-All events follow a consistent schema structure:
+All webhooks deliver events as arrays, allowing for batch delivery of multiple events in a single request. You can receive multiple events of the same type or mixed event types in one webhook call:
 
 ```json
 {
-  "event": "token_price_change",
-  "timestamp": "2025-07-04T14:30:00Z",
-  "token": {
-    "symbol": "SOL",
-    "address": "So11111111111111111111111111111111111111112"
-  },
-  "trigger": {
-    "type": "sliding_window_percentage_change",
-    "window": {
-      "duration": "24h"
-    },
-    "threshold_percentage": 10.0
-  },
-  "change": {
-    "direction": "up",
-    "from": {
-      "timestamp": "2025-07-03T14:30:00Z",
-      "value": 154.25
-    },
-    "to": {
+  "events": [
+    {
+      "event": "token_price_change",
       "timestamp": "2025-07-04T14:30:00Z",
-      "value": 171.85
+      "token": {
+        "symbol": "SOL",
+        "address": "So11111111111111111111111111111111111111112"
+      },
+      "trigger": {
+        "type": "sliding_window_percentage_change",
+        "window": {
+          "duration": "24h"
+        },
+        "threshold": 10.0
+      },
+      "change": {
+        "direction": "up",
+        "from": {
+          "timestamp": "2025-07-03T14:30:00Z",
+          "value": 154.25
+        },
+        "to": {
+          "timestamp": "2025-07-04T14:30:00Z",
+          "value": 171.85
+        },
+        "absolute": 17.6,
+        "percentage": 11.42
+      }
     },
-    "absolute_change": 17.6,
-    "percentage_change": 11.42
-  }
+    {
+      "event": "trending_token",
+      "timestamp": "2025-08-05T12:45:30Z",
+      "token": {
+        "symbol": "BOSS",
+        "address": "GUy9Tu8YtvvHoL3DcXLJxXvEN8PqEus6mWQUEchcbonk"
+      },
+      "trigger": {
+        "type": "launchpad_graduated"
+      },
+      "metrics": {
+        "graduatedAt": "2025-08-05T12:31:03Z",
+        "marketCap": 9866748.92,
+        "liquidity": 850000,
+        "holders": 20324,
+        "price": 0.0106,
+        "launchpad": "raydium",
+        "mintAuthorityDisabled": true,
+        "freezeAuthorityDisabled": true,
+        "topHoldersPercentage": 15.2,
+        "socialCount": 1,
+        "priceChange1h": -2.1,
+        "priceChange6h": 8.5,
+        "priceChange24h": 12.3
+      }
+    }
+    // ... more events
+  ]
 }
 ```
 
-### Field Descriptions
+### Common Fields
 
-- **event**: Event type identifier (e.g., `token_price_change`, `trending_token`)
+All events share these common fields:
+
+- **event**: Event type identifier (`token_price_change` or `trending_token`)
 - **timestamp**: UTC timestamp when the event was generated (ISO 8601)
 - **token**: Token information including symbol and unique address
 - **trigger**: Configuration that caused the event to fire
-- **change**: Detailed information about the detected change
 
-## Event Types
-
-### Price Change Events
-
-Events triggered by significant price movements over sliding time windows.
-
-**Supported Triggers:**
-- `sliding_window_percentage_change`: Percentage change over a time window
-
-**Supported Windows:**
-- 1h, 3h, 6h, 12h, 24h, 7d
+For detailed field descriptions and specifications, see the individual event type pages for [Price Change](/alerts/events/price-change) and [Trending Token](/alerts/events/trending-token).
