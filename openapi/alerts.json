@@ -532,6 +532,77 @@
         "security": [{"application": []}]
       }
     },
+    "/v2/{appId}/topics": {
+      "get": {
+        "operationId": "getAppTopics",
+        "summary": "Get App Topics",
+        "description": "Retrieve all available alert topics for a specific application with detailed topic information including names, descriptions, and slugs for topic-based alert categorization",
+        "tags": ["Send Alerts"],
+        "parameters": [
+          {
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Application ID",
+              "example": "255d6163-7e25-43e9-a188-c2f8d0980a4a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of topics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "Unique identifier for the topic",
+                            "example": "123e4567-e89b-12d3-a456-426614174000"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the topic",
+                            "example": "Price Alerts"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Description of the topic",
+                            "example": "Receive alerts when prices drop below a certain threshold"
+                          },
+                          "slug": {
+                            "type": "string",
+                            "description": "Human-readable slug of the topic",
+                            "example": "price-alerts"
+                          }
+                        },
+                        "required": ["id", "name", "slug"]
+                      },
+                      "description": "List of alert topics for the app"
+                    }
+                  },
+                  "required": ["items"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [{"application": []}]
+      }
+    },
     "/v2/subscribe": {
       "post": {
         "operationId": "subscribeToAlerts",
