@@ -56,7 +56,14 @@ export function MyNotificationFeed() {
 If you want users to be able to close the notification panel:
 
 ```tsx
+"use client";
+
+import "@dialectlabs/react-ui/index.css";
+import { DialectSolanaSdk } from "@dialectlabs/react-sdk-blockchain-solana";
+import { Notifications } from "@dialectlabs/react-ui";
 import { useState } from "react";
+
+const DAPP_ADDRESS = process.env.NEXT_PUBLIC_DIALECT_DAPP_ADDRESS!;
 
 export function NotificationPanel() {
   const [isOpen, setIsOpen] = useState(true);
