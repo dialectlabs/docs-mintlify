@@ -2445,11 +2445,11 @@
         }
       }
     },
-    "/v0/leverage/{marketAddress}/deposit": {
+    "/v0/leverage/{marketAddress}/openPosition": {
       "get": {
-        "operationId": "v0.leverage.getLeverageDepositBlink",
-        "summary": "Leverage Deposit",
-        "description": "Get metadata for depositing with leverage.",
+        "operationId": "v0.leverage.getLeverageOpenPositionBlink",
+        "summary": "Leverage Open Position",
+        "description": "Get metadata for opening a leverage position.",
         "tags": [
           "Leverage"
         ],
@@ -2603,9 +2603,9 @@
         }
       },
       "post": {
-        "operationId": "v0.leverage.leverageDeposit",
-        "summary": "Leverage Deposit",
-        "description": "Generate a transaction for depositing with leverage.",
+        "operationId": "v0.leverage.leverageOpenPosition",
+        "summary": "Leverage Open Position",
+        "description": "Generate a transaction for opening a leverage position.",
         "tags": [
           "Leverage"
         ],
@@ -2776,11 +2776,11 @@
         }
       }
     },
-    "/v0/leverage/{marketAddress}/withdraw": {
+    "/v0/leverage/{marketAddress}/closePosition": {
       "get": {
-        "operationId": "v0.leverage.getLeverageWithdrawBlink",
-        "summary": "Leverage Withdraw",
-        "description": "Get metadata for withdrawing from leverage position.",
+        "operationId": "v0.leverage.getLeverageClosePositionBlink",
+        "summary": "Leverage Close Position",
+        "description": "Get metadata for closing a leverage position.",
         "tags": [
           "Leverage"
         ],
@@ -2934,9 +2934,9 @@
         }
       },
       "post": {
-        "operationId": "v0.leverage.leverageWithdraw",
-        "summary": "Leverage Withdraw",
-        "description": "Generate a transaction for withdrawing from leverage position.",
+        "operationId": "v0.leverage.leverageClosePosition",
+        "summary": "Leverage Close Position",
+        "description": "Generate a transaction for closing a leverage position.",
         "tags": [
           "Leverage"
         ],
