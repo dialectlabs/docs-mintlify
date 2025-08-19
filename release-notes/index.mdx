@@ -6,6 +6,27 @@ rss: true
 
 <Update label="August 2024">
 
+## Send API Updates
+
+We've updated our Send API to support multicast messaging, enabling you to send messages to up to **10,000 subscribers** at once through our [`/v2/{appId}/send`](/api-reference/send-alerts/send-alert) endpoint. This dramatically improves performance for applications with large subscriber bases.
+
+- **Multicast Messaging** - Send alerts to up to 10,000 subscribers in a single API call using the `subscribers` recipient type
+- **Enhanced Performance** - Significantly reduced latency and improved throughput for bulk notifications
+- **Flexible Targeting** - Choose between individual, multicast (up to 10K), or all-subscribers delivery options
+- **Existing API Compatibility** - Seamless integration with current alert workflows and channel configurations
+
+Test via [dashboard](/alerts/send/dashboard#sending-dashboard-alerts) or [Send Alerts API documentation](/alerts/send/api/send-messages). 
+
+## EVM Scaffold Launch
+
+We've launched our new **EVM Scaffold**, providing enhanced web3 development capabilities across EVM-compatible chains.
+
+- **Multi-Chain Support** - Works across all EVM-compatible networks
+- **Modern Stack** - Built with the latest Web3 development best practices and tooling
+- **Migration Path** - Monad scaffold will be sunset soon in favor of this more flexible solution
+
+Get started with the [EVM Scaffold](/blinks/blinks-starters/evm).
+
 ## Events System (Beta) Launch
 
 We've launched our [**Events System**](/alerts/events) - providing real-time detection and delivery of blockchain-specific events with no complex monitoring infrastructure required. Events can be used standalone via webhook delivery or bundled with Dialect's Alerts Stack as off-the-shelf topics, enabling developers to integrate onchain and market events into their products for timely user alerts, custom wallet capabilities, or trading tools. 
