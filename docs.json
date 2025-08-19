@@ -204,7 +204,7 @@
             "pages": [
               "blinks/blinks-starters/index",
               "blinks/blinks-starters/solana",
-              "blinks/blinks-starters/monad"
+              "blinks/blinks-starters/evm"
             ]
           },
           {
