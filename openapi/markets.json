@@ -52,6 +52,7 @@
                       "items": {
                         "anyOf": [
                           {
+                            "title": "Lending Market",
                             "type": "object",
                             "properties": {
                               "id": {
@@ -177,6 +178,7 @@
                             ]
                           },
                           {
+                            "title": "Yield Market",
                             "type": "object",
                             "properties": {
                               "id": {
@@ -285,6 +287,7 @@
                             ]
                           },
                           {
+                            "title": "Loop Market",
                             "type": "object",
                             "properties": {
                               "id": {
@@ -417,6 +420,7 @@
                             ]
                           },
                           {
+                            "title": "Perpetual Market",
                             "type": "object",
                             "properties": {
                               "id": {
@@ -1159,6 +1163,7 @@
                       "items": {
                         "anyOf": [
                           {
+                            "title": "Lending Position with Market",
                             "type": "object",
                             "properties": {
                               "id": {
@@ -1329,6 +1334,7 @@
                             ]
                           },
                           {
+                            "title": "Yield Position with Market",
                             "type": "object",
                             "properties": {
                               "id": {
