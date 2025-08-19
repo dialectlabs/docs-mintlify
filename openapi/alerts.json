@@ -23,8 +23,10 @@
       "post": {
         "operationId": "sendAlert",
         "summary": "Send Alert",
-        "description": "Send alert to specific recipient or all subscribers with rich content support including images, actions, and custom data",
-        "tags": ["Send Alerts"],
+        "description": "Send alert to one subscriber, multiple subscribers, or all with rich content support including images, actions, and custom data",
+        "tags": [
+          "Send Alerts"
+        ],
         "parameters": [
           {
             "name": "appId",
@@ -60,7 +62,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -72,7 +76,11 @@
             "description": "Forbidden"
           }
         },
-        "security": [{"application": []}],
+        "security": [
+          {
+            "application": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -83,7 +91,12 @@
                     "type": "array",
                     "items": {
                       "type": "string",
-                      "enum": ["PUSH", "IN_APP", "EMAIL", "TELEGRAM"]
+                      "enum": [
+                        "PUSH",
+                        "IN_APP",
+                        "EMAIL",
+                        "TELEGRAM"
+                      ]
                     },
                     "minItems": 1
                   },
@@ -133,21 +146,33 @@
                               "maxLength": 300
                             }
                           },
-                          "required": ["type", "label", "url"]
+                          "required": [
+                            "type",
+                            "label",
+                            "url"
+                          ]
                         },
                         "maxItems": 3,
                         "description": "Alert actions",
-                        "example": [{
-                          "type": "link",
-                          "label": "Open Link",
-                          "url": "https://dialect.to"
-                        }]
+                        "example": [
+                          {
+                            "type": "link",
+                            "label": "Open Link",
+                            "url": "https://dialect.to"
+                          }
+                        ]
                       }
                     },
-                    "required": ["title", "body"]
+                    "required": [
+                      "title",
+                      "body"
+                    ]
                   },
                   "topicId": {
-                    "type": ["string", "null"],
+                    "type": [
+                      "string",
+                      "null"
+                    ],
                     "format": "uuid",
                     "description": "Optional topic ID to categorize the alert. Must be created in advance and belong to the authenticated app. If absent, the alert is uncategorized. If invalid or unauthorized, the request will fail."
                   },
@@ -203,7 +228,10 @@
                             "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                           }
                         },
-                        "required": ["type", "walletAddress"],
+                        "required": [
+                          "type",
+                          "walletAddress"
+                        ],
                         "example": {
                           "type": "subscriber",
                           "walletAddress": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
@@ -214,10 +242,42 @@
                         "properties": {
                           "type": {
                             "type": "string",
+                            "const": "subscribers"
+                          },
+                          "walletAddresses": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "User wallet address",
+                              "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
+                            },
+                            "minItems": 1,
+                            "maxItems": 10000
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "walletAddresses"
+                        ],
+                        "example": {
+                          "type": "subscribers",
+                          "walletAddresses": [
+                            "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7",
+                            "7CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH8"
+                          ]
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
                             "const": "all-subscribers"
                           }
                         },
-                        "required": ["type"],
+                        "required": [
+                          "type"
+                        ],
                         "example": {
                           "type": "all-subscribers"
                         }
@@ -225,7 +285,11 @@
                     ]
                   }
                 },
-                "required": ["channels", "message", "recipient"]
+                "required": [
+                  "channels",
+                  "message",
+                  "recipient"
+                ]
               }
             }
           }
@@ -237,7 +301,9 @@
         "operationId": "sendBatchAlerts",
         "summary": "Send Batch Alerts",
         "description": "Send multiple alerts in a single request for improved performance with up to 500 alerts per batch",
-        "tags": ["Send Alerts"],
+        "tags": [
+          "Send Alerts"
+        ],
         "parameters": [
           {
             "name": "appId",
@@ -273,7 +339,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -285,7 +353,11 @@
             "description": "Forbidden"
           }
         },
-        "security": [{"application": []}],
+        "security": [
+          {
+            "application": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -301,7 +373,12 @@
                           "type": "array",
                           "items": {
                             "type": "string",
-                            "enum": ["PUSH", "IN_APP", "EMAIL", "TELEGRAM"]
+                            "enum": [
+                              "PUSH",
+                              "IN_APP",
+                              "EMAIL",
+                              "TELEGRAM"
+                            ]
                           },
                           "minItems": 1
                         },
@@ -351,21 +428,33 @@
                                     "maxLength": 300
                                   }
                                 },
-                                "required": ["type", "label", "url"]
+                                "required": [
+                                  "type",
+                                  "label",
+                                  "url"
+                                ]
                               },
                               "maxItems": 3,
                               "description": "Alert actions",
-                              "example": [{
-                                "type": "link",
-                                "label": "Open Link",
-                                "url": "https://dialect.to"
-                              }]
+                              "example": [
+                                {
+                                  "type": "link",
+                                  "label": "Open Link",
+                                  "url": "https://dialect.to"
+                                }
+                              ]
                             }
                           },
-                          "required": ["title", "body"]
+                          "required": [
+                            "title",
+                            "body"
+                          ]
                         },
                         "topicId": {
-                          "type": ["string", "null"],
+                          "type": [
+                            "string",
+                            "null"
+                          ],
                           "format": "uuid",
                           "description": "Optional topic ID to categorize the alert. Must be created in advance and belong to the authenticated app. If absent, the alert is uncategorized. If invalid or unauthorized, the request will fail."
                         },
@@ -419,20 +508,29 @@
                               "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                             }
                           },
-                          "required": ["type", "walletAddress"],
+                          "required": [
+                            "type",
+                            "walletAddress"
+                          ],
                           "example": {
                             "type": "subscriber",
                             "walletAddress": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                           }
                         }
                       },
-                      "required": ["channels", "message", "recipient"]
+                      "required": [
+                        "channels",
+                        "message",
+                        "recipient"
+                      ]
                     },
                     "minItems": 1,
                     "maxItems": 500
                   }
                 },
-                "required": ["alerts"]
+                "required": [
+                  "alerts"
+                ]
               }
             }
           }
@@ -444,7 +542,9 @@
         "operationId": "getAppSubscribers",
         "summary": "Get App Subscribers",
         "description": "Retrieve paginated list of all subscribers for application management with filtering and pagination support",
-        "tags": ["Send Alerts"],
+        "tags": [
+          "Send Alerts"
+        ],
         "parameters": [
           {
             "name": "appId",
@@ -500,11 +600,15 @@
                             "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                           }
                         },
-                        "required": ["walletAddress"]
+                        "required": [
+                          "walletAddress"
+                        ]
                       }
                     }
                   },
-                  "required": ["subscribers"]
+                  "required": [
+                    "subscribers"
+                  ]
                 }
               }
             }
@@ -520,7 +624,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -529,7 +635,11 @@
             "description": "Unauthorized"
           }
         },
-        "security": [{"application": []}]
+        "security": [
+          {
+            "application": []
+          }
+        ]
       }
     },
     "/v2/{appId}/topics": {
@@ -537,7 +647,9 @@
         "operationId": "getAppTopics",
         "summary": "Get App Topics",
         "description": "Retrieve all available alert topics for a specific application with detailed topic information including names, descriptions, and slugs for topic-based alert categorization",
-        "tags": ["Send Alerts"],
+        "tags": [
+          "Send Alerts"
+        ],
         "parameters": [
           {
             "name": "appId",
@@ -586,12 +698,18 @@
                             "example": "price-alerts"
                           }
                         },
-                        "required": ["id", "name", "slug"]
+                        "required": [
+                          "id",
+                          "name",
+                          "slug"
+                        ]
                       },
                       "description": "List of alert topics for the app"
                     }
                   },
-                  "required": ["items"]
+                  "required": [
+                    "items"
+                  ]
                 }
               }
             }
@@ -600,7 +718,11 @@
             "description": "Unauthorized"
           }
         },
-        "security": [{"application": []}]
+        "security": [
+          {
+            "application": []
+          }
+        ]
       }
     },
     "/v2/subscribe": {
@@ -608,7 +730,9 @@
         "operationId": "subscribeToAlerts",
         "summary": "Subscribe to Alerts",
         "description": "Subscribe to alerts from applications across multiple channels with support for app-specific and bulk subscriptions",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -652,13 +776,21 @@
                     "anyOf": [
                       {
                         "type": "string",
-                        "enum": ["IN_APP", "EMAIL", "TELEGRAM"]
+                        "enum": [
+                          "IN_APP",
+                          "EMAIL",
+                          "TELEGRAM"
+                        ]
                       },
                       {
                         "type": "array",
                         "items": {
                           "type": "string",
-                          "enum": ["IN_APP", "EMAIL", "TELEGRAM"]
+                          "enum": [
+                            "IN_APP",
+                            "EMAIL",
+                            "TELEGRAM"
+                          ]
                         }
                       }
                     ],
@@ -692,7 +824,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -711,13 +845,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/unsubscribe": {
@@ -725,7 +865,9 @@
         "operationId": "unsubscribeFromAlerts",
         "summary": "Unsubscribe from Alerts",
         "description": "Remove subscription to alerts from specified applications and channels with bulk unsubscription support",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -769,13 +911,21 @@
                     "anyOf": [
                       {
                         "type": "string",
-                        "enum": ["IN_APP", "EMAIL", "TELEGRAM"]
+                        "enum": [
+                          "IN_APP",
+                          "EMAIL",
+                          "TELEGRAM"
+                        ]
                       },
                       {
                         "type": "array",
                         "items": {
                           "type": "string",
-                          "enum": ["IN_APP", "EMAIL", "TELEGRAM"]
+                          "enum": [
+                            "IN_APP",
+                            "EMAIL",
+                            "TELEGRAM"
+                          ]
                         }
                       }
                     ],
@@ -809,7 +959,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -828,13 +980,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/auth": {
@@ -842,7 +1000,9 @@
         "operationId": "getAuthenticatedUser",
         "summary": "Get Authenticated User",
         "description": "Get authenticated subscriber's wallet address for identity verification and session validation",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -868,7 +1028,9 @@
                       "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                     }
                   },
-                  "required": ["walletAddress"]
+                  "required": [
+                    "walletAddress"
+                  ]
                 }
               }
             }
@@ -877,7 +1039,11 @@
             "description": "Unauthorized"
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/auth/solana/prepare": {
@@ -885,7 +1051,9 @@
         "operationId": "prepareSolanaAuth",
         "summary": "Prepare Solana Authentication",
         "description": "Generate challenge message for Solana wallet-based authentication with nonce and timestamp",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -909,7 +1077,9 @@
                     "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                   }
                 },
-                "required": ["walletAddress"]
+                "required": [
+                  "walletAddress"
+                ]
               }
             }
           }
@@ -928,7 +1098,9 @@
                       "example": "Sign this message to authenticate. Nonce: 1638471298347"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
@@ -944,7 +1116,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -957,7 +1131,9 @@
         "operationId": "verifySolanaAuth",
         "summary": "Verify Solana Authentication",
         "description": "Complete Solana wallet authentication by verifying signed message and receive JWT token for session access",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -986,7 +1162,10 @@
                     "example": "2VYoXjcwKE..."
                   }
                 },
-                "required": ["message", "signature"]
+                "required": [
+                  "message",
+                  "signature"
+                ]
               }
             }
           }
@@ -1012,10 +1191,15 @@
                           "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                         }
                       },
-                      "required": ["walletAddress"]
+                      "required": [
+                        "walletAddress"
+                      ]
                     }
                   },
-                  "required": ["token", "subscriber"]
+                  "required": [
+                    "token",
+                    "subscriber"
+                  ]
                 }
               }
             }
@@ -1031,7 +1215,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1047,7 +1233,9 @@
         "operationId": "prepareSolanaTxAuth",
         "summary": "Prepare Solana Transaction Authentication",
         "description": "Generate transaction for Solana wallet-based authentication using transaction signing",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -1071,7 +1259,9 @@
                     "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                   }
                 },
-                "required": ["walletAddress"]
+                "required": [
+                  "walletAddress"
+                ]
               }
             }
           }
@@ -1089,7 +1279,9 @@
                       "description": "Base64-encoded transaction to be signed by the user"
                     }
                   },
-                  "required": ["transaction"]
+                  "required": [
+                    "transaction"
+                  ]
                 }
               }
             }
@@ -1105,7 +1297,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1118,7 +1312,9 @@
         "operationId": "verifySolanaTxAuth",
         "summary": "Verify Solana Transaction Authentication",
         "description": "Complete Solana wallet authentication by verifying signed transaction and receive JWT token",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -1141,7 +1337,9 @@
                     "description": "Signed base64-encoded transaction signed by the user"
                   }
                 },
-                "required": ["transaction"]
+                "required": [
+                  "transaction"
+                ]
               }
             }
           }
@@ -1167,10 +1365,15 @@
                           "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
                         }
                       },
-                      "required": ["walletAddress"]
+                      "required": [
+                        "walletAddress"
+                      ]
                     }
                   },
-                  "required": ["token", "subscriber"]
+                  "required": [
+                    "token",
+                    "subscriber"
+                  ]
                 }
               }
             }
@@ -1186,7 +1389,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1202,7 +1407,9 @@
         "operationId": "getNotificationHistory",
         "summary": "Get Notification History",
         "description": "Retrieve user's alert history with pagination, filtering by app, and detailed notification metadata",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "appId",
@@ -1304,7 +1511,11 @@
                                   "minLength": 1
                                 }
                               },
-                              "required": ["type", "label", "url"]
+                              "required": [
+                                "type",
+                                "label",
+                                "url"
+                              ]
                             }
                           },
                           "topic": {
@@ -1330,7 +1541,11 @@
                                 "example": "product-announcements"
                               }
                             },
-                            "required": ["id", "name", "slug"]
+                            "required": [
+                              "id",
+                              "name",
+                              "slug"
+                            ]
                           },
                           "app": {
                             "type": "object",
@@ -1354,10 +1569,18 @@
                                 "example": "https://dialect-file-storage.s3.us-west-2.amazonaws.com/avatars/dialect-logo.png"
                               }
                             },
-                            "required": ["id", "name"]
+                            "required": [
+                              "id",
+                              "name"
+                            ]
                           }
                         },
-                        "required": ["id", "timestamp", "title", "body"]
+                        "required": [
+                          "id",
+                          "timestamp",
+                          "title",
+                          "body"
+                        ]
                       }
                     },
                     "summary": {
@@ -1378,10 +1601,14 @@
                               "example": "2024-02-20T15:30:00.000Z"
                             }
                           },
-                          "required": ["timestamp"]
+                          "required": [
+                            "timestamp"
+                          ]
                         }
                       },
-                      "required": ["unreadCount"]
+                      "required": [
+                        "unreadCount"
+                      ]
                     },
                     "limit": {
                       "type": "number",
@@ -1397,7 +1624,11 @@
                       "description": "Pagination cursor"
                     }
                   },
-                  "required": ["alerts", "summary", "limit"]
+                  "required": [
+                    "alerts",
+                    "summary",
+                    "limit"
+                  ]
                 }
               }
             }
@@ -1413,7 +1644,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1435,13 +1668,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/history/summary": {
@@ -1449,7 +1688,9 @@
         "operationId": "getNotificationSummary",
         "summary": "Get Notification Summary",
         "description": "Get quick summary of user's notification status including unread count and last read timestamp for efficient inbox management",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "appId",
@@ -1495,10 +1736,14 @@
                           "example": "2024-02-20T15:30:00.000Z"
                         }
                       },
-                      "required": ["timestamp"]
+                      "required": [
+                        "timestamp"
+                      ]
                     }
                   },
-                  "required": ["unreadCount"]
+                  "required": [
+                    "unreadCount"
+                  ]
                 }
               }
             }
@@ -1514,7 +1759,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1533,13 +1780,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/history/read": {
@@ -1547,7 +1800,9 @@
         "operationId": "markNotificationsRead",
         "summary": "Mark Notifications as Read",
         "description": "Mark alerts as read for the authenticated user to update their notification status",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -1599,7 +1854,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1618,13 +1875,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/history/clear": {
@@ -1632,7 +1895,9 @@
         "operationId": "clearNotificationHistory",
         "summary": "Clear Notification History",
         "description": "Clear all read alerts for the given user and specified apps. This is a global action that applies across all clients",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -1699,7 +1964,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1718,13 +1985,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/push/subscribe": {
@@ -1732,7 +2005,9 @@
         "operationId": "subscribeToPushNotifications",
         "summary": "Subscribe to Push Notifications",
         "description": "Register device for push notifications using Firebase Cloud Messaging (FCM) with support for app-specific or global subscriptions",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -1764,7 +2039,9 @@
                     "minLength": 1
                   }
                 },
-                "required": ["fcmToken"]
+                "required": [
+                  "fcmToken"
+                ]
               }
             }
           }
@@ -1791,7 +2068,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1810,13 +2089,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/push/unsubscribe": {
@@ -1824,7 +2109,9 @@
         "operationId": "unsubscribeFromPushNotifications",
         "summary": "Unsubscribe from Push Notifications",
         "description": "Remove device from push notification delivery with support for app-specific or global unsubscription",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -1856,7 +2143,9 @@
                     "minLength": 1
                   }
                 },
-                "required": ["fcmToken"]
+                "required": [
+                  "fcmToken"
+                ]
               }
             }
           }
@@ -1883,7 +2172,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -1902,13 +2193,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/topics": {
@@ -1916,7 +2213,9 @@
         "operationId": "getAlertTopics",
         "summary": "Get Alert Topics",
         "description": "Retrieve available alert topics organized by application with subscription status for granular notification control",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "appId",
@@ -1989,15 +2288,24 @@
                                   "example": true
                                 }
                               },
-                              "required": ["id", "name", "slug", "subscribed"]
+                              "required": [
+                                "id",
+                                "name",
+                                "slug",
+                                "subscribed"
+                              ]
                             }
                           }
                         },
-                        "required": ["items"]
+                        "required": [
+                          "items"
+                        ]
                       }
                     }
                   },
-                  "required": ["byApp"]
+                  "required": [
+                    "byApp"
+                  ]
                 }
               }
             }
@@ -2013,7 +2321,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2025,7 +2335,11 @@
             "description": "Forbidden"
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/topics/subscribe": {
@@ -2033,7 +2347,9 @@
         "operationId": "subscribeToTopic",
         "summary": "Subscribe to Alert Topic",
         "description": "Enable receiving alerts for a specific topic to provide granular notification control and better user experience",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2059,7 +2375,9 @@
                     "example": "123e4567-e89b-12d3-a456-426614174000"
                   }
                 },
-                "required": ["topicId"]
+                "required": [
+                  "topicId"
+                ]
               }
             }
           }
@@ -2086,7 +2404,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2105,7 +2425,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2121,13 +2443,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/topics/unsubscribe": {
@@ -2135,7 +2463,9 @@
         "operationId": "unsubscribeFromTopic",
         "summary": "Unsubscribe from Alert Topic",
         "description": "Disable receiving alerts for a specific topic to provide granular notification control",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2161,7 +2491,9 @@
                     "example": "123e4567-e89b-12d3-a456-426614174000"
                   }
                 },
-                "required": ["topicId"]
+                "required": [
+                  "topicId"
+                ]
               }
             }
           }
@@ -2188,7 +2520,9 @@
                       "type": "object"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2207,7 +2541,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2223,13 +2559,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/apps": {
@@ -2237,7 +2579,9 @@
         "operationId": "getAvailableApps",
         "summary": "Get Available Apps",
         "description": "Get all applications available to the authenticated user with subscription status, topics, and channel availability",
-        "tags": ["Integrate an Inbox"],
+        "tags": [
+          "Integrate an Inbox"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2314,7 +2658,12 @@
                                   "example": true
                                 }
                               },
-                              "required": ["id", "name", "slug", "subscribed"]
+                              "required": [
+                                "id",
+                                "name",
+                                "slug",
+                                "subscribed"
+                              ]
                             },
                             "description": "Subscriber's topics this app."
                           },
@@ -2325,22 +2674,37 @@
                               "properties": {
                                 "channel": {
                                   "type": "string",
-                                  "enum": ["IN_APP", "EMAIL", "TELEGRAM"]
+                                  "enum": [
+                                    "IN_APP",
+                                    "EMAIL",
+                                    "TELEGRAM"
+                                  ]
                                 },
                                 "subscribed": {
                                   "type": "boolean"
                                 }
                               },
-                              "required": ["channel", "subscribed"]
+                              "required": [
+                                "channel",
+                                "subscribed"
+                              ]
                             },
                             "description": "List of channels that the app supports for notifications."
                           }
                         },
-                        "required": ["id", "name", "subscribed", "topics", "channels"]
+                        "required": [
+                          "id",
+                          "name",
+                          "subscribed",
+                          "topics",
+                          "channels"
+                        ]
                       }
                     }
                   },
-                  "required": ["apps"]
+                  "required": [
+                    "apps"
+                  ]
                 }
               }
             }
@@ -2349,7 +2713,11 @@
             "description": "Unauthorized"
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/channels": {
@@ -2357,7 +2725,9 @@
         "operationId": "getChannels",
         "summary": "Get Channels",
         "description": "Get user's channels and channel subscriptions",
-        "tags": ["Manage Channels"],
+        "tags": [
+          "Manage Channels"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2386,7 +2756,10 @@
                         },
                         "type": {
                           "type": "string",
-                          "enum": ["EMAIL", "TELEGRAM"]
+                          "enum": [
+                            "EMAIL",
+                            "TELEGRAM"
+                          ]
                         },
                         "value": {
                           "type": "string"
@@ -2421,11 +2794,20 @@
                                 "example": "https://dialect-file-storage.s3.us-west-2.amazonaws.com/avatars/dialect-logo.png"
                               }
                             },
-                            "required": ["id", "name"]
+                            "required": [
+                              "id",
+                              "name"
+                            ]
                           }
                         }
                       },
-                      "required": ["id", "type", "value", "verified", "subscribed"]
+                      "required": [
+                        "id",
+                        "type",
+                        "value",
+                        "verified",
+                        "subscribed"
+                      ]
                     },
                     "TELEGRAM": {
                       "type": "object",
@@ -2435,7 +2817,10 @@
                         },
                         "type": {
                           "type": "string",
-                          "enum": ["EMAIL", "TELEGRAM"]
+                          "enum": [
+                            "EMAIL",
+                            "TELEGRAM"
+                          ]
                         },
                         "value": {
                           "type": "string"
@@ -2470,11 +2855,20 @@
                                 "example": "https://dialect-file-storage.s3.us-west-2.amazonaws.com/avatars/dialect-logo.png"
                               }
                             },
-                            "required": ["id", "name"]
+                            "required": [
+                              "id",
+                              "name"
+                            ]
                           }
                         }
                       },
-                      "required": ["id", "type", "value", "verified", "subscribed"]
+                      "required": [
+                        "id",
+                        "type",
+                        "value",
+                        "verified",
+                        "subscribed"
+                      ]
                     }
                   },
                   "additionalProperties": false
@@ -2496,13 +2890,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/channel/email/prepare": {
@@ -2510,7 +2910,9 @@
         "operationId": "prepareEmailChannel",
         "summary": "Prepare Email Channel",
         "description": "Prepare email channel for a subscriber",
-        "tags": ["Manage Channels"],
+        "tags": [
+          "Manage Channels"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2536,7 +2938,9 @@
                     "example": "user@example.com"
                   }
                 },
-                "required": ["email"]
+                "required": [
+                  "email"
+                ]
               }
             }
           }
@@ -2554,7 +2958,10 @@
                     },
                     "type": {
                       "type": "string",
-                      "enum": ["EMAIL", "TELEGRAM"]
+                      "enum": [
+                        "EMAIL",
+                        "TELEGRAM"
+                      ]
                     },
                     "value": {
                       "type": "string"
@@ -2589,11 +2996,20 @@
                             "example": "https://dialect-file-storage.s3.us-west-2.amazonaws.com/avatars/dialect-logo.png"
                           }
                         },
-                        "required": ["id", "name"]
+                        "required": [
+                          "id",
+                          "name"
+                        ]
                       }
                     }
                   },
-                  "required": ["id", "type", "value", "verified", "subscribed"]
+                  "required": [
+                    "id",
+                    "type",
+                    "value",
+                    "verified",
+                    "subscribed"
+                  ]
                 }
               }
             }
@@ -2609,7 +3025,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2628,13 +3046,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/channel/email/verify": {
@@ -2642,7 +3066,9 @@
         "operationId": "verifyEmailChannel",
         "summary": "Verify Email Channel",
         "description": "Verify email channel for a subscriber",
-        "tags": ["Manage Channels"],
+        "tags": [
+          "Manage Channels"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2667,7 +3093,9 @@
                     "example": "123456"
                   }
                 },
-                "required": ["code"]
+                "required": [
+                  "code"
+                ]
               }
             }
           }
@@ -2685,7 +3113,10 @@
                     },
                     "type": {
                       "type": "string",
-                      "enum": ["EMAIL", "TELEGRAM"]
+                      "enum": [
+                        "EMAIL",
+                        "TELEGRAM"
+                      ]
                     },
                     "value": {
                       "type": "string"
@@ -2720,11 +3151,20 @@
                             "example": "https://dialect-file-storage.s3.us-west-2.amazonaws.com/avatars/dialect-logo.png"
                           }
                         },
-                        "required": ["id", "name"]
+                        "required": [
+                          "id",
+                          "name"
+                        ]
                       }
                     }
                   },
-                  "required": ["id", "type", "value", "verified", "subscribed"]
+                  "required": [
+                    "id",
+                    "type",
+                    "value",
+                    "verified",
+                    "subscribed"
+                  ]
                 }
               }
             }
@@ -2743,7 +3183,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2762,13 +3204,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/channel/email/resend": {
@@ -2776,7 +3224,9 @@
         "operationId": "resendEmailVerification",
         "summary": "Resend Email Verification",
         "description": "Resend email verification for a subscriber",
-        "tags": ["Manage Channels"],
+        "tags": [
+          "Manage Channels"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2804,7 +3254,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2823,7 +3275,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
@@ -2839,13 +3293,19 @@
                       "type": "string"
                     }
                   },
-                  "required": ["message"]
+                  "required": [
+                    "message"
+                  ]
                 }
               }
             }
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/channel/email/delete": {
@@ -2853,7 +3313,9 @@
         "operationId": "deleteEmailChannel",
         "summary": "Delete Email Channel",
         "description": "Delete email channel for a subscriber",
-        "tags": ["Manage Channels"],
+        "tags": [
+          "Manage Channels"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2881,7 +3343,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2890,7 +3354,11 @@
             "description": "Unauthorized"
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/channel/telegram/prepare": {
@@ -2898,7 +3366,9 @@
         "operationId": "prepareTelegramChannel",
         "summary": "Prepare Telegram Channel",
         "description": "Prepare telegram channel for a subscriber",
-        "tags": ["Manage Channels"],
+        "tags": [
+          "Manage Channels"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -2924,7 +3394,10 @@
                     },
                     "type": {
                       "type": "string",
-                      "enum": ["EMAIL", "TELEGRAM"]
+                      "enum": [
+                        "EMAIL",
+                        "TELEGRAM"
+                      ]
                     },
                     "value": {
                       "type": "string"
@@ -2959,7 +3432,10 @@
                             "example": "https://dialect-file-storage.s3.us-west-2.amazonaws.com/avatars/dialect-logo.png"
                           }
                         },
-                        "required": ["id", "name"]
+                        "required": [
+                          "id",
+                          "name"
+                        ]
                       }
                     },
                     "verification": {
@@ -2969,10 +3445,19 @@
                           "type": "string"
                         }
                       },
-                      "required": ["link"]
+                      "required": [
+                        "link"
+                      ]
                     }
                   },
-                  "required": ["id", "type", "value", "verified", "subscribed", "verification"]
+                  "required": [
+                    "id",
+                    "type",
+                    "value",
+                    "verified",
+                    "subscribed",
+                    "verification"
+                  ]
                 }
               }
             }
@@ -2988,7 +3473,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -2997,7 +3484,11 @@
             "description": "Unauthorized"
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     },
     "/v2/channel/telegram/delete": {
@@ -3005,7 +3496,9 @@
         "operationId": "deleteTelegramChannel",
         "summary": "Delete Telegram Channel",
         "description": "Delete telegram channel for a subscriber",
-        "tags": ["Manage Channels"],
+        "tags": [
+          "Manage Channels"
+        ],
         "parameters": [
           {
             "name": "X-Dialect-Client-Key",
@@ -3033,7 +3526,9 @@
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
@@ -3042,7 +3537,11 @@
             "description": "Unauthorized"
           }
         },
-        "security": [{"subscriber": []}]
+        "security": [
+          {
+            "subscriber": []
+          }
+        ]
       }
     }
   },
