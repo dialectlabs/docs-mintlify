@@ -21,6 +21,24 @@
         "tags": [
           "Markets"
         ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "lending",
+                "yield",
+                "loop",
+                "perpetual"
+              ]
+            },
+            "style": "deepObject",
+            "explode": true,
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -32,124 +50,13 @@
                     "markets": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
+                        "anyOf": [
+                          {
+                            "$ref": "#/components/schemas/LendingMarket"
                           },
-                          "type": {
-                            "const": "lending"
-                          },
-                          "provider": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "name"
-                            ]
-                          },
-                          "token": {
-                            "type": "object",
-                            "properties": {
-                              "address": {
-                                "type": "string"
-                              },
-                              "symbol": {
-                                "type": "string"
-                              },
-                              "decimals": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "address",
-                              "symbol",
-                              "decimals"
-                            ]
-                          },
-                          "depositApy": {
-                            "type": "number"
-                          },
-                          "borrowApy": {
-                            "type": "number"
-                          },
-                          "totalDeposit": {
-                            "type": "number"
-                          },
-                          "totalDepositUsd": {
-                            "type": "number"
-                          },
-                          "totalBorrow": {
-                            "type": "number"
-                          },
-                          "totalBorrowUsd": {
-                            "type": "number"
-                          },
-                          "maxDeposit": {
-                            "type": "number"
-                          },
-                          "maxBorrow": {
-                            "type": "number"
-                          },
-                          "oraclePrice": {
-                            "type": "number"
-                          },
-                          "additionalData": {
-                            "type": "object",
-                            "propertyNames": {
-                              "type": "string"
-                            },
-                            "additionalProperties": {}
-                          },
-                          "actions": {
-                            "type": "object",
-                            "properties": {
-                              "deposit": {
-                                "type": "object",
-                                "properties": {
-                                  "blinkUrl": {
-                                    "type": "string",
-                                    "pattern": "^blink:.*"
-                                  }
-                                },
-                                "required": [
-                                  "blinkUrl"
-                                ]
-                              },
-                              "withdraw": {
-                                "type": "object",
-                                "properties": {
-                                  "blinkUrl": {
-                                    "type": "string",
-                                    "pattern": "^blink:.*"
-                                  }
-                                },
-                                "required": [
-                                  "blinkUrl"
-                                ]
-                              }
-                            }
+                          {
+                            "$ref": "#/components/schemas/YieldMarket"
                           }
-                        },
-                        "required": [
-                          "id",
-                          "type",
-                          "provider",
-                          "token",
-                          "depositApy",
-                          "borrowApy",
-                          "totalDeposit",
-                          "totalBorrow",
-                          "maxDeposit",
-                          "maxBorrow",
-                          "actions"
                         ]
                       }
                     }
@@ -183,130 +90,19 @@
                     "lending": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "type": {
-                            "const": "lending"
-                          },
-                          "provider": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "name"
-                            ]
-                          },
-                          "token": {
-                            "type": "object",
-                            "properties": {
-                              "address": {
-                                "type": "string"
-                              },
-                              "symbol": {
-                                "type": "string"
-                              },
-                              "decimals": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "address",
-                              "symbol",
-                              "decimals"
-                            ]
-                          },
-                          "depositApy": {
-                            "type": "number"
-                          },
-                          "borrowApy": {
-                            "type": "number"
-                          },
-                          "totalDeposit": {
-                            "type": "number"
-                          },
-                          "totalDepositUsd": {
-                            "type": "number"
-                          },
-                          "totalBorrow": {
-                            "type": "number"
-                          },
-                          "totalBorrowUsd": {
-                            "type": "number"
-                          },
-                          "maxDeposit": {
-                            "type": "number"
-                          },
-                          "maxBorrow": {
-                            "type": "number"
-                          },
-                          "oraclePrice": {
-                            "type": "number"
-                          },
-                          "additionalData": {
-                            "type": "object",
-                            "propertyNames": {
-                              "type": "string"
-                            },
-                            "additionalProperties": {}
-                          },
-                          "actions": {
-                            "type": "object",
-                            "properties": {
-                              "deposit": {
-                                "type": "object",
-                                "properties": {
-                                  "blinkUrl": {
-                                    "type": "string",
-                                    "pattern": "^blink:.*"
-                                  }
-                                },
-                                "required": [
-                                  "blinkUrl"
-                                ]
-                              },
-                              "withdraw": {
-                                "type": "object",
-                                "properties": {
-                                  "blinkUrl": {
-                                    "type": "string",
-                                    "pattern": "^blink:.*"
-                                  }
-                                },
-                                "required": [
-                                  "blinkUrl"
-                                ]
-                              }
-                            }
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "type",
-                          "provider",
-                          "token",
-                          "depositApy",
-                          "borrowApy",
-                          "totalDeposit",
-                          "totalBorrow",
-                          "maxDeposit",
-                          "maxBorrow",
-                          "actions"
-                        ]
+                        "$ref": "#/components/schemas/LendingMarket"
+                      }
+                    },
+                    "yield": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/YieldMarket"
                       }
                     }
                   },
                   "required": [
-                    "lending"
+                    "lending",
+                    "yield"
                   ]
                 }
               }
@@ -330,12 +126,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Comma separated list of owner addresses. Currently only supports one address.",
-              "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-              "x-example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+              "description": "Comma separated list of owner addresses. Currently only supports one address."
             },
-            "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-            "x-default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
             "allowEmptyValue": true,
             "allowReserved": true
           }
@@ -351,169 +143,13 @@
                     "positions": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
+                        "anyOf": [
+                          {
+                            "$ref": "#/components/schemas/LendingPositionWithMarket"
                           },
-                          "type": {
-                            "const": "lending"
-                          },
-                          "marketId": {
-                            "type": "string"
-                          },
-                          "ownerAddress": {
-                            "type": "string"
-                          },
-                          "side": {
-                            "enum": [
-                              "deposit",
-                              "borrow"
-                            ]
-                          },
-                          "amount": {
-                            "type": "number"
-                          },
-                          "amountUsd": {
-                            "type": "number"
-                          },
-                          "additionalData": {
-                            "type": "object",
-                            "propertyNames": {
-                              "type": "string"
-                            },
-                            "additionalProperties": {}
-                          },
-                          "market": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "type": {
-                                "const": "lending"
-                              },
-                              "provider": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "name"
-                                ]
-                              },
-                              "token": {
-                                "type": "object",
-                                "properties": {
-                                  "address": {
-                                    "type": "string"
-                                  },
-                                  "symbol": {
-                                    "type": "string"
-                                  },
-                                  "decimals": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "address",
-                                  "symbol",
-                                  "decimals"
-                                ]
-                              },
-                              "depositApy": {
-                                "type": "number"
-                              },
-                              "borrowApy": {
-                                "type": "number"
-                              },
-                              "totalDeposit": {
-                                "type": "number"
-                              },
-                              "totalDepositUsd": {
-                                "type": "number"
-                              },
-                              "totalBorrow": {
-                                "type": "number"
-                              },
-                              "totalBorrowUsd": {
-                                "type": "number"
-                              },
-                              "maxDeposit": {
-                                "type": "number"
-                              },
-                              "maxBorrow": {
-                                "type": "number"
-                              },
-                              "oraclePrice": {
-                                "type": "number"
-                              },
-                              "additionalData": {
-                                "type": "object",
-                                "propertyNames": {
-                                  "type": "string"
-                                },
-                                "additionalProperties": {}
-                              },
-                              "actions": {
-                                "type": "object",
-                                "properties": {
-                                  "deposit": {
-                                    "type": "object",
-                                    "properties": {
-                                      "blinkUrl": {
-                                        "type": "string",
-                                        "pattern": "^blink:.*"
-                                      }
-                                    },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
-                                  },
-                                  "withdraw": {
-                                    "type": "object",
-                                    "properties": {
-                                      "blinkUrl": {
-                                        "type": "string",
-                                        "pattern": "^blink:.*"
-                                      }
-                                    },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
-                                  }
-                                }
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "type",
-                              "provider",
-                              "token",
-                              "depositApy",
-                              "borrowApy",
-                              "totalDeposit",
-                              "totalBorrow",
-                              "maxDeposit",
-                              "maxBorrow",
-                              "actions"
-                            ]
+                          {
+                            "$ref": "#/components/schemas/YieldPositionWithMarket"
                           }
-                        },
-                        "required": [
-                          "id",
-                          "type",
-                          "marketId",
-                          "ownerAddress",
-                          "side",
-                          "amount",
-                          "market"
                         ]
                       }
                     }
@@ -540,7 +176,332 @@
         "type": "apiKey",
         "name": "x-dialect-api-key",
         "in": "header",
-        "description": "API key for the Markets API"
+        "description": "API key for the Markets API",
+        "value": "dk_demo"
+      }
+    },
+    "schemas": {
+      "LendingPositionWithMarket": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "const": "lending"
+          },
+          "marketId": {
+            "type": "string"
+          },
+          "ownerAddress": {
+            "type": "string"
+          },
+          "side": {
+            "enum": [
+              "deposit",
+              "borrow"
+            ]
+          },
+          "amount": {
+            "type": "number"
+          },
+          "amountUsd": {
+            "type": "number"
+          },
+          "additionalData": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          },
+          "market": {
+            "$ref": "#/components/schemas/LendingMarket"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "marketId",
+          "ownerAddress",
+          "side",
+          "amount",
+          "market"
+        ]
+      },
+      "YieldPositionWithMarket": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "const": "yield"
+          },
+          "marketId": {
+            "type": "string"
+          },
+          "ownerAddress": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "amountUsd": {
+            "type": "number"
+          },
+          "additionalData": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          },
+          "market": {
+            "$ref": "#/components/schemas/YieldMarket"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "marketId",
+          "ownerAddress",
+          "amount",
+          "market"
+        ]
+      },
+      "LendingMarket": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "const": "lending"
+          },
+          "provider": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "enum": [
+                  "kamino",
+                  "lulo",
+                  "marginfi"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "token": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "symbol": {
+                "type": "string"
+              },
+              "decimals": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "address",
+              "symbol",
+              "decimals"
+            ]
+          },
+          "depositApy": {
+            "type": "number"
+          },
+          "borrowApy": {
+            "type": "number"
+          },
+          "totalDeposit": {
+            "type": "number"
+          },
+          "totalDepositUsd": {
+            "type": "number"
+          },
+          "totalBorrow": {
+            "type": "number"
+          },
+          "totalBorrowUsd": {
+            "type": "number"
+          },
+          "maxDeposit": {
+            "type": "number"
+          },
+          "maxBorrow": {
+            "type": "number"
+          },
+          "oraclePrice": {
+            "type": "number"
+          },
+          "additionalData": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          },
+          "actions": {
+            "type": "object",
+            "properties": {
+              "deposit": {
+                "type": "object",
+                "properties": {
+                  "blinkUrl": {
+                    "type": "string",
+                    "pattern": "^blink:.*"
+                  }
+                },
+                "required": [
+                  "blinkUrl"
+                ]
+              },
+              "withdraw": {
+                "type": "object",
+                "properties": {
+                  "blinkUrl": {
+                    "type": "string",
+                    "pattern": "^blink:.*"
+                  }
+                },
+                "required": [
+                  "blinkUrl"
+                ]
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "provider",
+          "token",
+          "depositApy",
+          "borrowApy",
+          "totalDeposit",
+          "totalBorrow",
+          "maxDeposit",
+          "maxBorrow",
+          "actions"
+        ]
+      },
+      "YieldMarket": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "const": "yield"
+          },
+          "provider": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "enum": [
+                  "kamino",
+                  "lulo",
+                  "marginfi"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "token": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "symbol": {
+                "type": "string"
+              },
+              "decimals": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "address",
+              "symbol",
+              "decimals"
+            ]
+          },
+          "depositApy": {
+            "type": "number"
+          },
+          "additionalData": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          },
+          "actions": {
+            "type": "object",
+            "properties": {
+              "deposit": {
+                "type": "object",
+                "properties": {
+                  "blinkUrl": {
+                    "type": "string",
+                    "pattern": "^blink:.*"
+                  }
+                },
+                "required": [
+                  "blinkUrl"
+                ]
+              },
+              "withdraw": {
+                "type": "object",
+                "properties": {
+                  "blinkUrl": {
+                    "type": "string",
+                    "pattern": "^blink:.*"
+                  }
+                },
+                "required": [
+                  "blinkUrl"
+                ]
+              },
+              "withdrawComplete": {
+                "type": "object",
+                "properties": {
+                  "blinkUrl": {
+                    "type": "string",
+                    "pattern": "^blink:.*"
+                  }
+                },
+                "required": [
+                  "blinkUrl"
+                ]
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "provider",
+          "token",
+          "depositApy",
+          "actions"
+        ]
       }
     }
   }
