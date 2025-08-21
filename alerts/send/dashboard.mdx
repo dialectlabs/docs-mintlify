@@ -1,12 +1,19 @@
 ---
-title: Dashboard Alerts
+title: Send Alerts via Dashboard
 sidebarTitle: "Dashboard"
-description: Send one-off notifications and marketing announcements using Dialect's no-code dashboard interface with comprehensive channel-specific workflows
+description: Send one-off notifications and marketing announcements using Dialect's no-code dashboard interface
 ---
 
 This guide focuses on the sending workflow - for dashboard setup and management, see the [dashboard introduction](/alerts/setup/dashboard-introduction).
 
 **Ready to send notifications?** → [Go to Dialect Dashboard](https://dashboard.dialect.to)
+
+## Prerequisites
+
+Before sending alerts via dashboard, ensure you have:
+- ✅ Connected your wallet to the dashboard
+- ✅ [Registered your app](/alerts/setup/register-app) with Dialect
+- ✅ At least one subscriber to receive your alerts
 
 ## Quick Overview
 
@@ -17,48 +24,57 @@ The dashboard provides a composer interface for sending notifications without wr
 
 ## Sending Dashboard Alerts
 
-### Single Channel 
-
-<iframe 
-  width="100%" 
-  height="315" 
-  src="https://www.youtube.com/embed/S_5YHtwkRFk" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen>
-</iframe>
+<video src="https://res.cloudinary.com/dnxjhra4h/video/upload/v1755771901/send-alert_mafcyz.mp4" controls />
 
 <br />
-1. Go to [dashboard.dialect.to](https://dashboard.dialect.to) and connect your dApp's wallet
-2. Click "Alerts" or "Send Notification" in the dashboard
-3. Click "Create Alert" to start composing
 
-For detailed setup instructions, check out our [quickstart guide](/alerts/quick-start).
+### Complete Alert Workflow
 
-### Multi-Channel Alert Workflow
+<Steps>
+<Step title="Access Dashboard">
+Go to [dashboard.dialect.to](https://dashboard.dialect.to), connect your dApp's wallet, and click "Alerts" then "Send a new alert"
+</Step>
+
+<Step title="Select Topic">
+- **General Broadcast**: Default topic available for all apps
+- **Custom Topics**: Create specific categories (product updates, timely alerts, etc.)
+- Users can subscribe to specific topics for better control over notifications
+</Step>
+
+<Step title="Choose Recipients">
+The dashboard supports multiple recipient options:
+- **All Subscribers**: Send to all users subscribed to the selected topic, or all app subscribers if no topic was chosen
+- **Specific Recipients**: Enter comma-separated wallet addresses (single address for one person, up to 10,000 addresses per message)
+</Step>
+
+<Step title="Select Delivery Channel">
+Choose one or multiple delivery channels for your alert:
+- **Inbox**: In-app notifications displayed in your integrated notification widget
+- **Telegram**: Messages sent directly to users' Telegram accounts
+- **Email**: Professional email notifications
 
 <Note>
-Dashboard alerts require creating content for each channel separately before sending (see video below).
+You can select multiple channels to send the same message across different delivery methods simultaneously. To do so, just click on the channel icon.
 </Note>
+</Step>
 
-**Step 1: Select Topic and Recipients**
-- Choose your notification topic from the dropdown
-- View subscriber count for each channel (Email: 26, Telegram: 33, In-App: 70)
+<Step title="Create Alert Content">
+- **Title**: Short, attention-grabbing headline
+- **Message**: Main notification content
+- **Call-to-Action**: Optional button with custom label and URL
+- **Image**: Optional image upload to enhance your message
+</Step>
 
-**Step 2: Create Content for Each Channel**
+<Step title="Test and Send">
+- **Send Test Alert**: Optional - send to specific wallet address to preview
+- **Review and Send**: Final review before delivery
+- **Confirmation**: Dashboard shows delivery status and timestamp
+</Step>
+</Steps>
 
-<iframe 
-  width="100%" 
-  height="315" 
-  src="https://www.youtube.com/embed/5Wn4vckn8Eg" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen>
-</iframe>
-<br />
-Navigate through the channel tabs to create content for each delivery method:
+### Channel-Specific Specifications
+
+Based on your selected delivery channel, follow these specifications:
 
 <Tabs>
 <Tab title="Email Channel">
@@ -68,47 +84,17 @@ Navigate through the channel tabs to create content for each delivery method:
 - **Character Limit**: 4,096 characters  
 - **Images**: Use HTML `<img>` tags (no file uploads)
 - **Call-to-Action**: Add button with label and URL
-
-```html
-<!-- Example Email Content -->
-<h2>🎉 New Feature Launch</h2>
-<p>We're excited to announce our latest feature that will revolutionize your workflow!</p>
-
-<img src="https://yourapp.com/feature-preview.png" alt="Feature Preview" style="max-width: 100%;" />
-
-<p>Key benefits:</p>
-<ul>
-  <li>Increased efficiency by 50%</li>
-  <li>Better user experience</li>
-  <li>Advanced analytics</li>
-</ul>
-
-<a href="https://yourapp.com/new-feature" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
-  Try New Feature
-</a>
-```
+- **Subject Line**: Should be clear and actionable as it appears as the notification title
 
 </Tab>
-<Tab title="In-App Channel">
+<Tab title="Inbox Channel">
 
-**In-App Configuration:**
+**Inbox Configuration:**
 - **Plain Text Editor**: No HTML formatting
 - **Character Limit**: 800 characters
 - **Image Upload**: Single image, 1:1 ratio, 100KB max
 - **Display Location**: Notification bell component in your React app
-
-```text
-New Feature Available!
-
-We've just launched an exciting new feature that will transform how you work. Check it out now and experience the difference.
-
-Key improvements:
-• 50% faster processing
-• Streamlined interface  
-• Enhanced analytics
-
-[Image: feature-screenshot.png - 1:1 ratio, under 100KB]
-```
+- **Title**: Should be short and attention-grabbing
 
 </Tab>
 <Tab title="Telegram Channel">
@@ -117,47 +103,11 @@ Key improvements:
 - **Text Only**: No HTML or image support
 - **Character Limit**: 4,096 characters
 - **Call-to-Action**: URL only (will show as clickable link)
-
-```text
-🎉 New Feature Launch
-
-We're excited to announce our latest feature! 
-
-Key benefits:
-• Increased efficiency by 50%
-• Better user experience  
-• Advanced analytics
-
-Try it now: https://yourapp.com/new-feature
-```
+- **Emojis**: Use sparingly to add visual appeal
+- **URLs**: Include full URLs for any action links
 
 </Tab>
 </Tabs>
-
-**Step 3: Review and Send**
-- **Complete each desired channel** by filling out content
-- **Preview your content** in each tab
-- **Click "Send to All Completed Channels"** to deliver simultaneously
-
-### Channel-Specific Best Practices
-
-**Email Notifications:**
-- Subject line should be clear and actionable as it appears as the notification title
-- Content can use HTML formatting and should include a clear call-to-action
-- Images must be hosted with absolute URLs
-- Longer content is acceptable up to 4,096 characters
-
-**In-App Notifications:**
-- Title should be short and attention-grabbing
-- Content must be concise and under 800 characters
-- Images should be high-quality, 1:1 aspect ratio, and under 100KB
-- Notifications will display in the notification bell component
-
-**Telegram Notifications:**
-- Only plain text formatting is supported (no HTML)
-- Use emojis sparingly to add visual appeal
-- Include full URLs for any action links
-- Keep messages concise even though there's a 4,096 character limit
 
 ### Dashboard Limitations
 
@@ -189,8 +139,7 @@ Try it now: https://yourapp.com/new-feature
 ### Channel Selection
 1. **EMAIL**: Professional announcements, detailed updates
 2. **TELEGRAM**: Quick updates, community engagement
-3. **IN_APP**: Cross-app visibility, reaches users in integrated applications
-4. **PUSH**: Direct mobile alerts (only if you own the mobile app)
+3. **INBOX**: Cross-app visibility, reaches users in integrated applications
 
 **Ready to start sending?** → [Launch the Dashboard](https://dashboard.dialect.to)
 
