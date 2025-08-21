@@ -1,70 +1,83 @@
 ---
 title: "Dashboard Introduction"
-description: "The Dialect Dashboard is your control center for managing notifications. Currently, the dashboard provides essential functionality with more advanced features coming soon."
+description: "Setup your app, send notifications, and manage your project with no code required. Perfect for one-off messages, testing notifications, or managing your settings and API keys — all through an intuitive interface."
 ---
 
 <Card title="Visit the Dialect Dashboard" icon="gauge" href="https://dashboard.dialect.to">
-  Go to the **Dialect Dashboard** to send notifications with no code required. Perfect for one-off messages, testing notifications, or managing your project settings—all through an intuitive interface.
+  Access your project dashboard to register, send alerts, and configure settings.
 </Card>
 
-## Current Features
+## Dashboard Tour
 
-### Compose Alerts
+<iframe
+  width="100%"
+  height="400"
+  src="https://www.youtube.com/embed/C349s9Y7idw"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
 
-![Screenshot from Dialect Dashboard](https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/dialect-docs/dashboard-overview-compose.png)
+Watch this complete walkthrough of the Version 2 dashboard, covering project registration, sending alerts, managing settings, and testing the full notification flow.
 
-The **Compose** tab is where you send notifications to your subscribers using a no-code interface.
+## Dashboard Features
 
-**How it works:**
-1. **Choose a Topic** - Select from your configured topics in the dropdown
-2. **Check Subscribers** - See how many users are subscribed to each channel (In App, Telegram, Email)
-3. **Create Your Message** - Fill in the title and message content
-4. **Add Media (Optional)** - Upload an image for visual impact
-5. **Include Call-to-Action (Optional)** - Add a link that acts as a CTA button
-6. **Select Channels** - Click on the channel icons (📱 In App, ✈️ Telegram, 📧 Email) to send via multiple channels
-7. **Customize per Channel** - Each channel can have different content optimized for its format
+Explore what you can do with each dashboard section:
 
-> 💡 **Pro Tip**: When sending to multiple channels, you can customize the message for each channel. For example, keep Telegram messages concise while making email content more detailed.
+<CardGroup cols={2}>
+  <Card title="Alerts" icon="bell" href="https://dashboard.dialect.to/alerts">
+    Send no-code notifications across multiple channels - inbox, email, and Telegram.
+  </Card>
+  <Card title="Events" icon="calendar-days" href="https://dashboard.dialect.to/events">
+    Receive real-time updates on price change events and trending tokens.
+  </Card>
+  <Card title="Markets" icon="chart-line" href="https://dashboard.dialect.to/markets">
+    Get up to date market data, such as lending rates and positions for your wallet.
+  </Card>
+  <Card title="Blinks" icon="link" href="https://dashboard.dialect.to/blinks">
+    Create interactive blockchain experiences from simple URLs.
+  </Card>
+  <Card title="API Keys" icon="key" href="https://dashboard.dialect.to/api-keys">
+    Manage your project's API keys.
+  </Card>
+  <Card title="Settings" icon="gear" href="https://dashboard.dialect.to/settings">
+    Configure your project details, logo, and account preferences.
+  </Card>
+</CardGroup>
 
-**Want to learn more about sending notifications using the dashboard?** Check out our [detailed guide in the send section](/alerts/send/dashboard).
+## Getting Started
 
+### 1. Register Your Project
+**[Complete app registration →](/alerts/setup/register-app)**
 
-### Guide
+Connect your wallet, upload your logo, and add project details to access the dashboard.
 
-The **Guide** tab walks you through the initial setup process:
+### 2. Subscribe for Notifications
+**[Visit the scaffold →](https://alerts-example.dialect.to)**
 
-1. **Register Project Messaging Keypair** - Set up your project's identity
-2. **Add Notification Bell** - Integrate the Dialect notification component into your app
-3. **Install Dependencies** - Get the required packages and code snippets
+Test the subscription flow and see how users will interact with your notifications.
 
-> 📖 **Note**: While the dashboard guide is available, we recommend using our [quickstart guide](/alerts/quick-start) from the docs for the most up-to-date setup instructions.
+### 3. Send Your First Alert
+**[Send via dashboard →](/alerts/send/dashboard)**
 
-### Settings
+Choose recipients, select channels, create your message, and send notifications with no code required.
 
-<Note>
-This section is only shown if your app was already registered
-</Note>
-
-The **Settings** section lets you manage your project configuration:
-
-- **Project Logo** - Upload and update your project's visual identity
-- **Project Name** - Set the display name for your application  
-- **Project Description** - Add a description that helps users understand your app
-
-**Need to update your settings?** → [Access your project settings](https://dashboard.dialect.to)
-
-## Coming Soon
-
-- **Configure Topics** - Set up and manage notification categories
-- **Monitor Activity** - Track delivery rates, user engagement, and performance  
-- **Access Analytics** - Understand notification patterns and optimize delivery
-
-Need more features? Send us a [message](mailto:hello@dialect.to) and let us know!
+> 💡 **Pro Tip**: Use the feedback button in the dashboard to request specific features and help us prioritize development.
 
 ## Next Steps
 
-After exploring the dashboard:
+### Create Topics & Manage Subscribers
+**[Topics & Subscribers →](/alerts/setup/topics-channels-subscribers)**
 
-1. **[Try the dashboard](https://dashboard.dialect.to)** - Send notifications with our no-code interface
-2. **[Send your first alert](/alerts/send)** - Learn to send notifications programmatically
-3. **[Integrate an inbox](/alerts/integrate-inbox/index)** - Add notification UI to your app
+Set up custom notification categories and manage your subscriber base.
+
+### Send Programmatic Alerts
+**[API →](/alerts/send/api) • [SDK →](/alerts/send/sdk/send-messages)**
+
+Integrate notification sending directly into your application code.
+
+### Add UI Components
+**[Integrate an inbox →](/alerts/integrate-inbox)**
+
+Add Dialect's notification UI components to your app.
