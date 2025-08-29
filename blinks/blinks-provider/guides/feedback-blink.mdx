@@ -1,0 +1,539 @@
+---
+title: "Feedback Blink"
+description: "Learn how to build a message signing blink that collects user feedback and saves it to a database"
+---
+
+This guide teaches you how to create a feedback collection system using Solana Blinks with **message signing**. Unlike traditional on-chain transactions that cost SOL, message signing is completely free, making it perfect for collecting user feedback, surveys, or any data that doesn't need to be stored on-chain.
+
+<Note> 
+**Level:** Intermediate
+
+**Time Required:** 30-45 minutes
+
+**GitHub Repository:** [dialectlabs/feedback-blink](https://github.com/dialectlabs/feedback-blink)
+</Note>
+
+## Watch the Tutorial
+
+<iframe
+  width="100%"
+  height="400"
+  src="https://www.youtube.com/embed/2FV1JjNjJTQ"
+  title="Building a Feedback Blink with Message Signing"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  className="w-full aspect-video"
+></iframe>
+
+**[▶️ Watch: Building a Feedback Blink with Message Signing](https://www.youtube.com/watch?v=2FV1JjNjJTQ)** - Follow along as we build this feedback blink from scratch, set up a database, and implement message signing.
+
+## What You'll Learn
+
+In this tutorial, you will:
+
+- Build a **message signing blink** (no transaction fees!)
+- Set up a **PostgreSQL database** with Neon
+- Use **Prisma ORM** for database operations
+- Implement **action chaining** for multi-step flows
+- Create **text input parameters** for user feedback
+- Handle **CORS** and proper headers for blinks
+- Deploy and test your feedback collection system
+
+## Prerequisites
+
+Before starting this tutorial, ensure you have:
+
+- Code Editor of your choice (recommended [Cursor](https://www.cursor.com/) or [Visual Studio Code](https://code.visualstudio.com/))
+- [Node.js](https://nodejs.org/en/download) 18.x.x or above installed
+- Basic understanding of TypeScript and Next.js
+- A [Neon](https://neon.tech/) account for the database (free tier available)
+- A Solana wallet for testing (no SOL required - message signing is free!)
+- Basic familiarity with REST APIs and databases
+
+## Project Setup
+
+Let's start by creating a new project using the [Dialect Solana Starter](/blinks/blinks-starters/solana) template. This project includes NextJS as well as all the necessary dependencies for building apps on the Solana Blockchain, including the Solana Actions and Blinks SDK.
+
+### Step 1: Initialize the Project
+
+Use the Dialect scaffold to quickly set up a new blink project:
+
+```bash
+npx create-blinks-app
+```
+
+When prompted, configure your project:
+
+```
+✓ Select a blockchain: Solana
+✓ Project name: feedback-blink
+```
+
+Navigate to your project directory:
+
+```bash
+cd feedback-blink
+```
+
+### Step 2: Install Additional Dependencies
+
+We need Prisma for database management:
+
+<Tabs>
+<Tab title="npm">
+```bash
+npm install prisma @prisma/client
+```
+</Tab>
+<Tab title="yarn">
+```bash
+yarn add prisma @prisma/client
+```
+</Tab>
+<Tab title="pnpm">
+```bash
+pnpm add prisma @prisma/client
+```
+</Tab>
+</Tabs>
+
+### Step 3: Initialize Prisma
+
+Set up Prisma with PostgreSQL:
+
+```bash
+npx prisma init
+```
+
+This creates:
+- `prisma/schema.prisma` - Your database schema file
+- `.env` - Environment variables file (add to `.gitignore`!)
+
+### Step 4: Add the Feedback Image
+
+Every blink needs an icon image. Add your feedback image to the public folder:
+
+1. Create or find a feedback-related image (recommended: 1200x630px for optimal display)
+2. Save it as `feedback.jpg` in the `public/` folder
+3. The image will be available at `/feedback.jpg` in your application
+
+## Database Setup with Neon
+
+Let's set up a PostgreSQL database using Neon's serverless platform.
+
+### Step 1: Create a Neon Database
+
+1. Visit [Neon.tech](https://neon.tech/) and sign up for a free account
+2. Click **"Create a project"**
+3. Name your project: `feedback-blink`
+4. Select your region (choose one close to your users)
+5. Click **"Create project"**
+
+### Step 2: Get Your Database Connection String
+
+1. In the Neon dashboard, click **"Connection Details"**
+2. Copy the connection string (it looks like: `postgresql://username:password@host/database`)
+3. Keep this tab open - you'll need this string in the next step
+
+### Step 3: Configure Environment Variables
+
+Update your `.env` file with the database connection:
+
+```env
+# Database connection string from Neon
+DATABASE_URL="postgresql://username:password@host/database?sslmode=require"
+
+# Optional: Solana RPC endpoint (defaults to mainnet)
+NEXT_PUBLIC_SOLANA_RPC_URL="https://api.mainnet-beta.solana.com"
+```
+
+<Warning>
+Never commit your `.env` file to version control! Ensure it's in your `.gitignore` file.
+</Warning>
+
+### Step 4: Define the Database Schema
+
+Update `prisma/schema.prisma` with our feedback model:
+
+```prisma title="prisma/schema.prisma"
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Feedback {
+  id        Int      @id @default(autoincrement())
+  wallet    String   @db.VarChar(255)
+  feedback  String   @db.Text
+  createdAt DateTime @default(now())
+  
+  // Index on wallet for faster queries
+  @@index([wallet])
+}
+```
+
+This schema creates a table with:
+- `id` - Auto-incrementing primary key
+- `wallet` - The user's Solana wallet address
+- `feedback` - The actual feedback text (unlimited length)
+- `createdAt` - Timestamp of when feedback was submitted
+- Index on `wallet` for efficient queries by user
+
+### Step 5: Create the Database Tables
+
+Push the schema to your Neon database:
+
+```bash
+npx prisma migrate dev --name init-feedback
+```
+
+This command:
+1. Creates the SQL migration files
+2. Applies the migration to your database
+3. Generates the Prisma client
+
+### Step 6: Generate the Prisma Client
+
+Generate the TypeScript client:
+
+```bash
+npx prisma generate
+```
+
+### Step 7: Create the Prisma Client Singleton
+
+Next.js in development mode can create multiple instances of the Prisma client. Create a singleton to prevent this:
+
+```typescript title="src/lib/prisma.ts"
+import { PrismaClient } from "../generated/prisma";
+
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
+
+export const prisma =
+    globalForPrisma.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+```
+
+<Note>
+This singleton pattern prevents "too many connections" errors during development with hot reloading.
+</Note>
+
+## Building the Feedback Blink
+
+Now let's create the actual blink endpoints.
+
+### Step 1: Create the Folder Structure
+
+Create the following folder structure for your API routes:
+
+```
+src/
+└── app/
+    ├── api/
+    │   └── actions/
+    │       └── feedback/
+    │           ├── route.ts           # Main feedback endpoint
+    │           └── complete/
+    │               └── route.ts       # Completion endpoint
+    └── actions.json/
+        └── route.ts                   # Actions discovery file
+```
+
+### Step 2: Create the Actions Discovery File
+
+The `actions.json` endpoint tells blink clients what actions are available:
+
+```typescript title="src/app/actions.json/route.ts"
+import { ACTIONS_CORS_HEADERS, ActionsJson } from "@solana/actions";
+
+export const GET = async () => {
+  const payload: ActionsJson = {
+    rules: [
+      // Map all root level routes to an action
+      {
+        pathPattern: "/*",
+        apiPath: "/api/actions/*",
+      },
+      // Fallback for nested routes
+      {
+        pathPattern: "/api/actions/**",
+        apiPath: "/api/actions/**",
+      },
+    ],
+  };
+
+  return Response.json(payload, {
+    headers: ACTIONS_CORS_HEADERS,
+  });
+};
+
+// Required for CORS preflight requests
+export const OPTIONS = GET;
+```
+
+### Step 3: Create the Main Feedback Endpoint
+
+This is where the magic happens. Let's build the main feedback collection endpoint:
+
+```typescript title="src/app/api/actions/feedback/route.ts"
+import { 
+  ActionGetResponse, 
+  ActionPostRequest, 
+  ActionPostResponse, 
+  ACTIONS_CORS_HEADERS, 
+  BLOCKCHAIN_IDS 
+} from "@solana/actions";
+import { prisma } from "@/lib/prisma";
+
+// Use CAIP-2 format for Solana Mainnet
+const blockchain = BLOCKCHAIN_IDS.mainnet;
+
+// Headers configuration with blockchain ID and version
+const headers = {
+  ...ACTIONS_CORS_HEADERS,
+  'X-Blockchain-Ids': blockchain,
+  'X-Action-Version': '2.4'
+};
+
+// OPTIONS handler for CORS preflight requests
+export const OPTIONS = async () => {
+  return new Response(null, { headers });
+}
+
+// GET handler - Returns the blink UI configuration
+export const GET = async (req: Request) => {
+  const payload: ActionGetResponse = {
+    type: 'action',
+    title: 'Share Your Feedback',
+    description: 'Help us improve Blinks! Tell us what features you need or what could be better.',
+    icon: new URL('/feedback.jpg', req.url).toString(),
+    label: 'Send Feedback',
+    links: {
+      actions: [
+        {
+          // Using 'message' type for message signing (not 'transaction')
+          type: 'message',
+          href: '/api/actions/feedback?feedback={feedback}',
+          label: 'Send Feedback',
+          parameters: [
+            {
+              name: 'feedback',
+              type: 'text',  // Use 'text' for single line, 'textarea' for multi-line
+              required: true,
+              label: "What features are missing or what could be improved?"
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  return new Response(JSON.stringify(payload), { headers });
+};
+
+// POST handler - Processes and stores the feedback
+export const POST = async (req: Request) => {
+  try {
+    // Extract the user's wallet address from the request
+    const request: ActionPostRequest = await req.json();
+    const { account } = request;
+
+    // Get feedback from URL parameters
+    const url = new URL(req.url);
+    const feedback = url.searchParams.get("feedback");
+
+    // Validate feedback
+    if (!feedback || feedback.trim().length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Feedback cannot be empty" }), 
+        { status: 400, headers }
+      );
+    }
+
+    // Save feedback to database
+    const savedFeedback = await prisma.feedback.create({
+      data: {
+        wallet: account,
+        feedback: feedback.trim()
+      }
+    });
+
+    console.log(`Feedback saved: ID ${savedFeedback.id} from ${account}`);
+
+    // Return success with chaining to completion step
+    const payload: ActionPostResponse = {
+      type: "message",
+      message: "Thank you for your feedback! 🙏",
+      links: {
+        next: {
+          type: "post",
+          href: "/api/actions/feedback/complete"
+        }
+      }
+    }
+
+    return new Response(JSON.stringify(payload), { headers });
+    
+  } catch (error) {
+    console.error("Error saving feedback:", error);
+    return new Response(
+      JSON.stringify({ error: "Failed to save feedback" }), 
+      { status: 500, headers }
+    );
+  }
+};
+```
+
+### Step 4: Create the Completion Endpoint
+
+The completion endpoint provides a final confirmation to the user:
+
+```typescript title="src/app/api/actions/feedback/complete/route.ts"
+import { ACTIONS_CORS_HEADERS, BLOCKCHAIN_IDS, ActionGetResponse } from "@solana/actions";
+
+// Use the same blockchain ID as the main endpoint
+const blockchain = BLOCKCHAIN_IDS.mainnet;
+
+const headers = {
+  ...ACTIONS_CORS_HEADERS,
+  'X-Blockchain-Ids': blockchain,
+  'X-Action-Version': '2.4'
+};
+
+// OPTIONS handler for CORS
+export const OPTIONS = async () => {
+  return new Response(null, { headers });
+}
+
+// POST handler - Final step in the feedback flow
+export const POST = async (req: Request) => {
+  const payload: ActionGetResponse = {
+    type: "action",
+    icon: new URL('/feedback.jpg', req.url).toString(),
+    title: "Feedback Received!",
+    description: "Your feedback has been successfully recorded. Thank you for helping us improve!",
+    label: "Done",
+    links: {
+      // Empty actions array indicates the flow is complete
+      actions: []
+    }
+  };
+
+  return new Response(JSON.stringify(payload), { headers });
+}
+```
+
+## Understanding Key Concepts
+
+### Message Signing vs Transactions
+
+This blink uses **message signing** instead of blockchain transactions:
+
+| Feature | Message Signing | Transaction |
+|---------|----------------|------------|
+| **Cost** | Free | Requires SOL for fees |
+| **Speed** | Instant | Requires confirmation |
+| **Storage** | Off-chain (database) | On-chain |
+| **Use Case** | Feedback, authentication | Payments, NFTs |
+
+### Action Chaining
+
+The feedback flow uses action chaining to create a multi-step user experience:
+
+1. **Initial Action** - User enters feedback
+2. **Message Signing** - User signs the message with their wallet
+3. **Completion** - Final confirmation screen
+
+This is achieved using the `links.next` field in the response:
+
+```typescript
+links: {
+  next: {
+    type: "post",
+    href: "/api/actions/feedback/complete"
+  }
+}
+```
+
+### CORS Headers
+
+Blinks require specific CORS headers to work across different domains:
+
+- `Access-Control-Allow-Origin: *` - Allows any domain
+- `X-Blockchain-Ids` - Identifies supported blockchains
+- `X-Action-Version` - Specifies the Actions spec version
+
+## Testing Your Feedback Blink
+
+### Step 1: Start the Development Server
+
+```bash
+npm run dev
+```
+
+Your application will be available at `http://localhost:3000`
+
+### Step 2: Test on the Landing Page
+
+The scaffold includes a built-in Blinks client on the landing page. Update `src/app/page.tsx` to point at your new feedback endpoint. Here are minimal snippets — keep the rest of your page code as-is.
+
+
+```tsx title="src/app/page.tsx" {5}
+// ... imports and other code from above
+
+const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+
+const blinkApiUrl = `${baseUrl}/api/actions/feedback`;
+
+const { adapter } = useBlinkSolanaWalletAdapter("https://api.mainnet-beta.solana.com");
+const { blink, isLoading } = useBlink({ url: blinkApiUrl });
+
+// ... rest of the code
+```
+
+
+Then visit `http://localhost:3000` and interact with the blink directly on the page.
+
+Note: You can still use [dial.to](https://dial.to) as an alternative by pasting `http://localhost:3000/api/actions/feedback`.
+
+### Step 3: Verify Database Entries
+
+Check your database using Prisma Studio:
+
+```bash
+npx prisma studio
+```
+
+This opens a web interface where you can:
+- View all feedback entries
+- See wallet addresses and timestamps
+- Export data if needed
+
+### Step 4: Test Error Handling
+
+Try these scenarios:
+- Submit empty feedback (should show error)
+- Submit very long feedback (should work)
+- Submit multiple times from the same wallet (should all be saved)
+
+## Conclusion
+
+Congratulations! You've built a complete feedback collection system using Solana Blinks with message signing. You've learned how to:
+
+The feedback blink pattern is incredibly versatile. You can adapt it for:
+- Customer surveys
+- Bug reports
+- Contact forms
+- User testimonials
+- Newsletter signups
+- Any data collection that doesn't require on-chain storage
+
+Happy cooking! 🧑‍🍳
