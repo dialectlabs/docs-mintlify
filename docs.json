@@ -194,7 +194,9 @@
                 "group": "Guides",
                 "pages": [
                   "blinks/blinks-provider/guides/index",
-                  "blinks/blinks-provider/guides/tip-blink"
+                  "blinks/blinks-provider/build-your-first-blink",
+                  "blinks/blinks-provider/guides/tip-blink",
+                  "blinks/blinks-provider/guides/feedback-blink"
                 ]
               }
             ]
