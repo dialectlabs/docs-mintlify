@@ -186,6 +186,7 @@
                   "blinks/blinks-provider/advanced/forms",
                   "blinks/blinks-provider/advanced/metadata",
                   "blinks/blinks-provider/advanced/action-chaining",
+                  "blinks/blinks-provider/advanced/sign-message",
                   "blinks/blinks-provider/advanced/track-tx",
                   "blinks/blinks-provider/advanced/error-handling"
                 ]

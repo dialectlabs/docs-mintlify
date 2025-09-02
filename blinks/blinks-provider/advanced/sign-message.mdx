@@ -1,0 +1,429 @@
+---
+title: "Message Signing"
+description: "Implement message signing in Blinks to verify and authenticate users without paying transaction fees."
+---
+
+Message signing allows users to cryptographically prove their identity and provide data without paying transaction fees. This makes it perfect for authentication, feedback collection, surveys, and any scenario where you need verified user input but don't require on-chain storage.
+
+## Key Concepts
+
+<CardGroup cols={3}>
+  <Card title="Authentication" icon="shield-check">
+    Users sign messages with their wallet to authenticate themselves
+  </Card>
+  <Card title="Cryptographic Proof" icon="key">
+    Signatures provide cryptographic proof of wallet ownership
+  </Card>
+  <Card title="Instant Verification" icon="bolt">
+    No blockchain confirmation time - instant verification
+  </Card>
+</CardGroup>
+
+## When to Use Message Signing vs Transactions
+
+| Feature | Message Signing | Blockchain Transaction |
+|---------|----------------|----------------------|
+| **Cost** | Free | Requires SOL for fees |
+| **Speed** | Instant | Requires confirmation (~400ms) |
+| **Storage** | Off-chain (database) | On-chain (permanent) |
+| **Use Cases** | Authentication, feedback, surveys | Payments, NFT minting, DeFi |
+| **Verification** | Cryptographic signature | Blockchain consensus |
+
+## Two Approaches to Message Signing
+
+There are two primary approaches to implementing message signing in Blinks:
+
+### 1. Plain Text Signing
+Simple message signing with a static string. Best for basic authentication and use-cases where you don't need the enhanced security of the structured approach.
+
+```typescript title="src/app/api/actions/sign-plain/route.ts"
+import {
+  ActionGetResponse,
+  ActionPostRequest,
+  ActionPostResponse,
+  ActionError,
+  ACTIONS_CORS_HEADERS,
+  BLOCKCHAIN_IDS
+} from "@solana/actions";
+import { PublicKey } from "@solana/web3.js";
+import nacl from "tweetnacl";
+import * as bs58 from "bs58";
+
+const blockchain = BLOCKCHAIN_IDS.mainnet;
+const headers = {
+  ...ACTIONS_CORS_HEADERS,
+  'X-Blockchain-Ids': blockchain,
+  'X-Action-Version': '2.4'
+};
+
+// The message users will sign
+const MESSAGE = "Please sign this message to verify your wallet";
+
+export const OPTIONS = async () => new Response(null, { headers });
+
+export const GET = async (req: Request) => {
+  const payload: ActionGetResponse = {
+    type: "action",
+    icon: new URL("/sign-icon.jpg", req.url).toString(),
+    title: "Sign Message Demo",
+    description: "Sign a message to verify your wallet ownership",
+    label: "Sign Message",
+    links: {
+      actions: [
+        {
+          type: "message", // Use 'message' type instead of 'transaction'
+          href: "/api/actions/sign-plain",
+          label: "Sign Message"
+        }
+      ]
+    }
+  };
+
+  return new Response(JSON.stringify(payload), { headers });
+};
+
+export const POST = async (req: Request) => {
+  try {
+    const request: ActionPostRequest = await req.json();
+    const { account, signature } = request;
+
+    if (!signature) {
+      const error: ActionError = {
+        message: "Signature is required for verification"
+      };
+      return new Response(JSON.stringify(error), { 
+        status: 400, 
+        headers 
+      });
+    }
+
+    // Verify the signature
+    const isValid = verifySignature(MESSAGE, signature, account);
+
+    if (!isValid) {
+      const payload: ActionGetResponse = {
+        type: "action",
+        icon: new URL("/sign-icon.jpg", req.url).toString(),
+        title: "❌ Signature Invalid",
+        description: `Invalid signature for account: ${account}`,
+        label: "Try Again",
+        links: { actions: [] }
+      };
+      return new Response(JSON.stringify(payload), { headers });
+    }
+
+    // Success response
+    const payload: ActionGetResponse = {
+      type: "action",
+      icon: new URL("/sign-icon.jpg", req.url).toString(),
+      title: "✅ Signature Verified",
+      description: `Successfully verified signature for: ${account}`,
+      label: "Completed",
+      links: { actions: [] }
+    };
+
+    return new Response(JSON.stringify(payload), { headers });
+
+  } catch (error) {
+    console.error("Signature verification error:", error);
+    const errorResponse: ActionError = {
+      message: "Failed to verify signature"
+    };
+    return new Response(JSON.stringify(errorResponse), { 
+      status: 500, 
+      headers 
+    });
+  }
+};
+
+// Signature verification utility
+function verifySignature(message: string, signature: string, account: string): boolean {
+  try {
+    const messageBytes = new TextEncoder().encode(message);
+    const signatureBytes = bs58.decode(signature);
+    const publicKeyBytes = new PublicKey(account).toBytes();
+    
+    return nacl.sign.detached.verify(
+      messageBytes,
+      signatureBytes,
+      publicKeyBytes
+    );
+  } catch {
+    return false;
+  }
+}
+```
+
+### 2. Structured Message Signing (Recommended)
+Uses the SIWS (Sign-In With Solana) standard with anti-replay protection and domain binding. Best for production applications requiring enhanced security.
+
+#### Main Endpoint
+
+```typescript title="src/app/api/actions/sign-structured/route.ts"
+import {
+  ActionGetResponse,
+  ActionPostRequest,
+  ActionPostResponse,
+  ActionError,
+  ACTIONS_CORS_HEADERS,
+  BLOCKCHAIN_IDS,
+  SignMessageData,
+  SignMessageResponse
+} from "@solana/actions";
+import { Keypair, PublicKey } from "@solana/web3.js";
+import { createSignMessageText } from "@solana/actions";
+import nacl from "tweetnacl";
+import * as bs58 from "bs58";
+
+const blockchain = BLOCKCHAIN_IDS.mainnet;
+const headers = {
+  ...ACTIONS_CORS_HEADERS,
+  'X-Blockchain-Ids': blockchain,
+  'X-Action-Version': '2.4'
+};
+
+// Server signing keypair (store securely in production!)
+const SERVER_KEYPAIR = nacl.sign.keyPair.fromSecretKey(
+  bs58.decode("YOUR_SECRET_KEY_HERE") // Replace with your secret key
+);
+
+export const OPTIONS = async () => new Response(null, { headers });
+
+export const GET = async (req: Request) => {
+  const payload: ActionGetResponse = {
+    type: "action",
+    icon: new URL("/sign-icon.jpg", req.url).toString(),
+    title: "Secure Message Signing",
+    description: "Sign a structured message with enhanced security",
+    label: "Sign Secure Message",
+    links: {
+      actions: [
+        {
+          type: "message",
+          href: "/api/actions/sign-structured",
+          label: "Sign Message"
+        }
+      ]
+    }
+  };
+
+  return new Response(JSON.stringify(payload), { headers });
+};
+
+export const POST = async (req: Request) => {
+  try {
+    const request: ActionPostRequest = await req.json();
+    const { account, signature, state } = request;
+
+    if (!signature) {
+      // First request - generate structured message data
+      const signMessageData: SignMessageData = {
+        address: account,
+        domain: new URL(req.url).hostname,
+        statement: "Please sign this message to verify your wallet ownership",
+        issuedAt: new Date().toISOString(),
+        nonce: Keypair.generate().publicKey.toString(), // Anti-replay protection
+      };
+
+      // Create standardized message text
+      const message = createSignMessageText(signMessageData);
+      
+      // Server signs the message to prevent tampering
+      const serverSignature = bs58.encode(
+        nacl.sign.detached(
+          new TextEncoder().encode(message),
+          SERVER_KEYPAIR.secretKey
+        )
+      );
+
+      // Store message and server signature in state
+      const stateData = {
+        message,
+        serverSignature
+      };
+
+      const response: SignMessageResponse = {
+        type: "message",
+        data: signMessageData,
+        state: JSON.stringify(stateData),
+        links: {
+          next: {
+            type: "post",
+            href: "/api/actions/sign-structured/verify"
+          }
+        }
+      };
+
+      return new Response(JSON.stringify(response), { headers });
+    }
+
+    // This shouldn't happen in the main endpoint, but handle gracefully
+    return new Response(JSON.stringify({
+      message: "Use the verify endpoint for signature verification"
+    } as ActionError), { status: 400, headers });
+
+  } catch (error) {
+    console.error("Sign message error:", error);
+    return new Response(JSON.stringify({
+      message: "Failed to process sign message request"
+    } as ActionError), { status: 500, headers });
+  }
+};
+```
+
+#### Verification Endpoint
+
+```typescript title="src/app/api/actions/sign-structured/verify/route.ts"
+import {
+  ActionGetResponse,
+  ActionPostRequest,
+  ActionError,
+  ACTIONS_CORS_HEADERS,
+  BLOCKCHAIN_IDS
+} from "@solana/actions";
+import { PublicKey } from "@solana/web3.js";
+import nacl from "tweetnacl";
+import * as bs58 from "bs58";
+
+const blockchain = BLOCKCHAIN_IDS.mainnet;
+const headers = {
+  ...ACTIONS_CORS_HEADERS,
+  'X-Blockchain-Ids': blockchain,
+  'X-Action-Version': '2.4'
+};
+
+// Same server keypair as above
+const SERVER_KEYPAIR = nacl.sign.keyPair.fromSecretKey(
+  bs58.decode("YOUR_SECRET_KEY_HERE")
+);
+
+export const OPTIONS = async () => new Response(null, { headers });
+
+export const POST = async (req: Request) => {
+  try {
+    const request: ActionPostRequest = await req.json();
+    const { account, signature, state } = request;
+
+    if (!signature || !state) {
+      return new Response(JSON.stringify({
+        message: "Signature and state are required"
+      } as ActionError), { status: 400, headers });
+    }
+
+    // Parse state data
+    const { message, serverSignature } = JSON.parse(state) as {
+      message: string;
+      serverSignature: string;
+    };
+
+    // Verify server signature (anti-tampering)
+    const serverSignatureValid = verifySignature(
+      message,
+      serverSignature,
+      bs58.encode(SERVER_KEYPAIR.publicKey)
+    );
+
+    // Verify user signature
+    const userSignatureValid = verifySignature(message, signature, account);
+
+    const isValid = serverSignatureValid && userSignatureValid;
+
+    if (!isValid) {
+      const payload: ActionGetResponse = {
+        type: "action",
+        icon: new URL("/sign-icon.jpg", req.url).toString(),
+        title: "❌ Signature Verification Failed",
+        description: `Invalid signature. Server: ${serverSignatureValid}, User: ${userSignatureValid}`,
+        label: "Try Again",
+        links: { actions: [] }
+      };
+      return new Response(JSON.stringify(payload), { headers });
+    }
+
+    // Success - you can now save data to database, authenticate user, etc.
+    const payload: ActionGetResponse = {
+      type: "action",
+      icon: new URL("/sign-icon.jpg", req.url).toString(),
+      title: "✅ Signature Verified Successfully",
+      description: `Message verified for wallet: ${account}`,
+      label: "Completed",
+      links: { actions: [] }
+    };
+
+    return new Response(JSON.stringify(payload), { headers });
+
+  } catch (error) {
+    console.error("Verification error:", error);
+    return new Response(JSON.stringify({
+      message: "Signature verification failed"
+    } as ActionError), { status: 500, headers });
+  }
+};
+
+function verifySignature(message: string, signature: string, account: string): boolean {
+  try {
+    const messageBytes = new TextEncoder().encode(message);
+    const signatureBytes = bs58.decode(signature);
+    const publicKeyBytes = new PublicKey(account).toBytes();
+    
+    return nacl.sign.detached.verify(
+      messageBytes,
+      signatureBytes,
+      publicKeyBytes
+    );
+  } catch {
+    return false;
+  }
+}
+```
+
+This structured approach uses the SIWS (Sign-In With Solana) standard and provides enhanced security through:
+- **Domain binding** - Message is tied to your specific domain
+- **Anti-replay protection** - Unique nonce prevents message reuse  
+- **Timestamp validation** - `issuedAt` helps detect stale requests
+- **Server signature** - Prevents message tampering
+
+## Security Considerations
+
+<Warning>
+**Production Security Requirements**
+
+- Store server keypairs securely (use environment variables)
+- Validate all inputs thoroughly  
+- Implement rate limiting to prevent spam
+- Use HTTPS in production
+- Consider nonce expiration for time-sensitive operations
+- Log security events for monitoring
+</Warning>
+
+## Common Use Cases
+
+Message signing is ideal for:
+
+- **Wallet Based Login/Authentication** - Sign in to dApps and platforms 
+- **Token Holder Verification** - Prove ownership of specific tokens or NFTs for access
+- **Multi-Step Flows** - Combine with [action chaining](/blinks/blinks-provider/advanced/action-chaining)
+- **Whitelist Registration** - Sign up for airdrops, presales, or exclusive events
+- **DAO Governance** - Off-chain voting and proposal participation
+- **Settings Management** - Change notification preferences, update profile settings
+
+## Integration with Action Chaining
+
+Message signing works seamlessly with [action chaining](/blinks/blinks-provider/advanced/action-chaining) for multi-step flows:
+
+```typescript
+const response: ActionPostResponse = {
+  type: "message",
+  message: "Thank you for signing!",
+  links: {
+    next: {
+      type: "post", 
+      href: "/api/actions/next-step"
+    }
+  }
+};
+```
+
+<Tip>
+**For a complete working example**, see our [Feedback Blink guide](/blinks/blinks-provider/guides/feedback-blink) which implements message signing with database storage and action chaining.
+</Tip>
