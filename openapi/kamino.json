@@ -1715,12 +1715,12 @@
             "schema": {
               "type": "string",
               "description": "Debt token mint address",
-              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
               "examples": [
-                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
               ]
             },
-            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
             "allowEmptyValue": true,
             "allowReserved": true
           },
