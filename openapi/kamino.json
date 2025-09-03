@@ -723,22 +723,22 @@
         }
       }
     },
-    "/v0/liquidity/{strategyAddress}/deposit": {
+    "/v0/liquidity/{vaultAddress}/deposit": {
       "get": {
         "operationId": "v0.liquidity.getLiquidityStrategyDepositBlink",
         "summary": "Liquidity Vault Deposit",
-        "description": "Get metadata for depositing into Kamino's liquidity vault.",
+        "description": "Get metadata for depositing into a liquidity vault.",
         "tags": [
           "Liquidity"
         ],
         "parameters": [
           {
-            "name": "strategyAddress",
+            "name": "vaultAddress",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Strategy public key",
+              "description": "Vault public key",
               "default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
               "x-example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
             },
@@ -756,7 +756,7 @@
                 "B"
               ],
               "default": "A",
-              "description": "The side of the strategy to deposit to",
+              "description": "The side of the vault to deposit to",
               "examples": [
                 "A"
               ]
@@ -873,12 +873,12 @@
         ],
         "parameters": [
           {
-            "name": "strategyAddress",
+            "name": "vaultAddress",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Strategy public key",
+              "description": "Vault public key",
               "default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
               "x-example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
             },
@@ -911,7 +911,7 @@
                 "B"
               ],
               "default": "A",
-              "description": "The side of the strategy to deposit to",
+              "description": "The side of the vault to deposit to",
               "examples": [
                 "A"
               ]
@@ -992,22 +992,22 @@
         }
       }
     },
-    "/v0/liquidity/{strategyAddress}/withdraw": {
+    "/v0/liquidity/{vaultAddress}/withdraw": {
       "get": {
         "operationId": "v0.liquidity.getLiquidityStrategyWithdrawBlink",
         "summary": "Liquidity Vault Withdraw",
-        "description": "Get metadata for withdrawing from Kamino's liquidity vault.",
+        "description": "Get metadata for withdrawing from a liquidity vault.",
         "tags": [
           "Liquidity"
         ],
         "parameters": [
           {
-            "name": "strategyAddress",
+            "name": "vaultAddress",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Strategy public key",
+              "description": "Vault public key",
               "default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
               "x-example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
             },
@@ -1125,12 +1125,12 @@
         ],
         "parameters": [
           {
-            "name": "strategyAddress",
+            "name": "vaultAddress",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Strategy public key",
+              "description": "Vault public key",
               "default": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7",
               "x-example": "BLP7UHUg1yNry94Qk3sM8pAfEyDhTZirwFghw9DoBjn7"
             },
@@ -1685,12 +1685,12 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
               "examples": [
-                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
               ]
             },
-            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "collTokenMint",
@@ -1699,12 +1699,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "default": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
               "examples": [
-                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+                "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
               ]
             },
-            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "example": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -1730,9 +1730,9 @@
             "required": true,
             "schema": {
               "type": "number",
-              "minimum": 2,
+              "minimum": 1.1,
               "maximum": 10,
-              "description": "Leverage multiplier (2-10x)",
+              "description": "Leverage multiplier (1.1-10x)",
               "default": 3,
               "examples": [
                 3
@@ -1747,10 +1747,10 @@
             "required": true,
             "schema": {
               "type": "number",
-              "minimum": 0,
+              "minimum": 5,
               "description": "The amount to deposit. Human readable value, e.g. 0.1 SOL",
               "default": 0.1,
-              "example": 0.1,              "examples": [
+              "example": 5,              "examples": [
                 0.1
               ]
             },
@@ -1786,13 +1786,13 @@
                   "type": {
                     "type": "string",
                     "enum": [
-                      "transaction"
+                      "transactions"
                     ],
                     "examples": [
-                      "transaction"
+                      "transactions"
                     ],
-                    "example": "transaction",
-                    "default": "transaction"
+                    "example": "transactions",
+                    "default": "transactions"
                   },
                   "account": {
                     "type": "string",
@@ -1814,7 +1814,7 @@
                 "deposit": {
                   "summary": "Multiply deposit transaction",
                   "value": {
-                    "type": "transaction",
+                    "type": "transactions",
                     "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 }
@@ -1830,18 +1830,33 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "transaction"
+                      "const": "transactions"
                     },
-                    "transaction": {
-                      "type": "string",
+                    "transactions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
                       "examples": [
-                        "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                        ["AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"]
                       ]
+                    },
+                    "mode": {
+                      "const": "sequential"
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
                     }
                   },
                   "required": [
                     "type",
-                    "transaction"
+                    "transactions",
+                    "mode"
                   ]
                 }
               }
