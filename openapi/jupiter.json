@@ -393,6 +393,528 @@
           }
         }
       }
+    },
+    "/api/v0/lend/earn/{vaultToken}/deposit": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "disabled": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "transaction"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "label",
+                              "href"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "icon",
+                    "label",
+                    "title",
+                    "description"
+                  ]
+                }
+              }
+            },
+            "description": "Successful response with lend action details"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Token validation error"
+          }
+        },
+        "operationId": "getApiV0LendEarnByVaultTokenDeposit",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "vaultToken",
+            "schema": {
+              "type": "string",
+              "example": "USDC",
+              "default": "USDC",
+              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
+            },
+            "required": true
+          }
+        ],
+        "summary": "Earn Deposit",
+        "description": "Get available deposit actions for a token"
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string",
+                      "description": "Base64 encoded serialized transaction"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            },
+            "description": "Successful lend transaction"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Bad request, e.g. no amount and percentage provided"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Token validation error or parameter validation error"
+          }
+        },
+        "operationId": "postApiV0LendEarnByVaultTokenDeposit",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "vaultToken",
+            "schema": {
+              "type": "string",
+              "example": "USDC",
+              "default": "USDC",
+              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 100,
+              "default": 100,
+              "description": "Amount to deposit or withdraw."
+            }
+          },
+          {
+            "in": "query",
+            "name": "percentage",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "example": 50,
+              "description": "Percentage to deposit or withdraw (0-100).  Takes priority over `amount`."
+            }
+          }
+        ],
+        "summary": "Earn Deposit",
+        "description": "Execute a deposit transaction for the specified token and amount",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "account"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/lend/earn/{vaultToken}/withdraw": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "disabled": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "const": "transaction"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "label",
+                              "href"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "icon",
+                    "label",
+                    "title",
+                    "description"
+                  ]
+                }
+              }
+            },
+            "description": "Successful response with lend action details"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Token validation error"
+          }
+        },
+        "operationId": "getApiV0LendEarnByVaultTokenWithdraw",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "vaultToken",
+            "schema": {
+              "type": "string",
+              "example": "USDC",
+              "default": "USDC",
+              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
+            },
+            "required": true
+          }
+        ],
+        "summary": "Earn Withdraw",
+        "description": "Get available withdraw actions for a token"
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string",
+                      "description": "Base64 encoded serialized transaction"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            },
+            "description": "Successful lend transaction"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Bad request, e.g. no amount and percentage provided"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Token validation error or parameter validation error"
+          }
+        },
+        "operationId": "postApiV0LendEarnByVaultTokenWithdraw",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "vaultToken",
+            "schema": {
+              "type": "string",
+              "example": "USDC",
+              "default": "USDC",
+              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "example": 100,
+              "default": 100,
+              "description": "Amount to deposit or withdraw."
+            }
+          },
+          {
+            "in": "query",
+            "name": "percentage",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "example": 50,
+              "description": "Percentage to deposit or withdraw (0-100).  Takes priority over `amount`."
+            }
+          }
+        ],
+        "summary": "Earn Withdraw",
+        "description": "Execute withdraw transaction for the specified token and amount",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "account"
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
