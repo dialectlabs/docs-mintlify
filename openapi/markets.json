@@ -17,7 +17,7 @@
       "get": {
         "operationId": "marketsV0Api.listMarkets",
         "summary": "List all markets",
-        "description": "Supported providers: MarginFi Lending, Kamino Lending, Lulo Lending.",
+        "description": "Returns real-time market data from supported protocols. See [Protocol Support Roadmap](/markets#protocol-support-roadmap) for the full list of supported providers.",
         "tags": [
           "Markets"
         ],
@@ -582,7 +582,7 @@
       "get": {
         "operationId": "marketsV0Api.listMarketsGroupedByType",
         "summary": "List all markets grouped by type",
-        "description": "Supported providers: MarginFi Lending, Kamino Lending, Lulo Lending.",
+        "description": "Returns markets grouped by type from supported protocols. See [Protocol Support Roadmap](/markets#protocol-support-roadmap) for the full list of supported providers.",
         "tags": [
           "Markets"
         ],
@@ -1133,7 +1133,7 @@
       "get": {
         "operationId": "positionsV0Api.positionsByOwners",
         "summary": "List all market positions by wallet address",
-        "description": "Supported providers & markets: Kamino Lending, Lulo Lending.",
+        "description": "Returns position data for supported protocols. See [Protocol Support Roadmap](/markets#protocol-support-roadmap) for current position tracking support.",
         "tags": [
           "Positions"
         ],
