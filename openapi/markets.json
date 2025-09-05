@@ -1144,7 +1144,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Comma separated list of owner addresses. Currently only supports one address."
+              "description": "Comma separated list of owner addresses. Currently only supports one address.",
+              "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+              "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
             },
             "allowEmptyValue": true,
             "allowReserved": true
