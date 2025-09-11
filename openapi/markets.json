@@ -68,16 +68,21 @@
                                     "enum": [
                                       "kamino",
                                       "lulo",
-                                      "marginfi"
+                                      "marginfi",
+                                      "jupiter"
                                     ]
                                   },
                                   "name": {
+                                    "type": "string"
+                                  },
+                                  "icon": {
                                     "type": "string"
                                   }
                                 },
                                 "required": [
                                   "id",
-                                  "name"
+                                  "name",
+                                  "icon"
                                 ]
                               },
                               "token": {
@@ -91,13 +96,28 @@
                                   },
                                   "decimals": {
                                     "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
                                 },
                                 "required": [
                                   "address",
                                   "symbol",
-                                  "decimals"
+                                  "decimals",
+                                  "icon"
                                 ]
+                              },
+                              "websiteUrl": {
+                                "type": "string",
+                                "format": "uri"
                               },
                               "depositApy": {
                                 "type": "number"
@@ -194,16 +214,21 @@
                                     "enum": [
                                       "kamino",
                                       "lulo",
-                                      "marginfi"
+                                      "marginfi",
+                                      "jupiter"
                                     ]
                                   },
                                   "name": {
+                                    "type": "string"
+                                  },
+                                  "icon": {
                                     "type": "string"
                                   }
                                 },
                                 "required": [
                                   "id",
-                                  "name"
+                                  "name",
+                                  "icon"
                                 ]
                               },
                               "token": {
@@ -217,13 +242,28 @@
                                   },
                                   "decimals": {
                                     "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
                                 },
                                 "required": [
                                   "address",
                                   "symbol",
-                                  "decimals"
+                                  "decimals",
+                                  "icon"
                                 ]
+                              },
+                              "websiteUrl": {
+                                "type": "string",
+                                "format": "uri"
                               },
                               "depositApy": {
                                 "type": "number"
@@ -303,16 +343,21 @@
                                     "enum": [
                                       "kamino",
                                       "lulo",
-                                      "marginfi"
+                                      "marginfi",
+                                      "jupiter"
                                     ]
                                   },
                                   "name": {
+                                    "type": "string"
+                                  },
+                                  "icon": {
                                     "type": "string"
                                   }
                                 },
                                 "required": [
                                   "id",
-                                  "name"
+                                  "name",
+                                  "icon"
                                 ]
                               },
                               "tokenA": {
@@ -326,12 +371,23 @@
                                   },
                                   "decimals": {
                                     "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
                                 },
                                 "required": [
                                   "address",
                                   "symbol",
-                                  "decimals"
+                                  "decimals",
+                                  "icon"
                                 ]
                               },
                               "tokenB": {
@@ -345,13 +401,28 @@
                                   },
                                   "decimals": {
                                     "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
                                 },
                                 "required": [
                                   "address",
                                   "symbol",
-                                  "decimals"
+                                  "decimals",
+                                  "icon"
                                 ]
+                              },
+                              "websiteUrl": {
+                                "type": "string",
+                                "format": "uri"
                               },
                               "depositApy": {
                                 "type": "number"
@@ -436,16 +507,21 @@
                                     "enum": [
                                       "kamino",
                                       "lulo",
-                                      "marginfi"
+                                      "marginfi",
+                                      "jupiter"
                                     ]
                                   },
                                   "name": {
+                                    "type": "string"
+                                  },
+                                  "icon": {
                                     "type": "string"
                                   }
                                 },
                                 "required": [
                                   "id",
-                                  "name"
+                                  "name",
+                                  "icon"
                                 ]
                               },
                               "tokenA": {
@@ -459,12 +535,23 @@
                                   },
                                   "decimals": {
                                     "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
                                 },
                                 "required": [
                                   "address",
                                   "symbol",
-                                  "decimals"
+                                  "decimals",
+                                  "icon"
                                 ]
                               },
                               "tokenB": {
@@ -478,13 +565,28 @@
                                   },
                                   "decimals": {
                                     "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
                                 },
                                 "required": [
                                   "address",
                                   "symbol",
-                                  "decimals"
+                                  "decimals",
+                                  "icon"
                                 ]
+                              },
+                              "websiteUrl": {
+                                "type": "string",
+                                "format": "uri"
                               },
                               "liquidity": {
                                 "type": "object",
@@ -612,16 +714,21 @@
                                 "enum": [
                                   "kamino",
                                   "lulo",
-                                  "marginfi"
+                                  "marginfi",
+                                  "jupiter"
                                 ]
                               },
                               "name": {
+                                "type": "string"
+                              },
+                              "icon": {
                                 "type": "string"
                               }
                             },
                             "required": [
                               "id",
-                              "name"
+                              "name",
+                              "icon"
                             ]
                           },
                           "token": {
@@ -635,13 +742,28 @@
                               },
                               "decimals": {
                                 "type": "number"
+                              },
+                              "icon": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
                               }
                             },
                             "required": [
                               "address",
                               "symbol",
-                              "decimals"
+                              "decimals",
+                              "icon"
                             ]
+                          },
+                          "websiteUrl": {
+                            "type": "string",
+                            "format": "uri"
                           },
                           "depositApy": {
                             "type": "number"
@@ -740,16 +862,21 @@
                                 "enum": [
                                   "kamino",
                                   "lulo",
-                                  "marginfi"
+                                  "marginfi",
+                                  "jupiter"
                                 ]
                               },
                               "name": {
+                                "type": "string"
+                              },
+                              "icon": {
                                 "type": "string"
                               }
                             },
                             "required": [
                               "id",
-                              "name"
+                              "name",
+                              "icon"
                             ]
                           },
                           "token": {
@@ -763,13 +890,28 @@
                               },
                               "decimals": {
                                 "type": "number"
+                              },
+                              "icon": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
                               }
                             },
                             "required": [
                               "address",
                               "symbol",
-                              "decimals"
+                              "decimals",
+                              "icon"
                             ]
+                          },
+                          "websiteUrl": {
+                            "type": "string",
+                            "format": "uri"
                           },
                           "depositApy": {
                             "type": "number"
@@ -851,16 +993,21 @@
                                 "enum": [
                                   "kamino",
                                   "lulo",
-                                  "marginfi"
+                                  "marginfi",
+                                  "jupiter"
                                 ]
                               },
                               "name": {
+                                "type": "string"
+                              },
+                              "icon": {
                                 "type": "string"
                               }
                             },
                             "required": [
                               "id",
-                              "name"
+                              "name",
+                              "icon"
                             ]
                           },
                           "tokenA": {
@@ -874,12 +1021,23 @@
                               },
                               "decimals": {
                                 "type": "number"
+                              },
+                              "icon": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
                               }
                             },
                             "required": [
                               "address",
                               "symbol",
-                              "decimals"
+                              "decimals",
+                              "icon"
                             ]
                           },
                           "tokenB": {
@@ -893,13 +1051,28 @@
                               },
                               "decimals": {
                                 "type": "number"
+                              },
+                              "icon": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
                               }
                             },
                             "required": [
                               "address",
                               "symbol",
-                              "decimals"
+                              "decimals",
+                              "icon"
                             ]
+                          },
+                          "websiteUrl": {
+                            "type": "string",
+                            "format": "uri"
                           },
                           "depositApy": {
                             "type": "number"
@@ -986,16 +1159,21 @@
                                 "enum": [
                                   "kamino",
                                   "lulo",
-                                  "marginfi"
+                                  "marginfi",
+                                  "jupiter"
                                 ]
                               },
                               "name": {
+                                "type": "string"
+                              },
+                              "icon": {
                                 "type": "string"
                               }
                             },
                             "required": [
                               "id",
-                              "name"
+                              "name",
+                              "icon"
                             ]
                           },
                           "tokenA": {
@@ -1009,12 +1187,23 @@
                               },
                               "decimals": {
                                 "type": "number"
+                              },
+                              "icon": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
                               }
                             },
                             "required": [
                               "address",
                               "symbol",
-                              "decimals"
+                              "decimals",
+                              "icon"
                             ]
                           },
                           "tokenB": {
@@ -1028,13 +1217,28 @@
                               },
                               "decimals": {
                                 "type": "number"
+                              },
+                              "icon": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
                               }
                             },
                             "required": [
                               "address",
                               "symbol",
-                              "decimals"
+                              "decimals",
+                              "icon"
                             ]
+                          },
+                          "websiteUrl": {
+                            "type": "string",
+                            "format": "uri"
                           },
                           "liquidity": {
                             "type": "object",
