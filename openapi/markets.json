@@ -12,6 +12,11 @@
       "url": "https://markets.dial.to/api"
     }
   ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
   "paths": {
     "/v0/markets": {
       "get": {
@@ -31,6 +36,22 @@
                 "yield",
                 "loop",
                 "perpetual"
+              ]
+            },
+            "style": "deepObject",
+            "explode": true,
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "kamino",
+                "lulo",
+                "marginfi",
+                "jupiter"
               ]
             },
             "style": "deepObject",
@@ -120,10 +141,20 @@
                                 "format": "uri"
                               },
                               "depositApy": {
-                                "type": "number"
+                                "type": "number",
+                                "description": "Total APY **including** rewards"
+                              },
+                              "baseDepositApy": {
+                                "type": "number",
+                                "description": "APY excluding rewards"
                               },
                               "borrowApy": {
-                                "type": "number"
+                                "type": "number",
+                                "description": "Total APY **including** rewards"
+                              },
+                              "baseBorrowApy": {
+                                "type": "number",
+                                "description": "APY excluding rewards"
                               },
                               "totalDeposit": {
                                 "type": "number"
@@ -145,6 +176,117 @@
                               },
                               "oraclePrice": {
                                 "type": "number"
+                              },
+                              "rewards": {
+                                "type": "array",
+                                "items": {
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "const": "deposit"
+                                        },
+                                        "apy": {
+                                          "type": "number"
+                                        },
+                                        "token": {
+                                          "type": "object",
+                                          "properties": {
+                                            "address": {
+                                              "type": "string"
+                                            },
+                                            "symbol": {
+                                              "type": "string"
+                                            },
+                                            "decimals": {
+                                              "type": "number"
+                                            },
+                                            "icon": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "string"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "address",
+                                            "symbol",
+                                            "decimals",
+                                            "icon"
+                                          ]
+                                        },
+                                        "marketAction": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type",
+                                        "apy",
+                                        "token",
+                                        "marketAction"
+                                      ],
+                                      "title": "Deposit Reward",
+                                      "description": "Reward for depositing"
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "const": "borrow"
+                                        },
+                                        "apy": {
+                                          "type": "number"
+                                        },
+                                        "token": {
+                                          "type": "object",
+                                          "properties": {
+                                            "address": {
+                                              "type": "string"
+                                            },
+                                            "symbol": {
+                                              "type": "string"
+                                            },
+                                            "decimals": {
+                                              "type": "number"
+                                            },
+                                            "icon": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "string"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "address",
+                                            "symbol",
+                                            "decimals",
+                                            "icon"
+                                          ]
+                                        },
+                                        "marketAction": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type",
+                                        "apy",
+                                        "token",
+                                        "marketAction"
+                                      ],
+                                      "title": "Borrow Reward",
+                                      "description": "Reward for borrowing"
+                                    }
+                                  ]
+                                }
                               },
                               "additionalData": {
                                 "type": "object",
@@ -189,7 +331,9 @@
                               "provider",
                               "token",
                               "depositApy",
+                              "baseDepositApy",
                               "borrowApy",
+                              "baseBorrowApy",
                               "totalDeposit",
                               "totalBorrow",
                               "maxDeposit",
@@ -684,7 +828,7 @@
       "get": {
         "operationId": "marketsV0Api.listMarketsGroupedByType",
         "summary": "List all markets grouped by type",
-        "description": "Returns markets grouped by type from supported protocols. See [Protocol Support Roadmap](/markets#protocol-support-roadmap) for the full list of supported providers.",
+        "description": "Supported providers: MarginFi Lending, Kamino Lending, Kamino Multiply, Kamino Leverage, Lulo.",
         "tags": [
           "Markets"
         ],
@@ -766,10 +910,20 @@
                             "format": "uri"
                           },
                           "depositApy": {
-                            "type": "number"
+                            "type": "number",
+                            "description": "Total APY **including** rewards"
+                          },
+                          "baseDepositApy": {
+                            "type": "number",
+                            "description": "APY excluding rewards"
                           },
                           "borrowApy": {
-                            "type": "number"
+                            "type": "number",
+                            "description": "Total APY **including** rewards"
+                          },
+                          "baseBorrowApy": {
+                            "type": "number",
+                            "description": "APY excluding rewards"
                           },
                           "totalDeposit": {
                             "type": "number"
@@ -791,6 +945,117 @@
                           },
                           "oraclePrice": {
                             "type": "number"
+                          },
+                          "rewards": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "const": "deposit"
+                                    },
+                                    "apy": {
+                                      "type": "number"
+                                    },
+                                    "token": {
+                                      "type": "object",
+                                      "properties": {
+                                        "address": {
+                                          "type": "string"
+                                        },
+                                        "symbol": {
+                                          "type": "string"
+                                        },
+                                        "decimals": {
+                                          "type": "number"
+                                        },
+                                        "icon": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "address",
+                                        "symbol",
+                                        "decimals",
+                                        "icon"
+                                      ]
+                                    },
+                                    "marketAction": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "type",
+                                    "apy",
+                                    "token",
+                                    "marketAction"
+                                  ],
+                                  "title": "Deposit Reward",
+                                  "description": "Reward for depositing"
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "const": "borrow"
+                                    },
+                                    "apy": {
+                                      "type": "number"
+                                    },
+                                    "token": {
+                                      "type": "object",
+                                      "properties": {
+                                        "address": {
+                                          "type": "string"
+                                        },
+                                        "symbol": {
+                                          "type": "string"
+                                        },
+                                        "decimals": {
+                                          "type": "number"
+                                        },
+                                        "icon": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "address",
+                                        "symbol",
+                                        "decimals",
+                                        "icon"
+                                      ]
+                                    },
+                                    "marketAction": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "type",
+                                    "apy",
+                                    "token",
+                                    "marketAction"
+                                  ],
+                                  "title": "Borrow Reward",
+                                  "description": "Reward for borrowing"
+                                }
+                              ]
+                            }
                           },
                           "additionalData": {
                             "type": "object",
@@ -835,7 +1100,9 @@
                           "provider",
                           "token",
                           "depositApy",
+                          "baseDepositApy",
                           "borrowApy",
+                          "baseBorrowApy",
                           "totalDeposit",
                           "totalBorrow",
                           "maxDeposit",
@@ -1471,10 +1738,20 @@
                                     "format": "uri"
                                   },
                                   "depositApy": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "description": "Total APY **including** rewards"
+                                  },
+                                  "baseDepositApy": {
+                                    "type": "number",
+                                    "description": "APY excluding rewards"
                                   },
                                   "borrowApy": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "description": "Total APY **including** rewards"
+                                  },
+                                  "baseBorrowApy": {
+                                    "type": "number",
+                                    "description": "APY excluding rewards"
                                   },
                                   "totalDeposit": {
                                     "type": "number"
@@ -1496,6 +1773,117 @@
                                   },
                                   "oraclePrice": {
                                     "type": "number"
+                                  },
+                                  "rewards": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "const": "deposit"
+                                            },
+                                            "apy": {
+                                              "type": "number"
+                                            },
+                                            "token": {
+                                              "type": "object",
+                                              "properties": {
+                                                "address": {
+                                                  "type": "string"
+                                                },
+                                                "symbol": {
+                                                  "type": "string"
+                                                },
+                                                "decimals": {
+                                                  "type": "number"
+                                                },
+                                                "icon": {
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "null"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "required": [
+                                                "address",
+                                                "symbol",
+                                                "decimals",
+                                                "icon"
+                                              ]
+                                            },
+                                            "marketAction": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "type",
+                                            "apy",
+                                            "token",
+                                            "marketAction"
+                                          ],
+                                          "title": "Deposit Reward",
+                                          "description": "Reward for depositing"
+                                        },
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "const": "borrow"
+                                            },
+                                            "apy": {
+                                              "type": "number"
+                                            },
+                                            "token": {
+                                              "type": "object",
+                                              "properties": {
+                                                "address": {
+                                                  "type": "string"
+                                                },
+                                                "symbol": {
+                                                  "type": "string"
+                                                },
+                                                "decimals": {
+                                                  "type": "number"
+                                                },
+                                                "icon": {
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "null"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "required": [
+                                                "address",
+                                                "symbol",
+                                                "decimals",
+                                                "icon"
+                                              ]
+                                            },
+                                            "marketAction": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "type",
+                                            "apy",
+                                            "token",
+                                            "marketAction"
+                                          ],
+                                          "title": "Borrow Reward",
+                                          "description": "Reward for borrowing"
+                                        }
+                                      ]
+                                    }
                                   },
                                   "additionalData": {
                                     "type": "object",
@@ -1540,7 +1928,9 @@
                                   "provider",
                                   "token",
                                   "depositApy",
+                                  "baseDepositApy",
                                   "borrowApy",
+                                  "baseBorrowApy",
                                   "totalDeposit",
                                   "totalBorrow",
                                   "maxDeposit",
