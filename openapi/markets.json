@@ -12,11 +12,6 @@
       "url": "https://markets.dial.to/api"
     }
   ],
-  "security": [
-    {
-      "apiKey": []
-    }
-  ],
   "paths": {
     "/v0/markets": {
       "get": {
