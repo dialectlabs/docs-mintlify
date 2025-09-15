@@ -61,30 +61,52 @@ The API returns all lending markets from both protocols. Here's one example mark
   "markets": [
     // ... other markets above
     {
-      "id": "kamino.F22tnLsbv66vEU2GZRc7coaqZsr8UcBbyp9V2kqWAiWK",
+      "id": "kamino.5bgPMvzZv29jkFEuMwxQRJQf64gKcPfLEEUHhyrP8tce",
       "type": "lending",
       "provider": {
         "id": "kamino",
-        "name": "Kamino"
+        "name": "Kamino",
+        "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/5cddfb2e-c98e-4734-528b-b541fb5e2b00/public"
       },
       "token": {
         "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
         "symbol": "USDC",
-        "decimals": 6
+        "decimals": 6,
+        "icon": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png"
       },
-      "depositApy": 0.1457,
-      "borrowApy": 0.215,
-      "totalDeposit": 799920.62695,
-      "totalDepositUsd": 799807.59,
-      "totalBorrow": 698168.641609,
-      "totalBorrowUsd": 698069.98,
-      "maxDeposit": 10000000,
-      "maxBorrow": 8000000,
+      "websiteUrl": "https://kamino.com/markets/reserve/CTthJu49dgPkCgu9TKQProuaQnkHsRPQV33sSJ96vxpG/5bgPMvzZv29jkFEuMwxQRJQf64gKcPfLEEUHhyrP8tce",
+      "depositApy": 0.1041,
+      "baseDepositApy": 0.032,
+      "borrowApy": 0.1363,
+      "baseBorrowApy": 0.1363,
+      "totalDeposit": 3999950.61308,
+      "totalDepositUsd": 3999185.94,
+      "totalBorrow": 1408428.724773,
+      "totalBorrowUsd": 1408159.48,
+      "maxDeposit": 4000000,
+      "maxBorrow": 2000000,
+      "oraclePrice": 1,
+      "rewards": [
+        {
+          "type": "deposit",
+          "apy": 0.0721,
+          "token": {
+            "address": "AuQaustGiaqxRvj2gtCdrd22PBzTn8kM3kEPEkZCtuDw",
+            "symbol": "ADX",
+            "decimals": 6,
+            "icon": null
+          },
+          "marketAction": "deposit"
+        }
+      ],
       "actions": {
         "deposit": {
           "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/..."
         },
         "withdraw": {
+          "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/..."
+        },
+        "claimRewards": {
           "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/..."
         }
       }
