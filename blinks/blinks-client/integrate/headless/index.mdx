@@ -284,6 +284,45 @@ Action Chaining allows you to create complex workflows by connecting multiple bl
 
 Our SDKs are the recommended way to implement action chaining as they handle the complexity for you.
 
+### Handling Multiple Transactions (Experimental)
+
+<Warning>
+**Experimental Feature**: Multiple transactions are not part of the official Solana Actions specification and are not supported by Dialect's official Blinks libraries. This is an experimental extension for specific use cases that require multiple transactions to be executed.
+</Warning>
+
+Some complex DeFi operations require multiple transactions to be executed sequentially. When a blink provider needs to return multiple transactions, the response will use `type: "transactions"` instead of `type: "transaction"`:
+
+```json
+{
+  "type": "transactions",
+  "transactions": [
+    "transaction_1",
+    "transaction_2",
+    "transaction_3"
+  ],
+  "mode": "sequential",
+  "dialectExperimental": {
+    "reference": "transaction_reference_id"
+  }
+}
+```
+
+**Implementation Requirements**
+
+When handling multiple transactions, clients must:
+
+1. **Execute sequentially**: Sign and submit each transaction in order, waiting for confirmation before proceeding
+2. **Update cache** (recommended): Refresh account state and balances between transactions to ensure accurate data
+3. **Handle confirmations**: Wait for each transaction to be confirmed on-chain before signing the next
+4. **Update Blockhash**: Fetch a fresh recent blockhash before signing the next transaction
+5. **Manage failures**: If any transaction fails, stop the sequence and handle the error appropriately
+
+<Note>
+Transaction signing is the client's responsibility. Dialect provides the transactions ready for signing, but implementing wallet interaction and signature collection is handled by your application using standard Solana libraries such as `@solana/web3.js`, `@solana/kit`, or `gill`. (Single transactions can be handled by the blink client directly)
+</Note>
+
+For more details on how providers implement multiple transactions, see the [provider documentation](/blinks/blinks-provider/advanced/multiple-transactions).
+
 ### Input types
 
 Blinks can be more than just one-click button actions. In fact, they can become really powerful when you add multiple inputs.
