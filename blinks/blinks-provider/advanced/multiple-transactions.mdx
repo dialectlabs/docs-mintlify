@@ -1,0 +1,122 @@
+---
+title: "Multiple Transactions (Experimental)"
+sidebarTitle: "Multiple Transactions"
+description: "Handle complex operations that require multiple transactions to be executed sequentially"
+---
+
+<Warning>
+**Experimental Feature**: This feature is not part of the official Solana Actions specification and is not supported by Dialect's official Blinks libraries. It's an experimental extension implemented in the [Solana Blinks Library (SBL)](/standard-blinks-library) for specific use cases.
+</Warning>
+
+Some complex DeFi operations, such as leveraged positions or multi-step swaps, require multiple transactions. The [Solana Blinks Library (SBL)](/standard-blinks-library) supports this through an experimental `transactions` response type that extends beyond the official specification.
+
+To see an example of how to use this feature, please see the [Kamino Multiply Blink](/api-reference/multiply/multiply-deposit-1) as a reference.
+
+## When to Use Multiple Transactions
+
+Multiple transactions are typically needed for:
+
+- **Account setup**: Creating accounts before main operations occurs (e.g. creating a user account before opening a leveraged or multiply position)
+- **Complex swaps**: Multi-hop swaps that require intermediate steps
+- **Cross-program interactions**: Operations spanning multiple DeFi protocols
+
+## Response Format
+
+When your endpoint needs to return multiple transactions, use `type: "transactions"` instead of `type: "transaction"`:
+
+```typescript
+// NOTE: This is not supported by the official Solana Actions specification or Dialect's official Blinks libraries.
+
+const response = {
+  "type": "transactions",
+  "transactions": [
+    "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQACBE7a3stN5LHJrX44cP1FkIaonITAwMLOb6DAY1dBfcLhVmS1dVK20+Zktnblf0ulFfcj9pKjky78ZFo5k2VXue4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ3pq+XM5t6yI0YkskERvUAAjCSZvYuU8EYJEmCAAAArgYUdwveXEzDU4/rOH5Xthg38v1tVup0wgOrmDCtPQcBAwQBAAACrAICAAAACQAAAAAAAABfvRsDY82zhmcO+9DjkuLhkgSLyUvpbqLT9q+7vSWDymW/90HnVbKpvcZJjQUnIqF45YqjJ0Jd9ctA2z7GMLenxVN3RhnMgE5AxRKNmiQDuPQxtGmSGrDIprowQg2OmyC7B0LA0FUQsFaJo77w1bOfduoIBtLIeX9pesBVl+r4j8UOAheNKyGtHwxG2SjFhGRC39BByJa8rQnozC6H2uVlllJZtdMVZBoOIyzri702JmWL6eIm+znJMQF9XommtuOrpq6YqvIDZkLMq7sVGfMkORx8/wdKraYvEyULkJ/5mxMdTzIyEUoQwnBT06y6ctfL+aDEXvdJXrphhyYqP+Hw1eFW5PogQwycz39f51Nb1cAnLnvzBMPDwRkVBNtz8JkA",
+    "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAIDU7a3stN5LHJrX44cP1FkIaonITAwMLOb6DAY1dBfcLhR4Os0DR8xX613OmiGRQktIpOvbZhznjopZwNzu7QAK5aGZKRCAwKHlSddxWFAIzGEH4FyLwVVwt7M4L2Np+03Z9Ckd4rpGlIE1qmjAgQCuZo1XRSO7IDjB82txA6c43P256zUYlOIaJqoBoIs6ECqxs3vzobiiO/tmVujNzkqjhsE4l4xxiBGtlREpJSuV8l/qBfqUoFgP8xGIoTXO6ZCoyXJY9OJInxuz0QKRSODYMLWhOZ2v8QhASOe9jb6fhZAwZGb+UhFzL/7K26csOb57yM5bvF9xJrLEObOkAAAADYsBAXY9PlHxJuYVbehd6MYTBZuERo0No/6KKiJRzHAe05OWi9rmXFe//gFMXzgUOk4tcE5m/nJ6A9k8puNL+G8YQlRLmPFt2B56cMg02FhgxYu8jbUsIf4rxM38ovXgMEedVb8jHAbu50xW7OaBUH/bGy3qP0jlECsc2iVrwTjwSyrLESWMzjaCxBi6hy/z35EQJxLxWvEra+abNDWwAICSASjjbbbWoAzztBa0YdG5ntCBcejj/hyUOJ/hWi/l0TCgggNSc4BQU2NhRTus+Dy/7GggQAAAB5AXoBFAA+AAcABQLAxi0ABgYAGwAvLTIBAQYGAAIAMS0yAQEGBgAaACUtMgEBDAwANDckLyMbIgwMODIQh+c0pwc01MF2yQAAAAAAAAwJAAAdNy8xCTktCvsK50wbC59gAQAMCwAAHTQkHhk3CDktCYg/D7rTmKikAAwLAAAdNCYcHzcIOS0JiD8PutOYqKQBDAYkNwwMDCAIAtqK60/JGWYMAjcdCCGEk+SXwEhZDBEAHTc0JC8jJSEbDDIyOBkeCBDY4L8bzJdmr3bJAAAAAAAADAYkNwwMDCAIAtqK60/JGWYMBiY3DAwMIAgC2orrT8kZZgwDNx0kCCGEk+SXwEhZDBAAHTc0JjEoKQIMMjgfHAgkEKGAj/Wrx8IGIw0DAAAAAAAGBgAbAC8tMgEBCyUyEgACFRQbMS8LCy4LKyoPLA4REhUTEA0yMzISFhMYFBcEAQMwKcEgmzNB1pyBBAIAAAAwZAABEQFkAQLDkwQAAAAAAHzKAAAAAAAAMgAADAwANDckLyMbIgwMODIRuXUAy2D1tLp2yQAAAAAAAAUFD426La5P7U2ZI5iKXZ5DR8PMNGlo1ELnW1nSjqdO0g8FETY4EzIDFBAzPVNUpUWv+E/aHZaWBAfJacEiuQJPEaJHJd+l49iSeZkELTAuLwI1CEE1acTnwEZpPlYuf1bb4FBHxg4hOJmdbNvk6trbsOxAA87EyQXKyIcGC1ZktXVSttPmZLZ25X9LpRX3I/aSo5Mu/GRaOZNlV7nuBwcBAAUGAwgA6yGjOx/BhlwqOZHQo5+LEqIS/jRJNg4sO2THkKIRY/kKExkXFhQYCjIMDQYCMDMBBAM="
+  ],
+  "mode": "sequential",
+  "dialectExperimental": {
+    "reference": "5oNDL3swdJJF1g9DzJiZ4ynHXgszjAEpUkxVYejchzrY"
+  }
+}
+```
+
+## Required Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `type` | `"transactions"` | Indicates this response contains multiple transactions |
+| `transactions` | `string[]` | Array of base64-encoded serialized transactions |
+| `mode` | `"sequential"` | Execution mode (currently only "sequential" is supported) |
+| `dialectExperimental` | `object` | Contiains a reference key to the track transaction (currently deactivated) |
+
+## Sequential Execution
+
+The `mode: "sequential"` field tells the client to execute transactions one after another, waiting for each to be confirmed before proceeding to the next. This ensures proper ordering for dependent operations.
+
+## Example: Multiply Deposit
+
+Here's an example of implementing a multiply deposit endpoint that returns multiple transactions:
+
+```typescript {26-36} title="src/app/api/actions/multiply-deposit/route.ts"
+
+import {
+  ActionPostRequest,
+  ACTIONS_CORS_HEADERS,
+  BLOCKCHAIN_IDS,
+} from "@solana/actions";
+import { Keypair } from "@solana/web3.js";
+
+// ... other code, such as CORS headers, GET request, etc.
+
+export const POST = async (req: Request) => {
+  try {
+    const request: ActionPostRequest = await req.json();
+    const url = new URL(req.url);
+
+    const amount = Number(url.searchParams.get("amount"));
+    const leverage = Number(url.searchParams.get("leverage"));
+    const account = request.account;
+
+    // Generate multiple transactions for the multiply operation
+    const transactions = await generateMultiplyTransactions(
+      account,
+      amount,
+      leverage
+    );
+
+    const response = {
+      type: "transactions",
+      transactions: transactions.map(tx =>
+        Buffer.from(tx.serialize()).toString("base64")
+      ),
+      mode: "sequential",
+      dialectExperimental: {
+        reference: Keypair.generate().publicKey.toString()
+      }
+    };
+
+    return Response.json(response, { headers });
+  } catch (error) {
+    // Error handling
+  }
+};
+
+// Helper function to generate multiple transactions
+async function generateMultiplyTransactions(
+  account: string,
+  amount: number,
+  leverage: number
+) => {
+  // Implementation that generates:
+  // 1. Setup transaction (create accounts if needed, etc.)
+  // 2. Deposit transaction (deposit collateral)
+  // 3. Borrow transaction (leverage the position)
+  // etc.
+
+  return ["tx1", "tx2", "tx3"];
+}
+```
+
+## Client Handling
+
+Blink clients don't handle multiple transactions automatically. You will need to handle the transactions manually.
