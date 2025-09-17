@@ -273,7 +273,8 @@
           {
             "group": "GETTING STARTED",
             "pages": [
-              "markets/index"
+              "markets/index",
+              "markets/rewards"
             ]
           }
         ],
