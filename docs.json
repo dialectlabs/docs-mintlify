@@ -274,7 +274,8 @@
           {
             "group": "GETTING STARTED",
             "pages": [
-              "markets/index"
+              "markets/index",
+              "markets/supported-protocols"
             ]
           }
         ],
