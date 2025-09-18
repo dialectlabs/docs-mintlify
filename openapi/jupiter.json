@@ -1162,8 +1162,8 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "example": 100,
-              "default": 100,
+              "example": 0.1,
+              "default": 0.1,
               "description": "Amount to deposit."
             }
           },
