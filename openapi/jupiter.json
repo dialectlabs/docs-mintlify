@@ -599,12 +599,12 @@
         "parameters": [
           {
             "in": "path",
-            "name": "vaultToken",
+            "name": "vaultId",
             "schema": {
               "type": "string",
-              "example": "USDC",
-              "default": "USDC",
-              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
+              "example": "1",
+              "default": "1",
+              "description": "Vault ID to interact with."
             },
             "required": true
           },
@@ -860,12 +860,12 @@
         "parameters": [
           {
             "in": "path",
-            "name": "vaultToken",
+            "name": "vaultId",
             "schema": {
               "type": "string",
-              "example": "USDC",
-              "default": "USDC",
-              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
+              "example": "1",
+              "default": "1",
+              "description": "Vault ID to interact with."
             },
             "required": true
           },
@@ -916,7 +916,7 @@
         }
       }
     },
-    "/api/v0/lend/borrow/{vaultToken}/deposit": {
+    "/api/v0/lend/borrow/{vaultId}/deposit": {
       "get": {
         "x-mint": {
           "content": "## Position Management\n\n<Note>\n**Important:** This endpoint behaves differently based on the position ID parameter:\n- **With Position ID:** Deposits into the specified existing position\n- **Without Position ID:** Creates a new position (does NOT auto-reuse empty positions like Jupiter's frontend)\n\nTo use an existing position, first fetch the user's positions and provide the position ID. To create a new position, simply leave the position ID parameter empty.\n</Note>\n\n<Warning>\nThis is for Jupiter **Borrow** (collateralized lending positions). For non-collateralized lending, use the [Jupiter Earn endpoints](/api-reference/lend/earn-deposit).\n</Warning>"
@@ -1041,12 +1041,12 @@
         "parameters": [
           {
             "in": "path",
-            "name": "vaultToken",
+            "name": "vaultId",
             "schema": {
               "type": "string",
-              "example": "USDC",
-              "default": "USDC",
-              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
+              "example": "1",
+              "default": "1",
+              "description": "Vault ID to interact with."
             },
             "required": true
           },
@@ -1137,12 +1137,12 @@
         "parameters": [
           {
             "in": "path",
-            "name": "vaultToken",
+            "name": "vaultId",
             "schema": {
               "type": "string",
-              "example": "USDC",
-              "default": "USDC",
-              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
+              "example": "1",
+              "default": "1",
+              "description": "Vault ID to interact with."
             },
             "required": true
           },
