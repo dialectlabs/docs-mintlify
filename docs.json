@@ -186,6 +186,7 @@
                   "blinks/blinks-provider/advanced/forms",
                   "blinks/blinks-provider/advanced/metadata",
                   "blinks/blinks-provider/advanced/action-chaining",
+                  "blinks/blinks-provider/advanced/multiple-transactions",
                   "blinks/blinks-provider/advanced/sign-message",
                   "blinks/blinks-provider/advanced/track-tx",
                   "blinks/blinks-provider/advanced/error-handling"
@@ -274,7 +275,8 @@
             "group": "GETTING STARTED",
             "pages": [
               "markets/index",
-              "markets/rewards"
+              "markets/rewards",
+              "markets/supported-protocols"
             ]
           }
         ],

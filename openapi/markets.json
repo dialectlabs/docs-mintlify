@@ -17,7 +17,7 @@
       "get": {
         "operationId": "marketsV0Api.listMarkets",
         "summary": "List all markets",
-        "description": "Returns real-time market data from supported protocols. See [Protocol Support Roadmap](/markets#protocol-support-roadmap) for the full list of supported providers.",
+        "description": "Returns real-time market data from supported protocols, such as Jupiter, Kamino, MarginFi, Lulo and many more. For more information, please check our [Protocol Support Roadmap](/markets/supported-protocols).",
         "tags": [
           "Markets"
         ],
@@ -823,7 +823,7 @@
       "get": {
         "operationId": "marketsV0Api.listMarketsGroupedByType",
         "summary": "List all markets grouped by type",
-        "description": "Supported providers: MarginFi Lending, Kamino Lending, Kamino Multiply, Kamino Leverage, Lulo.",
+        "description": "Returns real-time market data from supported protocols, such as Jupiter, Kamino, MarginFi, Lulo and many more. For more information, please check our [Protocol Support Roadmap](/markets/supported-protocols).",
         "tags": [
           "Markets"
         ],
@@ -1599,7 +1599,7 @@
       "get": {
         "operationId": "positionsV0Api.positionsByOwners",
         "summary": "List all market positions by wallet address",
-        "description": "Returns position data for supported protocols. See [Protocol Support Roadmap](/markets#protocol-support-roadmap) for current position tracking support.",
+        "description": "Returns position data for supported protocols, such as Jupiter, Kamino, MarginFi, Lulo and many more. For more information, please check our [Protocol Support Roadmap](/markets/supported-protocols).",
         "tags": [
           "Positions"
         ],
