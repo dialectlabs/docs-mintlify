@@ -275,6 +275,7 @@
             "group": "GETTING STARTED",
             "pages": [
               "markets/index",
+              "markets/rewards",
               "markets/supported-protocols"
             ]
           }
