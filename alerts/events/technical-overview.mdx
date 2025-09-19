@@ -84,9 +84,12 @@ All webhooks deliver events as arrays, allowing for batch delivery of multiple e
 
 All events share these common fields:
 
-- **event**: Event type identifier (`token_price_change` or `trending_token`)
+- **event**: Event type identifier (`token_price_change`, `trending_token`, or `token_last_trade_price_change`)
 - **timestamp**: UTC timestamp when the event was generated (ISO 8601)
-- **token**: Token information including symbol and unique address
+- **token**: Token information including symbol and mint address
 - **trigger**: Configuration that caused the event to fire
 
-For detailed field descriptions and specifications, see the individual event type pages for [Price Change](/alerts/events/price-change) and [Trending Token](/alerts/events/trending-token).
+The rest of the data structure is event-specific. For detailed field descriptions and specifications, see the individual event type pages for:
+- [Price Change](/alerts/events/price-change), 
+- [Trending Token](/alerts/events/trending-token), and 
+- [Last Trade Price Change](/alerts/events/price-change#trade-based-price-changes-last-trade)

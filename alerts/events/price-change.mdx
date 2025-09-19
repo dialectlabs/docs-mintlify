@@ -1,10 +1,28 @@
 ---
 title: "Price Change Events"
-description: "Never miss significant price movements again. Get instant notifications when tokens hit thresholds, with smart filtering that cuts through market noise to deliver only the alerts that matter."
+description: "Track token price movements with market-wide sliding windows or personalized alerts based on individual trading history. Get instant notifications when tokens hit thresholds, with smart filtering that cuts through market noise."
 ---
 
+<Note>
+**Beta Access Required**
 
-## How It Works
+Price Change Events are currently in beta. To request early access, please contact our team by filling out our [onboarding form](https://form.typeform.com/to/uIBkRDsF?utm_source=docs&utm_medium=typeform&utm_campaign=price-events-beta-access&utm_content=price-events-intro).
+</Note>
+
+## Overview
+
+Dialect offers two types of price change detection:
+
+1. **Market-Based Price Changes**: Track price movements over sliding time windows (e.g., "SOL is up 10% in 24h")
+2. **Trade-Based Price Changes**: Personalized alerts relative to users' actual trade prices (e.g., "SOL is up 50% since you bought")
+
+Both systems use complex threshold detection and advanced filtering to deliver only the most relevant alerts.
+
+## Market-Based Price Changes
+
+Market-Based Price Changes are triggered by significant price movements of a token over sliding time windows using percentage change thresholds.
+
+### How It Works
 
 Dialect continuously monitors token prices and analyzes percentage changes over sliding time windows. When a token's price change exceeds the configured threshold within a time window, a webhook is triggered with detailed information about the price movement.
 
@@ -26,9 +44,7 @@ Price changes are calculated using a sliding window approach:
 | 24h | **Available**  | Daily price movement tracking |
 | 7d | Planned | Weekly trend detection |
 
-### Webhook Payload
-
-When price change events are detected, you'll receive a webhook with an array structure. Each individual event within the array has this structure:
+### Market-Based Webhook Payload
 
 ```json
 {
@@ -65,46 +81,302 @@ When price change events are detected, you'll receive a webhook with an array st
 }
 ```
 
-#### Field Details
+#### Market-Based Field Details
 
-- **direction**: `"up"` for price increases, `"down"` for decreases
+##### Event Metadata
+- **event**: Always `token_price_change`
+- **timestamp**: ISO 8601 UTC timestamp when event was generated
+
+##### Token Information
+- **symbol**: Token ticker symbol
+- **address**: Token mint address on Solana
+
+##### Trigger Details
+- **type**: Always `sliding_window_percentage_change`
+- **window**: Sliding window configuration
+  - **duration**: Time window used for the calculation (e.g., `1h`, `3h`, `6h`, `12h`, `24h`, `7d`)
+- **threshold**: The percentage change that must be crossed within the window to trigger the event
+
+##### Change Information
+- **direction**: `up` for price increases, `down` for decreases
 - **from**: Price and timestamp at the start of the window
 - **to**: Price and timestamp at the end of the window
-- **absolute**: Raw price difference (to.value - from.value)
-- **percentage**: Percentage change over the window
-- **threshold**: Percentage change required to trigger the event
+- **absolute**: Raw price difference (`to.value - from.value`)
+- **percentage**: Percentage change over the window (`(to.value - from.value) / from.value * 100`)
 
-## Use Cases
+## Trade-Based Price Changes (Last Trade)
 
-### Mobile Wallet Integration
+Trade-Based Price Changes are triggered by significant price movements of a token relative to a user's actual trading history. They offer a more personalized approach to [price change alerts](/alerts/events/price-change#market-based-price-changes), providing alerts based on a user's buy/sell behavior rather than market-wide price movements.
+
+### How It Works
+<Note>
+Please note that during the beta, we only support `buy` transactions that happened **after** the wallet was registered.
+</Note>
+
+1. **Registration**: Wallets must be explicitly registered to receive last trade events
+2. **Trade Detection**: System monitors all swap transactions for the wallet
+3. **Anchor Points**: Last buy price becomes the baseline for percentage calculations
+4. **Threshold Monitoring**: Price changes are evaluated against market cap-specific thresholds
+5. **Event Triggering**: Alerts fire when thresholds are crossed in either direction
+
+
+### Registration Process
+
+Wallets must be explicitly registered to receive last trade events. During beta:
+- Get in touch with us by using our [contact form](https://form.typeform.com/to/uIBkRDsF?utm_source=docs&utm_medium=typeform&utm_campaign=webhook-registration&utm_content=using-events-webhook-setup)
+- Projects provide wallet lists to Dialect for monitoring
+- No backfill of historical trades (monitoring starts from registration)
+
+### Trade-Based Threshold System
+
+Thresholds are dynamically determined based on token market capitalization at the time of initial tracking:
+
+#### Standard Position Thresholds
+
+| Market Cap Range | Uptrend Triggers | Downtrend Triggers |
+|-----------------|------------------|-------------------|
+| **Large Cap** (&gt;$1B) | +5%, +10%, then every +10% | -5%, -10%, then every -10% |
+| **Mid Cap** ($50M-$500M) | +20%, +50%, then 2x, 3x, 4x… | -20%, -30%, then every -10% until -90% |
+| **Small Cap** (&lt;$50M) | +50%, then 2x, 3x, 4x… | -20%, -30%, then every -10% until -90% |
+| **Micro Cap** (&lt;$1M) | +50%, 2x, then every 1x | -30%, -50%, -70%, -90% |
+
+#### Post-Exit Thresholds
+
+After a full sell (100% position exit), different thresholds apply:
+
+| Market Cap Range | Uptrend Trigger | Downtrend Trigger |
+|-----------------|-----------------|-------------------|
+| **Large Cap** (&gt;$1B) | +30% | -30% |
+| **Mid Cap** ($50M-$500M) | 2x | -50% |
+| **Small Cap** (&lt;$50M) | 3x | -50% |
+| **Micro Cap** (&lt;$1M) | 5x | -70% |
+
+### Event Triggering Rules
+
+#### Threshold Crossing
+- Events trigger when price **fully crosses** a threshold
+- Same threshold cannot trigger twice consecutively
+- Price must cross another threshold before original can trigger again
+
+#### Round Trip Detection
+- System tracks when price returns to previous thresholds
+- Generates contextual alerts like "TOKEN back to +50% from 2x"
+- Helps users understand retracement patterns
+
+#### Multiple Threshold Handling
+- If multiple thresholds crossed in 5-minute window, only most significant triggers
+- Prioritizes largest movement (highest for uptrend, lowest for downtrend)
+
+### Trade-Based Webhook Payload
+
+```json
+{
+  "events": [
+    {
+      "event": "token_last_trade_price_change",
+      "timestamp": "2025-09-17T16:03:10.259Z",
+      "token": {
+        "symbol": "TOKEN",
+        "address": "TokenMintAddress..."
+      },
+      "walletAddress": "UserWalletAddress...",
+      "trigger": {
+        "type": "trade_percentage_change",
+        "trade": {
+          "type": "buy",
+          "timestamp": "2024-01-15T10:00:00.000Z",
+          "transactionId": "TxSignature...",
+          "balance": {
+            "before": 0,
+            "after": 1000,
+            "change": 1000
+          }
+        },
+        "threshold": 50
+      },
+      "changes": {
+        "triggerTrade": {
+          "type": "trade_change",
+          "trade": {
+            "type": "buy",
+            "timestamp": "2024-01-15T10:00:00.000Z",
+            "transactionId": "TxSignature...",
+            "balance": {
+              "before": 0,
+              "after": 1000,
+              "change": 1000
+            }
+          },
+          "change": {
+            "direction": "up",
+            "from": {
+              "timestamp": "2024-01-15T10:00:00.000Z",
+              "value": 1.00
+            },
+            "to": {
+              "timestamp": "2025-09-17T16:03:10.259Z",
+              "value": 1.50
+            },
+            "absolute": 0.50,
+            "percentage": 50.0
+          }
+        },
+        "lastTrade": {
+          "type": "trade_change",
+          "trade": {
+            "type": "buy",
+            "timestamp": "2024-01-15T10:00:00.000Z",
+            "transactionId": "TxSignature...",
+            "balance": {
+              "before": 0,
+              "after": 1000,
+              "change": 1000
+            }
+          },
+          "change": {
+            "direction": "up",
+            "from": {
+              "timestamp": "2024-01-15T10:00:00.000Z",
+              "value": 1.00
+            },
+            "to": {
+              "timestamp": "2025-09-17T16:03:10.259Z",
+              "value": 1.50
+            },
+            "absolute": 0.50,
+            "percentage": 50.0
+          }
+        },
+        "lastPeak": {
+          "type": "peak_change",
+          "change": {
+            "direction": "down",
+            "from": {
+              "timestamp": "2025-09-17T12:00:00.000Z",
+              "value": 2.00
+            },
+            "to": {
+              "timestamp": "2025-09-17T16:03:10.259Z",
+              "value": 1.50
+            },
+            "absolute": -0.50,
+            "percentage": -25.0
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+#### Trade-Based Field Descriptions
+
+##### Event Metadata
+- **event**: Always `token_last_trade_price_change`
+- **timestamp**: ISO 8601 UTC timestamp when event was generated
+- **walletAddress**: The wallet being monitored for this event
+
+##### Token Information
+- **symbol**: Token ticker symbol
+- **address**: Token mint address on Solana
+
+##### Trigger Details
+- **type**: Always `trade_percentage_change`
+- **trade**: The anchor trade (last buy or sell) used for calculations
+  - **type**: `buy` or `sell`
+  - **timestamp**: When the trade occurred
+  - **transactionId**: Blockchain transaction signature
+  - **balance**: Token balance changes
+    - **before**: Balance before trade
+    - **after**: Balance after trade
+    - **change**: Net change (positive for buys, negative for sells)
+- **threshold**: The percentage threshold that was crossed
+
+##### Change Information
+- **triggerTrade**: Price change from the anchor trade
+- **lastTrade**: Price change from most recent trade
+- **lastPeak**: Price change from previous alert threshold (optional)
+  - Each contains:
+    - **direction**: `up` or `down`
+    - **from/to**: Start and end prices with timestamps
+    - **absolute**: USD price difference
+    - **percentage**: Percentage change
+
+### Edge Cases
+
+#### Partial Sells
+- Last buy price remains the anchor
+- Partial sells don't reset calculation baseline
+- Allows tracking performance of remaining position
+- If a subsequent **buy** occurs after a partial sell, that new buy **immediately replaces** the anchor; thresholds reset from the new buy price
+- When multiple trades happen within the same 5‑minute time window, `lastTrade` always refers to the **chronologically latest** trade
+
+#### SOL Handling
+- Trade‑based SOL price changes are **muted in MVP**
+- SOL is treated as an investment vehicle rather than a tracked asset for trade‑based alerts
+- **Market‑based SOL** price change alerts remain available and are unaffected
+
+#### Multiple Buys (DCA)
+- Only most recent buy price is used as anchor
+- No averaging across multiple purchases
+- We do **not** average across buys. Any new buy supersedes the prior anchor and restarts threshold tracking
+
+## Implementation Examples
+
+### Market-Based Price Change Handler
 ```javascript
-// Example webhook handler
 app.post('/webhook/price-events', (req, res) => {
   const event = req.body;
-  
-  if (event.event === 'token_price_change') {
-    // Send push notification to users holding this token
-    sendPushNotification({
-      title: `${event.token.symbol} ${event.change.direction === 'up' ? '📈' : '📉'} ${event.change.percentage_change.toFixed(1)}%`,
-      body: `${event.token.symbol} moved ${event.change.percentage_change.toFixed(1)}% in the last ${event.trigger.window.duration}`,
-      data: {
-        tokenAddress: event.token.address,
-        priceChange: event.change.percentage_change
-      }
-    });
-  }
-  
+
+  // Send push notification to users holding this token
+  sendPushNotification({
+    title: `${event.token.symbol} ${event.change.direction === 'up' ? '📈' : '📉'} ${event.change.percentage.toFixed(1)}%`,
+    body: `${event.token.symbol} moved ${event.change.percentage.toFixed(1)}% in the last ${event.trigger.window.duration}`,
+    data: {
+      tokenAddress: event.token.address,
+      priceChange: event.change.percentage
+    }
+  });
+
   res.status(200).send('OK');
 });
 ```
 
-### Portfolio Tracker Alerts
-- Alert users when portfolio holdings have significant price movements
-- Provide context about the magnitude and timeframe of changes
-- Enable users to take action based on price movements
+### Trade-Based Price Change Handler
+```javascript
+app.post('/webhook/last-trade-events', async (req, res) => {
+  const { events } = req.body;
 
-### Trading Platform Integration
-- Notify traders about tokens meeting their criteria
-- Provide entry points for momentum-based trading strategies
-- Support risk management through downside alerts
+  for (const event of events) {
+    const { walletAddress, token, trigger, changes } = event;
 
+    // Determine alert message based on context
+    let message;
+    if (trigger.trade.type === 'buy' && !changes.lastPeak) {
+      // Simple price change from buy
+      message = `${token.symbol} is ${changes.triggerTrade.change.direction} ` +
+        `${Math.abs(changes.triggerTrade.change.percentage).toFixed(1)}% ` +
+        `since you bought`;
+    } else if (changes.lastPeak) {
+      // Round trip from previous threshold
+      message = `${token.symbol} is back to ` +
+        `${changes.triggerTrade.change.percentage > 0 ? '+' : ''}` +
+        `${Math.abs(changes.triggerTrade.change.percentage).toFixed(1)}% ` +
+        `from ${changes.lastPeak.change.percentage > 0 ? '+' : ''}` +
+        `${Math.abs(changes.lastPeak.change.percentage).toFixed(1)}%`;
+    }
+
+    // Send personalized notification
+    await sendUserNotification(walletAddress, {
+      title: `${token.symbol} Price Alert`,
+      body: message,
+      data: {
+        tokenAddress: token.address,
+        currentPrice: changes.triggerTrade.change.to.value
+      }
+    });
+  }
+
+  res.status(200).send('OK');
+});
+```
