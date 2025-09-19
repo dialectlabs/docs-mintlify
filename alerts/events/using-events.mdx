@@ -33,13 +33,15 @@ app.listen(3000, () => {
 });
 ```
 
-### 2. Register Your Webhook
+### 2. Registration
 
-[Contact Dialect](https://form.typeform.com/to/uIBkRDsF?utm_source=docs&utm_medium=typeform&utm_campaign=webhook-registration&utm_content=using-events-webhook-setup) to register your webhook endpoint and configure event types:
+#### 2.1 Register Your Webhook (required)
 
-- **Endpoint URL**: `https://your-domain.com/webhook/events`
-- **Event Types**: Price change events
-- **Token List**: Specify which tokens to monitor (or use defaults)
+[Contact us](https://form.typeform.com/to/uIBkRDsF?utm_source=docs&utm_medium=typeform&utm_campaign=webhook-registration&utm_content=using-events-webhook-setup) to register your webhook endpoint.
+
+### 2.2 Register Users Wallets (only for last trade price change events)
+
+If you want to offer last trade price change events to your users, you need to register their wallets. This can be done by submitting a list of wallet addresses to us. Please contact us before sending any materials by using our [contact form](https://form.typeform.com/to/uIBkRDsF?utm_source=docs&utm_medium=typeform&utm_campaign=webhook-registration&utm_content=using-events-webhook-setup).
 
 ### 3. Handle Events
 
@@ -51,6 +53,9 @@ function handleEvent(event) {
     case 'token_price_change':
       handlePriceChangeEvent(event);
       break;
+    case 'token_last_trade_price_change':
+      handleLastTradePriceChangeEvent(event);
+      break;
     default:
       console.log('Unknown event type:', event.event);
   }
@@ -59,6 +64,10 @@ function handleEvent(event) {
 
 ## Price Change Events
 
+There are two types of price change events. Please remember to [send a list](/alerts/events/using-events#2-2-register-users-wallets-only-for-last-trade-price-change-events) with users wallets to us if you want to offer last trade price change events to your users.
+
+### Market-Based Price Change Events
+
 Price change events are triggered by significant price movements over sliding time windows using percentage change thresholds.
 
 ```javascript
@@ -66,23 +75,55 @@ async function handlePriceChangeEvent(event) {
   const { token, change, trigger } = event;
   
   // Example: Notify users who hold this token
-  const message = `${token.symbol} moved ${change.percentage_change.toFixed(1)}% over the last ${trigger.window.duration}`;
+  const message = `${token.symbol} moved ${change.percentage.toFixed(1)}% over the last ${trigger.window.duration}`;
   
   // Send notifications based on your application logic
   await notifyUsers(token.address, message);
 }
 ```
 
-### Available Windows
+#### Available Windows
 - 1h, 3h, 6h, 12h, 24h, 7d
 
-### Spam Prevention
+#### Spam Prevention
 Dialect's event detection includes built-in capabilities to ensure users don't receive too many alerts:
 
 - **Debouncing & rolling averages** - Prevents rapid-fire alerts
 - **Rate limits** - Controls notification frequency  
 - **Priority conflicts** - Manages competing events
 - **Alert escalation** - Prioritizes important events
+
+### Last Trade Price Change Events
+
+Last trade price change events provide personalized alerts based on users' actual trading history. To use this feature, you need to [register](/alerts/events/using-events#2-2-register-users-wallets-only-for-last-trade-price-change-events) the wallets of your users.
+
+```javascript
+async function handleLastTradePriceChangeEvent(event) {
+  const { walletAddress, token, trigger, changes } = event;
+
+  // Build contextual message based on trade history
+  let message;
+  const percentChange = Math.abs(changes.triggerTrade.change.percentage);
+  const direction = changes.triggerTrade.change.direction;
+
+  if (trigger.trade.type === 'buy') {
+    // Alert relative to buy price
+    message = `${token.symbol} is ${direction} ${percentChange.toFixed(1)}% since you bought`;
+  } else if (trigger.trade.type === 'sell') {
+    // Handle logic for sell events, 
+    // e.g. send alert after full exit, 
+    // partial sells, etc.
+  }
+
+  // Send personalized notification to specific wallet
+  await sendWalletNotification(walletAddress, message);
+}
+```
+
+### Key Features
+- **Personalized Thresholds**: Based on market cap and position status
+- **Round Trip Detection**: Alerts when returning to previous levels
+- **Post-Exit Monitoring**: Continues tracking after full sells
 
 ## Trending Token Events (Coming Soon)
 
@@ -97,70 +138,3 @@ Trending token events are in development. The system is being tested internally 
 
 Contact us for [early access](https://form.typeform.com/to/uIBkRDsF?utm_source=docs&utm_medium=typeform&utm_campaign=trending-tokens-early-access&utm_content=using-events-trending-tokens) or to discuss specific requirements.
 </Tip>
-
-## Security and Verification
-
-### Webhook Signature Verification
-
-Verify webhook authenticity:
-
-```javascript
-const crypto = require('crypto');
-
-function verifyWebhookSignature(payload, signature, secret) {
-  const expectedSignature = crypto
-    .createHmac('sha256', secret)
-    .update(payload)
-    .digest('hex');
-    
-  return crypto.timingSafeEqual(
-    Buffer.from(signature, 'hex'),
-    Buffer.from(expectedSignature, 'hex')
-  );
-}
-```
-
-### Error Handling
-
-Return appropriate status codes for reliable webhook delivery:
-
-```javascript
-app.post('/webhook/events', async (req, res) => {
-  try {
-    await handleEvent(req.body);
-    res.status(200).send('OK');
-  } catch (error) {
-    // Return 500 for temporary errors to trigger retries
-    // Return 200 for permanent errors to avoid retries
-    const statusCode = error.isTemporary ? 500 : 200;
-    res.status(statusCode).send(error.message);
-  }
-});
-```
-
-## Testing
-
-Test your webhook implementation:
-
-```javascript
-const testEvent = {
-  event: 'token_price_change',
-  timestamp: new Date().toISOString(),
-  token: {
-    symbol: 'SOL',
-    address: 'So11111111111111111111111111111111111111112'
-  },
-  trigger: {
-    type: 'sliding_window_percentage_change',
-    window: { duration: '24h' },
-    threshold_percentage: 10.0
-  },
-  change: {
-    direction: 'up',
-    from: { timestamp: '2025-07-03T14:30:00Z', value: 154.25 },
-    to: { timestamp: '2025-07-04T14:30:00Z', value: 171.85 },
-    absolute_change: 17.6,
-    percentage_change: 11.42
-  }
-};
-```
