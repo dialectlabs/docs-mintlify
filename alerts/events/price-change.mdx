@@ -84,7 +84,7 @@ Price changes are calculated using a sliding window approach:
 #### Market-Based Field Details
 
 ##### Event Metadata
-- **event**: Always `token_price_change`
+- **event**: `token_price_change`
 - **timestamp**: ISO 8601 UTC timestamp when event was generated
 
 ##### Token Information
@@ -92,7 +92,7 @@ Price changes are calculated using a sliding window approach:
 - **address**: Token mint address on Solana
 
 ##### Trigger Details
-- **type**: Always `sliding_window_percentage_change`
+- **type**: `sliding_window_percentage_change`
 - **window**: Sliding window configuration
   - **duration**: Time window used for the calculation (e.g., `1h`, `3h`, `6h`, `12h`, `24h`, `7d`)
 - **threshold**: The percentage change that must be crossed within the window to trigger the event
@@ -272,7 +272,7 @@ After a full sell (100% position exit), different thresholds apply:
 #### Trade-Based Field Descriptions
 
 ##### Event Metadata
-- **event**: Always `token_last_trade_price_change`
+- **event**: `token_last_trade_price_change`
 - **timestamp**: ISO 8601 UTC timestamp when event was generated
 - **walletAddress**: The wallet being monitored for this event
 
@@ -281,7 +281,7 @@ After a full sell (100% position exit), different thresholds apply:
 - **address**: Token mint address on Solana
 
 ##### Trigger Details
-- **type**: Always `trade_percentage_change`
+- **type**: `trade_percentage_change`
 - **trade**: The anchor trade (last buy or sell) used for calculations
   - **type**: `buy` or `sell`
   - **timestamp**: When the trade occurred
