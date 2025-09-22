@@ -48,18 +48,20 @@ When an event is detected, the Events system executes the configured behavior: e
 
 Dialect supports two event types:
 
-1. Price Change Events
+1. Price Change Events (Market-Based and Trade-Based)
 2. Trending Token Events
 
 ### Price Change Events
-Price change events detect when there has been a significant price movement in a token.
+Price change events detect significant price movements in tokens through two approaches:
+- **Market-Based**: Track price movements over sliding time windows (e.g., "SOL is up 10% in 24h")
+- **Trade-Based**: Personalized alerts relative to users' actual trade prices (e.g., "SOL is up 50% since you bought")
 
-To read more about this event type, see [Price Change Events](./events/price-change).
+To read more about both types of price change events, see [Price Change Events](/alerts/events/price-change).
 
 ### Trending Token Events
 Trending token events trigger when a newly-launched token graduates from a launchpad and meets strict performance criteria.
 
-To read more about this event type, see [Trending Token Events](./events/trending-token).
+To read more about this event type, see [Trending Token Events](/alerts/events/trending-token).
 
 ## Detecting Interesting Events
 
@@ -67,7 +69,7 @@ Most interesting events are difficult to detect. Some events like "SOL is over $
 
 It is also difficult to build an events system that is real time, capable of detecting optimally interesting events, and is rate limited.
 
-Dialect's Events uses sophisticated techniques to satisfy all three of these across all of of our Event types. To read more about it, see [Technical Overview](./events/technical-overview).
+Dialect's Events uses advanced techniques to satisfy all three of these across all of of our Event types. To read more about it, see [Technical Overview](/alerts/events/technical-overview).
 
 ## New event types
 
