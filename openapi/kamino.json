@@ -1243,12 +1243,12 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
               "examples": [
-                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
               ]
             },
-            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "collTokenMint",
@@ -1257,12 +1257,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "default": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
               "examples": [
-                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+                "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
               ]
             },
-            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "example": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -1273,12 +1273,12 @@
             "schema": {
               "type": "string",
               "description": "Debt token mint address",
-              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
               "examples": [
-                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
               ]
             },
-            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
             "allowEmptyValue": true,
             "allowReserved": true
           }
@@ -1399,12 +1399,12 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
               "examples": [
-                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
               ]
             },
-            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "collTokenMint",
@@ -1413,12 +1413,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "default": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
               "examples": [
-                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+                "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
               ]
             },
-            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "example": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -1429,12 +1429,12 @@
             "schema": {
               "type": "string",
               "description": "Debt token mint address",
-              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
               "examples": [
-                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
               ]
             },
-            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
             "allowEmptyValue": true,
             "allowReserved": true
           }
@@ -1529,12 +1529,12 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
               "examples": [
-                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
               ]
             },
-            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "collTokenMint",
@@ -1543,12 +1543,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "default": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
               "examples": [
-                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+                "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
               ]
             },
-            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "example": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -1559,12 +1559,12 @@
             "schema": {
               "type": "string",
               "description": "Debt token mint address",
-              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
               "examples": [
-                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
               ]
             },
-            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
             "allowEmptyValue": true,
             "allowReserved": true
           }
@@ -1881,12 +1881,12 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
               "examples": [
-                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
               ]
             },
-            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "collTokenMint",
@@ -1895,12 +1895,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "default": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
               "examples": [
-                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+                "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
               ]
             },
-            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "example": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -1911,12 +1911,12 @@
             "schema": {
               "type": "string",
               "description": "Debt token mint address",
-              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
               "examples": [
-                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
               ]
             },
-            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
             "allowEmptyValue": true,
             "allowReserved": true
           }
@@ -2037,12 +2037,12 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
               "examples": [
-                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
               ]
             },
-            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "collTokenMint",
@@ -2051,12 +2051,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+              "default": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
               "examples": [
-                "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY"
+                "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
               ]
             },
-            "example": "AwCyCPZYJSZ93xcVKNK7jR8e1BHzJXq1D4bReNuh9woY",
+            "example": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -2067,12 +2067,12 @@
             "schema": {
               "type": "string",
               "description": "Debt token mint address",
-              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
               "examples": [
-                "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
               ]
             },
-            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -2085,9 +2085,9 @@
               "minimum": 1,
               "maximum": 100,
               "description": "The percentage of position to withdraw",
-              "default": 100,
+              "default": 10,
               "examples": [
-                100
+                10
               ]
             },
             "allowEmptyValue": true,
