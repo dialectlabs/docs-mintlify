@@ -418,8 +418,8 @@
               "type": "number",
               "minimum": 0,
               "description": "The amount of tokenX to add",
-              "default": 100,
-              "example": 100
+              "default": 0.01,
+              "example": 0.01
             }
           }
         ],
@@ -618,8 +618,8 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of liquidity to remove (0-100)",
-              "default": 50,
-              "example": 50
+              "default": 10,
+              "example": 10
             }
           }
         ],
