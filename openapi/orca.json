@@ -175,9 +175,7 @@
             "schema": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "The amount to deposit. Human readable value, e.g. 100 USDC",
-              "default": 100,
-              "example": 100
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -190,7 +188,9 @@
               "minimum": -9007199254740991,
               "maximum": 100,
               "exclusiveMinimum": 0,
-              "description": "The percentage of token amount to deposit"
+              "description": "The percentage of token amount to deposit",
+              "default": 10,
+              "example": 10
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -410,9 +410,7 @@
             "schema": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "The amount to add. Human readable value, e.g. 100 USDC",
-              "default": 100,
-              "example": 100
+              "description": "The amount to add. Human readable value, e.g. 100 USDC"
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -425,7 +423,9 @@
               "minimum": -9007199254740991,
               "maximum": 100,
               "exclusiveMinimum": 0,
-              "description": "The percentage of token amount to add"
+              "description": "The percentage of token amount to add",
+              "default": 10,
+              "example": 10
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -623,9 +623,7 @@
             "schema": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "The amount to remove. Human readable value, e.g. 100 USDC",
-              "default": 100,
-              "example": 100
+              "description": "The amount to remove. Human readable value, e.g. 100 USDC"
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -638,7 +636,9 @@
               "minimum": -9007199254740991,
               "maximum": 100,
               "exclusiveMinimum": 0,
-              "description": "The percentage of position liquidity to remove"
+              "description": "The percentage of position liquidity to remove",
+              "default": 10,
+              "example": 10
             },
             "allowEmptyValue": true,
             "allowReserved": true

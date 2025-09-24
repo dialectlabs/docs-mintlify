@@ -599,12 +599,12 @@
         "parameters": [
           {
             "in": "path",
-            "name": "vaultId",
+            "name": "vaultToken",
             "schema": {
               "type": "string",
-              "example": "1",
-              "default": "1",
-              "description": "Vault ID to interact with."
+              "example": "USDC",
+              "default": "USDC",
+              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
             },
             "required": true
           },
@@ -614,8 +614,6 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "example": 100,
-              "default": 100,
               "description": "Amount to deposit or withdraw."
             }
           },
@@ -626,7 +624,8 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "example": 50,
+              "example": 10,
+              "default": 10,
               "description": "Percentage to deposit or withdraw (0-100).  Takes priority over `amount`."
             }
           }
@@ -860,12 +859,12 @@
         "parameters": [
           {
             "in": "path",
-            "name": "vaultId",
+            "name": "vaultToken",
             "schema": {
               "type": "string",
-              "example": "1",
-              "default": "1",
-              "description": "Vault ID to interact with."
+              "example": "USDC",
+              "default": "USDC",
+              "description": "Token symbol or address. Can be a token symbol like USDC or an address."
             },
             "required": true
           },
@@ -875,8 +874,6 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "example": 100,
-              "default": 100,
               "description": "Amount to deposit or withdraw."
             }
           },
@@ -887,7 +884,8 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "example": 50,
+              "example": 10,
+              "default": 10,
               "description": "Percentage to deposit or withdraw (0-100).  Takes priority over `amount`."
             }
           }
@@ -1162,8 +1160,6 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "example": 0.1,
-              "default": 0.1,
               "description": "Amount to deposit."
             }
           },
@@ -1174,7 +1170,8 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "example": 50,
+              "example": 10,
+              "default": 10,
               "description": "Percentage to deposit (0-100). Takes priority over `amount`."
             }
           }

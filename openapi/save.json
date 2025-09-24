@@ -175,9 +175,7 @@
             "schema": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "The amount to deposit. Human readable value, e.g. 100 USDC",
-              "default": 100,
-              "example": 100
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -190,7 +188,9 @@
               "minimum": -9007199254740991,
               "maximum": 100,
               "exclusiveMinimum": 0,
-              "description": "The percentage of balance to deposit"
+              "description": "The percentage of balance to deposit",
+              "default": 10,
+              "example": 10
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -418,8 +418,8 @@
               "maximum": 100,
               "exclusiveMinimum": 0,
               "description": "The percentage of balance to withdraw",
-              "default": 50,
-              "example": 50
+              "default": 10,
+              "example": 10
             },
             "allowEmptyValue": true,
             "allowReserved": true

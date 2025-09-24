@@ -167,9 +167,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount of liquidity to add. Human readable value, e.g. 0.1 SOL",
-              "default": 0.1,
-              "example": 0.1
+              "description": "The amount of liquidity to add. Human readable value, e.g. 0.1 SOL"
             }
           },
           {
@@ -181,7 +179,9 @@
               "type": "integer",
               "minimum": 0,
               "maximum": 100,
-              "description": "The percentage of liquidity to add"
+              "description": "The percentage of liquidity to add",
+              "default": 10,
+              "example": 10
             }
           },
           {
@@ -425,8 +425,8 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of liquidity to remove",
-              "default": 50,
-              "example": 50,
+              "default": 10,
+              "example": 10,
               "examples": [
                 50
               ]
@@ -672,7 +672,9 @@
               "type": "integer",
               "minimum": 0,
               "maximum": 100,
-              "description": "The percentage of liquidity to add"
+              "description": "The percentage of liquidity to add",
+              "default": 10,
+              "example": 10
             }
           },
           {
@@ -683,9 +685,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount of liquidity to add. Human readable value, e.g. 0.1 SOL",
-              "default": 0.1,
-              "example": 0.1
+              "description": "The amount of liquidity to add. Human readable value, e.g. 0.1 SOL"
             }
           }
         ],
@@ -918,8 +918,8 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of liquidity to remove",
-              "default": 25,
-              "example": 25
+              "default": 10,
+              "example": 10
             }
           }
         ],
