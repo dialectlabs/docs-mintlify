@@ -1658,6 +1658,27 @@
                               "amountUsd": {
                                 "type": "number"
                               },
+                              "rewards": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "tokenAddress": {
+                                      "type": "string"
+                                    },
+                                    "amount": {
+                                      "type": "number"
+                                    },
+                                    "amountUsd": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "tokenAddress",
+                                    "amount"
+                                  ]
+                                }
+                              },
                               "additionalData": {
                                 "type": "object",
                                 "propertyNames": {
@@ -1965,6 +1986,27 @@
                               },
                               "amountUsd": {
                                 "type": "number"
+                              },
+                              "rewards": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "tokenAddress": {
+                                      "type": "string"
+                                    },
+                                    "amount": {
+                                      "type": "number"
+                                    },
+                                    "amountUsd": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "tokenAddress",
+                                    "amount"
+                                  ]
+                                }
                               },
                               "additionalData": {
                                 "type": "object",
