@@ -13,6 +13,8 @@ Continued expansion of our production-ready protocol integrations with enhanced 
 - **Kamino Multiply Enhancement** - Multiply deposit blinks now support returning multiple transactions in a single call, enabling combined operations like account creation and deposit simultaneously
 - **Jupiter Lend Earn Blinks** - Added Jupiter Earn lending protocol with support for deposit and withdrawal actions [Go to Jupiter Earn endpoints](/api-reference/lend/earn-deposit)
 - **Jupiter Lend Borrow Blinks** - Added deposit functionality for Jupiter's lending protocol. Please make sure you read the notes before integrating. [View more](/api-reference/lend/borrow-deposit)
+- **OpenAPI Enhancements** - Added percentage preset values across all protocol endpoints (Jupiter, Drift, Kamino, Orca, Raydium, Save, Meteora, MarginFi, Lulo) for improved API testing experience
+- **MarginFi Withdraw Fix** - Resolved critical production issue preventing withdrawals from MarginFi lending positions
 
 ## Markets API Updates
 
@@ -32,6 +34,7 @@ Enhanced position tracking with performance improvements and richer metadata:
 - **Performance Optimizations** - Significant improvements by optimizing our indexing process, delivering faster data access across all supported protocols
 - **Kamino Lending Rewards** - Added reward data for user positions, showing earned incentives alongside position details
 - **Enhanced Metadata** - Added token and protocol icons as well as website URLs directing the user to the position's market on the protocol's website for complete UI development
+- **Rewards Data** - Positions now return reward token information including token addresses and amounts earned, providing complete visibility into DeFi incentives
 
 ## Events System Updates
 
