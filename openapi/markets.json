@@ -2179,7 +2179,8 @@
         "type": "apiKey",
         "name": "x-dialect-api-key",
         "in": "header",
-        "description": "API key for the Markets API"
+        "description": "API key for the Markets API",
+        "x-default": "dk_demo"
       }
     }
   }
