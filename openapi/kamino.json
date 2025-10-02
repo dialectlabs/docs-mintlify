@@ -198,7 +198,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use in SOL (alternative to percentage). Leave empty when using percentage."
+              "description": "The amount to use. Human-readable value, e.g. 0.1 SOL"
             }
           }
         ],
@@ -465,7 +465,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human readable value, e.g. 0.1 SOL",
+              "description": "The amount to use. Human-readable value, e.g. 0.1 SOL",
               "examples": [
                 0.5
               ]
@@ -894,7 +894,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human readable value, e.g. 0.1 SOL",
+              "description": "The amount to use. Human-readable value, e.g. 0.1 SOL",
               "default": 2.0,
               "example": 2.0
             }
