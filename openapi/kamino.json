@@ -3372,10 +3372,11 @@
             "schema": {
               "type": "string",
               "description": "Farm public key",
-              "examples": [
-                "Cik985zLyHYdv5Hs73BUWUcMHMhgfBNwbcCYyvBjV2tt"
-              ]
-            }
+              "default": "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku",
+              "x-example": "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku"
+            },
+            "example": "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku",
+            "x-default": "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku"
           }
         ],
         "responses": {
@@ -3482,10 +3483,11 @@
             "schema": {
               "type": "string",
               "description": "Farm address",
-              "examples": [
-                "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku"
-              ]
-            }
+              "default": "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku",
+              "x-example": "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku"
+            },
+            "example": "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku",
+            "x-default": "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku"
           }
         ],
         "requestBody": {
@@ -3496,17 +3498,17 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
                       "transaction"
-                    ]
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
