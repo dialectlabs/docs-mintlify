@@ -3499,6 +3499,7 @@
                 "properties": {
                   "type": {
                     "type": "string",
+                    "enum": [
                       "transaction"
                     ],
                     "example": "transaction",
