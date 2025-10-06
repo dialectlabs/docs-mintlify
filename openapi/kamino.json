@@ -16,10 +16,10 @@
     "/v0/lending/reserve/{market}/{reserve}/deposit": {
       "get": {
         "operationId": "v0.lending.getLendingReserveDepositBlink",
-        "summary": "Lending Reserve Deposit",
-        "description": "Get metadata for depositing a token into Kamino's lending reserve.",
+        "summary": "Market Reserve Deposit",
+        "description": "Get metadata for depositing a token into Kamino's market reserve.",
         "tags": [
-          "Lending"
+          "Markets"
         ],
         "parameters": [
           {
@@ -150,10 +150,10 @@
       },
       "post": {
         "operationId": "v0.lending.lendingReserveDeposit",
-        "summary": "Lending Reserve Deposit",
-        "description": "Generate a transaction for depositing a token into Kamino's lending reserve.",
+        "summary": "Market Reserve Deposit",
+        "description": "Generate a transaction for depositing a token into Kamino's market reserve.",
         "tags": [
-          "Lending"
+          "Markets"
         ],
         "parameters": [
           {
@@ -251,9 +251,9 @@
                   "properties": {
                     "type": {
                       "type": "string",
-                    "enum": [
-                      "transaction"
-                    ],
+                      "enum": [
+                        "transaction"
+                      ],
                       "examples": [
                         "transaction"
                       ]
@@ -279,10 +279,10 @@
     "/v0/lending/reserve/{market}/{reserve}/withdraw": {
       "get": {
         "operationId": "v0.lending.getLendingReserveWithdrawBlink",
-        "summary": "Lending Reserve Withdraw",
-        "description": "Get metadata for withdrawing a token from Kamino's lending reserve.",
+        "summary": "Market Reserve Withdraw",
+        "description": "Get metadata for withdrawing a token from Kamino's market reserve.",
         "tags": [
-          "Lending"
+          "Markets"
         ],
         "parameters": [
           {
@@ -413,10 +413,10 @@
       },
       "post": {
         "operationId": "v0.lending.lendingReserveWithdraw",
-        "summary": "Lending Reserve Withdraw",
-        "description": "Generate a transaction for withdrawing a token from Kamino's lending reserve.",
+        "summary": "Market Reserve Withdraw",
+        "description": "Generate a transaction for withdrawing a token from Kamino's market reserve.",
         "tags": [
-          "Lending"
+          "Markets"
         ],
         "parameters": [
           {
@@ -521,9 +521,9 @@
                   "properties": {
                     "type": {
                       "type": "string",
-                    "enum": [
-                      "transaction"
-                    ],
+                      "enum": [
+                        "transaction"
+                      ],
                       "examples": [
                         "transaction"
                       ]
@@ -549,10 +549,10 @@
     "/v0/lending/reserve/{market}/{reserve}/metadata": {
       "get": {
         "operationId": "v0.lending.getLendingReserveMetadata",
-        "summary": "Lending Reserve Metadata",
-        "description": "Get metadata associated to a Kamino lending reserve.",
+        "summary": "Market Reserve Metadata",
+        "description": "Get metadata associated to a Kamino market reserve.",
         "tags": [
-          "Lending"
+          "Markets"
         ],
         "parameters": [
           {
@@ -664,10 +664,10 @@
     "/v0/lending/reserve/{market}/{reserve}/redirect": {
       "post": {
         "operationId": "v0.lending.lendingReserveRedirect",
-        "summary": "Lending Reserve Redirect",
-        "description": "Get a URL to a specific lending reserve on Kamino's website",
+        "summary": "Market Reserve Redirect",
+        "description": "Get a URL to a specific market reserve on Kamino's website",
         "tags": [
-          "Lending"
+          "Markets"
         ],
         "parameters": [
           {
@@ -967,9 +967,9 @@
                   "properties": {
                     "type": {
                       "type": "string",
-                    "enum": [
-                      "transaction"
-                    ],
+                      "enum": [
+                        "transaction"
+                      ],
                       "examples": [
                         "transaction"
                       ]
@@ -1202,9 +1202,9 @@
                   "properties": {
                     "type": {
                       "type": "string",
-                    "enum": [
-                      "transaction"
-                    ],
+                      "enum": [
+                        "transaction"
+                      ],
                       "examples": [
                         "transaction"
                       ]
@@ -1471,8 +1471,7 @@
                   "type",
                   "account"
                 ]
-              }
-              ,
+              },
               "examples": {
                 "setup": {
                   "summary": "Setup multiply position",
@@ -1481,7 +1480,8 @@
                     "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 }
-              }            }
+              }
+            }
           }
         },
         "responses": {
@@ -1750,7 +1750,8 @@
               "minimum": 5,
               "description": "The amount to deposit. Human readable value, e.g. 0.1 SOL",
               "default": 0.1,
-              "example": 5,              "examples": [
+              "example": 5,
+              "examples": [
                 0.1
               ]
             },
@@ -1808,8 +1809,7 @@
                   "type",
                   "account"
                 ]
-              }
-              ,
+              },
               "examples": {
                 "deposit": {
                   "summary": "Multiply deposit transaction",
@@ -1818,7 +1818,8 @@
                     "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 }
-              }            }
+              }
+            }
           }
         },
         "responses": {
@@ -1838,7 +1839,9 @@
                         "type": "string"
                       },
                       "examples": [
-                        ["AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"]
+                        [
+                          "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                        ]
                       ]
                     },
                     "mode": {
@@ -2142,17 +2145,17 @@
                 "required": [
                   "type",
                   "account"
-                ]
-              ,
-              "examples": {
-                "withdraw": {
-                  "summary": "Multiply withdraw transaction",
-                  "value": {
-                    "type": "transaction",
-                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                ],
+                "examples": {
+                  "withdraw": {
+                    "summary": "Multiply withdraw transaction",
+                    "value": {
+                      "type": "transaction",
+                      "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    }
                   }
                 }
-              }              }
+              }
             }
           }
         },
@@ -2406,7 +2409,9 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
+                    "enum": [
+                      "transaction"
+                    ],
                     "example": "transaction",
                     "default": "transaction"
                   },
@@ -2737,7 +2742,9 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
+                    "enum": [
+                      "transaction"
+                    ],
                     "example": "transaction",
                     "default": "transaction"
                   },
@@ -3050,7 +3057,9 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
+                    "enum": [
+                      "transaction"
+                    ],
                     "example": "transaction",
                     "default": "transaction"
                   },
@@ -3091,6 +3100,952 @@
                     },
                     "transaction": {
                       "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lending/reserve/{market}/{reserve}/claim-rewards": {
+      "get": {
+        "operationId": "v0.lending.getLendingReserveClaimRewardsBlink",
+        "summary": "Get market reserve claim rewards blink",
+        "description": "Get a blink for claiming rewards on a reserve",
+        "tags": [
+          "Markets"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lending.lendingReserveClaimRewards",
+        "summary": "Market reserve claim rewards operation",
+        "description": "Execute a claim rewards operation",
+        "tags": [
+          "Markets"
+        ],
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Market public key",
+              "examples": [
+                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
+              ]
+            }
+          },
+          {
+            "name": "reserve",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Reserve public key",
+              "examples": [
+                "2gc9Dm1eB6UgVYFBUN9bWks6Kes9PbWSaPaa9DqyvEiN"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/farms/{farmAddress}/claim-rewards": {
+      "get": {
+        "operationId": "v0.farms.getFarmClaimBlink",
+        "summary": "Claim Farm Rewards",
+        "description": "Get metadata for claiming Kamino farm rewards.",
+        "tags": [
+          "Farms"
+        ],
+        "parameters": [
+          {
+            "name": "farmAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Farm public key",
+              "examples": [
+                "Cik985zLyHYdv5Hs73BUWUcMHMhgfBNwbcCYyvBjV2tt"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.farms.farmClaim",
+        "summary": "Claim Farm Rewards",
+        "description": "Generate a transaction to claim all rewards for a farm.",
+        "tags": [
+          "Farms"
+        ],
+        "parameters": [
+          {
+            "name": "farmAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Farm address",
+              "examples": [
+                "DEe2NZ5dAXGxC7M8Gs9Esd9wZRPdQzG8jNamXqhL5yku"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lend/{vaultId}/deposit": {
+      "get": {
+        "operationId": "v0.lend.getLendVaultDepositBlink",
+        "summary": "Get lend vault deposit blink",
+        "description": "Get a blink for deposit operations on a vault",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Vault public key or slug (kebab-case vault name)",
+              "examples": [
+                "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+                "usdc-prime"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lend.lendVaultDeposit",
+        "summary": "Lend vault deposit operation",
+        "description": "Execute a deposit operation",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Vault public key or slug (kebab-case vault name)",
+              "examples": [
+                "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+                "usdc-prime"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of funds to use"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/lend/{vaultId}/withdraw": {
+      "get": {
+        "operationId": "v0.lend.getLendVaultWithdrawBlink",
+        "summary": "Get lend vault withdraw blink",
+        "description": "Get a blink for withdraw operations on a vault",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Vault public key or slug (kebab-case vault name)",
+              "examples": [
+                "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+                "usdc-prime"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "v0.lend.lendVaultWithdraw",
+        "summary": "Lend vault withdraw operation",
+        "description": "Execute a withdraw operation",
+        "tags": [
+          "Lend"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Vault public key or slug (kebab-case vault name)",
+              "examples": [
+                "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+                "usdc-prime"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of funds to use"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "transaction",
+                    "examples": [
+                      "transaction"
+                    ]
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "examples": [
+                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
                     }
                   },
                   "required": [
