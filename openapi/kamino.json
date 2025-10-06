@@ -3129,10 +3129,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "examples": [
-                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
-              ]
-            }
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            },
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "reserve",
@@ -3141,10 +3142,9 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "examples": [
-                "d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q"
-              ]
-            }
+              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            },
+            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
           }
         ],
         "responses": {
@@ -3251,10 +3251,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "examples": [
-                "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF"
-              ]
-            }
+              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            },
+            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
           },
           {
             "name": "reserve",
@@ -3263,10 +3264,9 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "examples": [
-                "2gc9Dm1eB6UgVYFBUN9bWks6Kes9PbWSaPaa9DqyvEiN"
-              ]
-            }
+              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            },
+            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
           }
         ],
         "requestBody": {
@@ -3277,17 +3277,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
