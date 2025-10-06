@@ -511,7 +511,7 @@
         },
         "operationId": "getApiV0LendEarnByVaultTokenDeposit",
         "tags": [
-          "Lend"
+          "Lend Earn"
         ],
         "parameters": [
           {
@@ -594,7 +594,7 @@
         },
         "operationId": "postApiV0LendEarnByVaultTokenDeposit",
         "tags": [
-          "Lend"
+          "Lend Earn"
         ],
         "parameters": [
           {
@@ -771,7 +771,7 @@
         },
         "operationId": "getApiV0LendEarnByVaultTokenWithdraw",
         "tags": [
-          "Lend"
+          "Lend Earn"
         ],
         "parameters": [
           {
@@ -854,7 +854,7 @@
         },
         "operationId": "postApiV0LendEarnByVaultTokenWithdraw",
         "tags": [
-          "Lend"
+          "Lend Earn"
         ],
         "parameters": [
           {
@@ -1034,7 +1034,7 @@
         },
         "operationId": "getApiV0LendBorrowByVaultTokenDeposit",
         "tags": [
-          "Lend"
+          "Lend Borrow"
         ],
         "parameters": [
           {
@@ -1130,7 +1130,7 @@
         },
         "operationId": "postApiV0LendBorrowByVaultTokenDeposit",
         "tags": [
-          "Lend"
+          "Lend Borrow"
         ],
         "parameters": [
           {
