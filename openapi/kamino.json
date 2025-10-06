@@ -3590,11 +3590,11 @@
             "schema": {
               "type": "string",
               "description": "Vault public key or slug (kebab-case vault name)",
-              "examples": [
-                "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
-                "usdc-prime"
-              ]
-            }
+              "default": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+              "x-example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
+            },
+            "example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+            "x-default": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
           }
         ],
         "responses": {
@@ -3701,11 +3701,11 @@
             "schema": {
               "type": "string",
               "description": "Vault public key or slug (kebab-case vault name)",
-              "examples": [
-                "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
-                "usdc-prime"
-              ]
-            }
+              "default": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+              "x-example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
+            },
+            "example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+            "x-default": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
           },
           {
             "name": "percentage",
@@ -3714,7 +3714,9 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 100,
-              "description": "The percentage of funds to use"
+              "description": "The percentage of funds to use",
+              "default": 10,
+              "example": 10
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -3739,17 +3741,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -3833,11 +3836,11 @@
             "schema": {
               "type": "string",
               "description": "Vault public key or slug (kebab-case vault name)",
-              "examples": [
-                "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
-                "usdc-prime"
-              ]
-            }
+              "default": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+              "x-example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
+            },
+            "example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+            "x-default": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
           }
         ],
         "responses": {
@@ -3944,11 +3947,11 @@
             "schema": {
               "type": "string",
               "description": "Vault public key or slug (kebab-case vault name)",
-              "examples": [
-                "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
-                "usdc-prime"
-              ]
-            }
+              "default": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+              "x-example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
+            },
+            "example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E",
+            "x-default": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
           },
           {
             "name": "percentage",
@@ -3957,7 +3960,9 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 100,
-              "description": "The percentage of funds to use"
+              "description": "The percentage of funds to use",
+              "default": 10,
+              "example": 10
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -3982,17 +3987,18 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "transaction",
-                    "examples": [
+                    "type": "string",
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
