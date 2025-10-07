@@ -155,9 +155,6 @@
             "group": "CLIENT",
             "pages": [
               "blinks/blinks-client/index",
-              {
-                "group": "Integration",
-                "pages": [
                   "blinks/blinks-client/integrate/headless/index",
                   {
                     "group": "UI Components",
@@ -168,10 +165,7 @@
                     ]
                   },
                   "blinks/blinks-client/integrate/chrome/index"
-                ]
-              },
-              "blinks/blinks-client/measure/index"
-            ]
+                ] 
           },
           {
             "group": "PROVIDER (API)",
