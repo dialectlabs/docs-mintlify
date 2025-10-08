@@ -499,7 +499,7 @@ curl https://alerts-api.dial.to/v2/{appId}/send \
     "channels": ["IN_APP"],
     "message": {
       "title": "Liquidation Warning",
-      "body": "Your WSOL/USDC position is at 78% LTV, approaching liquidation threshold of 80%.",
+      "body": "Your SOL/USDC position is at 78% LTV, approaching liquidation threshold of 80%.",
       "actions": [{
         "type": "link",
         "label": "Add Collateral",
@@ -509,7 +509,7 @@ curl https://alerts-api.dial.to/v2/{appId}/send \
   }'
 ```
 
-When a supported URL is detected, the client receives the enriched alert with the `context` object:
+When a supported URL is detected, the client receives the enriched alert with `context` in an action object:
 
 ```json {6-10}
 {
@@ -525,12 +525,11 @@ When a supported URL is detected, the client receives the enriched alert with th
   }]
 }
 ```
-</Tab>
-</Tabs>
-
 <Note>
 The `context` object is automatically added by Dialect's mapping service for supported protocols. See [Blinks in Alerts](/alerts/blinks-in-alerts) for complete implementation guide.
 </Note>
+</Tab>
+</Tabs>
 
 ### Messages with Images
 
