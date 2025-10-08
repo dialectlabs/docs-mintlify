@@ -101,7 +101,7 @@ async function getAllNotifications() {
   let hasMore = true;
 
   while (hasMore) {
-    const url = cursor 
+    const url = cursor
       ? `https://alerts-api.dial.to/v2/history?cursor=${cursor}&limit=50`
       : 'https://alerts-api.dial.to/v2/history?limit=50';
 
@@ -114,7 +114,7 @@ async function getAllNotifications() {
 
     const data = await response.json();
     notifications.push(...data.notifications);
-    
+
     hasMore = data.hasMore;
     cursor = data.nextCursor;
   }
@@ -238,9 +238,275 @@ curl -X POST "https://alerts-api.dial.to/v2/history/clear" \
 {}
 ```
 
-## Next Steps
 
-With notification management in place, you can:
+## Working with Blink Actions
 
-1. **[Setup Push Notifications](/alerts/integrate-inbox/api/push-notifications)** - Enable mobile push notifications for your inbox
-2. **[Explore User Management](/alerts/integrate-inbox/user-management)** - Manage user subscriptions and preferences
+Alerts can now include blinks, enabling users to complete onchain transactions directly from your notification feed. This works as a two-step process:
+
+<Steps>
+  <Step title="Context Enrichment">
+    When [Dialect's mapping service](/alerts/blinks-in-alerts#mapping-service) detects supported protocol URLs in notification actions, it automatically enriches them with a `context` object containing:
+    - `type`: The kind of data available (e.g., `"position"` for lending/borrowing positions)
+    - `apiUrl`: A pre-filled API endpoint to fetch detailed data
+    - `action`: The suggested action for the user
+  </Step>
+
+  <Step title="Data Fetching">
+    Your client uses the `context.apiUrl` to fetch detailed data. The response structure depends on the `context.type`. For `type: "position"`, you'll receive position and market data from our Markets API, including blink URLs for onchain actions.
+  </Step>
+</Steps>
+
+<Note>
+Always check the `context.type` field to determine how to handle the data. Additional context types will be supported in the future beyond the current `"position"` type.
+</Note>
+
+In the following examples, we'll use Jupiter Borrow (a `type: "position"` context) to demonstrate this flow.
+
+### Detecting Blink-Enabled Notifications
+
+Check if a notification has blink context by looking for the `context` object in actions. When present, check the `type` field to determine how to handle the data:
+
+```typescript {11-15}
+// Notification with blink context
+const notification = {
+  "id": "notification-uuid",
+  "title": "Liquidation Warning",
+  "body": "Your SOL/USDC position is at 78% LTV, approaching liquidation threshold of 80%.",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "actions": [{
+    "type": "link",
+    "label": "Add Collateral",
+    "url": "https://jup.ag/lend/borrow/1/nfts/2433",
+    "context": {
+      "type": "position",
+      "apiUrl": "https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176&bundleIds=jupiter.borrow.1.2433",
+      "action": "deposit"
+    }
+  }]
+};
+
+// Check if action has blink context and get the type
+const action = notification.actions?.[0];
+if (action?.context) {
+  const contextType = action.context.type; // e.g., "position"
+
+  // Handle based on context type
+  if (contextType === 'position') {
+    // Fetch position data from Markets API
+    fetchPositionData(action.context.apiUrl);
+  }
+  // Future context types can be added here
+}
+```
+
+The `context` object is only present when Dialect's mapping service detects a supported protocol URL. Always check `context.type` to handle different data structures appropriately.
+
+### Fetching Position Data
+
+For `type: "position"` contexts, use the `apiUrl` to fetch position and market data from the [Markets and Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address):
+
+<Tabs>
+<Tab title="TypeScript">
+```typescript
+async function fetchPositionData(apiUrl: string) {
+  const response = await fetch(apiUrl, {
+    headers: {
+      'x-dialect-api-key': 'dk_demo'
+    }
+  });
+
+  const data = await response.json();
+  return data.positions; // Array of positions (deposit/borrow sides)
+}
+
+// Usage
+const action = notification.actions[0];
+const positions = await fetchPositionData(action.context.apiUrl);
+
+// Find the deposit position
+const depositPosition = positions.find(p => p.side === 'deposit');
+
+// Access position data (more examples below)
+console.log('LTV:', depositPosition.ltv);
+console.log('Amount:', depositPosition.amount, depositPosition.market.token.symbol);
+console.log('Liquidation Price:', depositPosition.liquidationPrice);
+
+// Get blink URL for deposit action
+const blinkUrl = depositPosition.actions.deposit.blinkUrl;
+// blink:https://jupiter.dial.to/api/v0/lend/borrow/1/deposit?positionId=2433
+```
+</Tab>
+
+<Tab title="cURL">
+```bash
+curl 'https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176&bundleIds=jupiter.borrow.1.2433' \
+  --header 'x-dialect-api-key: dk_demo'
+```
+</Tab>
+</Tabs>
+
+### Response Structure
+
+The [Markets and Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address) returns an array of positions. For a lending position like Jupiter Borrow, you'll receive both deposit and borrow sides as well as all relevant market data:
+
+```json
+{
+  "positions": [
+    {
+      "id": "jupiter.borrow.1.2433.deposit",
+      "type": "lending",
+      "marketId": "jupiter.borrow.1",
+      "ownerAddress": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+      "bundleId": "jupiter.borrow.1.2433",
+      "side": "deposit",
+      "additionalData": {
+        "vaultId": 1,
+        "nftId": 2433
+      },
+      "actions": {
+        "deposit": {
+          "blinkUrl": "blink:https://jupiter.dial.to/api/v0/lend/borrow/1/deposit?positionId=2433"
+        },
+        "withdraw": {
+          "blinkUrl": "blink:https://jupiter.dial.to/api/v0/lend/borrow/1/2433/withdraw"
+        }
+      },
+      "amount": 0.015060007,
+      "amountUsd": 3.34,
+      "ltv": 0.3033,
+      "liquidationPrice": 84.00917409932147,
+      "market": {
+        "id": "jupiter.borrow.1",
+        "type": "lending",
+        "provider": {
+          "id": "jupiter",
+          "name": "Jupiter",
+          "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/5c23c065-89ef-413b-8deb-6d8c6a849300/public"
+        },
+        "token": {
+          "address": "So11111111111111111111111111111111111111112",
+          "symbol": "WSOL",
+          "decimals": 9,
+          "icon": "https://coin-images.coingecko.com/coins/images/21629/large/solana.jpg?1696520989"
+        },
+        "borrowToken": {
+          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "decimals": 6,
+          "icon": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694"
+        },
+        "websiteUrl": "https://jup.ag/lend/borrow/1",
+        "depositApy": 0.0784,
+        "baseDepositApy": 0.0484,
+        "borrowApy": 0.0597,
+        "baseBorrowApy": 0.0597,
+        "totalDeposit": 665220.958436127,
+        "totalDepositUsd": 147340132.39,
+        "totalBorrow": 80014008.8212,
+        "totalBorrowUsd": 79990184.41,
+        "maxBorrow": 120021000.673021,
+        "maxLtv": 0.75,
+        "liquidationLtv": 0.8,
+        "liquidationPenalty": 0.01,
+        "additionalData": {},
+        "actions": {
+          "deposit": {
+            "blinkUrl": "blink:https://jupiter.dial.to/api/v0/lend/borrow/1/deposit"
+          }
+        }
+      }
+    },
+    {
+      "id": "jupiter.borrow.1.2433.borrow",
+      "type": "lending",
+      "marketId": "jupiter.borrow.1",
+      "ownerAddress": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+      "bundleId": "jupiter.borrow.1.2433",
+      "side": "borrow",
+      "additionalData": {
+        "vaultId": 1,
+        "nftId": 2433
+      },
+      "actions": {
+        "borrow": {
+          "blinkUrl": "blink:https://jupiter.dial.to/api/v0/lend/borrow/1/2433/borrow"
+        },
+        "repay": {
+          "blinkUrl": "blink:https://jupiter.dial.to/api/v0/lend/borrow/1/2433/repay"
+        }
+      },
+      "amount": 1.012143,
+      "amountUsd": 1.01,
+      "ltv": 0.3033,
+      "liquidationPrice": 84.00917409932147,
+      "market": {
+        "id": "jupiter.borrow.1",
+        "type": "lending",
+        "provider": {
+          "id": "jupiter",
+          "name": "Jupiter",
+          "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/5c23c065-89ef-413b-8deb-6d8c6a849300/public"
+        },
+        "token": {
+          "address": "So11111111111111111111111111111111111111112",
+          "symbol": "WSOL",
+          "decimals": 9,
+          "icon": "https://coin-images.coingecko.com/coins/images/21629/large/solana.jpg?1696520989"
+        },
+        "borrowToken": {
+          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "symbol": "USDC",
+          "decimals": 6,
+          "icon": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694"
+        },
+        "websiteUrl": "https://jup.ag/lend/borrow/1",
+        "depositApy": 0.0784,
+        "baseDepositApy": 0.0484,
+        "borrowApy": 0.0597,
+        "baseBorrowApy": 0.0597,
+        "totalDeposit": 665220.958436127,
+        "totalDepositUsd": 147340132.39,
+        "totalBorrow": 80014008.8212,
+        "totalBorrowUsd": 79990184.41,
+        "maxBorrow": 120021000.673021,
+        "maxLtv": 0.75,
+        "liquidationLtv": 0.8,
+        "liquidationPenalty": 0.01,
+        "additionalData": {},
+        "actions": {
+          "deposit": {
+            "blinkUrl": "blink:https://jupiter.dial.to/api/v0/lend/borrow/1/deposit"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+### Using the Data
+
+The response includes everything needed to build feature rich UIs ranging from simple notification buttons to detailed position management screens. Use the data to create position context cards, input interfaces, action buttons, and more.
+
+<AccordionGroup>
+  <Accordion title="Position Information" icon="chart-line" defaultOpen="true">
+    - **Protocol**: `market.provider.name`, `market.provider.icon`, `market.provider.id`
+    - **Tokens**: `market.token.symbol`, `market.token.address`, `market.token.icon`, `market.borrowToken.symbol`, `market.borrowToken.address`, `market.borrowToken.icon`
+    - **Health**: `ltv`, `liquidationPrice`
+    - **Amounts**: `amount`, `amountUsd`
+    - **Identifiers**: `id`, `bundleId`, `marketId`, `ownerAddress`
+  </Accordion>
+
+  <Accordion title="Blinks & Fallback URLs" icon="link">
+    - **Blink URLs**: `actions.deposit.blinkUrl`, `actions.withdraw.blinkUrl`, `actions.borrow.blinkUrl`, `actions.repay.blinkUrl`
+    - **Protocol website**: `market.websiteUrl`
+  </Accordion>
+
+  <Accordion title="Market Data" icon="database">
+    - **APY rates**: `market.depositApy`, `market.baseDepositApy`, `market.borrowApy`, `market.baseBorrowApy`
+    - **Liquidation**: `market.liquidationLtv`, `market.liquidationPenalty`
+    - **Limits**: `market.maxLtv`, `market.maxBorrow`
+    - **Totals**: `market.totalDeposit`, `market.totalDepositUsd`, `market.totalBorrow`, `market.totalBorrowUsd`
+    - **Decimals**: `market.token.decimals`, `market.borrowToken.decimals`
+  </Accordion>
+</AccordionGroup>

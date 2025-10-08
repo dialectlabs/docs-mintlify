@@ -52,6 +52,7 @@
             "pages": [
               "alerts/index",
               "alerts/quick-start",
+              "alerts/blinks-in-alerts",
               "alerts/faq"
             ]
           },

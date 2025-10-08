@@ -453,11 +453,13 @@ await fetch(`https://alerts-api.dial.to/v2/${appId}/send`, {
 
 ### Actionable Notifications
 
-Add action buttons to your notifications that allow users to take immediate action. Currently supports up to 3 action buttons that can direct users to websites.
+Add action buttons to your notifications that allow users to take immediate action. Supports up to 3 action buttons that can direct users to external websites or blink-enabled actions. 
+
+When Dialect's [mapping service](/alerts/blinks-in-alerts#mapping-service) detects a supported protocol URL, it automatically enriches the alert with a  `context` object.
 
 <Tabs>
-<Tab title="curl">
-```bash
+<Tab title="External Link">
+```bash {14-18}
 curl https://alerts-api.dial.to/v2/{appId}/send \
   --request POST \
   --header 'x-dialect-api-key: YOUR_API_KEY' \
@@ -471,47 +473,61 @@ curl https://alerts-api.dial.to/v2/{appId}/send \
     "message": {
       "title": "Staking Rewards Ready! 🎯",
       "body": "You have earned 0.15 SOL in staking rewards. Click below to claim them.",
-      "actions": [
-        {
-          "type": "link",
-          "label": "Claim Rewards",
-          "url": "https://yourapp.com/claim-rewards"
-        }
-      ]
+      "actions": [{
+        "type": "link",
+        "label": "Claim Rewards",
+        "url": "https://yourapp.com/claim-rewards"
+      }]
     }
   }'
 ```
 </Tab>
-<Tab title="TypeScript">
-```typescript
-const rewardNotification = {
-  recipient: {
-    type: 'subscriber',
-    walletAddress: '9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM'
-  },
-  channels: ['EMAIL', 'IN_APP'],
-  message: {
-    title: 'Staking Rewards Ready! 🎯',
-    body: 'You have earned 0.15 SOL in staking rewards. Click below to claim them.',
-    actions: [
-      {
-        type: 'link',
-        label: 'Claim Rewards',
-        url: 'https://yourapp.com/claim-rewards'
-      }
-    ]
-  }
-};
+<Tab title="Blink Action">
 
-await fetch(`https://alerts-api.dial.to/v2/${appId}/send`, {
-  method: 'POST',
-  headers: {
-    'x-dialect-api-key': 'YOUR_API_KEY',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(rewardNotification)
-});
+The highlighted line shows the supported protocol URL:
+
+```bash {17}
+curl https://alerts-api.dial.to/v2/{appId}/send \
+  --request POST \
+  --header 'x-dialect-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "recipient": {
+      "type": "subscriber",
+      "walletAddress": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+    },
+    "channels": ["IN_APP"],
+    "message": {
+      "title": "Liquidation Warning",
+      "body": "Your SOL/USDC position is at 78% LTV, approaching liquidation threshold of 80%.",
+      "actions": [{
+        "type": "link",
+        "label": "Add Collateral",
+        "url": "https://jup.ag/lend/borrow/1/nfts/2433"
+      }]
+    }
+  }'
 ```
+
+When a supported URL is detected, the client receives the enriched alert with `context` in an action object:
+
+```json {6-10}
+{
+  "actions": [{
+    "type": "link",
+    "label": "Add Collateral",
+    "url": "https://jup.ag/lend/borrow/1/nfts/2433",
+    "context": {
+      "type": "position",
+      "apiUrl": "https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176&bundleIds=jupiter.borrow.1.2433",
+      "action": "deposit"
+    }
+  }]
+}
+```
+<Note>
+The `context` object is automatically added by Dialect's mapping service for supported protocols. See [Blinks in Alerts](/alerts/blinks-in-alerts) for complete implementation guide.
+</Note>
 </Tab>
 </Tabs>
 
