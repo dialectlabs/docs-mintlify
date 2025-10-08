@@ -137,19 +137,19 @@
                               },
                               "depositApy": {
                                 "type": "number",
-                                "description": "Total APY **including** rewards"
+                                "description": "Total percentage ratio APY **including** rewards"
                               },
                               "baseDepositApy": {
                                 "type": "number",
-                                "description": "APY excluding rewards"
+                                "description": "APY percentage ratio excluding rewards"
                               },
                               "borrowApy": {
                                 "type": "number",
-                                "description": "Total APY **including** rewards"
+                                "description": "Total percentage ratio APY **including** rewards"
                               },
                               "baseBorrowApy": {
                                 "type": "number",
-                                "description": "APY excluding rewards"
+                                "description": "APY percentage ratio excluding rewards"
                               },
                               "totalDeposit": {
                                 "type": "number"
@@ -405,6 +405,9 @@
                                 "format": "uri"
                               },
                               "depositApy": {
+                                "type": "number"
+                              },
+                              "baseDepositApy": {
                                 "type": "number"
                               },
                               "additionalData": {
@@ -1178,6 +1181,9 @@
                           "depositApy": {
                             "type": "number"
                           },
+                          "baseDepositApy": {
+                            "type": "number"
+                          },
                           "additionalData": {
                             "type": "object",
                             "propertyNames": {
@@ -1233,6 +1239,7 @@
                           "provider",
                           "token",
                           "depositApy",
+                          "baseDepositApy",
                           "actions"
                         ]
                       }
@@ -1616,6 +1623,17 @@
             },
             "allowEmptyValue": true,
             "allowReserved": true
+          },
+          {
+            "name": "bundleIds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Comma separated list of bundle IDs. Currently only supports one bundle ID."
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
           }
         ],
         "responses": {
@@ -1646,6 +1664,10 @@
                               "ownerAddress": {
                                 "type": "string"
                               },
+                              "bundleId": {
+                                "type": "string",
+                                "description": "Identifier for positions bundled into one logical structure, such as position or market"
+                              },
                               "side": {
                                 "enum": [
                                   "deposit",
@@ -1657,6 +1679,16 @@
                               },
                               "amountUsd": {
                                 "type": "number"
+                              },
+                              "ltv": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100,
+                                "description": "Current Loan-to-Value of the position, expressed as a percentage ratio of deposited value"
+                              },
+                              "liquidationPrice": {
+                                "type": "number",
+                                "description": "Deposited token price expressed in borrowed token units at which the position becomes liquidatable"
                               },
                               "rewards": {
                                 "type": "array",
@@ -1685,6 +1717,59 @@
                                   "type": "string"
                                 },
                                 "additionalProperties": {}
+                              },
+                              "actions": {
+                                "type": "object",
+                                "properties": {
+                                  "deposit": {
+                                    "type": "object",
+                                    "properties": {
+                                      "blinkUrl": {
+                                        "type": "string",
+                                        "pattern": "^blink:.*"
+                                      }
+                                    },
+                                    "required": [
+                                      "blinkUrl"
+                                    ]
+                                  },
+                                  "withdraw": {
+                                    "type": "object",
+                                    "properties": {
+                                      "blinkUrl": {
+                                        "type": "string",
+                                        "pattern": "^blink:.*"
+                                      }
+                                    },
+                                    "required": [
+                                      "blinkUrl"
+                                    ]
+                                  },
+                                  "borrow": {
+                                    "type": "object",
+                                    "properties": {
+                                      "blinkUrl": {
+                                        "type": "string",
+                                        "pattern": "^blink:.*"
+                                      }
+                                    },
+                                    "required": [
+                                      "blinkUrl"
+                                    ]
+                                  },
+                                  "repay": {
+                                    "type": "object",
+                                    "properties": {
+                                      "blinkUrl": {
+                                        "type": "string",
+                                        "pattern": "^blink:.*"
+                                      }
+                                    },
+                                    "required": [
+                                      "blinkUrl"
+                                    ]
+                                  }
+                                }
                               },
                               "market": {
                                 "type": "object",
@@ -1786,6 +1871,24 @@
                                   },
                                   "maxBorrow": {
                                     "type": "number"
+                                  },
+                                  "maxLtv": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100,
+                                    "description": "Maximum Loan-to-Value allowed when borrowing, expressed as a percentage of deposited value"
+                                  },
+                                  "liquidationLtv": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100,
+                                    "description": "Loan-to-Value percentage ratio of deposited value at which the position becomes liquidatable"
+                                  },
+                                  "liquidationPenalty": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100,
+                                    "description": "Percentage ratio of deposited value taken as a penalty and given to liquidators when position is liquidated"
                                   },
                                   "oraclePrice": {
                                     "type": "number"
@@ -1924,6 +2027,18 @@
                                         ]
                                       },
                                       "withdraw": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blinkUrl": {
+                                            "type": "string",
+                                            "pattern": "^blink:.*"
+                                          }
+                                        },
+                                        "required": [
+                                          "blinkUrl"
+                                        ]
+                                      },
+                                      "claimRewards": {
                                         "type": "object",
                                         "properties": {
                                           "blinkUrl": {
@@ -2085,6 +2200,9 @@
                                   "depositApy": {
                                     "type": "number"
                                   },
+                                  "baseDepositApy": {
+                                    "type": "number"
+                                  },
                                   "additionalData": {
                                     "type": "object",
                                     "propertyNames": {
@@ -2140,6 +2258,7 @@
                                   "provider",
                                   "token",
                                   "depositApy",
+                                  "baseDepositApy",
                                   "actions"
                                 ]
                               }
