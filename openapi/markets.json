@@ -2299,7 +2299,7 @@
         "name": "x-dialect-api-key",
         "in": "header",
         "description": "API key for the Markets API",
-        "x-default": "dk_demo"
+        "x-default": "pk_demo"
       }
     }
   }
