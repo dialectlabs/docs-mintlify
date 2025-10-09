@@ -486,7 +486,49 @@ The [Markets and Positions API](/api-reference/positions/list-all-market-positio
 
 ### Using the Data
 
-The response includes everything needed to build feature rich UIs ranging from simple notification buttons to detailed position management screens. Use the data to create position context cards, input interfaces, action buttons, and more.
+The response includes everything needed to build feature rich UIs ranging from simple notification buttons to detailed position management screens. Use the data to create cards, input interfaces, action buttons, and more.
+
+#### UI Component Examples
+
+Here are examples of different UI patterns you can build using the data from the example above. Each component uses specific fields from the API response to create rich, informative interfaces:
+
+**Position Widget**
+
+A compact position summary card showing key metrics at a glance.
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1760032479/dialect-docs/ui-example-position-widget.png"
+  alt="Position widget showing compact position metrics"
+/>
+
+This widget uses:
+- `market.provider.name` and `market.provider.icon` for protocol branding (e.g., "Jupiter")
+- `market.token.symbol` and `market.token.icon` for collateral token display (e.g., "SOL")
+- `market.borrowToken.symbol` and `market.borrowToken.icon` for borrowed token display (e.g., "USDC")
+- `amount` and `amountUsd` from both deposit and borrow positions to show collateral and debt sizes
+- `ltv` for position health indicator (e.g., "Very Risky 78%")
+- `market.websiteUrl` for the external link to the protocol
+
+**Market Cards**
+
+Display multiple sides of a market in an easy to understand and actionable card layout.
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1760032476/dialect-docs/ui-example-borrow-market-cards.png"
+  alt="Cards showing multiple options for a market"
+/>
+
+These cards use:
+- `market.token.symbol` and `market.token.icon` for collateral display (e.g., "SOL")
+- `market.borrowToken.symbol` and `market.borrowToken.icon` for debt display (e.g., "USDC")
+- `amount` and `amountUsd` from deposit and borrow positions for user's position sizes
+- `market.depositApy` for collateral yield (e.g., "7.2% APY")
+- `market.borrowApy` for borrow rate (e.g., "4.4% APY")
+- `actions.deposit.blinkUrl`, `actions.withdraw.blinkUrl`, `actions.borrow.blinkUrl`, `actions.repay.blinkUrl` for action buttons
+
+#### Available Data Fields by Group
+
+The API response contains extensive data organized into three main categories:
 
 <AccordionGroup>
   <Accordion title="Position Information" icon="chart-line" defaultOpen="true">
