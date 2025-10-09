@@ -1602,6 +1602,166 @@
         }
       }
     },
+    "/v0/positions/history": {
+      "get": {
+        "operationId": "positionsV0Api.positionsHistory",
+        "summary": "Get historical position snapshots",
+        "description": "Fetch position snapshots within a time range for a wallet address",
+        "tags": [
+          "Positions"
+        ],
+        "parameters": [
+          {
+            "name": "walletAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+              "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "x-native-type": "date",
+              "description": "Start time of the snapshot. Date or datetime in RFC 3339 format",
+              "default": "2025-06-01T00:00:00Z",
+              "example": "2025-06-01T00:00:00Z"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "x-native-type": "date",
+              "description": "End time of the snapshot. Date or datetime in RFC 3339 format",
+              "default": "2025-10-09T23:59:59Z",
+              "example": "2025-10-09T23:59:59Z"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "positionIds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "deepObject",
+            "explode": true,
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "positions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "providerId": {
+                                "enum": [
+                                  "kamino",
+                                  "lulo",
+                                  "marginfi",
+                                  "jupiter"
+                                ]
+                              },
+                              "type": {
+                                "enum": [
+                                  "lending",
+                                  "yield"
+                                ]
+                              },
+                              "marketId": {
+                                "type": "string"
+                              },
+                              "history": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "timestamp": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "x-native-type": "date"
+                                    },
+                                    "amount": {
+                                      "type": "number"
+                                    },
+                                    "amountUsd": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "timestamp",
+                                    "amount",
+                                    "amountUsd"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "providerId",
+                              "type",
+                              "marketId",
+                              "history"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "positions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v0/positions/owners": {
       "get": {
         "operationId": "positionsV0Api.positionsByOwners",
