@@ -87,7 +87,9 @@ curl -X GET "https://markets.dial.to/api/v0/positions/history?walletAddress=6JpN
 | `walletAddress` | Yes | Wallet address to fetch position history for |
 | `startTime` | Yes | Start of time range (RFC 3339 format, e.g., `2025-10-08T00:00:00Z`) |
 | `endTime` | Yes | End of time range (RFC 3339 format, e.g., `2025-10-10T23:59:59Z`) |
-| `positionIds` | No | Optional array of position IDs to filter. If empty, returns all positions (limited to 1000 data points) |
+| `positionIds` | No | Optional array of position IDs to filter. If empty, returns all positions |
+
+Each position history is limited to 1000 data points.
 
 ### Response Structure
 In the example below, you see an example of the response structure, that shows the Lulo Regular position with two snapshots showing growth from 1.02 to 2.02 USDC. Later in this document, you will learn how to [use](/markets/history#practical-examples) and [interpret](/markets/history#understanding-cumulative-values) this data.
