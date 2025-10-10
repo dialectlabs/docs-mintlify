@@ -270,6 +270,7 @@
             "group": "GETTING STARTED",
             "pages": [
               "markets/index",
+              "markets/history",
               "markets/rewards",
               "markets/supported-protocols"
             ]
