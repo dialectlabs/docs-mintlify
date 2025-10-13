@@ -6,17 +6,47 @@ rss: true
 
 <Update label="October 2025">
 
+## Historical Position Data
+
+Track your DeFi portfolio's evolution over time with our new historical data endpoint - perfect for analytics, performance tracking, and portfolio visualization:
+
+**What it is:** Historical Position Data provides cumulative value snapshots of wallet positions across all supported protocols. Query a date range to see how positions have changed, including yield accumulation, deposits, and withdrawals.
+
+**Key Benefits:**
+- **Portfolio Analytics** - Build performance dashboards tracking total value over time
+- **Historical P&L** - Calculate returns and analyze position performance across protocols
+- **Time-Series Visualization** - Create charts showing portfolio growth and changes
+
+**Available from:** October 8, 2025 onwards (backfilling to earlier dates coming soon)
+
+[Learn more about historical data](/markets/history) | [Try the API](/api-reference/positions/get-historical-position-snapshots)
+
 ## Positions API Updates
 
 Enhanced position tracking with new protocol support:
 
-- **Jupiter Borrow Support** - Added Jupiter Borrow protocol support to the Positions API, enabling real-time position tracking for Jupiter's lending positions. [View Positions API docs](/api-reference/positions/list-all-market-positions-by-wallet-address)
+- **Jupiter Borrow Support** - We've added Jupiter Borrow protocol support to the Positions API, enabling real-time position tracking for Jupiter's lending positions. [Test the Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address)
 
 ## Standard Blinks Library Updates
 
-Infrastructure improvements and API migrations:
+Enhanced protocol support and infrastructure improvements:
 
-- **Jupiter API Migration** - Updated Jupiter swap integration to use the latest Jupiter API endpoints ensuring continued reliability and compatibility. [View Jupiter swap docs](/api-reference/swap/swap-token)
+- **Full Jupiter Borrow Support** - Jupiter Borrow now supports the full lending lifecycle with deposit, withdraw, borrow, and repay blinks so that you can build complete DeFi lending experiences. [View API docs](/api-reference/lend-borrow/borrow-deposit)
+- **Jupiter API Migration** - Updated Jupiter Swap blink to use the latest Jupiter API endpoints ensuring continued reliability and compatibility. [View Docs](/api-reference/swap/swap-token)
+- **Kamino Lend Vaults** - Added Kamino Lend vault support with deposit and withdraw blinks for earning yield on deposits. [View API docs](/api-reference/lend/get-lend-vault-deposit-blink)
+- **Kamino Farms** - Added Kamino Farms support enabling users to claim rewards from farming positions. [View API docs](/api-reference/farms/claim-farm-rewards)
+- **Kamino Markets Renaming** - Renamed Kamino Lending endpoints to Kamino Markets, using "market reserve" terminology instead of "lending reserve" to better reflect Kamino's renaming. [View API docs](/api-reference/markets/market-reserve-deposit)
+
+## Blinks in Alerts
+
+Blinks in Alerts lets you embed blockchain actions directly into our alerts stack so that your users can swap tokens, deposit funds, or execute any onchain action without leaving your app.
+
+**Key Benefits:**
+- **Instant Actions** - Users take onchain actions directly from notifications without app switching
+- **Higher Conversion** - Reduce friction between alert and action, improving user engagement
+- **No in-app browser** - Users don't need to leave your app to complete onchain actions
+
+[Learn more](/alerts/blinks-in-alerts)
 
 </Update>
 
