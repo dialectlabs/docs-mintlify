@@ -2218,12 +2218,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "So11111111111111111111111111111111111111112",
+              "default": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
               "examples": [
-                "So11111111111111111111111111111111111111112"
+                "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij"
               ]
             },
-            "example": "So11111111111111111111111111111111111111112",
+            "example": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -2374,12 +2374,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "So11111111111111111111111111111111111111112",
+              "default": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
               "examples": [
-                "So11111111111111111111111111111111111111112"
+                "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij"
               ]
             },
-            "example": "So11111111111111111111111111111111111111112",
+            "example": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -3018,13 +3018,13 @@
               "minimum": 1,
               "maximum": 100,
               "description": "The percentage of position to withdraw",
-              "default": 50,
-              "example": 50,
+              "default": 100,
+              "example": 100,
               "examples": [
-                50
+                100
               ]
             },
-            "example": 50,
+            "example": 100,
             "allowEmptyValue": true,
             "allowReserved": true
           },
