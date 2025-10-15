@@ -294,8 +294,12 @@
   },
   "redirects": [
     {
-      "source": "/api-reference/markets/:slug*",
-      "destination": "/api-reference/borrow/:slug*"
+      "source": "/api-reference/markets/market-reserve-deposit",
+      "destination": "/api-reference/borrow/borrow-reserve-deposit"
+    }
+    {
+      "source": "/api-reference/markets/market-reserve-deposit-1",
+      "destination": "/api-reference/borrow/borrow-reserve-deposit-1"
     }
   ],
   "footer": {
