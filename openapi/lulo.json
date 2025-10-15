@@ -42,9 +42,9 @@
             "schema": {
               "enum": [
                 "protected",
-                "boosted"
+                "regular"
               ],
-              "description": "Deposit type: protected or boosted",
+              "description": "Deposit type: protected (PUSD) or regular (LUSD)",
               "default": "protected",
               "example": "protected"
             },
@@ -166,9 +166,9 @@
             "schema": {
               "enum": [
                 "protected",
-                "boosted"
+                "regular"
               ],
-              "description": "Deposit type: protected (PUSD) or boosted (LUSD)",
+              "description": "Deposit type: protected (PUSD) or regular (LUSD)",
               "default": "protected",
               "example": "protected"
             },
@@ -183,7 +183,9 @@
             "schema": {
               "type": "number",
               "minimum": 1,
-              "description": "The amount to deposit. Human readable value, e.g. 100 USDC"
+              "description": "The amount to deposit. Human readable value, e.g. 100 USDC",
+              "default": 1,
+              "example": 1
             }
           },
           {
@@ -195,9 +197,7 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 100,
-              "description": "The percentage of balance to deposit",
-              "default": 10,
-              "example": 10
+              "description": "The percentage of balance to deposit"
             }
           }
         ],
@@ -642,6 +642,8 @@
               "minimum": 0,
               "maximum": 9007199254740991,
               "description": "The pending withdrawal ID",
+              "default": 1,
+              "example": 1,
               "examples": [
                 1,
                 2,
