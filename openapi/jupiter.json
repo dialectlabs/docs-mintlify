@@ -1174,8 +1174,8 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "example": 10,
-              "default": 10,
+              "example": 90,
+              "default": 90,
               "description": "Percentage to deposit (0-100). Takes priority over `amount`."
             }
           }
@@ -1746,8 +1746,8 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "example": 10,
-              "default": 10,
+              "example": 90,
+              "default": 90,
               "description": "Percentage to deposit or withdraw (0-100). Takes priority over `amount`."
             }
           }
@@ -2032,8 +2032,8 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "example": 10,
-              "default": 10,
+              "example": 90,
+              "default": 90,
               "description": "Percentage to deposit or withdraw (0-100). Takes priority over `amount`."
             }
           }
