@@ -1884,12 +1884,12 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
               "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
               ]
             },
-            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
           },
           {
             "name": "collTokenMint",
@@ -1898,12 +1898,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+              "default": "AvZZF1YaZDziPY2RCK4oJrRVrbN3mTD9NL24hPeaZeUj",
               "examples": [
-                "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
+                "AvZZF1YaZDziPY2RCK4oJrRVrbN3mTD9NL24hPeaZeUj"
               ]
             },
-            "example": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+            "example": "AvZZF1YaZDziPY2RCK4oJrRVrbN3mTD9NL24hPeaZeUj",
             "allowEmptyValue": true,
             "allowReserved": true
           },
@@ -2040,12 +2040,12 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
               "examples": [
-                "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+                "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
               ]
             },
-            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
           },
           {
             "name": "collTokenMint",
@@ -2054,12 +2054,12 @@
             "schema": {
               "type": "string",
               "description": "Collateral token mint address",
-              "default": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+              "default": "AvZZF1YaZDziPY2RCK4oJrRVrbN3mTD9NL24hPeaZeUj",
               "examples": [
-                "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
+                "AvZZF1YaZDziPY2RCK4oJrRVrbN3mTD9NL24hPeaZeUj"
               ]
             },
-            "example": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+            "example": "AvZZF1YaZDziPY2RCK4oJrRVrbN3mTD9NL24hPeaZeUj",
             "allowEmptyValue": true,
             "allowReserved": true
           },
