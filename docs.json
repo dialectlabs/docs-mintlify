@@ -292,6 +292,12 @@
       }
     ]
   },
+  "redirects": [
+    {
+      "source": "/api-reference/markets/:slug*",
+      "destination": "/api-reference/borrow/:slug*"
+    }
+  ],
   "footer": {
     "socials": {
       "website": "https://www.dialect.to/",
