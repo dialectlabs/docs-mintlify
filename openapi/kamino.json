@@ -16,10 +16,10 @@
     "/v0/lending/reserve/{market}/{reserve}/deposit": {
       "get": {
         "operationId": "v0.lending.getLendingReserveDepositBlink",
-        "summary": "Market Reserve Deposit",
-        "description": "Get metadata for depositing a token into Kamino's market reserve.",
+        "summary": "Borrow Reserve Deposit",
+        "description": "Get metadata for depositing a token into Kamino's borrow reserve.",
         "tags": [
-          "Markets"
+          "Borrow"
         ],
         "parameters": [
           {
@@ -150,10 +150,10 @@
       },
       "post": {
         "operationId": "v0.lending.lendingReserveDeposit",
-        "summary": "Market Reserve Deposit",
-        "description": "Generate a transaction for depositing a token into Kamino's market reserve.",
+        "summary": "Borrow Reserve Deposit",
+        "description": "Generate a transaction for depositing a token into Kamino's borrow reserve.",
         "tags": [
-          "Markets"
+          "Borrow"
         ],
         "parameters": [
           {
@@ -279,10 +279,10 @@
     "/v0/lending/reserve/{market}/{reserve}/withdraw": {
       "get": {
         "operationId": "v0.lending.getLendingReserveWithdrawBlink",
-        "summary": "Market Reserve Withdraw",
-        "description": "Get metadata for withdrawing a token from Kamino's market reserve.",
+        "summary": "Borrow Reserve Withdraw",
+        "description": "Get metadata for withdrawing a token from Kamino's borrow reserve.",
         "tags": [
-          "Markets"
+          "Borrow"
         ],
         "parameters": [
           {
@@ -413,10 +413,10 @@
       },
       "post": {
         "operationId": "v0.lending.lendingReserveWithdraw",
-        "summary": "Market Reserve Withdraw",
-        "description": "Generate a transaction for withdrawing a token from Kamino's market reserve.",
+        "summary": "Borrow Reserve Withdraw",
+        "description": "Generate a transaction for withdrawing a token from Kamino's borrow reserve.",
         "tags": [
-          "Markets"
+          "Borrow"
         ],
         "parameters": [
           {
@@ -550,9 +550,9 @@
       "get": {
         "operationId": "v0.lending.getLendingReserveMetadata",
         "summary": "Market Reserve Metadata",
-        "description": "Get metadata associated to a Kamino market reserve.",
+        "description": "Get metadata associated to a Kamino borrow reserve.",
         "tags": [
-          "Markets"
+          "Borrow"
         ],
         "parameters": [
           {
@@ -665,9 +665,9 @@
       "post": {
         "operationId": "v0.lending.lendingReserveRedirect",
         "summary": "Market Reserve Redirect",
-        "description": "Get a URL to a specific market reserve on Kamino's website",
+        "description": "Get a URL to a specific borrow reserve on Kamino's website",
         "tags": [
-          "Markets"
+          "Borrow"
         ],
         "parameters": [
           {
@@ -3116,10 +3116,10 @@
     "/v0/lending/reserve/{market}/{reserve}/claim-rewards": {
       "get": {
         "operationId": "v0.lending.getLendingReserveClaimRewardsBlink",
-        "summary": "Get market reserve claim rewards blink",
+        "summary": "Get borrow reserve claim rewards blink",
         "description": "Get a blink for claiming rewards on a reserve",
         "tags": [
-          "Markets"
+          "Borrow"
         ],
         "parameters": [
           {
@@ -3238,10 +3238,10 @@
       },
       "post": {
         "operationId": "v0.lending.lendingReserveClaimRewards",
-        "summary": "Market reserve claim rewards operation",
+        "summary": "Borrow reserve claim rewards operation",
         "description": "Execute a claim rewards operation",
         "tags": [
-          "Markets"
+          "Borrow"
         ],
         "parameters": [
           {
