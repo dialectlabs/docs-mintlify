@@ -3251,11 +3251,11 @@
             "schema": {
               "type": "string",
               "description": "Market public key",
-              "default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
-              "x-example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+              "default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+              "x-example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
             },
-            "example": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek",
-            "x-default": "DxXdAyU3kCjnyggvHmY5nAwg5cRbbmdyX3npfDMjjMek"
+            "example": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y",
+            "x-default": "6WEGfej9B9wjxRs6t4BYpb9iCXd8CpTpJ8fVSNzHCC5y"
           },
           {
             "name": "reserve",
@@ -3264,9 +3264,9 @@
             "schema": {
               "type": "string",
               "description": "Reserve public key",
-              "default": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+              "default": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
             },
-            "example": "Ga4rZytCpq1unD4DbEJ5bkHeUz9g3oh9AAFEi6vSauXp"
+            "example": "Atj6UREVWa7WxbF2EMKNyfmYUY1U1txughe2gjhcPDCo"
           }
         ],
         "requestBody": {
