@@ -234,6 +234,10 @@
             "openapi": "./openapi/save.json"
           },
           {
+            "group": "DEFITUNA",
+            "openapi": "./openapi/defituna.json"
+          },
+          {
             "group": "DRIFT",
             "openapi": "./openapi/drift.json"
           },
