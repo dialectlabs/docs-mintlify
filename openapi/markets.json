@@ -1667,6 +1667,24 @@
             "explode": true,
             "allowEmptyValue": true,
             "allowReserved": true
+          },
+          {
+            "name": "resolution",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "1m",
+                "5m",
+                "1h",
+                "1d"
+              ],
+              "description": "Time interval for historical snapshots. Controls the granularity of data points returned."
+            },
+            "style": "deepObject",
+            "explode": true,
+            "allowEmptyValue": true,
+            "allowReserved": true
           }
         ],
         "responses": {
