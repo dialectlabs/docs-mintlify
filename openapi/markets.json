@@ -17,7 +17,7 @@
       "get": {
         "operationId": "marketsV0Api.listMarkets",
         "summary": "List all markets",
-        "description": "Returns real-time market data from supported protocols, such as Jupiter, Kamino, MarginFi, Lulo and many more. For more information, please check our [Protocol Support Roadmap](/markets/supported-protocols).\n\n**Note:** Some providers (e.g., Kamino) may return large responses with 100+ markets. For better performance in the API playground, consider filtering by both `type` and `provider` parameters.",
+        "description": "Returns real-time market data from supported protocols, such as Jupiter, Kamino, MarginFi, Lulo and many more. For more information, please check our [Protocol Support Roadmap](/markets/supported-protocols).\n\n**Note:** Some providers (e.g. Kamino) may return large responses with 100+ markets. For better performance in the API playground, consider filtering by both `type` and `provider` parameters.",
         "tags": [
           "Markets"
         ],
