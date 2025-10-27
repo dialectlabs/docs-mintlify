@@ -23,9 +23,16 @@ Track your DeFi portfolio's evolution over time with our new historical data end
 
 ## Positions API Updates
 
-Enhanced position tracking with new protocol support:
+Enhanced position tracking with new protocol support and query flexibility:
 
 - **Jupiter Borrow Support** - We've added Jupiter Borrow protocol support to the Positions API, enabling real-time position tracking for Jupiter's lending positions. [Test the Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address)
+- **Resolution Parameter** - Added configurable time intervals (1m, 5m, 1h, 1d) to historical position snapshots endpoint for more granular data queries and optimized charting. [Learn more](/markets/history#resolution)
+
+## Markets API Updates
+
+Enhanced market data with historical APY tracking:
+
+- **Historical APY Data** - Markets API now returns 30-day, 90-day, and 180-day historical APY averages for both deposits and borrows, enabling better rate trend analysis and forecasting. [View API docs](/api-reference/markets/list-all-markets)
 
 ## Standard Blinks Library Updates
 
