@@ -293,6 +293,12 @@
         "pages": [
           "release-notes/index"
         ]
+      },
+      {
+        "tab": "Pricing",
+        "pages": [
+          "pricing"
+        ]
       }
     ]
   },
