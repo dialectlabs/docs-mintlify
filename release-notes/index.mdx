@@ -23,15 +23,19 @@ Track your DeFi portfolio's evolution over time with our new historical data end
 
 ## Positions API Updates
 
-Enhanced position tracking with new protocol support and query flexibility:
+Enhanced position tracking with new protocol support and infrastructure improvements:
 
+- **Multiple Signers Fix** - Resolved position indexing issues when transactions have multiple signers, ensuring accurate position tracking across all scenarios
 - **Jupiter Borrow Support** - We've added Jupiter Borrow protocol support to the Positions API, enabling real-time position tracking for Jupiter's lending positions. [Test the Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address)
 - **Resolution Parameter** - Added configurable time intervals (1m, 5m, 1h, 1d) to historical position snapshots endpoint for more granular data queries and optimized charting. [Learn more](/markets/history#resolution)
 
 ## Markets API Updates
 
-Enhanced market data with historical APY tracking:
+Enhanced market data with historical APY tracking and expanded protocol coverage:
 
+- **DeFiTuna** - Added DeFiTuna lending protocol support to Markets API, providing real-time market data for DeFiTuna's lending markets. [View API docs](/api-reference/markets/list-all-markets)
+- **Kamino Lend Rewards** - Added rewards data for Kamino Lend markets, showing additional incentives and rewards available for lending positions
+- **Data Consistency Improvements** - Enhanced indexing infrastructure for improved data consistency across all supported protocols
 - **Historical APY Data** - Markets API now returns 30-day, 90-day, and 180-day historical APY averages for both deposits and borrows, enabling better rate trend analysis and forecasting. [View API docs](/api-reference/markets/list-all-markets)
 
 ## Standard Blinks Library Updates
@@ -41,11 +45,12 @@ Enhanced protocol support and infrastructure improvements:
 - **DeFiTuna Integration** - Added DeFiTuna lending protocol with deposit and withdraw blinks for earning yield on deposits. [View API docs](/api-reference/lend/lend-deposit)
 - **Full Jupiter Borrow Support** - Jupiter Borrow now supports the full lending lifecycle with deposit, withdraw, borrow, and repay blinks so that you can build complete DeFi lending experiences. [View API docs](/api-reference/lend-borrow/borrow-deposit)
 - **Jupiter API Migration** - Updated Jupiter Swap blink to use the latest Jupiter API endpoints ensuring continued reliability and compatibility. [View Docs](/api-reference/swap/swap-token)
-- **Kamino Lend Vaults** - Added Kamino Lend vault support with deposit and withdraw blinks for earning yield on deposits. [View API docs](/api-reference/lend/get-lend-vault-deposit-blink)
+- **Kamino Lend Vaults** - Added Kamino Lend support with deposit, withdraw and claim rewards blinks [View API docs](/api-reference/lend/get-lend-vault-deposit-blink)
 - **Kamino Farms** - Added Kamino Farms support enabling users to claim rewards from farming positions. [View API docs](/api-reference/farms/claim-farm-rewards)
 - **Kamino Markets Renaming** - Renamed Kamino Lending endpoints to Kamino Markets, using "market reserve" terminology instead of "lending reserve" to better reflect Kamino's renaming. [View API docs](/api-reference/markets/market-reserve-deposit)
-- **Kamino Multiply & Leverage** - Enhanced multiply and leverage position handling for improved reliability
-- **Lulo Protocol Fix** - Resolved endpoint parameter issues for improved reliability
+- **Kamino Multiply & Leverage** - Enhanced support for multiply and leverage positions handling
+- **Kamino Multiply Deposit Fix** - Resolved multiple issues with Kamino multiply deposit blinks including LUT (Lookup Table) problems, transaction size optimization, and missing instructions
+- **Lulo Protocol Fix** - Resolved endpoint parameter issues
 
 ## Blinks in Alerts
 
