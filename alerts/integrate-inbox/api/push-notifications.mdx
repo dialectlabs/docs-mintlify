@@ -1,20 +1,38 @@
 ---
 title: Push Notifications
-description: Enable mobile push notifications to reach users instantly on their devices, even when your app isn't open
+description: Enable mobile push notifications to reach users instantly on their devices, even when your app was closed
 ---
-
-Push notifications allow your app to reach users instantly on their mobile devices, even when your app isn't open. For inbox integration, push notifications work alongside in-app notifications to provide a complete notification experience.
 
 ## How Push Notifications Work with Dialect
 
-1. **Users subscribe** to push notifications via your app or notification components
-2. **Firebase Cloud Messaging (FCM)** handles device token management and delivery
-3. **Dialect routes notifications** to subscribed users across all their configured channels
-4. **Your mobile app receives** push notifications and can handle them with custom actions
+<Steps>
+
+  <Step title="Users subscribe">
+    <Note>
+      Please note that it is requried to subscribe your user to the [basic alerts endpoint](/api-reference/integrate-an-inbox/subscribe-to-alerts) as well to ensure push notifications are delivered.
+    </Note>
+    
+    Users subscribe to push notifications via your app or notification components via the [push notification endpoint](/api-reference/integrate-an-inbox/subscribe-to-push-notifications).
+    
+  </Step>
+
+  <Step title="Dialect routes notifications">
+
+    If event occurs, Dialect sends notifications to subscribed users and triggers the send process
+
+  </Step>
+
+  <Step title="Firebase Cloud Messaging (FCM) sends notifications">
+
+    Firebase handles device token management and delivers push notifications to the user's device
+
+  </Step>
+
+</Steps>
 
 ## Prerequisites
 
-Before implementing push notifications with Dialect:
+Before implementing push notifications with Dialect, please ensure you have completed the following steps:
 
 1. **App Registration**: Your app must be registered with Dialect ([registration guide](/alerts/setup/register-app))
 2. **User Authentication**: Users must be authenticated with JWT tokens ([authentication guide](/alerts/integrate-inbox/api/authentication))
@@ -22,7 +40,12 @@ Before implementing push notifications with Dialect:
    - Follow [Firebase's documentation](https://firebase.google.com/docs/cloud-messaging) to add the Firebase SDK to your app
    - Implement the necessary code to request and receive an FCM token
 4. **Implement wallet integration** for Solana signature verification
-   - Your app must be able to request message signing from the user's wallet
+   - Your mobile app must be able to request message signing from the user's wallet
+5. **Provide Service Account Credentials** to Dialect for authentication
+   - Dialect uses your service account credentials to authenticate and send push notifications to your users
+   - To get started, create a service account with the `cloudmessaging.messages.create` rights
+   - Once created, [contact Dialect support](https://form.typeform.com/to/aLMntdWJ?utm_source=docs&utm_medium=push_notifications&utm_campaign=service_account_setup&utm_content=prerequisites) to provide your service account credentials
+   - Dialect will then connect your app with our Alerts infrastructure 
 
 Once these prerequisites are in place, you can proceed with the subscription and notification flows.
 
