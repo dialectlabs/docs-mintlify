@@ -1,0 +1,327 @@
+---
+title: Using Markets and Blinks
+description: Learn how to go from market data to ready-to-sign blockchain transactions using blinks
+sidebarTitle: Quick Start
+---
+
+The Markets and Positions APIs provide a strong read layer for Solana's top DeFi protocols. Using them allows you to build sophisticated applications for your users as well as AI agents. But reading is just one part of the equation. 
+
+Writing to the blockchain is just as important. Blockchain links (Blinks) fill this gap by providing ready-to-sign transactions for each available protocol, so that your users can take immediate action based on the data they see.
+
+This guide walks you through the full process of fetching market data, understanding the response structure, and executing transactions.
+
+## What You'll Learn
+
+By the end of this guide, you'll understand how to:
+
+- Fetch real-time market data from multiple protocols
+- Identify available actions in the API response
+- Use Blinks to execute transactions
+- Track positions across protocols
+
+## Getting Real-Time Market Data
+
+The [Markets API](/api-reference/markets/list-all-markets) aggregates real-time market data from [multiple protocols](/markets/supported-protocols) and returns it in a detailed, unified data format.
+
+### Fetching Market Data
+
+In our example, we will focus on data from the Kamino lending market. You can find the full API reference for the Markets API [here](/api-reference/markets/list-all-markets).
+
+<CodeGroup>
+```typescript TypeScript
+const response = await fetch(
+  'https://markets.dial.to/api/v0/markets?type=yield&provider=kamino',
+  {
+    headers: {
+      'x-dialect-api-key': 'pk_demo'
+    }
+  }
+);
+
+const data = await response.json();
+console.log(data.markets);
+```
+
+```bash cURL
+curl 'https://markets.dial.to/api/v0/markets?type=yield&provider=kamino' \
+  --header 'x-dialect-api-key: pk_demo'
+```
+</CodeGroup>
+
+<Tip>
+Please note that the `pk_demo` key is for testing purposes only! Request your production API key by [getting in touch with us](https://form.typeform.com/to/aLMntdWJ).
+</Tip>
+
+### Understanding Market Data
+
+The API returns detailed market information including rates, liquidity, rewards, and available actions. You can see the full response for this market in the accordion below. 
+
+<Accordion title="View Complete Response Example">
+```json
+{
+  "markets": [
+    {
+      "id": "kamino.lend.BqBsS4myH82S4yfqeKjXSF7yErWwSi5WTshSzKmHQgzw",
+      "type": "yield",
+      "provider": {
+        "id": "kamino",
+        "name": "Kamino",
+        "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/5cddfb2e-c98e-4734-528b-b541fb5e2b00/public"
+      },
+      "token": {
+        "address": "2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH",
+        "symbol": "USDG",
+        "decimals": 6,
+        "icon": "https://424565.fs1.hubspotusercontent-na1.net/hubfs/424565/GDN-USDG-Token-512x512.png"
+      },
+      "websiteUrl": "https://kamino.com/lend/usdg-prime",
+      "depositApy": 0.1273,
+      "baseDepositApy": 0.0997,
+      "baseDepositApy30d": 0.0818,
+      "baseDepositApy90d": 0.1678,
+      "baseDepositApy180d": 0.1993,
+      "totalDeposit": 17454683.181014914,
+      "totalDepositUsd": 17454683.18,
+      "rewards": [
+        {
+          "type": "deposit",
+          "apy": 0.0276,
+          "token": {
+            "address": "KMNo3nJsBXfcpJTVhZcXLW7RmTwTt4GVFE7suUBo9sS",
+            "symbol": "KMNO",
+            "decimals": 6,
+            "icon": "https://cdn.kamino.finance/kamino.svg"
+          },
+          "marketAction": "deposit"
+        }
+      ],
+      "additionalData": {
+        "vaultAddress": "BqBsS4myH82S4yfqeKjXSF7yErWwSi5WTshSzKmHQgzw",
+        "vaultSlug": "usdg-prime"
+      },
+      "actions": {
+        "deposit": {
+          "blinkUrl": "blink:https://kamino.dial.to/api/v0/lend/usdg-prime/deposit"
+        },
+        "withdraw": {
+          "blinkUrl": "blink:https://kamino.dial.to/api/v0/lend/usdg-prime/withdraw"
+        }
+      }
+    },
+    // ... more markets ...
+  ]
+}
+```
+</Accordion>
+
+To beter understand the response, let's break it down into its components.
+
+#### Market Identity
+
+Each market is uniquely identified by its protocol, type, and token:
+
+```json
+{
+  "id": "kamino.lend.BqBsS4myH82S4yfqeKjXSF7yErWwSi5WTshSzKmHQgzw",
+  "type": "yield",
+  "provider": {
+    "id": "kamino",
+    "name": "Kamino",
+    "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/5cddfb2e-c98e-4734-528b-b541fb5e2b00/public"
+  },
+  "token": {
+    "address": "2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH",
+    "symbol": "USDG",
+    "decimals": 6,
+    "icon": "https://424565.fs1.hubspotusercontent-na1.net/hubfs/424565/GDN-USDG-Token-512x512.png"
+  },
+  "websiteUrl": "https://kamino.com/lend/usdg-prime"
+}
+```
+
+- **`id`**: Unique identifier combining protocol, market type, and address
+- **`type`**: Market category, e.g. `yield` for lend, `lending` for borrow etc.
+- **`provider`**: Protocol information for branding in your UI
+- **`token`**: Token information for use in your application
+- **`websiteUrl`**: Direct link to the market on the protocol's website
+
+#### Understanding Earnings
+
+The earnings structure shows the current and historical market rates including rewards.
+
+```json
+{
+  "depositApy": 0.1273,              // 12.73% total
+  "baseDepositApy": 0.0997,          // 9.97% base rate
+  "baseDepositApy30d": 0.0818,       // 30-day average
+  "baseDepositApy90d": 0.1678,       // 90-day average
+  "baseDepositApy180d": 0.1993,      // 180-day average
+  "rewards": [
+    {
+      "type": "deposit",
+      "apy": 0.0276,                 // 2.76% in KMNO tokens
+      "token": {
+        "symbol": "KMNO",
+        "address": "KMNo3nJsBXfcpJTVhZcXLW7RmTwTt4GVFE7suUBo9sS"
+      }
+    }
+  ]
+}
+```
+
+- **`depositApy`**: Total yield you earn (base rate + all rewards combined)
+- **`baseDepositApy`**: The protocol's base lending rate
+- **`baseDepositApy30d/90d/180d`**: Historical APY averages over different time periods
+- **`rewards`**: Additional earnings from rewards on top of the base rate
+
+In this example: 9.97% (base) + 2.76% (KMNO rewards) = 12.73% (total APY)
+
+<Tip>
+Markets can offer multiple reward tokens. See the [Rewards Guide](/markets/rewards) for detailed examples.
+</Tip>
+
+#### Market Liquidity
+
+Market size indicators help you understand liquidity and stability:
+
+```json
+{
+  "totalDeposit": 17454683.181014914,
+  "totalDepositUsd": 17454683.18
+}
+```
+
+- **`totalDeposit`**: Total tokens deposited (in token's native units)
+- **`totalDepositUsd`**: Total value in USD
+
+
+#### Available Actions
+
+Each market includes a set of actions that can be executed on the market. A more detailed explanation of the actions is provided in the next section.
+
+```json
+{
+  "actions": {
+    "deposit": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/lend/usdg-prime/deposit"
+    },
+    "withdraw": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/lend/usdg-prime/withdraw"
+    }
+  }
+}
+```
+
+
+#### Additional Data
+
+Based on the market, this field can be empty or contain protocol-specific data:
+
+```json
+{
+  "additionalData": {
+    "vaultAddress": "BqBsS4myH82S4yfqeKjXSF7yErWwSi5WTshSzKmHQgzw",
+    "vaultSlug": "usdg-prime"
+  }
+}
+```
+
+## Taking Action on a Market
+
+The `actions` object contains blink URLs for each available operation. These URLs return ready-to-sign transactions, which eliminates the need for teams to integrate protocols through complex SDKs as well as the maintenance of these integrations.
+
+### From Markets to Transactions
+
+Once you have a blink URL from the Markets API, you can use it to fetch and execute transactions. The process involves three steps:
+
+<Steps>
+  <Step title="Fetch transaction">
+    Send a `POST` request with user's wallet address and the required parameters to receive a transaction from the API
+  </Step>
+  <Step title="Update blockhash (recommended)">
+    It's recommended to update the blockhash of the transaction before signing it to ensure it remains valid
+  </Step>
+  <Step title="Sign and send transaction">
+    Sign the transaction with any Solana wallet and broadcast it to the network
+  </Step>
+</Steps>
+
+### Integration Options
+
+There are two ways to integrate blinks into your application. Please follow the links below for hands-on code examples: 
+
+<CardGroup cols={2}>
+  <Card
+    title="Programmatic (Headless)"
+    icon="code"
+    href="/standard-blinks-library/quick-start"
+  >
+    Full control over the user experience. Ideal for custom UIs and AI agents.
+  </Card>
+
+  <Card
+    title="UI Components"
+    icon="puzzle-piece"
+    href="/blinks/blinks-client/integrate/ui-components/blinks"
+  >
+    Drop-in components with automatic rendering and state management of blinks.
+  </Card>
+</CardGroup>
+
+## Tracking Positions Across Protocols
+
+After executing transactions, track user positions across all protocols:
+
+<CodeGroup>
+```typescript TypeScript
+const response = await fetch(
+  'https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176',
+  {
+    headers: {
+      'x-dialect-api-key': 'pk_demo'
+    }
+  }
+);
+
+const data = await response.json();
+console.log(data.positions);
+```
+
+```bash cURL
+curl 'https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176' \
+  --header 'x-dialect-api-key: pk_demo'
+```
+</CodeGroup>
+
+<Tip>
+Please note that the `pk_demo` key is for testing purposes only! Request your production API key by [getting in touch with us](https://form.typeform.com/to/aLMntdWJ).
+</Tip>
+
+Position data includes:
+
+- Current balance and USD value
+- Accumulated yield
+- Health factor for leveraged positions
+- Available actions
+- etc. 
+
+As of today we offer two endpoints that would allow you to track positions across protocols:
+<CardGroup cols={2}>
+  <Card
+    title="List Positions by Wallet"
+    icon="wallet"
+    href="/api-reference/positions/list-all-market-positions-by-wallet-address"
+  >
+    Get all positions for a wallet address across supported protocols
+  </Card>
+
+  <Card
+    title="Historical Position Data"
+    icon="chart-line"
+    href="/api-reference/positions/get-historical-position-snapshots"
+  >
+    Track position growth and portfolio analytics over time
+  </Card>
+</CardGroup>
+
+For more information about how to use the historical position data endpoint, please see the [Historical Position Data](/markets/history) guide.

@@ -1987,7 +1987,7 @@
       "get": {
         "operationId": "positionsV0Api.positionsHistory",
         "summary": "Get historical position snapshots",
-        "description": "Fetch position snapshots within a time range for a wallet address",
+        "description": "Fetch position snapshots within a time range for a wallet address\n\n<Note>\n**Learn More**: For detailed examples, resolution options, practical use cases, and how to interpret cumulative values, see our [Historical Position Data guide](/markets/history).\n</Note>",
         "tags": [
           "Positions"
         ],
