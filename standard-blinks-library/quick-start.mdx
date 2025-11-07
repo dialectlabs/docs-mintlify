@@ -1,0 +1,364 @@
+---
+title: "Getting Started with the Standard Blinks Library"
+sidebarTitle: "Quick Start"
+description: "Learn how to integrate Solana's top protocols into your application through pure HTTP requests."
+---
+
+The Standard Blinks Library (SBL) is a collection of APIs that return ready-to-sign transactions for major Solana protocols. By abstracting away the complexity of integrating these protocols through complex SDKs and maintaining these integrations, the SBL allows you to focus on building a seamless user experience.
+
+Each SBL API endpoint follows the [Solana Actions specification](https://solana.com/docs/advanced/actions) and provides:
+
+<CardGroup cols={3}>
+  <Card
+    title="Ready-to-Sign Transactions"
+    icon="signature"
+  >
+    APIs that return transaction data ready for user signing
+  </Card>
+
+  <Card
+    title="Rich UI Metadata"
+    icon="sparkles"
+  >
+    Optimized metadata for building beautiful user experiences
+  </Card>
+
+  <Card
+    title="Clear Error Handling"
+    icon="circle-exclamation"
+  >
+    User-friendly error messages for better debugging
+  </Card>
+</CardGroup>
+
+## What You'll Learn
+
+By the end of this guide, you'll understand how to:
+
+- Fetch blink metadata (titles, descriptions, parameters)
+- Build POST requests with user wallet addresses and parameters
+- Handle transaction responses
+- Sign and send transactions to Solana
+
+## Understanding Blinks
+
+Blinks (blockchain links) are URLs that return ready-to-sign transactions following the [Solana Actions specification](https://solana.com/docs/advanced/actions). They eliminate the need to integrate protocol-specific SDKs. For more information about blinks, please see the [Blinks](/blinks) section.
+
+You'll encounter blink URLs in several places:
+
+- **Markets API responses**: In the `actions` object (e.g., `actions.deposit.blinkUrl`)
+- **Direct protocol URLs**: Like `https://jupiter.dial.to/api/v0/swap/USDC-SOL`
+- **Standard Blinks Library**: A set of curated blinks from top Solana ecosystem projects
+
+On a high level, the process of using blinks is as follows:
+
+<Steps>
+  <Step title="GET Request">
+    Fetch metadata (title, description, parameters)
+  </Step>
+  <Step title="POST Request">
+    Submit wallet address + parameters → Get transaction
+  </Step>
+  <Step title="Sign Transaction">
+    Sign transaction with wallet → Send to blockchain
+  </Step>
+</Steps>
+
+## Step 1: Understand Blink Metadata (GET Request)
+
+Blink metadata provides the title, description, icon, and parameters needed to interact with a blink. This information helps you understand the link structure and can be used to build custom UIs (if you don't want to use our [UI components](/blinks/blinks-client/integrate/ui-components/blinks)).
+
+<Tip>
+**Tip:** All SBL blinks include an OpenAPI specification that lets you test them directly in your browser and explore the response structure. You can use these interactive docs instead of fetching metadata manually - jump to [Step 2](#step-2-execute-action-post-request) if you prefer this approach.
+</Tip>
+
+### Fetching Metadata Programmatically
+
+If you need to fetch metadata dynamically (e.g., for automation or custom integrations), use the following approach:
+
+<CodeGroup>
+```typescript TypeScript
+// Using Dialect API (recommended for caching and analytics)
+const blinkUrl = 'https://kamino.dial.to/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit';
+
+const encodedUrl = encodeURIComponent(blinkUrl);
+const response = await fetch(
+  `https://api.dial.to/v1/blink?apiUrl=${encodedUrl}`,
+  {
+    headers: {
+      'X-Blink-Client-Key': 'YOUR_SECRET_TOKEN' // Optional but recommended
+    }
+  }
+);
+
+const blink = await response.json();
+console.log(blink);
+```
+
+```bash cURL
+curl --request GET \
+  --url 'https://kamino.dial.to/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit' \
+  --header 'X-Blink-Client-Key: YOUR_SECRET_TOKEN'
+```
+</CodeGroup>
+
+<Note>
+The `X-Blink-Client-Key` can be requested in our [dashboard](https://dashboard.dialect.to/).
+</Note>
+
+### Response Structure
+
+The GET response contains all the information needed to render and interact with the blink:
+
+```json
+{
+  "title": "Deposit USDC in the USDC Prime on Kamino",
+  "description": "Deposit USDC into the USDC Prime vault on Kamino Lend and start earning",
+  "label": "Deposit",
+  "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/81e8dc76-5486-43d6-6dde-6551c563a400/public",
+  "links": {
+    "actions": [
+      {
+        "type": "transaction",
+        "href": "/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?percentage=25",
+        "label": "25%"
+      },
+      {
+        "type": "transaction",
+        "href": "/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?percentage=50",
+        "label": "50%"
+      },
+      {
+        "type": "transaction",
+        "href": "/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?percentage=100",
+        "label": "100%"
+      },
+      {
+        "type": "transaction",
+        "href": "/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?amount={amount}",
+        "label": "Deposit",
+        "parameters": [
+          {
+            "name": "amount",
+            "type": "number",
+            "label": "Enter the amount of USDC you'd like to deposit"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Understanding Actions
+
+The `links.actions` array contains available operations:
+
+1. **Button actions**: Pre-defined values (25%, 50%, 100%)
+   - Use the `href` directly in POST request
+   - No additional parameters needed
+
+2. **Parameter actions**: User-provided values (custom amounts)
+   - Check `parameters` array for input requirements
+   - Replace `{amount}` in `href` with user input (e.g., `?amount=100` for 100 USDC)
+
+## Step 2: Build the POST Request
+
+Once you know which action to execute, submit a POST request with the user's wallet address and the required parameters to return a transaction.
+
+### Percentage Actions
+
+Our example response supports total amounts as well as percentages. For the latter, you can use the `percentage` query parameter. The blink endpoint will automatically fetch the wallet balance and calculate the amount based on the percentage:
+
+<CodeGroup>
+```typescript TypeScript
+// User clicked "25%" button
+const actionHref = 'https://kamino.dial.to/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?percentage=25';
+
+const response = await fetch(actionHref, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Blink-Client-Key': 'YOUR_SECRET_TOKEN' // Optional
+  },
+  body: JSON.stringify({
+    type: 'transaction',
+    account: userWalletAddress // User's Solana public key
+  })
+});
+
+const { transaction } = await response.json();
+```
+
+```bash cURL
+curl --request POST \
+  --url 'https://kamino.dial.to/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?percentage=25' \
+  --header 'Content-Type: application/json' \
+  --header 'X-Blink-Client-Key: YOUR_SECRET_TOKEN' \
+  --data '{
+    "type": "transaction",
+    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+  }'
+```
+</CodeGroup>
+
+### Custom Input Actions
+
+The example response also supports custom input actions, in this case the user can enter the amount of USDC they want to deposit by using the `amount` query parameter:
+
+<CodeGroup>
+```typescript TypeScript
+// User entered custom amount: 100 USDC
+const actionHref = 'https://kamino.dial.to/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?amount=1';
+
+const response = await fetch(actionHref, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Blink-Client-Key': 'YOUR_SECRET_TOKEN'
+  },
+  body: JSON.stringify({
+    type: 'transaction',
+    account: userWalletAddress
+  })
+});
+
+const { transaction } = await response.json();
+```
+
+```bash cURL
+curl --request POST \
+  --url 'https://kamino.dial.to/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?amount=1' \
+  --header 'Content-Type: application/json' \
+  --header 'X-Blink-Client-Key: YOUR_SECRET_TOKEN' \
+  --data '{
+    "type": "transaction",
+    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+  }'
+```
+</CodeGroup>
+
+### POST Response
+
+The response contains a base64-encoded transaction ready for signing:
+
+```json
+{
+  "type": "transaction",
+  "transaction": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAHC07a3stN5LHJrX44cP1FkIaonITAwMLOb6DAY1dBfcLhWPJvNXgJFD8QSviSHc2JxT/h0dFC/yqkDHOxb5VYUMFaGZKRCAwKHlSddxWFAIzGEH4FyLwVVwt7M4L2Np+03fVAdgL/Bv0Dt1KkgYJwGWRNxeCjCtf61qfXk1d3sWh8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP2mzp9mGY3YcNiphvMGdcRvg+L1KDSHlS9dUFY+PvekmQd1hEb77JWicBufx19ba4tsUY8UD0L70PLRzkvX7/jJclj04kifG7PRApFI4NgwtaE5na/xCEBI572Nvp+FnYsBAXY9PlHxJuYVbehd6MYTBZuERo0No/6KKiJRzHAQTZCvHbiTnsNf+U2WQNV9zDJ5S7Phu2b9OuhJqE3NuUC7wPwLtHyi90xBEulKsTz6PGNOXcF+rLA80aI81+eHxzaUNiFAOS2lJOpGMvqjZ3pFwtPaG5kTwosVY/jH43egUHBgABAAsEGAEBCREAEQ0VEwsCARYYGAUJEA8UEhDyI8aJUuHytusJBwAAAAAACAgAAAAAAwwEFwhvEbn6PHom/ggIAAMMDgELCBgQzrDKEsjRs2z//////////woBBgABgunUZsNGfS6ysNnMvrR72/SV7hwbtHfQ2q+tA1+n6+QHBTEvMhMJAQcVBAsCBwYD",
+  "dialectExperimental": {
+    "reference": "5xAXf6wTbd2BMh76qqg9keqmqtGmU6Gw2GWkpdmaXHTU"
+  }
+}
+```
+
+## Step 3: Sign and Send the Transaction 
+
+After receiving the transaction from the POST request, simply sign and send it with your wallet. 
+
+```typescript
+import { Connection, VersionedTransaction } from '@solana/web3.js';
+
+// Deserialize the base64 transaction as it was 
+// returned and extracted in the previous step
+const transaction = VersionedTransaction.deserialize(
+  Buffer.from(transaction, 'base64')
+);
+
+// Update blockhash (recommended)
+const connection = new Connection('https://api.mainnet-beta.solana.com');
+const { blockhash } = await connection.getLatestBlockhash();
+transaction.message.recentBlockhash = blockhash;
+
+// Sign and send
+const signedTx = await wallet.signTransaction(transaction);
+const signature = await connection.sendRawTransaction(signedTx.serialize());
+
+console.log('Transaction successful:', signature);
+```
+
+<Warning>
+We recommend to **always update the recent blockhash** before signing. The transaction returned by the API may have an expired blockhash, which will cause the transaction to fail.
+</Warning>
+
+### Complete Code Example
+
+Here's a complete example that combines Steps 2 and 3:
+
+```typescript TypeScript
+import { Connection, VersionedTransaction } from '@solana/web3.js';
+
+async function depositUSDC(wallet, amount: number) {
+  try {
+    const connection = new Connection('https://api.mainnet-beta.solana.com');
+    
+    // Step 2: POST request to get transaction
+    const response = await fetch(
+      `https://kamino.dial.to/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?amount=${amount}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'transaction',
+          account: wallet.publicKey.toString(),
+        }),
+      }
+    );
+
+    const data = await response.json();
+    
+    // Step 3: Deserialize the transaction
+    const transaction = VersionedTransaction.deserialize(
+      Buffer.from(data.transaction, 'base64')
+    );
+    
+    // Update blockhash
+    const { blockhash } = await connection.getLatestBlockhash();
+    transaction.message.recentBlockhash = blockhash;
+    
+    // Sign and send
+    const signedTx = await wallet.signTransaction(transaction);
+    const signature = await connection.sendRawTransaction(signedTx.serialize());
+    
+    console.log('Transaction successful:', signature);
+    return signature;
+  } catch (error: any) {
+    throw new Error(`Deposit failed: ${error.message}`);
+  }
+}
+
+// Usage
+const signature = await depositUSDC(wallet, 100);
+console.log('Deposited 100 USDC:', signature);
+```
+
+## Advanced Topics
+
+### Multiple Transactions
+
+Some complex operations require multiple sequential transactions. The response will have `type: "transactions"` (plural) with an array:
+
+```json
+{
+  "type": "transactions",
+  "transactions": [
+    "transaction_1_base64",
+    "transaction_2_base64"
+  ],
+  "mode": "sequential"
+}
+```
+
+Sign and send each transaction in order, waiting for confirmation before proceeding to the next.
+
+<Note>
+Multiple transactions are experimental and not part of the official Solana Actions spec. See [Handling Multiple Transactions](/blinks/blinks-client/integrate/headless#handling-multiple-transactions-experimental) for details.
+</Note>
+
+### Action Chaining
+
+Some blinks support multi-step workflows where one action leads to another. This is useful for complex operations like opening a leveraged position. The response will include a `next` field with the URL for the next step.
+
+Learn more in the [Headless Integration guide](/blinks/blinks-client/integrate/headless#multi-step-blinks-action-chaining).

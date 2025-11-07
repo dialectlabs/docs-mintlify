@@ -218,7 +218,8 @@
           {
             "group": "GETTING STARTED",
             "pages": [
-              "standard-blinks-library/index"
+              "standard-blinks-library/index",
+              "standard-blinks-library/quick-start"
             ]
           },
           {
@@ -274,6 +275,7 @@
             "group": "GETTING STARTED",
             "pages": [
               "markets/index",
+              "markets/quick-start",
               "markets/history",
               "markets/rewards",
               "markets/supported-protocols"
