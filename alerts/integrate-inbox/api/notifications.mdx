@@ -63,8 +63,8 @@ curl -X GET "https://alerts-api.dial.to/v2/history?limit=25" \
   "notifications": [
     {
       "id": "notification-uuid",
-      "title": "Trade Executed! 📈",
-      "body": "Your buy order for 10 SOL has been executed at $142.50",
+      "title": "Swap Completed! 📈",
+      "body": "Successfully swapped 100 USDC to SOL",
       "image": "https://example.com/notification-image.png",
       "timestamp": "2024-01-15T10:30:00Z",
       "readAt": null,
@@ -76,14 +76,16 @@ curl -X GET "https://alerts-api.dial.to/v2/history?limit=25" \
       "actions": [
         {
           "type": "link",
-          "label": "View Trade",
-          "url": "https://soltrader.com/trades/123"
+          "label": "View on Solscan",
+          "url": "https://solscan.io/tx/3x7Kj9mNp..."
         }
       ],
       "data": {
-        "tradeId": "123",
-        "amount": "10",
-        "price": "142.50"
+        "type": "transaction",
+        "transactionId": "3x7Kj9mNp...",
+        "amount": "100",
+        "fromToken": "USDC",
+        "toToken": "SOL"
       }
     }
   ],
@@ -91,6 +93,43 @@ curl -X GET "https://alerts-api.dial.to/v2/history?limit=25" \
   "nextCursor": "eyJpZCI6ImFsZXJ0XzEyMyIsInRpbWVzdGFtcCI6MTcwNTMwNzQwMH0="
 }
 ```
+
+### Working with Custom Data
+
+The `data` field in notifications contains custom key-value pairs that were included when the [alert was sent](/alerts/send/api/send-messages#step-4%3A-custom-data). This data is perfect for implementing deep linking, passing transaction context, or routing users to specific screens in your application.
+
+**Example from the response above:**
+```json
+"data": {
+  "type": "transaction",
+  "transactionId": "3x7Kj9mNp...",
+  "amount": "100",
+  "fromToken": "USDC",
+  "toToken": "SOL"
+}
+```
+
+**Common use cases:**
+```typescript
+// Example 1: Navigate to transaction screen in your app
+if (notification.data?.type === 'transaction') {
+  navigateToTransaction({
+    transactionId: notification.data.transactionId,
+    amount: notification.data.amount,
+    fromToken: notification.data.fromToken,
+    toToken: notification.data.toToken
+  });
+}
+
+// Example 2: Open external block explorer
+if (notification.data?.transactionId) {
+  openExternalUrl(`https://solscan.io/tx/${notification.data.transactionId}`);
+}
+```
+
+<Note>
+The `data` object is optional. Not all notifications will include custom data. Always check if it exists before accessing its properties. For more information see also the [OpenAPI specification](/api-reference/integrate-an-inbox/get-notification-history)
+</Note>
 
 ### Pagination Example
 
