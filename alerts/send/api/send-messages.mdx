@@ -595,9 +595,85 @@ await fetch(`https://alerts-api.dial.to/v2/${appId}/send`, {
 </Tab>
 </Tabs>
 
-## Step 4: Topic-Based Messaging
+## Step 4: Custom Data
 
-### Send to Topic Subscribers
+The `data` parameter allows you to attach arbitrary key-value pairs to your alerts. This data is accessible in notification history and push notification payloads, enabling powerful use cases.
+
+**Common use cases:**
+- Deep linking to specific screens in your app
+- Transaction metadata for user reference
+- Custom actions and routing logic
+- Analytics and tracking identifiers
+
+**Validation rules:**
+- Property names: alphanumeric characters, underscores, and hyphens only (max 64 characters)
+- Property values: strings only (max 500 characters)
+
+<Tabs>
+<Tab title="curl">
+```bash {15-21}
+curl https://alerts-api.dial.to/v2/{appId}/send \
+  --request POST \
+  --header 'x-dialect-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "recipient": {
+      "type": "subscriber",
+      "walletAddress": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+    },
+    "channels": ["IN_APP", "PUSH"],
+    "message": {
+      "title": "Trade Executed Successfully",
+      "body": "Your swap of 100 USDC to SOL has been completed."
+    },
+    "data": {
+      "type": "transaction",
+      "transactionId": "3x7Kj9mNp...",
+      "amount": "100",
+      "fromToken": "USDC",
+      "toToken": "SOL"
+    }
+  }'
+```
+</Tab>
+<Tab title="TypeScript">
+```typescript {11-17}
+const alertWithData = {
+  recipient: {
+    type: 'subscriber',
+    walletAddress: '9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM'
+  },
+  channels: ['IN_APP', 'PUSH'],
+  message: {
+    title: 'Trade Executed Successfully',
+    body: 'Your swap of 100 USDC to SOL has been completed.'
+  },
+  data: {
+    type: 'transaction',
+    transactionId: '3x7Kj9mNp...',
+    amount: '100',
+    fromToken: 'USDC',
+    toToken: 'SOL'
+  }
+};
+
+await fetch(`https://alerts-api.dial.to/v2/${appId}/send`, {
+  method: 'POST',
+  headers: {
+    'x-dialect-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(alertWithData)
+});
+```
+</Tab>
+</Tabs>
+
+<Note>
+The `data` object is stored with the notification and can be retrieved later from the [notification history endpoint](/api-reference/integrate-an-inbox/get-notification-history). This makes it perfect for implementing deep linking or passing context to your application.
+</Note>
+
+## Step 5: Topic-Based Messaging
 
 If you've configured notification topics, you can send targeted messages to users who have subscribed to specific categories.
 
@@ -643,64 +719,6 @@ await fetch(`https://alerts-api.dial.to/v2/${appId}/send`, {
   },
   body: JSON.stringify(governanceUpdate)
 });
-```
-</Tab>
-</Tabs>
-
-## Step 5: Advanced Operations
-
-### Get Your Subscribers
-
-Retrieve a list of all wallet addresses currently subscribed to your application:
-
-**API Reference:** [`GET /v2/{appId}/subscribers`](https://alerts-api.dial.to/docs#tag/Application/GET/v2/%7BappId%7D/subscribers)
-
-<Tabs>
-<Tab title="curl">
-```bash
-curl https://alerts-api.dial.to/v2/{appId}/subscribers \
-  --request GET \
-  --header 'x-dialect-api-key: YOUR_API_KEY'
-```
-</Tab>
-<Tab title="TypeScript">
-```typescript
-const response = await fetch(`https://alerts-api.dial.to/v2/${appId}/subscribers`, {
-  method: 'GET',
-  headers: {
-    'x-dialect-api-key': 'YOUR_API_KEY'
-  }
-});
-
-const { subscribers } = await response.json();
-// subscribers: [{ walletAddress: "..." }, { walletAddress: "..." }]
-```
-</Tab>
-</Tabs>
-
-**Optional Parameters:**
-- `offset`: Pagination offset (default: 0)
-- `limit`: Pagination limit (default: 1000, max: 10000)
-
-<Tabs>
-<Tab title="curl">
-```bash
-# With pagination
-curl "https://alerts-api.dial.to/v2/{appId}/subscribers?offset=100&limit=50" \
-  --request GET \
-  --header 'x-dialect-api-key: YOUR_API_KEY'
-```
-</Tab>
-<Tab title="TypeScript">
-```typescript
-const response = await fetch(`https://alerts-api.dial.to/v2/${appId}/subscribers?offset=100&limit=50`, {
-  method: 'GET',
-  headers: {
-    'x-dialect-api-key': 'YOUR_API_KEY'
-  }
-});
-
-const { subscribers } = await response.json();
 ```
 </Tab>
 </Tabs>
