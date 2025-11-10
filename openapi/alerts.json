@@ -579,6 +579,26 @@
               "description": "Pagination limit",
               "example": 100
             }
+          },
+          {
+            "name": "walletAddress",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Single wallet address to filter by",
+                  "example": "6CxnSjtasq5Tzwb4b93AhLofXtiDvMpQ2vTkWdSZqTH7"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Multiple wallet addresses to filter by"
+                }
+              ]
+            }
           }
         ],
         "responses": {
@@ -604,10 +624,28 @@
                           "walletAddress"
                         ]
                       }
+                    },
+                    "offset": {
+                      "type": "number",
+                      "description": "Current pagination offset",
+                      "example": 0
+                    },
+                    "limit": {
+                      "type": "number",
+                      "description": "Current pagination limit",
+                      "example": 100
+                    },
+                    "count": {
+                      "type": "number",
+                      "description": "Total count of subscribers",
+                      "example": 150
                     }
                   },
                   "required": [
-                    "subscribers"
+                    "subscribers",
+                    "offset",
+                    "limit",
+                    "count"
                   ]
                 }
               }
@@ -1509,6 +1547,27 @@
                                   "type": "string",
                                   "format": "uri",
                                   "minLength": 1
+                                },
+                                "context": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "const": "position"
+                                    },
+                                    "apiUrl": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    },
+                                    "action": {
+                                      "type": "string",
+                                      "minLength": 1
+                                    }
+                                  },
+                                  "required": [
+                                    "type",
+                                    "apiUrl"
+                                  ]
                                 }
                               },
                               "required": [
@@ -1573,6 +1632,26 @@
                               "id",
                               "name"
                             ]
+                          },
+                          "data": {
+                            "type": "object",
+                            "propertyNames": {
+                              "type": "string",
+                              "pattern": "^[a-zA-Z0-9_-]+$",
+                              "minLength": 1,
+                              "maxLength": 64
+                            },
+                            "additionalProperties": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 500
+                            },
+                            "description": "Additional data to be sent with the alert. For push notifications, this data will be available in the notification payload and can be used by the app to handle the notification. Common use cases include deep linking, custom actions, or passing context to the app.",
+                            "example": {
+                              "type": "transaction",
+                              "transactionId": "123",
+                              "amount": "100"
+                            }
                           }
                         },
                         "required": [
