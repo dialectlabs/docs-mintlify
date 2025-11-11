@@ -86,7 +86,7 @@ const response = await fetch(
   `https://api.dial.to/v1/blink?apiUrl=${encodedUrl}`,
   {
     headers: {
-      'X-Blink-Client-Key': 'YOUR_SECRET_TOKEN' // Optional but recommended
+      'X-Blink-Client-Key': 'YOUR_SECRET_TOKEN' 
     }
   }
 );
@@ -179,7 +179,7 @@ const response = await fetch(actionHref, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'X-Blink-Client-Key': 'YOUR_SECRET_TOKEN' // Optional
+    'X-Blink-Client-Key': 'YOUR_SECRET_TOKEN'  
   },
   body: JSON.stringify({
     type: 'transaction',
