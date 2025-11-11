@@ -219,6 +219,7 @@
             "group": "GETTING STARTED",
             "pages": [
               "standard-blinks-library/index",
+              "standard-blinks-library/why-sbl",
               "standard-blinks-library/quick-start"
             ]
           },

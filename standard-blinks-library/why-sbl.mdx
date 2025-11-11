@@ -1,0 +1,112 @@
+---
+title: "Why Use the Standard Blinks Library?"
+sidebarTitle: "Why SBL?"
+description: "Build faster with production-ready APIs. No SDKs, no maintenance burden, just simple HTTP requests."
+---
+
+## Choose Life: APIs Over SDKs
+
+In crypto, we live at dog-year speed. Protocols ship fast, integrations need to be faster. But here's the challenge: every SDK you maintain, every programming language you support, creates a long chain of breaking changes.
+
+**Strong APIs are a win-win**
+
+<CardGroup cols={2}>
+  <Card title="For protocol teams" icon="code">
+    Build one great transaction endpoint that works everywhere
+  </Card>
+  <Card title="For integrators" icon="users">
+    Any developer, web2 or web3, can integrate with simple HTTP requests
+  </Card>
+</CardGroup>
+
+<Info>The best teams are switching to strong APIs instead of maintaining SDKs and the Standard Blinks Library brings this approach to Solana's top protocols.</Info>
+
+<iframe
+  width="100%"
+  height="400"
+  src="https://www.youtube.com/embed/OtiKPU_G-kI"
+  title="Scale or Die Accelerate 2025: Get to Market Faster with Blockchain Links (Bjoern Wagner | Dialect)"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+*Watch the full presentation from Accelerate 2025*
+
+## Why Choose the Standard Blinks Library?
+
+### Quality & Reliability
+
+<CardGroup cols={2}>
+  <Card title="Curated Protocols" icon="star">
+    Top Solana ecosystem projects you already know and love
+  </Card>
+  <Card title="OpenAPI Documentation" icon="book">
+    Interactive docs with examples that you can test directly in your browser
+  </Card>
+  <Card title="Daily Automated Tests" icon="circle-check">
+    Tests run across the Standard Blink Library to ensure Blinks remain operational
+  </Card>
+  <Card title="Production-Ready" icon="shield-check">
+    Optimized transactions with validation and error handling built-in
+  </Card>
+  <Card title="Zero Maintenance" icon="circle-xmark">
+    No SDKs to update, no breaking changes, no version conflicts
+  </Card>
+  <Card title="Regular Updates" icon="arrows-rotate">
+    New protocols and operations added weekly
+  </Card>
+</CardGroup>
+
+### Transactions as a Service
+
+Think of the SBL as **Transactions as a Service**. Instead of:
+- Installing heavy SDKs
+- Learning protocol-specific APIs
+- Managing dependencies across languages
+- Dealing with breaking changes
+
+You simply:
+- Make an HTTP request
+- Receive a ready-to-sign transaction
+- Sign it with any wallet
+
+**Every programming language can do this.** Mobile, web, backend. It doesn't matter. If it can make an HTTP request, it can integrate any protocol in the SBL.
+
+## How It Works
+
+<Steps>
+  <Step title="Find the Blink">
+    Browse the protocol-specific sections in the SBL to find the operation you need (swap, deposit, claim, repay, withdraw, etc.)
+  </Step>
+  <Step title="Fetch the Transaction">
+    Make a simple POST request with the user's wallet address. Get back a ready-to-sign transaction.
+  </Step>
+  <Step title="Sign and Send">
+    Sign the transaction with the user's wallet and send it to Solana. Done.
+  </Step>
+</Steps>
+
+The only difference between protocols is the URL. Everything else stays the same:
+
+```typescript {2,6}
+// Define your action - same pattern for any protocol
+const swapUsdcToSol = 'https://jupiter.dial.to/api/v0/swap/USDC-SOL/100'
+// const borrowSolOnJupiter = 'https://jupiter.dial.to/api/v0/lend/borrow/1/2433/borrow?percentage=90'
+// const lendUsdcOnKamino = 'https://kamino.dial.to/api/v0/lend/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/deposit?amount=100'
+
+const response = await fetch(swapUsdcToSol, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ account: userWalletAddress })
+});
+
+const { transaction } = await response.json();
+// That's it. Sign and send.
+```
+
+## Ready to Get Started?
+
+  <Card title="Quick Start Guide" icon="rocket" href="/standard-blinks-library/quick-start">
+    Build your first integration in 5 minutes
+  </Card>
