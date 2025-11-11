@@ -6,88 +6,28 @@ description: "Production-ready APIs to construct transactions for Solana's top p
 
 <img src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1750961824/dialect-docs/standard-blinks-library-landing.png" alt="Standard Blinks Library - Ready-to-use protocol endpoints" />
 
-The Standard Blinks Library (SBL) provides production-ready APIs for creating transactions with Solana's most popular protocols, including rich metadata for building interfaces around them. Instead of building integrations from scratch or learning complex protocol SDKs, use our tested and optimized endpoints to create reliable blockchain experiences.
+The Standard Blinks Library (SBL) provides production-ready APIs for creating transactions with Solana's most popular protocols. Instead of building integrations from scratch or learning complex protocol SDKs, use our tested endpoints to bring DeFi experiences into your app with simple HTTP requests.
 
 
-## What is the Standard Blinks Library?
+## Supported Protocols
 
-The SBL is a collection of APIs that return ready-to-sign transactions for major Solana protocols. Each endpoint follows the [Solana Actions specification](https://solana.com/docs/advanced/actions) and provides:
-
-<CardGroup cols={2}>
-  <Card title="APIs for Ready-to-Sign Transactions" icon="code">
-    With validated parameters
-  </Card>
-  <Card title="Optimized Metadata" icon="sparkles">
-    For rich UI experiences
-  </Card>
-  <Card title="Error Handling" icon="triangle-exclamation">
-    With clear user messages
-  </Card>
-  <Card title="Rate Limiting & Monitoring" icon="gauge">
-    Built-in protection and observability
-  </Card>
-</CardGroup>
-
-
-## What Protocols are Included in the Standard Blinks Library?
+We support major protocols like Jupiter, Kamino, Raydium, Orca, Meteora, and more. For the complete list of available integrations, visit our [Supported Protocols](/markets/supported-protocols) page or browse protocols in the left sidebar menu.
 
 <Tip>
-New protocols and capabilities are added every week. If you're looking for a specific integration and couldn't find it, [reach out to us](https://form.typeform.com/to/WlSWtZDY).
+Don't see what you're looking for? New protocols are added regularly—[request an integration](https://form.typeform.com/to/aLMntdWJ) and we'll help you get started.
 </Tip>
 
-- **Jupiter** - Token swaps, Lending
-- **Raydium** - CLMM pools, AMM pools, and RAY staking
-- **Orca** - Whirlpools (concentrated liquidity)
-- **Meteora** - Token launches and DLMM pools
-- **Kamino** - Lending, liquidity vaults, Multiply, and much more
-- **MarginFi** - Lending protocol
-- **Drift** - Strategy vaults
-- **Lulo** - Protected and boosted deposits
-- **Save** - Protected and boosted deposits
-- **and many more...**
 
-For a full list of supported protocols as well as the next protocols we're working on, check out the [Supported Protocols](/markets/supported-protocols) page.
+## Get Started
 
-
-## Getting Started
-
-Get up and running in under 5 minutes with zero SDK complexity. Just copy, paste, and customize.
-
-### APIs for Transactions
-
-Fetch ready-to-sign transactions for any supported protocol:
-
-```typescript
-// Fetch ready-to-sign transaction for swapping 100 USDC to SOL
-const response = await fetch('https://jupiter.dial.to/api/v0/swap/USDC-SOL/100', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ 
-    account: userPublicKey // User's wallet address
-  })
-});
-const { transaction } = await response.json();
-```
-
-### Out-of-the-Box UI Components
-
-Blockchain links come with a rich set of metadata that can be used to unfurl a set of interfaces and components with virtually zero code:
-
-```typescript
-import { Blink } from '@dialectlabs/blinks';
-
-// Render a component for swapping USDC to SOL
-<Blink url="https://jupiter.dial.to/api/v0/swap/USDC-SOL" />
-```
-
-**Low maintenance, high value**: Each endpoint handles protocol complexity, validation, and optimization so you can focus on your user experience. Ready-to-sign transactions come pre-validated with optimal parameters.
-
-Want to learn more about integration? Check out our [comprehensive integration guide](/blinks/blinks-client).
-
-## Support & Feedback
-
-- **Discord**: Join our [Discord community](https://discord.gg/saydialect) for support
-- **Issues**: Report bugs or request new protocols
-- **Contributions**: Help us expand the library with new endpoints
-
-Ready to start building? Choose a protocol from the API documentation.
+<CardGroup cols={3}>
+  <Card title="Why SBL?" icon="lightbulb" href="/standard-blinks-library/why-sbl">
+    Learn why teams are choosing APIs over SDKs for protocol integrations
+  </Card>
+  <Card title="Quick Start" icon="rocket" href="/standard-blinks-library/quick-start">
+    Build your first integration in 5 minutes with zero SDK complexity
+  </Card>
+  <Card title="Browse Protocols" icon="grid" href="/api-reference/swap/swap-token">
+    Explore ready-to-use APIs for swaps, lending, liquidity, and more
+  </Card>
+</CardGroup>
