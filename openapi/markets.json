@@ -2018,12 +2018,12 @@
           {
             "name": "endTime",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string",
               "format": "date-time",
               "x-native-type": "date",
-              "description": "End time of the snapshot. Date or datetime in RFC 3339 format",
+              "description": "End time of the snapshot. Date or datetime in RFC 3339 format. Defaults to current time if not provided",
               "default": "2025-10-09T23:59:59Z",
               "example": "2025-10-09T23:59:59Z"
             }
@@ -2087,7 +2087,8 @@
                               "type": {
                                 "enum": [
                                   "lending",
-                                  "yield"
+                                  "yield",
+                                  "loop"
                                 ]
                               },
                               "marketId": {
@@ -2107,6 +2108,46 @@
                                       "type": "number"
                                     },
                                     "amountUsd": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "amountTokenA": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "amountTokenAUsd": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "amountTokenB": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "amountTokenBUsd": {
                                       "anyOf": [
                                         {
                                           "type": "number"
