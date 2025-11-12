@@ -414,7 +414,7 @@
       "post": {
         "operationId": "v0.lending.lendingReserveWithdraw",
         "summary": "Market Reserve Withdraw",
-        "description": "Generate a transaction for withdrawing a token from Kamino's market reserve.",
+        "description": "Generate a transaction for withdrawing a token from Kamino's market reserve.\n\n<Note>If the withdrawal amount or percentage is >= 99.9%, a full withdrawal will be performed and the position will be automatically closed.</Note>",
         "tags": [
           "Markets"
         ],
@@ -452,7 +452,7 @@
               "type": "integer",
               "minimum": 0,
               "maximum": 100,
-              "description": "The percentage of funds to use",
+              "description": "The percentage of funds to use. If percentage is >= 99.9%, a full withdrawal will be performed",
               "default": 10,
               "example": 10
             }
@@ -465,7 +465,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human-readable value, e.g. 0.1 SOL",
+              "description": "The amount to use. Human-readable value, e.g. 0.1 SOL. If amount is close to the deposited amount (99.9%), the full amount will be withdrawn",
               "examples": [
                 0.5
               ]
@@ -3938,7 +3938,7 @@
       "post": {
         "operationId": "v0.lend.lendVaultWithdraw",
         "summary": "Lend vault withdraw operation",
-        "description": "Execute a withdraw operation",
+        "description": "Execute a withdraw operation\n\n<Note>If the withdrawal amount or percentage is >= 99.9%, a full withdrawal will be performed and the position will be automatically closed.</Note>",
         "tags": [
           "Lend"
         ],
@@ -3963,7 +3963,7 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 100,
-              "description": "The percentage of funds to use",
+              "description": "The percentage of funds to use. If percentage is >= 99.9%, a full withdrawal will be performed",
               "default": 10,
               "example": 10
             },
@@ -3976,7 +3976,7 @@
             "schema": {
               "type": "number",
               "minimum": 0,
-              "description": "The amount to use. Human readable value, e.g. 0.1 SOL"
+              "description": "The amount to use. Human readable value, e.g. 0.1 SOL. If amount is close to the deposited amount (>= 99.9%), a full withdrawal will be performed"
             },
             "allowEmptyValue": true,
             "allowReserved": true
