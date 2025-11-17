@@ -43,7 +43,8 @@
                 "lulo",
                 "marginfi",
                 "jupiter",
-                "defituna"
+                "defituna",
+                "carrot"
               ]
             }
           }
@@ -78,7 +79,9 @@
                                       "kamino",
                                       "lulo",
                                       "marginfi",
-                                      "jupiter"
+                                      "jupiter",
+                                      "defituna",
+                                      "carrot"
                                     ]
                                   },
                                   "name": {
@@ -178,6 +181,18 @@
                                 "type": "number",
                                 "description": "APY percentage ratio excluding rewards"
                               },
+                              "baseDepositApy30d": {
+                                "type": "number",
+                                "description": "30-day average APY percentage ratio excluding rewards"
+                              },
+                              "baseDepositApy90d": {
+                                "type": "number",
+                                "description": "90-day average APY percentage ratio excluding rewards"
+                              },
+                              "baseDepositApy180d": {
+                                "type": "number",
+                                "description": "180-day average APY percentage ratio excluding rewards"
+                              },
                               "borrowApy": {
                                 "type": "number",
                                 "description": "Total percentage ratio APY **including** rewards"
@@ -185,6 +200,18 @@
                               "baseBorrowApy": {
                                 "type": "number",
                                 "description": "APY percentage ratio excluding rewards"
+                              },
+                              "baseBorrowApy30d": {
+                                "type": "number",
+                                "description": "30-day average APY percentage ratio excluding rewards"
+                              },
+                              "baseBorrowApy90d": {
+                                "type": "number",
+                                "description": "90-day average APY percentage ratio excluding rewards"
+                              },
+                              "baseBorrowApy180d": {
+                                "type": "number",
+                                "description": "180-day average APY percentage ratio excluding rewards"
                               },
                               "totalDeposit": {
                                 "type": "number"
@@ -363,6 +390,42 @@
                                     "required": [
                                       "blinkUrl"
                                     ]
+                                  },
+                                  "borrow": {
+                                    "type": "object",
+                                    "properties": {
+                                      "blinkUrl": {
+                                        "type": "string",
+                                        "pattern": "^blink:.*"
+                                      }
+                                    },
+                                    "required": [
+                                      "blinkUrl"
+                                    ]
+                                  },
+                                  "repay": {
+                                    "type": "object",
+                                    "properties": {
+                                      "blinkUrl": {
+                                        "type": "string",
+                                        "pattern": "^blink:.*"
+                                      }
+                                    },
+                                    "required": [
+                                      "blinkUrl"
+                                    ]
+                                  },
+                                  "repayWithCollateral": {
+                                    "type": "object",
+                                    "properties": {
+                                      "blinkUrl": {
+                                        "type": "string",
+                                        "pattern": "^blink:.*"
+                                      }
+                                    },
+                                    "required": [
+                                      "blinkUrl"
+                                    ]
                                   }
                                 },
                                 "additionalProperties": true
@@ -402,7 +465,9 @@
                                       "kamino",
                                       "lulo",
                                       "marginfi",
-                                      "jupiter"
+                                      "jupiter",
+                                      "defituna",
+                                      "carrot"
                                     ]
                                   },
                                   "name": {
@@ -458,6 +523,80 @@
                               "baseDepositApy": {
                                 "type": "number"
                               },
+                              "baseDepositApy30d": {
+                                "type": "number",
+                                "description": "30-day average APY excluding rewards"
+                              },
+                              "baseDepositApy90d": {
+                                "type": "number",
+                                "description": "90-day average APY excluding rewards"
+                              },
+                              "baseDepositApy180d": {
+                                "type": "number",
+                                "description": "180-day average APY excluding rewards"
+                              },
+                              "totalDeposit": {
+                                "type": "number",
+                                "description": "Total amount deposited in the vault"
+                              },
+                              "totalDepositUsd": {
+                                "type": "number",
+                                "description": "Total value of deposits in USD"
+                              },
+                              "rewards": {
+                                "type": "array",
+                                "description": "Available rewards for this yield market",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "const": "deposit"
+                                    },
+                                    "apy": {
+                                      "type": "number"
+                                    },
+                                    "token": {
+                                      "type": "object",
+                                      "properties": {
+                                        "address": {
+                                          "type": "string"
+                                        },
+                                        "symbol": {
+                                          "type": "string"
+                                        },
+                                        "decimals": {
+                                          "type": "number"
+                                        },
+                                        "icon": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "address",
+                                        "symbol",
+                                        "decimals",
+                                        "icon"
+                                      ]
+                                    },
+                                    "marketAction": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "type",
+                                    "apy",
+                                    "token",
+                                    "marketAction"
+                                  ]
+                                }
+                              },
                               "additionalData": {
                                 "type": "object",
                                 "propertyNames": {
@@ -503,6 +642,18 @@
                                     "required": [
                                       "blinkUrl"
                                     ]
+                                  },
+                                  "claimRewards": {
+                                    "type": "object",
+                                    "properties": {
+                                      "blinkUrl": {
+                                        "type": "string",
+                                        "pattern": "^blink:.*"
+                                      }
+                                    },
+                                    "required": [
+                                      "blinkUrl"
+                                    ]
                                   }
                                 },
                                 "additionalProperties": true
@@ -535,7 +686,9 @@
                                       "kamino",
                                       "lulo",
                                       "marginfi",
-                                      "jupiter"
+                                      "jupiter",
+                                      "defituna",
+                                      "carrot"
                                     ]
                                   },
                                   "name": {
@@ -618,8 +771,32 @@
                               "depositApy": {
                                 "type": "number"
                               },
+                              "depositApy30d": {
+                                "type": "number",
+                                "description": "30-day average deposit APY"
+                              },
+                              "depositApy90d": {
+                                "type": "number",
+                                "description": "90-day average deposit APY"
+                              },
+                              "depositApy180d": {
+                                "type": "number",
+                                "description": "180-day average deposit APY"
+                              },
                               "maxLeverage": {
                                 "type": "number"
+                              },
+                              "maxLtv": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100,
+                                "description": "Maximum Loan-to-Value allowed when borrowing, expressed as a percentage of deposited value"
+                              },
+                              "liquidationLtv": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100,
+                                "description": "Loan-to-Value percentage ratio of deposited value at which the position becomes liquidatable"
                               },
                               "additionalData": {
                                 "type": "object",
@@ -699,7 +876,9 @@
                                       "kamino",
                                       "lulo",
                                       "marginfi",
-                                      "jupiter"
+                                      "jupiter",
+                                      "defituna",
+                                      "carrot"
                                     ]
                                   },
                                   "name": {
@@ -980,7 +1159,8 @@
                                   "lulo",
                                   "marginfi",
                                   "jupiter",
-                                  "defituna"
+                                  "defituna",
+                                  "carrot"
                                 ]
                               },
                               "name": {
@@ -1080,6 +1260,18 @@
                             "type": "number",
                             "description": "APY excluding rewards"
                           },
+                          "baseDepositApy30d": {
+                            "type": "number",
+                            "description": "30-day average APY excluding rewards"
+                          },
+                          "baseDepositApy90d": {
+                            "type": "number",
+                            "description": "90-day average APY excluding rewards"
+                          },
+                          "baseDepositApy180d": {
+                            "type": "number",
+                            "description": "180-day average APY excluding rewards"
+                          },
                           "borrowApy": {
                             "type": "number",
                             "description": "Total APY **including** rewards"
@@ -1087,6 +1279,18 @@
                           "baseBorrowApy": {
                             "type": "number",
                             "description": "APY excluding rewards"
+                          },
+                          "baseBorrowApy30d": {
+                            "type": "number",
+                            "description": "30-day average APY excluding rewards"
+                          },
+                          "baseBorrowApy90d": {
+                            "type": "number",
+                            "description": "90-day average APY excluding rewards"
+                          },
+                          "baseBorrowApy180d": {
+                            "type": "number",
+                            "description": "180-day average APY excluding rewards"
                           },
                           "totalDeposit": {
                             "type": "number"
@@ -1265,6 +1469,42 @@
                                 "required": [
                                   "blinkUrl"
                                 ]
+                              },
+                              "borrow": {
+                                "type": "object",
+                                "properties": {
+                                  "blinkUrl": {
+                                    "type": "string",
+                                    "pattern": "^blink:.*"
+                                  }
+                                },
+                                "required": [
+                                  "blinkUrl"
+                                ]
+                              },
+                              "repay": {
+                                "type": "object",
+                                "properties": {
+                                  "blinkUrl": {
+                                    "type": "string",
+                                    "pattern": "^blink:.*"
+                                  }
+                                },
+                                "required": [
+                                  "blinkUrl"
+                                ]
+                              },
+                              "repayWithCollateral": {
+                                "type": "object",
+                                "properties": {
+                                  "blinkUrl": {
+                                    "type": "string",
+                                    "pattern": "^blink:.*"
+                                  }
+                                },
+                                "required": [
+                                  "blinkUrl"
+                                ]
                               }
                             },
                             "additionalProperties": true
@@ -1307,7 +1547,8 @@
                                   "lulo",
                                   "marginfi",
                                   "jupiter",
-                                  "defituna"
+                                  "defituna",
+                                  "carrot"
                                 ]
                               },
                               "name": {
@@ -1363,6 +1604,80 @@
                           "baseDepositApy": {
                             "type": "number"
                           },
+                          "baseDepositApy30d": {
+                            "type": "number",
+                            "description": "30-day average APY excluding rewards"
+                          },
+                          "baseDepositApy90d": {
+                            "type": "number",
+                            "description": "90-day average APY excluding rewards"
+                          },
+                          "baseDepositApy180d": {
+                            "type": "number",
+                            "description": "180-day average APY excluding rewards"
+                          },
+                          "totalDeposit": {
+                            "type": "number",
+                            "description": "Total amount deposited in the vault"
+                          },
+                          "totalDepositUsd": {
+                            "type": "number",
+                            "description": "Total value of deposits in USD"
+                          },
+                          "rewards": {
+                            "type": "array",
+                            "description": "Available rewards for this yield market",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "deposit"
+                                },
+                                "apy": {
+                                  "type": "number"
+                                },
+                                "token": {
+                                  "type": "object",
+                                  "properties": {
+                                    "address": {
+                                      "type": "string"
+                                    },
+                                    "symbol": {
+                                      "type": "string"
+                                    },
+                                    "decimals": {
+                                      "type": "number"
+                                    },
+                                    "icon": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "address",
+                                    "symbol",
+                                    "decimals",
+                                    "icon"
+                                  ]
+                                },
+                                "marketAction": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "apy",
+                                "token",
+                                "marketAction"
+                              ]
+                            }
+                          },
                           "additionalData": {
                             "type": "object",
                             "propertyNames": {
@@ -1398,6 +1713,18 @@
                                 ]
                               },
                               "withdrawComplete": {
+                                "type": "object",
+                                "properties": {
+                                  "blinkUrl": {
+                                    "type": "string",
+                                    "pattern": "^blink:.*"
+                                  }
+                                },
+                                "required": [
+                                  "blinkUrl"
+                                ]
+                              },
+                              "claimRewards": {
                                 "type": "object",
                                 "properties": {
                                   "blinkUrl": {
@@ -1444,7 +1771,8 @@
                                   "lulo",
                                   "marginfi",
                                   "jupiter",
-                                  "defituna"
+                                  "defituna",
+                                  "carrot"
                                 ]
                               },
                               "name": {
@@ -1527,8 +1855,32 @@
                           "depositApy": {
                             "type": "number"
                           },
+                          "depositApy30d": {
+                            "type": "number",
+                            "description": "30-day average deposit APY"
+                          },
+                          "depositApy90d": {
+                            "type": "number",
+                            "description": "90-day average deposit APY"
+                          },
+                          "depositApy180d": {
+                            "type": "number",
+                            "description": "180-day average deposit APY"
+                          },
                           "maxLeverage": {
                             "type": "number"
+                          },
+                          "maxLtv": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "description": "Maximum Loan-to-Value allowed when borrowing, expressed as a percentage of deposited value"
+                          },
+                          "liquidationLtv": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "description": "Loan-to-Value percentage ratio of deposited value at which the position becomes liquidatable"
                           },
                           "additionalData": {
                             "type": "object",
@@ -1612,7 +1964,8 @@
                                   "lulo",
                                   "marginfi",
                                   "jupiter",
-                                  "defituna"
+                                  "defituna",
+                                  "carrot"
                                 ]
                               },
                               "name": {
@@ -2081,7 +2434,8 @@
                                   "lulo",
                                   "marginfi",
                                   "jupiter",
-                                  "defituna"
+                                  "defituna",
+                                  "carrot"
                                 ]
                               },
                               "type": {
@@ -2392,7 +2746,9 @@
                                           "kamino",
                                           "lulo",
                                           "marginfi",
-                                          "jupiter"
+                                          "jupiter",
+                                          "defituna",
+                                          "carrot"
                                         ]
                                       },
                                       "name": {
@@ -2450,6 +2806,18 @@
                                     "type": "number",
                                     "description": "APY excluding rewards"
                                   },
+                                  "baseDepositApy30d": {
+                                    "type": "number",
+                                    "description": "30-day average APY excluding rewards"
+                                  },
+                                  "baseDepositApy90d": {
+                                    "type": "number",
+                                    "description": "90-day average APY excluding rewards"
+                                  },
+                                  "baseDepositApy180d": {
+                                    "type": "number",
+                                    "description": "180-day average APY excluding rewards"
+                                  },
                                   "borrowApy": {
                                     "type": "number",
                                     "description": "Total APY **including** rewards"
@@ -2457,6 +2825,18 @@
                                   "baseBorrowApy": {
                                     "type": "number",
                                     "description": "APY excluding rewards"
+                                  },
+                                  "baseBorrowApy30d": {
+                                    "type": "number",
+                                    "description": "30-day average APY excluding rewards"
+                                  },
+                                  "baseBorrowApy90d": {
+                                    "type": "number",
+                                    "description": "90-day average APY excluding rewards"
+                                  },
+                                  "baseBorrowApy180d": {
+                                    "type": "number",
+                                    "description": "180-day average APY excluding rewards"
                                   },
                                   "totalDeposit": {
                                     "type": "number"
@@ -2653,6 +3033,42 @@
                                         "required": [
                                           "blinkUrl"
                                         ]
+                                      },
+                                      "borrow": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blinkUrl": {
+                                            "type": "string",
+                                            "pattern": "^blink:.*"
+                                          }
+                                        },
+                                        "required": [
+                                          "blinkUrl"
+                                        ]
+                                      },
+                                      "repay": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blinkUrl": {
+                                            "type": "string",
+                                            "pattern": "^blink:.*"
+                                          }
+                                        },
+                                        "required": [
+                                          "blinkUrl"
+                                        ]
+                                      },
+                                      "repayWithCollateral": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blinkUrl": {
+                                            "type": "string",
+                                            "pattern": "^blink:.*"
+                                          }
+                                        },
+                                        "required": [
+                                          "blinkUrl"
+                                        ]
                                       }
                                     }
                                   }
@@ -2751,7 +3167,9 @@
                                           "kamino",
                                           "lulo",
                                           "marginfi",
-                                          "jupiter"
+                                          "jupiter",
+                                          "defituna",
+                                          "carrot"
                                         ]
                                       },
                                       "name": {
@@ -2807,6 +3225,80 @@
                                   "baseDepositApy": {
                                     "type": "number"
                                   },
+                                  "baseDepositApy30d": {
+                                    "type": "number",
+                                    "description": "30-day average APY excluding rewards"
+                                  },
+                                  "baseDepositApy90d": {
+                                    "type": "number",
+                                    "description": "90-day average APY excluding rewards"
+                                  },
+                                  "baseDepositApy180d": {
+                                    "type": "number",
+                                    "description": "180-day average APY excluding rewards"
+                                  },
+                                  "totalDeposit": {
+                                    "type": "number",
+                                    "description": "Total amount deposited in the vault"
+                                  },
+                                  "totalDepositUsd": {
+                                    "type": "number",
+                                    "description": "Total value of deposits in USD"
+                                  },
+                                  "rewards": {
+                                    "type": "array",
+                                    "description": "Available rewards for this yield market",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "const": "deposit"
+                                        },
+                                        "apy": {
+                                          "type": "number"
+                                        },
+                                        "token": {
+                                          "type": "object",
+                                          "properties": {
+                                            "address": {
+                                              "type": "string"
+                                            },
+                                            "symbol": {
+                                              "type": "string"
+                                            },
+                                            "decimals": {
+                                              "type": "number"
+                                            },
+                                            "icon": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "string"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "address",
+                                            "symbol",
+                                            "decimals",
+                                            "icon"
+                                          ]
+                                        },
+                                        "marketAction": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type",
+                                        "apy",
+                                        "token",
+                                        "marketAction"
+                                      ]
+                                    }
+                                  },
                                   "additionalData": {
                                     "type": "object",
                                     "propertyNames": {
@@ -2842,6 +3334,18 @@
                                         ]
                                       },
                                       "withdrawComplete": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blinkUrl": {
+                                            "type": "string",
+                                            "pattern": "^blink:.*"
+                                          }
+                                        },
+                                        "required": [
+                                          "blinkUrl"
+                                        ]
+                                      },
+                                      "claimRewards": {
                                         "type": "object",
                                         "properties": {
                                           "blinkUrl": {
