@@ -28,21 +28,13 @@
     "url": "https://discord.gg/saydialect"
   },
   "contextual": {
-    "options": [
-      "copy",
-      "chatgpt",
-      "claude",
-      "cursor",
-      "mcp"
-    ]
+    "options": ["copy", "chatgpt", "claude", "cursor", "mcp"]
   },
   "navigation": {
     "tabs": [
       {
         "tab": "Introduction",
-        "pages": [
-          "index"
-        ]
+        "pages": ["index"]
       },
       {
         "tab": "Alerts & Events",
@@ -115,9 +107,7 @@
           },
           {
             "group": "MOBILE ALERTS STACK",
-            "pages": [
-              "alerts/mobile-alerts/index"
-            ]
+            "pages": ["alerts/mobile-alerts/index"]
           },
           {
             "group": "EVENTS (Beta)",
@@ -148,25 +138,23 @@
         "groups": [
           {
             "group": "GETTING STARTED",
-            "pages": [
-              "blinks/index"
-            ]
+            "pages": ["blinks/index"]
           },
           {
             "group": "CLIENT",
             "pages": [
               "blinks/blinks-client/index",
-                  "blinks/blinks-client/integrate/headless/index",
-                  {
-                    "group": "UI Components",
-                    "pages": [
-                      "blinks/blinks-client/integrate/ui-components/blinks",
-                      "blinks/blinks-client/integrate/ui-components/miniblinks",
-                      "blinks/blinks-client/integrate/ui-components/styling"
-                    ]
-                  },
-                  "blinks/blinks-client/integrate/chrome/index"
-                ] 
+              "blinks/blinks-client/integrate/headless/index",
+              {
+                "group": "UI Components",
+                "pages": [
+                  "blinks/blinks-client/integrate/ui-components/blinks",
+                  "blinks/blinks-client/integrate/ui-components/miniblinks",
+                  "blinks/blinks-client/integrate/ui-components/styling"
+                ]
+              },
+              "blinks/blinks-client/integrate/chrome/index"
+            ]
           },
           {
             "group": "PROVIDER (API)",
@@ -240,6 +228,10 @@
             "openapi": "./openapi/defituna.json"
           },
           {
+            "group": "DEFICARROT",
+            "openapi": "./openapi/deficarrot.json"
+          },
+          {
             "group": "DRIFT",
             "openapi": "./openapi/drift.json"
           },
@@ -287,15 +279,11 @@
       },
       {
         "tab": "MCP",
-        "pages": [
-          "mcp-server/index"
-        ]
+        "pages": ["mcp-server/index"]
       },
       {
         "tab": "Release Notes",
-        "pages": [
-          "release-notes/index"
-        ]
+        "pages": ["release-notes/index"]
       }
     ]
   },

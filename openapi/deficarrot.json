@@ -1,0 +1,536 @@
+{
+  "info": {
+    "title": "Deficarrot API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://deficarrot.dial.to/api"
+    }
+  ],
+  "openapi": "3.1.1",
+  "paths": {
+    "/v0/mint/{poolToken}": {
+      "get": {
+        "operationId": "mint.getMintBlink",
+        "summary": "Get mint blink",
+        "description": "Get a blink for mint operations",
+        "tags": [
+          "Mint"
+        ],
+        "parameters": [
+          {
+            "name": "poolToken",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Supported token address or label",
+              "examples": [
+                "PYUSD",
+                "USDT",
+                "USDC",
+                "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+                "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "mint.mint",
+        "summary": "Mint operation",
+        "description": "Execute a mint operation",
+        "tags": [
+          "Mint"
+        ],
+        "parameters": [
+          {
+            "name": "poolToken",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Supported token address or label",
+              "example": "USDC",
+              "default": "USDC",
+              "examples": [
+                "USDC",
+                "PYUSD",
+                "USDT",
+                "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+                "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of funds to use (alternative to amount)",
+              "default": 50,
+              "example": 50
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to use. Human-readable value, e.g. 0.1 USDC"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              },
+              "examples": {
+                "mint": {
+                  "summary": "Mint transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/redeem/{poolToken}": {
+      "get": {
+        "operationId": "redeem.getRedeemBlink",
+        "summary": "Get redeem blink",
+        "description": "Get a blink for redeem operations. Please note that the amount you redeem will be the amount of the stable coin you input, not the amount of the CRT token you will receive. Also there might be a small difference in the amount you receive due to the price of the stable coin and the CRT token and a withdrawal fee. Please check protocol documentation for more details.",
+        "tags": [
+          "Redeem"
+        ],
+        "parameters": [
+          {
+            "name": "poolToken",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Supported token address or label",
+              "examples": [
+                "PYUSD",
+                "USDT",
+                "USDC",
+                "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+                "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "redeem.redeem",
+        "summary": "Redeem operation",
+        "description": "Execute a redeem operation",
+        "tags": [
+          "Redeem"
+        ],
+        "parameters": [
+          {
+            "name": "poolToken",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Supported token address or label",
+              "example": "USDC",
+              "default": "USDC",
+              "examples": [
+                "USDC",
+                "PYUSD",
+                "USDT",
+                "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+                "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              ]
+            }
+          },
+          {
+            "name": "percentage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "The percentage of funds to use (alternative to amount)",
+              "default": 50,
+              "example": 50
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to use. Human-readable value, e.g. 0.1 USDC"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
+                    "example": "transaction",
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              },
+              "examples": {
+                "redeem": {
+                  "summary": "Redeem transaction",
+                  "value": {
+                    "type": "transaction",
+                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
