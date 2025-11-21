@@ -1,0 +1,159 @@
+---
+title: "Lend Earn"
+description: "Earn passive income with your assets using Jupiter Lend."
+sidebarTitle: "Earn"
+---
+
+Our APIs give you the full picture of the Jupiter Lend market. It starts with reading the market rates, over depositing assets, tracking your positions, and withdrawing your assets.
+
+## Reading Data
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/v1763754892/jupiter-lend-earn-position_ghnecy.png"
+  alt="Jupiter Lend Earn Action"
+/>
+
+<Note>
+  Please be aware that the `pk_demo` key is for testing purposes only! Request
+  your production API key by [getting in touch with
+  us](https://form.typeform.com/to/aLMntdWJ).
+</Note>
+
+### Market Info
+
+To fetch the latest market rates, you can use our Markets API with the `jupiter` provider:
+
+<CodeGroup>
+
+```bash curl
+curl -X GET "https://markets.dial.to/api/v0/markets?type=yield&provider=jupiter" \
+  -H "x-dialect-api-key: pk_demo"
+```
+
+```typescript TypeScript
+const response = await fetch(
+  "  --url 'https://markets.dial.to/api/v0/markets?type=yield&provider=jupiter' \
+",
+  {
+    headers: {
+      "x-dialect-api-key": "pk_demo",
+    },
+  }
+);
+```
+
+</CodeGroup>
+
+For more information on how to use the market data, please see the [Understanding Market Data](/markets/quick-start#understanding-market-data) guide.
+
+### Positions
+
+To track your Jupiter Earn positions, use the Markets API. The response includes positions from all protocols, so you'll need to filter for Jupiter yield positions.
+
+<CodeGroup>
+
+```bash curl
+curl --request GET \
+  --url 'https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176' \
+  --header 'x-dialect-api-key: pk_demo'
+```
+
+```typescript TypeScript
+const response = await fetch(
+  "https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+  {
+    method: "GET",
+    headers: {
+      "x-dialect-api-key": "pk_demo",
+    },
+  }
+);
+
+// Filter for Jupiter yield positions
+const data = await response.json();
+const jupiterEarnPositions = data.positions.filter(
+  (pos) => pos.type === "yield" && pos.market.provider.id === "jupiter"
+);
+```
+
+</CodeGroup>
+
+<Check>
+  Please note that we offer a second endoint that would allow you to track
+  **historical position data**, so that you can see how your positions have
+  changed over time. For more information, please see the [Historical Position
+  Data](/markets/history) guide.
+</Check>
+
+## Actions
+
+Depending on the market type you will be able to take various actions. The Markets and Positions APIs will return you the blink URLs for each available action, but you can also look in the API reference section below.
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/v1763754041/jupiter-lend-earn-action_wau67k.png"
+  alt="Jupiter Lend Earn Action"
+/>
+
+### Deposit Assets
+
+To deposit assets, you can use our [Deposit API](/api-reference/lend-earn/deposit) that will return you a ready-to-sign transaction.
+
+<CodeGroup>
+
+```bash curl
+curl --request POST \
+  --url 'https://jupiter.dial.to/api/v0/lend/earn/USDC/deposit?percentage=10' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+}'
+```
+
+```typescript TypeScript
+const response = await fetch(
+  "https://jupiter.dial.to/api/v0/lend/earn/USDC/deposit?percentage=10",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      account: "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+    }),
+  }
+);
+```
+
+</CodeGroup>
+
+### Withdraw Assets
+
+To withdraw assets, you can use our [Withdraw API](/api-reference/lend-earn/withdraw) endpoint.
+
+<CodeGroup>
+
+```bash curl
+curl --request POST \
+  --url 'https://jupiter.dial.to/api/v0/lend/earn/USDC/withdraw?percentage=10' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+}'
+```
+
+```typescript TypeScript
+const response = await fetch(
+  "https://jupiter.dial.to/api/v0/lend/earn/USDC/withdraw?percentage=10",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      account: "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+    }),
+  }
+);
+```
+
+</CodeGroup>

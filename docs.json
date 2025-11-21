@@ -213,11 +213,18 @@
           },
           {
             "group": "JUPITER",
-            "icon": "https://res.cloudinary.com/dnxjhra4h/image/upload/v1763721553/jupiter-icon_lhjgb3.png",
+            "icon": "https://jup.ag/favicon.ico",
             "pages": [
               "standard-blinks-library/jupiter/index",
               "standard-blinks-library/jupiter/swap",
-              "standard-blinks-library/jupiter/lend",
+              {
+                "group": "Lend",
+                "pages": [
+                  "standard-blinks-library/jupiter/lend",
+                  "standard-blinks-library/jupiter/earn",
+                  "standard-blinks-library/jupiter/borrow"
+                ]
+              },
               {
                 "group": "API Reference",
                 "openapi": "./openapi/jupiter.json",
@@ -259,51 +266,6 @@
                 ]
               }
             ]
-          },
-          {
-            "group": "RAYDIUM",
-            "openapi": "./openapi/raydium.json"
-          },
-          {
-            "group": "SAVE",
-            "openapi": "./openapi/save.json"
-          },
-          {
-            "group": "DEFITUNA",
-            "openapi": "./openapi/defituna.json"
-          },
-          {
-            "group": "DEFICARROT",
-            "openapi": "./openapi/deficarrot.json"
-          },
-          {
-            "group": "DRIFT",
-            "openapi": "./openapi/drift.json"
-          },
-          {
-            "group": "KAMINO",
-            "pages": ["standard-blinks-library/kamino/index"],
-            "openapi": "./openapi/kamino.json"
-          },
-          {
-            "group": "LULO",
-            "openapi": "./openapi/lulo.json"
-          },
-          {
-            "group": "MARGINFI",
-            "openapi": "./openapi/marginfi.json"
-          },
-          {
-            "group": "METEORA",
-            "openapi": "./openapi/meteora.json"
-          },
-          {
-            "group": "ORCA",
-            "openapi": "./openapi/orca.json"
-          },
-          {
-            "group": "SOLANA",
-            "openapi": "./openapi/solana.json"
           }
         ]
       },

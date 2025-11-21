@@ -1,5 +1,44 @@
 ---
-title: "Swap Tokens with Jupiter"
-description: "Learn how to swap tokens with Jupiter in your application"
-sidebarTitle: "Swap Tokens"
+title: "Swap"
+description: "Swap any token pair in your application using Jupiter."
+sidebarTitle: "Swap"
 ---
+
+Our Jupiter Swap API enables you to execute token swaps directly in your application with just a few lines of code.
+
+## Execute Swap
+
+To execute a swap, use our [Swap API](/api-reference/swap/execute) that will return you a ready-to-sign transaction.
+
+<CodeGroup>
+
+```bash curl
+curl --request POST \
+  --url https://jupiter.dial.to/api/v0/swap/SOL-Bonk/0.01 \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+}'
+```
+
+```typescript TypeScript
+const response = await fetch(
+  "https://jupiter.dial.to/api/v0/swap/SOL-Bonk/0.01",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      account: "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+    }),
+  }
+);
+```
+
+</CodeGroup>
+
+<Note>
+  The token pair format is `INPUT-OUTPUT` (e.g., `SOL-Bonk`) and the amount is
+  the quantity of the input token to swap.
+</Note>
