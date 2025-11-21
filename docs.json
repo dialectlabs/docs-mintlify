@@ -213,7 +213,52 @@
           },
           {
             "group": "JUPITER",
-            "openapi": "./openapi/jupiter.json"
+            "icon": "https://res.cloudinary.com/dnxjhra4h/image/upload/v1763721553/jupiter-icon_lhjgb3.png",
+            "pages": [
+              "standard-blinks-library/jupiter/index",
+              "standard-blinks-library/jupiter/swap",
+              "standard-blinks-library/jupiter/lend",
+              {
+                "group": "API Reference",
+                "openapi": "./openapi/jupiter.json",
+                "pages": [
+                  {
+                    "group": "Swap",
+                    "pages": [
+                      "GET /api/v0/swap/{tokenPair}",
+                      "POST /api/v0/swap/{tokenPair}/{amount}"
+                    ]
+                  },
+                  {
+                    "group": "Lend",
+                    "pages": [
+                      {
+                        "group": "Earn",
+                        "pages": [
+                          "GET /api/v0/lend/earn/{vaultToken}/deposit",
+                          "POST /api/v0/lend/earn/{vaultToken}/deposit",
+                          "GET /api/v0/lend/earn/{vaultToken}/withdraw",
+                          "POST /api/v0/lend/earn/{vaultToken}/withdraw"
+                        ]
+                      },
+                      {
+                        "group": "Borrow",
+                        "pages": [
+                          "GET /api/v0/lend/borrow/{vaultId}/deposit",
+                          "POST /api/v0/lend/borrow/{vaultId}/deposit",
+                          "GET /api/v0/lend/borrow/{vaultId}/{positionId}/borrow",
+                          "POST /api/v0/lend/borrow/{vaultId}/{positionId}/borrow",
+                          "GET /api/v0/lend/borrow/{vaultId}/{positionId}/repay",
+                          "POST /api/v0/lend/borrow/{vaultId}/{positionId}/repay",
+                          "GET /api/v0/lend/borrow/{vaultId}/{positionId}/withdraw",
+                          "POST /api/v0/lend/borrow/{vaultId}/{positionId}/withdraw"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           },
           {
             "group": "RAYDIUM",
@@ -237,6 +282,7 @@
           },
           {
             "group": "KAMINO",
+            "pages": ["standard-blinks-library/kamino/index"],
             "openapi": "./openapi/kamino.json"
           },
           {
