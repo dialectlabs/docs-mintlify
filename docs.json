@@ -213,51 +213,59 @@
           },
           {
             "group": "JUPITER",
-            "openapi": "./openapi/jupiter.json"
-          },
-          {
-            "group": "RAYDIUM",
-            "openapi": "./openapi/raydium.json"
-          },
-          {
-            "group": "SAVE",
-            "openapi": "./openapi/save.json"
-          },
-          {
-            "group": "DEFITUNA",
-            "openapi": "./openapi/defituna.json"
-          },
-          {
-            "group": "DEFICARROT",
-            "openapi": "./openapi/deficarrot.json"
-          },
-          {
-            "group": "DRIFT",
-            "openapi": "./openapi/drift.json"
-          },
-          {
-            "group": "KAMINO",
-            "openapi": "./openapi/kamino.json"
-          },
-          {
-            "group": "LULO",
-            "openapi": "./openapi/lulo.json"
-          },
-          {
-            "group": "MARGINFI",
-            "openapi": "./openapi/marginfi.json"
-          },
-          {
-            "group": "METEORA",
-            "openapi": "./openapi/meteora.json"
-          },
-          {
-            "group": "ORCA",
-            "openapi": "./openapi/orca.json"
-          },
-          {
-            "group": "SOLANA",
-            "openapi": "./openapi/solana.json"
+            "icon": "https://jup.ag/favicon.ico",
+            "pages": [
+              "standard-blinks-library/jupiter/index",
+              "standard-blinks-library/jupiter/swap",
+              {
+                "group": "Lend",
+                "pages": [
+                  "standard-blinks-library/jupiter/lend",
+                  "standard-blinks-library/jupiter/earn",
+                  "standard-blinks-library/jupiter/borrow"
+                ]
+              },
+              {
+                "group": "API Reference",
+                "openapi": "./openapi/jupiter.json",
+                "pages": [
+                  {
+                    "group": "Swap",
+                    "pages": [
+                      "GET /api/v0/swap/{tokenPair}",
+                      "POST /api/v0/swap/{tokenPair}/{amount}"
+                    ]
+                  },
+                  {
+                    "group": "Lend",
+                    "pages": [
+                      {
+                        "group": "Earn",
+                        "pages": [
+                          "GET /api/v0/lend/earn/{vaultToken}/deposit",
+                          "POST /api/v0/lend/earn/{vaultToken}/deposit",
+                          "GET /api/v0/lend/earn/{vaultToken}/withdraw",
+                          "POST /api/v0/lend/earn/{vaultToken}/withdraw"
+                        ]
+                      },
+                      {
+                        "group": "Borrow",
+                        "pages": [
+                          "GET /api/v0/lend/borrow/{vaultId}/deposit",
+                          "POST /api/v0/lend/borrow/{vaultId}/deposit",
+                          "GET /api/v0/lend/borrow/{vaultId}/{positionId}/borrow",
+                          "POST /api/v0/lend/borrow/{vaultId}/{positionId}/borrow",
+                          "GET /api/v0/lend/borrow/{vaultId}/{positionId}/repay",
+                          "POST /api/v0/lend/borrow/{vaultId}/{positionId}/repay",
+                          "GET /api/v0/lend/borrow/{vaultId}/{positionId}/withdraw",
+                          "POST /api/v0/lend/borrow/{vaultId}/{positionId}/withdraw"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
