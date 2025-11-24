@@ -10,6 +10,8 @@ rss: true
 
 Enhanced documentation, protocol improvements, and new protocol support:
 
+- **Kamino Borrow Blinks** - Added support for Kamino Borrow full lifecycle support. Repay with collateral operations now fully withdraw tokens, and borrow operations may leave trace dust amounts
+- **Lulo Protocol Improvements** - Added improved error handling and retry logic for Lulo protocol operations
 - **DeFiCarrot Integration** - Added DeFiCarrot blinks allowing users to mint and redeem CRT tokens right from the protocol [View API docs](/api-reference/mint/get-mint-blink)
 - **Why SBL Section** - Added new documentation explaining the benefits and use cases for Standard Blinks Library, helping developers understand when and why to use SBL [View guide](/standard-blinks-library/why-sbl)
 - **Quick Start Guide** - New quick start guide to help developers integrate SBL faster [View guide](/standard-blinks-library/quick-start)
@@ -19,7 +21,8 @@ Enhanced documentation, protocol improvements, and new protocol support:
 
 New protocol support, quick start guide, and enhanced rewards functionality:
 
-- **DeFiCarrot** - Added DeFiCarrot support to Markets API, providing real-time market data for their CRT token [View API docs](/api-reference/markets/list-all-markets)
+- **Kamino Borrow Blinks** - Complete Lending Lifecycle Support. Added blink URLs for borrow, repay, and repayWithCollateral operations in Markets API responses, providing developers access to the complete lending workflow directly from the API [View API docs](/api-reference/markets/list-all-markets)
+- **DeFiCarrot** - Added DeFiCarrot support to Markets API, providing blinks for minting and redeeming CRT tokens [View API docs](/api-reference/markets/list-all-markets)
 - **Quick Start Guide** - New quick start guide for Markets API integration [View guide](/markets/quick-start)
 - **Kamino Lend Claim Rewards Blink**: Added claim rewards blink to Positions API response, providing direct links to claim rewards transactions [View API docs](/api-reference/markets/list-all-markets)
 - **Kamino Lend Vault Name**: Added vault name to Markets API response, providing a human readable name for the vault [View API docs](/api-reference/markets/list-all-markets)
