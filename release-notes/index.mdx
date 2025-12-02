@@ -10,7 +10,7 @@ rss: true
 
 Enhanced documentation, protocol improvements, and new protocol support:
 
-- **Kamino Borrow Blinks** - Added support for Kamino Borrow full lifecycle support. Repay with collateral operations now fully withdraw tokens, and borrow operations may leave trace dust amounts
+- **Kamino Borrow Blinks** - Added support for Kamino Borrow full lifecycle support. Repay with collateral operations now fully withdraw tokens, and borrow operations may leave trace dust amounts. We also did improvements to the blinks to ensure they are more reliable and secure
 - **Lulo Protocol Improvements** - Added improved error handling and retry logic for Lulo protocol operations
 - **DeFiCarrot Integration** - Added DeFiCarrot blinks allowing users to mint and redeem CRT tokens right from the protocol [View API docs](/api-reference/mint/get-mint-blink)
 - **Why SBL Section** - Added new documentation explaining the benefits and use cases for Standard Blinks Library, helping developers understand when and why to use SBL [View guide](/standard-blinks-library/why-sbl)
@@ -39,6 +39,8 @@ Enhanced push notification documentation:
 
 - **Enhanced Push Notifications Setup Documentation** - Enhanced documentation for service account credentials setup with clearer prerequisites and step-by-step Firebase integration requirements [View docs](/alerts/integrate-inbox/api/push-notifications)
 - **Custom Data in Notifications**: Added an arbitrary data field to notifications, allowing you to store custom data in notifications. <br/> [Integrate Custom Data](/alerts/integrate-inbox/api/notifications#working-with-custom-data) | [Send Alerts](/alerts/send/api/send-messages#step-4%3A-custom-data) | [OpenAPI Spec](/api-reference/integrate-an-inbox/get-notification-history)
+- **Notification Delivery Improvements** - Improved notification delivery for Telegram and email channels,
+  ensuring even more reliable delivery across all communication channels
 
 </Update>
 
