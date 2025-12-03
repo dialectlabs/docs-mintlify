@@ -4,7 +4,8 @@ description: "Learn how to create a blink that donates SOL to another wallet usi
 ---
 
 <Tip>
-This is the first of may tutorials that we offer. If you are looking for more advanced tutorials, checkout our [guides section](guides/index.mdx)
+  This is the first of may tutorials that we offer. If you are looking for more
+  advanced tutorials, checkout our [guides section](guides/index.mdx)
 </Tip>
 
 The best way to understand how blinks work, is to build one. This guide will show you, how you can create a blink that donates SOL to another wallet.
@@ -14,8 +15,7 @@ For convenience, we will use `NextJS` because it combines very nicely the fronte
 It is important to note here, that blinks are chain agnostic, which means that this blink can be re-created for EVM environments with little alignments in the code.
 
 <Note>
-- Level: Beginner
-- Requirements: Basic understanding of TypeScript and NextJS
+  - Level: Beginner - Requirements: Basic understanding of TypeScript and NextJS
 </Note>
 
 ## How blinks work
@@ -106,8 +106,6 @@ src/
 ### Create actions.json
 
 Finally, you have to create the `actions.json` file which will be hosted in the root directory of your application. This file is needed to tell other applications which blink providers are available on your website. **Think of it as a sitemap for blinks.**
-
-You can read more about the [actions.json](https://docs.dialect.to/documentation/actions/specification/actions.json) in the official [dialect documentation](https://docs.dialect.to/documentation/actions/specification/actions.json).
 
 #### File structure
 
@@ -267,7 +265,10 @@ export const GET = async (req: Request) => {
 
 Visit [dial.to](http://dial.to) and type in the link to your blink to see if it works. If your server runs on `localhost:3000` the url should look like this: **`http://localhost:3000/api/actions/donate-sol`**
 
-<img src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/dialect-docs/donate-sol-dialto-ex.png" alt="Blink rendered on dial.to" />
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/dialect-docs/donate-sol-dialto-ex.png"
+  alt="Blink rendered on dial.to"
+/>
 
 ### POST endpoint
 
