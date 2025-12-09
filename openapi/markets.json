@@ -2442,7 +2442,8 @@
                                 "enum": [
                                   "lending",
                                   "yield",
-                                  "loop"
+                                  "loop",
+                                  "reward"
                                 ]
                               },
                               "marketId": {
@@ -3378,6 +3379,377 @@
                               "ownerAddress",
                               "amount",
                               "market"
+                            ]
+                          },
+                          {
+                            "title": "Loop Position with Market",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "const": "loop"
+                              },
+                              "marketId": {
+                                "type": "string"
+                              },
+                              "ownerAddress": {
+                                "type": "string"
+                              },
+                              "websiteUrl": {
+                                "type": "string",
+                                "format": "uri"
+                              },
+                              "bundleId": {
+                                "type": "string",
+                                "description": "Identifier for positions bundled into one logical structure, such as position or market"
+                              },
+                              "additionalData": {
+                                "type": "object",
+                                "propertyNames": {
+                                  "type": "string"
+                                },
+                                "additionalProperties": true
+                              },
+                              "amount": {
+                                "type": "number",
+                                "description": "Current networth of the position in borrowed token value"
+                              },
+                              "amountUsd": {
+                                "type": "number",
+                                "description": "Current networth of the position in USD"
+                              },
+                              "amountTokenA": {
+                                "type": "number",
+                                "description": "Supplied token amount"
+                              },
+                              "amountTokenB": {
+                                "type": "number",
+                                "description": "Borrowed token amount"
+                              },
+                              "amountTokenAUsd": {
+                                "type": "number"
+                              },
+                              "amountTokenBUsd": {
+                                "type": "number"
+                              },
+                              "ltv": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100,
+                                "description": "Current Loan-to-Value before either full/partial liquidation commences (depending on the provider), expressed as a percentage ratio of deposited value"
+                              },
+                              "liquidationPrice": {
+                                "type": "number",
+                                "description": "Deposited token price expressed in borrowed token units at which the position becomes liquidatable, fully or partially."
+                              },
+                              "leverage": {
+                                "type": "number",
+                                "minimum": 0,
+                                "description": "Current leverage of the position, expressed as a multiplier"
+                              },
+                              "market": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "type": {
+                                    "const": "loop"
+                                  },
+                                  "provider": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "enum": [
+                                          "kamino",
+                                          "lulo",
+                                          "marginfi",
+                                          "jupiter",
+                                          "defituna",
+                                          "carrot"
+                                        ]
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "icon": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "icon"
+                                    ]
+                                  },
+                                  "tokenA": {
+                                    "type": "object",
+                                    "properties": {
+                                      "address": {
+                                        "type": "string"
+                                      },
+                                      "symbol": {
+                                        "type": "string"
+                                      },
+                                      "decimals": {
+                                        "type": "number"
+                                      },
+                                      "icon": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "address",
+                                      "symbol",
+                                      "decimals",
+                                      "icon"
+                                    ]
+                                  },
+                                  "tokenB": {
+                                    "type": "object",
+                                    "properties": {
+                                      "address": {
+                                        "type": "string"
+                                      },
+                                      "symbol": {
+                                        "type": "string"
+                                      },
+                                      "decimals": {
+                                        "type": "number"
+                                      },
+                                      "icon": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "address",
+                                      "symbol",
+                                      "decimals",
+                                      "icon"
+                                    ]
+                                  },
+                                  "websiteUrl": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  },
+                                  "depositApy": {
+                                    "type": "number"
+                                  },
+                                  "depositApy30d": {
+                                    "type": "number",
+                                    "description": "30-day average deposit APY"
+                                  },
+                                  "depositApy90d": {
+                                    "type": "number",
+                                    "description": "90-day average deposit APY"
+                                  },
+                                  "depositApy180d": {
+                                    "type": "number",
+                                    "description": "180-day average deposit APY"
+                                  },
+                                  "maxLeverage": {
+                                    "type": "number",
+                                    "description": "Maximum leverage allowed when depositing, expressed as a multiplier"
+                                  },
+                                  "maxLtv": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100,
+                                    "description": "Maximum Loan-to-Value before either full/partial liquidation commences (depending on the provider), expressed as a percentage ratio of deposited value"
+                                  },
+                                  "liquidationLtv": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100,
+                                    "description": "Loan-to-Value percentage ratio of deposited value at which the position becomes liquidatable, fully or partially."
+                                  },
+                                  "additionalData": {
+                                    "type": "object",
+                                    "propertyNames": {
+                                      "type": "string"
+                                    },
+                                    "additionalProperties": true
+                                  },
+                                  "actions": {
+                                    "type": "object",
+                                    "properties": {
+                                      "setup": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blinkUrl": {
+                                            "type": "string",
+                                            "pattern": "^blink:.*"
+                                          }
+                                        },
+                                        "required": [
+                                          "blinkUrl"
+                                        ]
+                                      },
+                                      "deposit": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blinkUrl": {
+                                            "type": "string",
+                                            "pattern": "^blink:.*"
+                                          }
+                                        },
+                                        "required": [
+                                          "blinkUrl"
+                                        ]
+                                      },
+                                      "withdraw": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blinkUrl": {
+                                            "type": "string",
+                                            "pattern": "^blink:.*"
+                                          }
+                                        },
+                                        "required": [
+                                          "blinkUrl"
+                                        ]
+                                      }
+                                    },
+                                    "additionalProperties": true
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "type",
+                                  "provider",
+                                  "tokenA",
+                                  "tokenB",
+                                  "depositApy",
+                                  "maxLeverage",
+                                  "maxLtv",
+                                  "liquidationLtv",
+                                  "actions"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "type",
+                              "marketId",
+                              "ownerAddress",
+                              "amount",
+                              "amountTokenA",
+                              "amountTokenB",
+                              "market"
+                            ]
+                          },
+                          {
+                            "title": "Reward Position",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "const": "reward"
+                              },
+                              "ownerAddress": {
+                                "type": "string"
+                              },
+                              "bundleId": {
+                                "type": "string",
+                                "description": "Identifier for positions bundled into one logical structure, such as position or market"
+                              },
+                              "token": {
+                                "type": "object",
+                                "properties": {
+                                  "address": {
+                                    "type": "string"
+                                  },
+                                  "symbol": {
+                                    "type": "string"
+                                  },
+                                  "decimals": {
+                                    "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "address",
+                                  "symbol",
+                                  "decimals",
+                                  "icon"
+                                ]
+                              },
+                              "marketId": {
+                                "type": "string"
+                              },
+                              "position": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "type": {
+                                    "enum": [
+                                      "lending",
+                                      "yield",
+                                      "loop",
+                                      "reward"
+                                    ]
+                                  },
+                                  "side": {
+                                    "enum": [
+                                      "deposit",
+                                      "borrow"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "type"
+                                ]
+                              },
+                              "additionalData": {
+                                "type": "object",
+                                "propertyNames": {
+                                  "type": "string"
+                                },
+                                "additionalProperties": true
+                              },
+                              "amount": {
+                                "type": "number"
+                              },
+                              "amountUsd": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "type",
+                              "ownerAddress",
+                              "token",
+                              "marketId",
+                              "amount"
                             ]
                           }
                         ]
