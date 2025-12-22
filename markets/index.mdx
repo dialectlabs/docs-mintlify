@@ -6,7 +6,10 @@ description: "Real-time market data and position tracking from Solana's top prot
 
 Get information on markets and positions from across the Solana ecosystem, including APYs, TVL, LP fees, position data, and blockchain link URLs for key actions like Deposit and Withdraw.
 
-<img src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1750948122/dialect-docs/makets-landing.png" alt="Markets Beta - Real-time market data dashboard" /> 
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/f_auto,q_auto/v1750948122/dialect-docs/makets-landing.png"
+  alt="Markets Beta - Real-time market data dashboard"
+/>{" "}
 
 The Markets and Positions product is in beta, starting today with lending markets and positions. For more information on upcoming additional market types, or to submit a market type request, [reach out to us](https://form.typeform.com/to/zHHLsFUV).
 
@@ -20,19 +23,17 @@ The Markets and Positions product is in beta, starting today with lending market
     Our market data is updated every 10 minutes.
   </Card>
 
-  <Card
-    title="Multi-Protocol Support"
-    icon="building-columns"
-  >
-    Unified data format across Solana's top DeFi protocols.
-  </Card>
+{" "}
 
-  <Card
-    title="Blinks Integration"
-    icon="bolt"
-  >
-    Ready-to-sign transaction URLs - no need to learn individual protocol SDKs.
-  </Card>
+<Card title="Multi-Protocol Support" icon="building-columns">
+  Unified data format across Solana's top DeFi protocols.
+</Card>
+
+{" "}
+
+<Card title="Blinks Integration" icon="bolt">
+  Ready-to-sign transaction URLs - no need to learn individual protocol SDKs.
+</Card>
 
   <Card
     title="Complete Market Data"
@@ -45,6 +46,7 @@ The Markets and Positions product is in beta, starting today with lending market
 ## What it does
 
 Markets and Positions delivers extensive JSON documents containing:
+
 - **Real-time lending rates** - Current deposit and borrow APYs for all markets
 - **Position data** - Individual wallet positions across supported protocols
 - **Market liquidity data** - Total deposits, borrows, and available capacity
@@ -52,22 +54,17 @@ Markets and Positions delivers extensive JSON documents containing:
 - **Market limits** - Maximum deposit and borrow amounts per market
 - **Ready-to-use Blinks** - Pre-built transaction URLs for deposits and withdrawals
 
-
 ## Get Started
 
 <CardGroup cols={2}>
-<Card
-  title="Quickstart"
-  icon="bolt"
-  href="/markets/markets-to-blinks"
->
-Learn how to use and transform market data into instant DeFi actions
-</Card>
-<Card
-  title="Try the API"
-  icon="arrow-right"
-  href="/api-reference/markets/list-all-markets"
->
-  Try the **List all markets** endpoint to get real-time lending rates.
-</Card>
+  <Card title="Quickstart" icon="bolt" href="/markets/quick-start">
+    Learn how to use and transform market data into instant DeFi actions
+  </Card>
+  <Card
+    title="Try the API"
+    icon="arrow-right"
+    href="/api-reference/markets/list-all-markets"
+  >
+    Try the **List all markets** endpoint to get real-time lending rates.
+  </Card>
 </CardGroup>
