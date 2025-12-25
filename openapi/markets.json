@@ -18,20 +18,13 @@
         "operationId": "marketsV0Api.listMarkets",
         "summary": "List all markets",
         "description": "Returns real-time market data from supported protocols, such as Jupiter, Kamino, MarginFi, Lulo and many more. For more information, please check our [Protocol Support Roadmap](/markets/supported-protocols).\n\n**Note:** Some providers (e.g. Kamino) may return large responses with 100+ markets. For better performance in the API playground, consider filtering by both `type` and `provider` parameters.",
-        "tags": [
-          "Markets"
-        ],
+        "tags": ["Markets"],
         "parameters": [
           {
             "name": "type",
             "in": "query",
             "schema": {
-              "enum": [
-                "lending",
-                "yield",
-                "loop",
-                "perpetual"
-              ]
+              "enum": ["lending", "yield", "loop", "perpetual"]
             }
           },
           {
@@ -92,11 +85,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "id",
-                                  "name",
-                                  "icon"
-                                ]
+                                "required": ["id", "name", "icon"]
                               },
                               "token": {
                                 "type": "object",
@@ -364,9 +353,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "withdraw": {
                                     "type": "object",
@@ -376,9 +363,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "claimRewards": {
                                     "type": "object",
@@ -388,9 +373,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "borrow": {
                                     "type": "object",
@@ -400,9 +383,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "repay": {
                                     "type": "object",
@@ -412,9 +393,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "repayWithCollateral": {
                                     "type": "object",
@@ -424,9 +403,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   }
                                 },
                                 "additionalProperties": true
@@ -479,11 +456,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "id",
-                                  "name",
-                                  "icon"
-                                ]
+                                "required": ["id", "name", "icon"]
                               },
                               "token": {
                                 "type": "object",
@@ -617,9 +590,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "withdraw": {
                                     "type": "object",
@@ -629,9 +600,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "withdrawComplete": {
                                     "type": "object",
@@ -641,9 +610,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "claimRewards": {
                                     "type": "object",
@@ -653,9 +620,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   }
                                 },
                                 "additionalProperties": true
@@ -701,11 +666,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "id",
-                                  "name",
-                                  "icon"
-                                ]
+                                "required": ["id", "name", "icon"]
                               },
                               "tokenA": {
                                 "type": "object",
@@ -819,9 +780,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "deposit": {
                                     "type": "object",
@@ -831,9 +790,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "withdraw": {
                                     "type": "object",
@@ -843,9 +800,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   }
                                 }
                               }
@@ -892,11 +847,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "id",
-                                  "name",
-                                  "icon"
-                                ]
+                                "required": ["id", "name", "icon"]
                               },
                               "tokenA": {
                                 "type": "object",
@@ -972,10 +923,7 @@
                                     "type": "number"
                                   }
                                 },
-                                "required": [
-                                  "longUsd",
-                                  "shortUsd"
-                                ]
+                                "required": ["longUsd", "shortUsd"]
                               },
                               "maxLeverage": {
                                 "type": "number"
@@ -998,9 +946,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "openPosition": {
                                     "type": "object",
@@ -1010,9 +956,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "closePosition": {
                                     "type": "object",
@@ -1022,9 +966,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   }
                                 },
                                 "additionalProperties": true
@@ -1072,11 +1014,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "id",
-                                  "name",
-                                  "icon"
-                                ]
+                                "required": ["id", "name", "icon"]
                               },
                               "websiteUrl": {
                                 "type": "string",
@@ -1093,11 +1031,7 @@
                                 "type": "string"
                               },
                               "status": {
-                                "enum": [
-                                  "open",
-                                  "closed",
-                                  "settled"
-                                ]
+                                "enum": ["open", "closed", "settled"]
                               },
                               "result": {
                                 "type": "string"
@@ -1231,9 +1165,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "markets"
-                  ]
+                  "required": ["markets"]
                 },
                 "example": {
                   "markets": [
@@ -1318,9 +1250,7 @@
         "operationId": "marketsV0Api.listMarketsGroupedByType",
         "summary": "List all markets grouped by type",
         "description": "Returns real-time market data from supported protocols, such as Jupiter, Kamino, MarginFi, Lulo and many more. For more information, please check our [Protocol Support Roadmap](/markets/supported-protocols).",
-        "tags": [
-          "Markets"
-        ],
+        "tags": ["Markets"],
         "responses": {
           "200": {
             "description": "OK",
@@ -1360,11 +1290,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "id",
-                              "name",
-                              "icon"
-                            ]
+                            "required": ["id", "name", "icon"]
                           },
                           "token": {
                             "type": "object",
@@ -1632,9 +1558,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "withdraw": {
                                 "type": "object",
@@ -1644,9 +1568,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "claimRewards": {
                                 "type": "object",
@@ -1656,9 +1578,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "borrow": {
                                 "type": "object",
@@ -1668,9 +1588,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "repay": {
                                 "type": "object",
@@ -1680,9 +1598,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "repayWithCollateral": {
                                 "type": "object",
@@ -1692,9 +1608,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               }
                             },
                             "additionalProperties": true
@@ -1748,11 +1662,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "id",
-                              "name",
-                              "icon"
-                            ]
+                            "required": ["id", "name", "icon"]
                           },
                           "token": {
                             "type": "object",
@@ -1886,9 +1796,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "withdraw": {
                                 "type": "object",
@@ -1898,9 +1806,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "withdrawComplete": {
                                 "type": "object",
@@ -1910,9 +1816,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "claimRewards": {
                                 "type": "object",
@@ -1922,9 +1826,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               }
                             },
                             "additionalProperties": true
@@ -1972,11 +1874,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "id",
-                              "name",
-                              "icon"
-                            ]
+                            "required": ["id", "name", "icon"]
                           },
                           "tokenA": {
                             "type": "object",
@@ -2090,9 +1988,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "deposit": {
                                 "type": "object",
@@ -2102,9 +1998,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "withdraw": {
                                 "type": "object",
@@ -2114,9 +2008,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               }
                             },
                             "additionalProperties": true
@@ -2165,11 +2057,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "id",
-                              "name",
-                              "icon"
-                            ]
+                            "required": ["id", "name", "icon"]
                           },
                           "tokenA": {
                             "type": "object",
@@ -2245,10 +2133,7 @@
                                 "type": "number"
                               }
                             },
-                            "required": [
-                              "longUsd",
-                              "shortUsd"
-                            ]
+                            "required": ["longUsd", "shortUsd"]
                           },
                           "maxLeverage": {
                             "type": "number"
@@ -2271,9 +2156,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "openPosition": {
                                 "type": "object",
@@ -2283,9 +2166,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               },
                               "closePosition": {
                                 "type": "object",
@@ -2295,9 +2176,7 @@
                                     "pattern": "^blink:.*"
                                   }
                                 },
-                                "required": [
-                                  "blinkUrl"
-                                ]
+                                "required": ["blinkUrl"]
                               }
                             },
                             "additionalProperties": true
@@ -2316,12 +2195,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "lending",
-                    "yield",
-                    "loop",
-                    "perpetual"
-                  ]
+                  "required": ["lending", "yield", "loop", "perpetual"]
                 },
                 "example": {
                   "lending": [
@@ -2531,9 +2405,7 @@
         "operationId": "positionsV0Api.positionsHistory",
         "summary": "Get historical position snapshots",
         "description": "Fetch position snapshots within a time range for a wallet address\n\n<Note>\n**Learn More**: For detailed examples, resolution options, practical use cases, and how to interpret cumulative values, see our [Historical Position Data guide](/markets/history).\n</Note>",
-        "tags": [
-          "Positions"
-        ],
+        "tags": ["Positions"],
         "parameters": [
           {
             "name": "walletAddress",
@@ -2589,12 +2461,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "enum": [
-                "1m",
-                "5m",
-                "1h",
-                "1d"
-              ],
+              "enum": ["1m", "5m", "1h", "1d"],
               "description": "Time interval for historical snapshots. Controls the granularity of data points returned."
             }
           }
@@ -2723,14 +2590,10 @@
                           }
                         }
                       },
-                      "required": [
-                        "positions"
-                      ]
+                      "required": ["positions"]
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 },
                 "example": {
                   "data": {
@@ -2762,9 +2625,7 @@
         "operationId": "positionsV0Api.positionsByOwners",
         "summary": "List all market positions by wallet address",
         "description": "Returns position data for supported protocols, such as Jupiter, Kamino, MarginFi, Lulo and many more. For more information, please check our [Protocol Support Roadmap](/markets/supported-protocols).",
-        "tags": [
-          "Positions"
-        ],
+        "tags": ["Positions"],
         "parameters": [
           {
             "name": "walletAddresses",
@@ -2792,7 +2653,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "description": "Comma separated list of position types (`lending`, `yield`, `loop`, `reward`, `prediction_beta`). `prediction_beta` is experimental, and prediction positions are returned only if `prediction_beta` is specified. Currently only supports one position type. If no position type is specified, all position types are returned (except `prediction` positions)."
+              "description": "Comma separated list of position types (`lending`, `yield`, `loop`, `reward`, `prediction_beta`). \n\nNote: `prediction_beta` is experimental, and prediction positions are returned only if `prediction_beta` is specified. Currently only supports one position type. If no position type is specified, all position types are returned (except `prediction` positions)."
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -2831,10 +2692,7 @@
                                 "description": "Identifier for positions bundled into one logical structure, such as position or market"
                               },
                               "side": {
-                                "enum": [
-                                  "deposit",
-                                  "borrow"
-                                ]
+                                "enum": ["deposit", "borrow"]
                               },
                               "amount": {
                                 "type": "number"
@@ -2867,10 +2725,7 @@
                                       "type": "number"
                                     }
                                   },
-                                  "required": [
-                                    "tokenAddress",
-                                    "amount"
-                                  ]
+                                  "required": ["tokenAddress", "amount"]
                                 }
                               },
                               "additionalData": {
@@ -2891,9 +2746,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "withdraw": {
                                     "type": "object",
@@ -2903,9 +2756,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "borrow": {
                                     "type": "object",
@@ -2915,9 +2766,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   },
                                   "repay": {
                                     "type": "object",
@@ -2927,9 +2776,7 @@
                                         "pattern": "^blink:.*"
                                       }
                                     },
-                                    "required": [
-                                      "blinkUrl"
-                                    ]
+                                    "required": ["blinkUrl"]
                                   }
                                 }
                               },
@@ -2962,11 +2809,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "id",
-                                      "name",
-                                      "icon"
-                                    ]
+                                    "required": ["id", "name", "icon"]
                                   },
                                   "token": {
                                     "type": "object",
@@ -3210,9 +3053,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "withdraw": {
                                         "type": "object",
@@ -3222,9 +3063,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "claimRewards": {
                                         "type": "object",
@@ -3234,9 +3073,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "borrow": {
                                         "type": "object",
@@ -3246,9 +3083,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "repay": {
                                         "type": "object",
@@ -3258,9 +3093,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "repayWithCollateral": {
                                         "type": "object",
@@ -3270,9 +3103,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       }
                                     }
                                   }
@@ -3341,10 +3172,7 @@
                                       "type": "number"
                                     }
                                   },
-                                  "required": [
-                                    "tokenAddress",
-                                    "amount"
-                                  ]
+                                  "required": ["tokenAddress", "amount"]
                                 }
                               },
                               "additionalData": {
@@ -3383,11 +3211,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "id",
-                                      "name",
-                                      "icon"
-                                    ]
+                                    "required": ["id", "name", "icon"]
                                   },
                                   "token": {
                                     "type": "object",
@@ -3521,9 +3345,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "withdraw": {
                                         "type": "object",
@@ -3533,9 +3355,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "withdrawComplete": {
                                         "type": "object",
@@ -3545,9 +3365,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "claimRewards": {
                                         "type": "object",
@@ -3557,9 +3375,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       }
                                     }
                                   }
@@ -3681,11 +3497,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "id",
-                                      "name",
-                                      "icon"
-                                    ]
+                                    "required": ["id", "name", "icon"]
                                   },
                                   "tokenA": {
                                     "type": "object",
@@ -3800,9 +3612,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "deposit": {
                                         "type": "object",
@@ -3812,9 +3622,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       },
                                       "withdraw": {
                                         "type": "object",
@@ -3824,9 +3632,7 @@
                                             "pattern": "^blink:.*"
                                           }
                                         },
-                                        "required": [
-                                          "blinkUrl"
-                                        ]
+                                        "required": ["blinkUrl"]
                                       }
                                     },
                                     "additionalProperties": true
@@ -3923,15 +3729,10 @@
                                     ]
                                   },
                                   "side": {
-                                    "enum": [
-                                      "deposit",
-                                      "borrow"
-                                    ]
+                                    "enum": ["deposit", "borrow"]
                                   }
                                 },
-                                "required": [
-                                  "type"
-                                ]
+                                "required": ["type"]
                               },
                               "additionalData": {
                                 "type": "object",
@@ -4018,10 +3819,7 @@
                                 ]
                               },
                               "side": {
-                                "enum": [
-                                  "yes",
-                                  "no"
-                                ]
+                                "enum": ["yes", "no"]
                               },
                               "additionalData": {
                                 "type": "object",
@@ -4066,11 +3864,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "id",
-                                      "name",
-                                      "icon"
-                                    ]
+                                    "required": ["id", "name", "icon"]
                                   },
                                   "websiteUrl": {
                                     "type": "string",
@@ -4087,11 +3881,7 @@
                                     "type": "string"
                                   },
                                   "status": {
-                                    "enum": [
-                                      "open",
-                                      "closed",
-                                      "settled"
-                                    ]
+                                    "enum": ["open", "closed", "settled"]
                                   },
                                   "result": {
                                     "type": "string"
@@ -4236,9 +4026,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "positions"
-                  ]
+                  "required": ["positions"]
                 },
                 "example": {
                   "positions": [
