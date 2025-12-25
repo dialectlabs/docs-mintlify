@@ -81,7 +81,8 @@
                                       "marginfi",
                                       "jupiter",
                                       "defituna",
-                                      "carrot"
+                                      "carrot",
+                                      "dflow"
                                     ]
                                   },
                                   "name": {
@@ -467,7 +468,8 @@
                                       "marginfi",
                                       "jupiter",
                                       "defituna",
-                                      "carrot"
+                                      "carrot",
+                                      "dflow"
                                     ]
                                   },
                                   "name": {
@@ -688,7 +690,8 @@
                                       "marginfi",
                                       "jupiter",
                                       "defituna",
-                                      "carrot"
+                                      "carrot",
+                                      "dflow"
                                     ]
                                   },
                                   "name": {
@@ -878,7 +881,8 @@
                                       "marginfi",
                                       "jupiter",
                                       "defituna",
-                                      "carrot"
+                                      "carrot",
+                                      "dflow"
                                     ]
                                   },
                                   "name": {
@@ -1035,6 +1039,192 @@
                               "liquidity",
                               "maxLeverage",
                               "actions"
+                            ]
+                          },
+                          {
+                            "title": "Prediction Market",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "const": "prediction"
+                              },
+                              "provider": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "enum": [
+                                      "kamino",
+                                      "lulo",
+                                      "marginfi",
+                                      "jupiter",
+                                      "defituna",
+                                      "carrot",
+                                      "dflow"
+                                    ]
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "icon": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "icon"
+                                ]
+                              },
+                              "websiteUrl": {
+                                "type": "string",
+                                "format": "uri"
+                              },
+                              "bundleId": {
+                                "type": "string",
+                                "description": "Identifier for positions bundled into one logical structure, such as position or market"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "subtitle": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "enum": [
+                                  "open",
+                                  "closed",
+                                  "settled"
+                                ]
+                              },
+                              "result": {
+                                "type": "string"
+                              },
+                              "volume": {
+                                "type": "number"
+                              },
+                              "openInterest": {
+                                "type": "number"
+                              },
+                              "yesBid": {
+                                "type": "number"
+                              },
+                              "noBid": {
+                                "type": "number"
+                              },
+                              "yesAsk": {
+                                "type": "number"
+                              },
+                              "noAsk": {
+                                "type": "number"
+                              },
+                              "openTime": {
+                                "type": "number"
+                              },
+                              "closeTime": {
+                                "type": "number"
+                              },
+                              "expirationTime": {
+                                "type": "number"
+                              },
+                              "yesToken": {
+                                "type": "object",
+                                "properties": {
+                                  "address": {
+                                    "type": "string"
+                                  },
+                                  "symbol": {
+                                    "type": "string"
+                                  },
+                                  "decimals": {
+                                    "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "name": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "address",
+                                  "symbol",
+                                  "decimals",
+                                  "icon",
+                                  "name"
+                                ]
+                              },
+                              "noToken": {
+                                "type": "object",
+                                "properties": {
+                                  "address": {
+                                    "type": "string"
+                                  },
+                                  "symbol": {
+                                    "type": "string"
+                                  },
+                                  "decimals": {
+                                    "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "name": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "address",
+                                  "symbol",
+                                  "decimals",
+                                  "icon",
+                                  "name"
+                                ]
+                              },
+                              "additionalData": {
+                                "type": "object",
+                                "propertyNames": {
+                                  "type": "string"
+                                },
+                                "additionalProperties": true
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "type",
+                              "provider",
+                              "title",
+                              "status"
                             ]
                           }
                         ]
@@ -2435,7 +2625,8 @@
                                   "marginfi",
                                   "jupiter",
                                   "defituna",
-                                  "carrot"
+                                  "carrot",
+                                  "dflow"
                                 ]
                               },
                               "type": {
@@ -2443,7 +2634,8 @@
                                   "lending",
                                   "yield",
                                   "loop",
-                                  "reward"
+                                  "reward",
+                                  "prediction"
                                 ]
                               },
                               "marketId": {
@@ -2593,6 +2785,17 @@
               "type": "string",
               "description": "Comma separated list of bundle IDs. Currently only supports one bundle ID."
             }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Comma separated list of position types (`lending`, `yield`, `loop`, `reward`, `prediction_beta`). `prediction_beta` is experimental, and prediction positions are returned only if `prediction_beta` is specified. Currently only supports one position type. If no position type is specified, all position types are returned (except `prediction` positions)."
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
           }
         ],
         "responses": {
@@ -3715,7 +3918,8 @@
                                       "lending",
                                       "yield",
                                       "loop",
-                                      "reward"
+                                      "reward",
+                                      "prediction"
                                     ]
                                   },
                                   "side": {
@@ -3750,6 +3954,282 @@
                               "token",
                               "marketId",
                               "amount"
+                            ]
+                          },
+                          {
+                            "title": "Prediction Position",
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "const": "prediction"
+                              },
+                              "ownerAddress": {
+                                "type": "string"
+                              },
+                              "bundleId": {
+                                "type": "string",
+                                "description": "Identifier for positions bundled into one logical structure, such as position or market"
+                              },
+                              "marketId": {
+                                "type": "string"
+                              },
+                              "token": {
+                                "type": "object",
+                                "properties": {
+                                  "address": {
+                                    "type": "string"
+                                  },
+                                  "symbol": {
+                                    "type": "string"
+                                  },
+                                  "decimals": {
+                                    "type": "number"
+                                  },
+                                  "icon": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "name": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "address",
+                                  "symbol",
+                                  "decimals",
+                                  "icon",
+                                  "name"
+                                ]
+                              },
+                              "side": {
+                                "enum": [
+                                  "yes",
+                                  "no"
+                                ]
+                              },
+                              "additionalData": {
+                                "type": "object",
+                                "propertyNames": {
+                                  "type": "string"
+                                },
+                                "additionalProperties": true
+                              },
+                              "amount": {
+                                "type": "number"
+                              },
+                              "amountUsd": {
+                                "type": "number"
+                              },
+                              "market": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "type": {
+                                    "const": "prediction"
+                                  },
+                                  "provider": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "enum": [
+                                          "kamino",
+                                          "lulo",
+                                          "marginfi",
+                                          "jupiter",
+                                          "defituna",
+                                          "carrot",
+                                          "dflow"
+                                        ]
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "icon": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "icon"
+                                    ]
+                                  },
+                                  "websiteUrl": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  },
+                                  "bundleId": {
+                                    "type": "string",
+                                    "description": "Identifier for positions bundled into one logical structure, such as position or market"
+                                  },
+                                  "title": {
+                                    "type": "string"
+                                  },
+                                  "subtitle": {
+                                    "type": "string"
+                                  },
+                                  "status": {
+                                    "enum": [
+                                      "open",
+                                      "closed",
+                                      "settled"
+                                    ]
+                                  },
+                                  "result": {
+                                    "type": "string"
+                                  },
+                                  "volume": {
+                                    "type": "number"
+                                  },
+                                  "openInterest": {
+                                    "type": "number"
+                                  },
+                                  "yesBid": {
+                                    "type": "number"
+                                  },
+                                  "noBid": {
+                                    "type": "number"
+                                  },
+                                  "yesAsk": {
+                                    "type": "number"
+                                  },
+                                  "noAsk": {
+                                    "type": "number"
+                                  },
+                                  "openTime": {
+                                    "type": "number"
+                                  },
+                                  "closeTime": {
+                                    "type": "number"
+                                  },
+                                  "expirationTime": {
+                                    "type": "number"
+                                  },
+                                  "yesToken": {
+                                    "type": "object",
+                                    "properties": {
+                                      "address": {
+                                        "type": "string"
+                                      },
+                                      "symbol": {
+                                        "type": "string"
+                                      },
+                                      "decimals": {
+                                        "type": "number"
+                                      },
+                                      "icon": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "name": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "address",
+                                      "symbol",
+                                      "decimals",
+                                      "icon",
+                                      "name"
+                                    ]
+                                  },
+                                  "noToken": {
+                                    "type": "object",
+                                    "properties": {
+                                      "address": {
+                                        "type": "string"
+                                      },
+                                      "symbol": {
+                                        "type": "string"
+                                      },
+                                      "decimals": {
+                                        "type": "number"
+                                      },
+                                      "icon": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "name": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "address",
+                                      "symbol",
+                                      "decimals",
+                                      "icon",
+                                      "name"
+                                    ]
+                                  },
+                                  "additionalData": {
+                                    "type": "object",
+                                    "propertyNames": {
+                                      "type": "string"
+                                    },
+                                    "additionalProperties": true
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "type",
+                                  "provider",
+                                  "title",
+                                  "status"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "type",
+                              "ownerAddress",
+                              "marketId",
+                              "side",
+                              "amount",
+                              "market"
                             ]
                           }
                         ]
