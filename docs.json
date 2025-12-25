@@ -208,7 +208,8 @@
             "pages": [
               "standard-blinks-library/index",
               "standard-blinks-library/why-sbl",
-              "standard-blinks-library/quick-start"
+              "standard-blinks-library/quick-start",
+              "markets/supported-protocols"
             ]
           },
           {
