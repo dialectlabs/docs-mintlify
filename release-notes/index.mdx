@@ -8,7 +8,9 @@ rss: true
 
 ## Positions API Updates
 
-- **Rewards Type**: We're introducing a new rewards type to the Positions API, allowing you to track the rewards earned from your positions. This was necessary to ensure you can track rewards even from positions that have been closed [View more](/markets/rewards)
+- **Prediction Markets API**: Prediction markets API deployed with filtering capabilities, allowing position queries with `prediction_beta` filter parameters for tracking prediction market positions [View API docs](/api-reference/positions/list-all-market-positions-by-wallet-address)
+- **Rewards Type**: We're introducing a new `reward` type to the Positions API, allowing you to track the rewards earned from your positions. This was necessary to ensure you can track rewards even from positions that have been closed [View more](/markets/rewards)
+- **Atomic Rewards**: Positions API now returns atomic reward entries instead of reward arrays, with a new dedicated reward position type that ensures rewards remain visible even after positions are closed [View more](/markets/rewards#positions-api-rewards)
 
 ## Blinks SDK Updates
 
