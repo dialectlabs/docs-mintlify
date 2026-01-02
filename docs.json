@@ -269,6 +269,15 @@
             "pages": [
               "markets/index",
               "markets/quick-start",
+              {
+                "group": "Market Types",
+                "pages": [
+                  "markets/market-types/introduction",
+                  "markets/market-types/yield",
+                  "markets/market-types/lend",
+                  "markets/market-types/loop"
+                ]
+              },
               "markets/history",
               "markets/rewards",
               "markets/supported-protocols"
