@@ -1,0 +1,185 @@
+---
+title: Loop Markets
+description: "Get real-time market data for loop markets in a unified format across Solana's top DeFi protocols."
+---
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/v1767883301/market-type-loop_xddger.png"
+  alt="Loop Market Details View"
+/>
+
+Loop markets (also known as "Multiply") allow users to create leveraged positions by repeatedly depositing collateral and borrowing against it in an automated way.
+
+Our Markets API already contains lots of information that you would manually collect via multiple API calls throughout protocols and providers, such as:
+
+- basic protocol information,
+- leverage and APY information,
+- token pair information (collateral and debt tokens),
+- risk parameters (LTV and liquidation thresholds),
+- actions (setup, deposit, withdraw), etc.
+
+By enriching the response with all of this information, it makes the API powerful enough to drive full-fledged dashboards and applications as well as smaller widgets, cards or notifications - All in a single API call!
+
+## How Loop Markets Work
+
+Loop markets automate a looping strategy, which is as follows:
+
+<Steps>
+  <Step title="Choose Leverage & Deposit">
+    The user chooses the desired leverage level and deposits collateral (Token
+    A) into the market
+  </Step>
+  <Step title="Borrow">
+    The protocol borrows against the deposited collateral (Token B)
+  </Step>
+  <Step title="Swap & Re-deposit">
+    The borrowed amount gets swapped back to Token A and gets re-deposited
+  </Step>
+  <Step title="Repeat">
+    This cycle repeats automatically until the user's chosen leverage level is
+    reached
+  </Step>
+</Steps>
+
+This creates a leveraged position that amplifies exposure to the collateral asset while borrowing the debt asset. The APY reflects the net return after accounting for borrowing costs and the yield from the collateral asset.
+
+## Data Structure
+
+Below is an example of a loop market response from the Markets API. Based on customer demand, we may add more fields to the response in the future.
+
+For the latest data structure, please have a look at our [Markets API Reference](/api-reference/markets/list-all-markets) page.
+
+<Note>
+  Please note that we do our best to design our APIs to be non-breaking. It is
+  recommended to filter the response and only include the fields / types you
+  need to ensure it won't break your application if new fields are added over
+  time.
+</Note>
+
+```json Loop Markets Data Structure
+{
+  "id": "string",                    // Unique market identifier
+  "type": "loop",                    // Market type
+  "provider": {
+    "id": "string",                  // Protocol identifier
+    "name": "string",                // Protocol display name
+    "icon": "string"                 // Protocol icon URL
+  },
+  "tokenA": {                        // Collateral token
+    "address": "string",             // Token mint address
+    "symbol": "string",              // Token symbol
+    "decimals": number,              // Token decimals
+    "icon": "string"                 // Token icon URL
+  },
+  "tokenB": {                        // Debt/borrow token
+    "address": "string",             // Token mint address
+    "symbol": "string",              // Token symbol
+    "decimals": number,              // Token decimals
+    "icon": "string"                 // Token icon URL
+  },
+  "websiteUrl": "string",            // Direct link to protocol (optional)
+  "depositApy": number,              // Net APY after leverage and borrowing costs
+  "maxLeverage": number,             // Maximum leverage multiplier (e.g., 7.69x)
+  "maxLtv": number,                  // Maximum loan-to-value ratio (0-1)
+  "liquidationLtv": number,          // LTV threshold for liquidation (0-1)
+  "additionalData": {},              // Protocol-specific metadata (varies by market)
+  "actions": {
+    "setup": {
+      "blinkUrl": "string"           // Blink URL for LUT creation
+    },
+    "deposit": {
+      "blinkUrl": "string"           // Blink URL for leveraged deposit
+    },
+    "withdraw": {
+      "blinkUrl": "string"           // Blink URL for position withdrawal
+    }
+  }
+}
+```
+
+## Practical Example
+
+In order to better understand how the API works, let's walk through an example response for the Kamino Multiply lanternSOL/SOL strategy below:
+
+```json API Response for Kamino Multiply lanternSOL/SOL
+{
+  "id": "kamino.multiply.J5oj3VKWQNKRZx3heWZx7JZC59AEDQ9UQwqqiy63nCuf.d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q",
+  "type": "loop",
+  "provider": {
+    "id": "kamino",
+    "name": "Kamino",
+    "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/5cddfb2e-c98e-4734-528b-b541fb5e2b00/public"
+  },
+  "tokenA": {
+    "address": "LnTRntk2kTfWEY6cVB8K9649pgJbt6dJLS1Ns1GZCWg",
+    "symbol": "lanternSOL",
+    "decimals": 9,
+    "icon": "https://arweave.net/juI8rxciTff6pljaDiXMEq5klSOngQol_8lvyokGGwY"
+  },
+  "tokenB": {
+    "address": "So11111111111111111111111111111111111111112",
+    "symbol": "SOL",
+    "decimals": 9,
+    "icon": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"
+  },
+  "websiteUrl": "https://kamino.com/multiply/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/J5oj3VKWQNKRZx3heWZx7JZC59AEDQ9UQwqqiy63nCuf/d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q",
+  "depositApy": 0.1902,
+  "maxLeverage": 7.692307692307692,
+  "maxLtv": 0.87,
+  "liquidationLtv": 0.92,
+  "additionalData": {
+    "marketAddress": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+    "collateralReserveAddress": "J5oj3VKWQNKRZx3heWZx7JZC59AEDQ9UQwqqiy63nCuf",
+    "borrowReserveAddress": "d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q"
+  },
+  "actions": {
+    "setup": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/multiply/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/setup?collTokenMint=LnTRntk2kTfWEY6cVB8K9649pgJbt6dJLS1Ns1GZCWg&debtTokenMint=So11111111111111111111111111111111111111112"
+    },
+    "deposit": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/multiply/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/deposit?collTokenMint=LnTRntk2kTfWEY6cVB8K9649pgJbt6dJLS1Ns1GZCWg&debtTokenMint=So11111111111111111111111111111111111111112"
+    },
+    "withdraw": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/multiply/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/withdraw?collTokenMint=LnTRntk2kTfWEY6cVB8K9649pgJbt6dJLS1Ns1GZCWg&debtTokenMint=So11111111111111111111111111111111111111112"
+    }
+  }
+}
+```
+
+### Understanding the Response
+
+What you can see here is the original response from the API. As mentioned in the introduction section, this response is powerful enough to drive full-fledged dashboards and applications.
+
+Let's break it down into its components:
+
+- **Market Identity:**
+
+  - `id`: Unique identifier combining protocol, market type, and reserve addresses
+  - `type`: Market category (always `loop` for loop markets)
+  - `provider`: Protocol information for branding in your UI
+  - `tokenA`: Collateral token (lanternSOL) - the asset you want leveraged exposure to
+  - `tokenB`: Debt token (SOL) - the asset being borrowed
+  - `websiteUrl`: Direct link to the loop strategy on the protocol's website
+
+- **APY:**
+
+  - `depositApy` (19.04%) — Net APY after accounting for leverage and borrowing costs
+
+  **Note:** This represents the leveraged yield. For example, if lanternSOL yields 5% and SOL borrowing costs 3%, with 7x leverage, the net APY reflects: (5% × 7) - (3% × 6) = approximately 17% before fees.
+
+- **Leverage Parameters:**
+
+  - `maxLeverage` (7.69x) — Maximum leverage multiplier available for this strategy
+  - `maxLtv` (0.87 or 87%) — Maximum loan-to-value ratio allowed when establishing the leveraged position
+  - `liquidationLtv` (0.92 or 92%) — LTV threshold at which the position becomes eligible for liquidation
+
+- **Actions:** The `actions` object contains Blink URLs for:
+
+  - **`setup`** — Creates a Lookup Table (LUT) required before opening a leveraged position. This is a one-time setup per wallet for each market.
+  - **`deposit`** — Opens or increases a leveraged position by depositing collateral and executing the looping strategy.
+  - **`withdraw`** — Reduces or closes a leveraged position by unwinding the loop and returning collateral.
+
+- **Additional Data:** The `additionalData` object contains protocol-specific metadata. In this example, we have the following additional data for Kamino Multiply:
+  - `marketAddress`: The address of the lending market
+  - `collateralReserveAddress`: The reserve address for the collateral token (lanternSOL)
+  - `borrowReserveAddress`: The reserve address for the borrow token (SOL)
