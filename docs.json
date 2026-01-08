@@ -273,7 +273,8 @@
                 "group": "Market Types",
                 "pages": [
                   "markets/market-types/introduction",
-                  "markets/market-types/yield"
+                  "markets/market-types/yield",
+                  "markets/market-types/lend"
                 ]
               },
               "markets/history",

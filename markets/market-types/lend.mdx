@@ -1,0 +1,314 @@
+---
+title: Lending Markets
+description: "Get Solana's top lending markets with real-time data and ready-to-use Blinks for seamless DeFi interactions."
+---
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/v1767358993/kamino-markets_qei1jr.png"
+  alt="Lending Market Details"
+/>
+
+Lending markets allow users to deposit assets and earn interest or borrow against them. Unlike [yield markets](/markets/market-types/yield) where returns come from DeFi strategies, lending markets generate returns through borrower interest payments and optional protocol rewards.
+
+Our Markets API already contains lots of information that you would manually collect via multiple API calls throughout protocols and providers, such as:
+
+- basic protocol information (one call contains multiple protocols),
+- deposit and borrow APY information,
+- token information,
+- protocol rewards,
+- LTV and liquidation parameters,
+- actions (deposit, withdraw, borrow, repay), etc.
+
+By enriching the response with all of this information, it makes the API powerful enough to drive full-fledged dashboards and applications as well as smaller widgets, cards or notifications - All in a single API call!
+
+## Supported Protocols
+
+Our Markets API provides unified access to lending markets across multiple protocols:
+
+- [**Kamino Borrow**](https://kamino.com/borrow)
+- [**MarginFi**](https://marginfi.com/)
+- [**Jupiter Lend**](https://jup.ag/lend/borrow)
+
+If you want more information on the protocols that are supported, please refer to the [Supported Protocols Section](/markets/supported-protocols) page.
+
+### Lending vs Yield
+
+Lending markets differ from yield markets in how they generate returns and what functionality they offer. Below is a comparison of the two:
+
+| Feature               | Lending Markets                                          | Yield Markets                              |
+| --------------------- | -------------------------------------------------------- | ------------------------------------------ |
+| **Primary Action**    | Deposit to lend, with borrowing option                   | Deposit to earn                            |
+| **Return Source**     | Borrower interest payments + protocol rewards (optional) | Earnings collected through DeFi strategies |
+| **Collateralization** | Required for borrowing                                   | Not required                               |
+| **Risk Profile**      | Credit risk + liquidation risk (if assets were borrowed) | Strategy-dependent                         |
+| **Composability**     | Two-sided (lend + borrow)                                | Mostly single-sided                        |
+
+## Data Structure
+
+Below is an example of a lending market response from the Markets API. Based on customer demand, we may add more fields to the response in the future.
+
+For the latest data structure, please have a look at our [Markets API Reference](/api-reference/markets/list-all-markets) page.
+
+<Note>
+  Please note that we do our best to design our APIs to be non-breaking. It is
+  recommended to filter the response and only include the fields / types you
+  need to ensure it won't break your application if new fields are added over
+  time.
+</Note>
+
+```json Lending Markets Data Structure
+{
+  "id": "string",                    // Unique market identifier
+  "type": "lending",                 // Market type
+  "provider": {
+    "id": "string",                  // Protocol identifier
+    "name": "string",                // Protocol display name
+    "icon": "string"                 // Protocol icon URL
+  },
+  "token": {
+    "address": "string",             // Token mint address
+    "symbol": "string",              // Token symbol
+    "decimals": number,              // Token decimals
+    "icon": "string"                 // Token icon URL
+  },
+  "websiteUrl": "string",            // Direct link to protocol (optional)
+
+  // Deposit APY metrics
+  "depositApy": number,              // Total deposit APY including rewards
+  "baseDepositApy": number,          // Base deposit APY without rewards
+  "baseDepositApy30d": number,       // Historical 30-day average (optional)
+  "baseDepositApy90d": number,       // Historical 90-day average (optional)
+  "baseDepositApy180d": number,      // Historical 180-day average (optional)
+
+  // Borrow APY metrics
+  "borrowApy": number,               // Total borrow APY including rewards
+  "baseBorrowApy": number,           // Base borrow APY without rewards
+  "baseBorrowApy30d": number,        // Historical 30-day average (optional)
+  "baseBorrowApy90d": number,        // Historical 90-day average (optional)
+  "baseBorrowApy180d": number,       // Historical 180-day average (optional)
+
+  // Market metrics
+  "totalDeposit": number,            // Total deposited (token amount)
+  "totalDepositUsd": number,         // Total deposited (USD value)
+  "totalBorrow": number,             // Total borrowed (token amount)
+  "totalBorrowUsd": number,          // Total borrowed (USD value)
+  "maxDeposit": number,              // Maximum deposit limit
+  "maxBorrow": number,               // Maximum borrow limit
+
+  // Risk parameters
+  "maxLtv": number,                  // Maximum loan-to-value ratio
+  "liquidationLtv": number,          // LTV threshold for liquidation
+
+  "rewards": [                       // Additional reward tokens (optional)
+    {
+      "type": "deposit",
+      "apy": number,
+      "token": {
+        "address": "string",
+        "symbol": "string",
+        "decimals": number,
+        "icon": "string"
+      },
+      "marketAction": "deposit"
+    }
+  ],
+  "additionalData": {},              // Protocol-specific metadata (varies by market)
+  "actions": {
+    "deposit": {
+      "blinkUrl": "string"           // Blink action URL
+    },
+    "withdraw": {
+      "blinkUrl": "string"           // Blink action URL
+    },
+    "borrow": {
+      "blinkUrl": "string"           // Blink action URL
+    },
+    "repay": {
+      "blinkUrl": "string"           // Blink action URL
+    },
+    "repayWithCollateral": {
+      "blinkUrl": "string"           // Blink action URL (optional)
+    },
+    "claimRewards": {
+      "blinkUrl": "string"           // Blink action URL (optional)
+    }
+  }
+}
+```
+
+## Practical Example
+
+In order to better understand how the API works, let's walk through an example response for the Kamino USDS Main Market below:
+
+```json API Response for Kamino USDS Main Market
+{
+  "id": "kamino.BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA",
+  "type": "lending",
+  "provider": {
+    "id": "kamino",
+    "name": "Kamino",
+    "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/5cddfb2e-c98e-4734-528b-b541fb5e2b00/public"
+  },
+  "token": {
+    "address": "USDSwr9ApdHk5bvJKMjzff41FfuX8bSxdKcR81vTwcA",
+    "symbol": "USDS",
+    "decimals": 6,
+    "icon": "https://ipfs.io/ipfs/QmTW9HWfb2wsQqEVJiixkQ73Nsfp2Rx4ESaDSiQ7ThwnFM"
+  },
+  "websiteUrl": "https://kamino.com/borrow/reserve/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA",
+  "depositApy": 0.0534,
+  "baseDepositApy": 0.0135,
+  "baseDepositApy30d": 0.011462369546395708,
+  "baseDepositApy90d": 0.01872287925720142,
+  "baseDepositApy180d": 0.025712013041794924,
+  "borrowApy": 0.0448,
+  "baseBorrowApy": 0.0448,
+  "baseBorrowApy30d": 0.04556353915804009,
+  "baseBorrowApy90d": 0.050836781389652266,
+  "baseBorrowApy180d": 0.058634378885015534,
+  "totalDeposit": 22894432.359652,
+  "totalDepositUsd": 22887415.9,
+  "totalBorrow": 8751652.322147,
+  "totalBorrowUsd": 8748970.2,
+  "maxDeposit": 150000000,
+  "maxBorrow": 140000000,
+  "rewards": [
+    {
+      "type": "deposit",
+      "apy": 0.0399,
+      "token": {
+        "address": "USDSwr9ApdHk5bvJKMjzff41FfuX8bSxdKcR81vTwcA",
+        "symbol": "USDS",
+        "decimals": 6,
+        "icon": "https://ipfs.io/ipfs/QmTW9HWfb2wsQqEVJiixkQ73Nsfp2Rx4ESaDSiQ7ThwnFM"
+      },
+      "marketAction": "deposit"
+    }
+  ],
+  "maxLtv": 0.8,
+  "liquidationLtv": 0.9,
+  "additionalData": {
+    "marketAddress": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+    "reserveAddress": "BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA",
+    "marketName": "Main Market"
+  },
+  "actions": {
+    "deposit": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA/deposit"
+    },
+    "withdraw": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA/withdraw"
+    },
+    "borrow": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA/borrow"
+    },
+    "repay": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA/repay"
+    },
+    "repayWithCollateral": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA/repay-with-collateral"
+    },
+    "claimRewards": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/lending/reserve/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA/claim-rewards"
+    }
+  }
+}
+```
+
+### Understanding the Response
+
+What you can see here is the original response from the API. As mentioned in the introduction section, this response is powerful enough to drive full-fledged dashboards and applications.
+
+Let's break it down into its components:
+
+- **Market Identity:**
+
+  - `id`: Unique identifier combining protocol and reserve address
+  - `type`: Market category (always `lending` for lending markets)
+  - `provider`: Protocol information for branding in your UI
+  - `token`: Full token information including address, symbol, decimals and icon
+  - `websiteUrl`: Direct link to the market on the protocol's website
+
+- **Deposit APY Breakdown:**
+
+  - `depositApy` (5.46%) — Total combined deposit yield including rewards
+  - `baseDepositApy` (1.38%) — Core yield from borrower interest
+  - `baseDepositApy30d` (1.16%) — Historical 30-day average
+  - `baseDepositApy90d` (1.95%) — Historical 90-day average
+  - `baseDepositApy180d` (2.65%) — Historical 180-day average
+  - `rewards` array (4.09% USDS) — Additional incentive tokens for depositors
+
+- **Borrow APY Breakdown:**
+
+  - `borrowApy` (4.48%) — Total cost to borrow (can be reduced by rewards)
+  - `baseBorrowApy` (4.48%) — Base borrowing cost
+  - `baseBorrowApy30d` (4.57%) — Historical 30-day average
+  - `baseBorrowApy90d` (5.17%) — Historical 90-day average
+  - `baseBorrowApy180d` (5.96%) — Historical 180-day average
+
+- **Market Metrics:**
+
+  - `totalDeposit` / `totalDepositUsd`: This market holds $22.4M USDS in deposits
+  - `totalBorrow` / `totalBorrowUsd`: $8.7M USDS currently borrowed
+  - `maxDeposit`: Maximum deposit cap (150M)
+  - `maxBorrow`: Maximum borrow cap (140M)
+
+  **Note:** `totalDepositUsd` and `totalBorrowUsd` are USD values, the rest are native token units.
+
+- **Risk Parameters:**
+
+  - `maxLtv` (80%) — Maximum loan-to-value ratio for borrowing
+  - `liquidationLtv` (90%) — LTV threshold that triggers liquidation
+  - `liquidationPenalty` — Penalty applied during liquidation (when available)
+
+- **Actions:** The `actions` object contains Blink URLs for `deposit`, `withdraw`, `borrow`, `repay`, and optionally `repayWithCollateral` and `claimRewards` depending on the protocol.
+
+- **Additional Data:** The `additionalData` object contains protocol-specific metadata. In this example, we have the following additional data for the Kamino USDS Main Market:
+  - `marketAddress`: The address of the lending market
+  - `reserveAddress`: The address of the reserve
+  - `marketName`: The name of the market
+
+### Protocol-Specific Additional Data
+
+The `additionalData` field varies by provider. In our example, we have the following additional data for Kamino Lend:
+
+```json Kamino Borrow
+{
+  "additionalData": {
+    "marketAddress": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+    "reserveAddress": "BHUi32TrEsfN2U821G4FprKrR4hTeK4LCWtA3BFetuqA",
+    "marketName": "Main Market"
+  }
+}
+```
+
+MarginFi returns a `groupAddress` in the additional data:
+
+```json MarginFi
+{
+  "additionalData": {
+    "groupAddress": "4qp6Fx6tnZkY5Wropq9wUYgtFxXKwE6viZxFHg3rdAG8"
+  }
+}
+```
+
+Jupiter Lend markets may include a `borrowToken` field at the root level when the borrowed token differs from the collateral token:
+
+```json Jupiter Borrow (with borrowToken)
+{
+  "token": {
+    "address": "So11111111111111111111111111111111111111112",
+    "symbol": "WSOL",
+    "decimals": 9,
+    "icon": "https://coin-images.coingecko.com/coins/images/21629/large/solana.jpg?1696520989"
+  },
+  "borrowToken": {
+    "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "symbol": "USDC",
+    "decimals": 6,
+    "icon": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694"
+  }
+}
+```
+
+As we continue to add more providers and markets, the `additionalData` field will continue to grow and be more powerful. If you need more information or want to check out what protocols are supported, please refer to the [Supported Protocols](/markets/supported-protocols) page.
