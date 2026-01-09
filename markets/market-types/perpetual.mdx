@@ -1,0 +1,161 @@
+---
+title: Perpetual Markets
+description: "Get real-time market data for perpetual leverage positions in a unified format across Solana's top DeFi protocols."
+---
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/v1767963232/market-type-perpetuals_fnsuop.png"
+  alt="Perpetual Market Details View"
+/>
+
+Perpetual markets (also known as "Leverage" markets) allow users to take leveraged long or short positions on asset pairs.
+
+Our Markets API already contains lots of information that you would manually collect via multiple API calls throughout protocols and providers, such as:
+
+- basic protocol information,
+- liquidity and leverage information,
+- token pair information (long and short tokens),
+- available actions (setup, open position, close position), etc.
+
+By enriching the response with all of this information, it makes the API powerful enough to drive full-fledged dashboards and applications as well as smaller widgets, cards or notifications - All in a single API call!
+
+## Supported Protocols
+
+Our Markets API provides unified access to perpetual markets across multiple protocols:
+
+- [**Kamino Leverage**](https://kamino.com/leverage)
+
+If you want more information on the protocols that are supported, please refer to the [Supported Protocols Section](/markets/supported-protocols) page.
+
+## Data Structure
+
+Below is an example of a perpetual market response from the Markets API. Based on customer demand, we may add more fields to the response in the future.
+
+For the latest data structure, please have a look at our [Markets API Reference](/api-reference/markets/list-all-markets) page.
+
+<Note>
+  Please note that we do our best to design our APIs to be non-breaking. It is
+  recommended to filter the response and only include the fields / types you
+  need to ensure it won't break your application if new fields are added over
+  time.
+</Note>
+
+```json Perpetual Markets Data Structure
+{
+  "id": "string",                    // Unique market identifier
+  "type": "perpetual",               // Market type
+  "provider": {
+    "id": "string",                  // Protocol identifier
+    "name": "string",                // Protocol display name
+    "icon": "string"                 // Protocol icon URL
+  },
+  "tokenA": {                        // Base token (asset being traded)
+    "address": "string",             // Token mint address
+    "symbol": "string",              // Token symbol
+    "decimals": number,              // Token decimals
+    "icon": "string"                 // Token icon URL
+  },
+  "tokenB": {                        // Quote token
+    "address": "string",             // Token mint address
+    "symbol": "string",              // Token symbol
+    "decimals": number,              // Token decimals
+    "icon": "string"                 // Token icon URL
+  },
+  "websiteUrl": "string",            // Direct link to protocol (optional)
+  "liquidity": {
+    "longUsd": number,               // Total liquidity available for long positions (USD)
+    "shortUsd": number               // Total liquidity available for short positions (USD)
+  },
+  "maxLeverage": number,             // Maximum leverage multiplier (e.g., 3.85x)
+  "additionalData": {},              // Protocol-specific metadata (varies by market)
+  "actions": {
+    "setup": {
+      "blinkUrl": "string"           // Blink URL for LUT creation
+    },
+    "openPosition": {
+      "blinkUrl": "string"           // Blink URL to open a leveraged position
+    },
+    "closePosition": {
+      "blinkUrl": "string"           // Blink URL to close an open position
+    }
+  }
+}
+```
+
+## Practical Example
+
+In order to better understand how the API works, let's walk through an example response for the Kamino Leverage SOL/USDC market below:
+
+```json API Response for Kamino Leverage SOL/USDC
+{
+  "id": "kamino.leverage.So11111111111111111111111111111111111111112.EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "type": "perpetual",
+  "provider": {
+    "id": "kamino",
+    "name": "Kamino",
+    "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/5cddfb2e-c98e-4734-528b-b541fb5e2b00/public"
+  },
+  "tokenA": {
+    "address": "So11111111111111111111111111111111111111112",
+    "symbol": "SOL",
+    "decimals": 9,
+    "icon": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"
+  },
+  "tokenB": {
+    "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "symbol": "USDC",
+    "decimals": 6,
+    "icon": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png"
+  },
+  "websiteUrl": "https://kamino.com/leverage/main/SOL/USDC",
+  "liquidity": { "longUsd": 119915527.62, "shortUsd": 70570015 },
+  "maxLeverage": 3.846153846153846,
+  "actions": {
+    "setup": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/leverage/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/setup?collTokenMint=So11111111111111111111111111111111111111112&debtTokenMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    },
+    "openPosition": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/leverage/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/openPosition?collTokenMint=So11111111111111111111111111111111111111112&debtTokenMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    },
+    "closePosition": {
+      "blinkUrl": "blink:https://kamino.dial.to/api/v0/leverage/7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF/closePosition?collTokenMint=So11111111111111111111111111111111111111112&debtTokenMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    }
+  }
+}
+```
+
+### Understanding the Response
+
+What you can see here is the original response from the API. As mentioned in the introduction section, this response is powerful enough to drive full-fledged dashboards and applications.
+
+Let's break it down into its components:
+
+- **Market Identity:**
+
+  - `id`: Unique identifier combining protocol, market type, and token addresses
+  - `type`: Market category (always `perpetual` for perpetual markets)
+  - `provider`: Protocol information for branding in your UI
+  - `tokenA`: Base token (SOL) - the asset you're taking a leveraged position on
+  - `tokenB`: Quote token (USDC) - the token used for pricing and collateral
+  - `websiteUrl`: Direct link to the leverage market on the protocol's website
+
+- **Liquidity:**
+
+  - `longUsd` ($119.9M) — Total liquidity available for long positions (betting SOL price will increase)
+  - `shortUsd` ($70.6M) — Total liquidity available for short positions (betting SOL price will decrease)
+
+  **Note:** Unlike traditional perpetual futures that use funding rates, Kamino's Leverage positions work similarly to spot margin trading.
+
+- **Leverage:**
+
+  - `maxLeverage` (3.85x) — Maximum leverage multiplier available for this market
+
+  **Example:** With \$1,000 and 3.85x leverage, you can control a position worth \$3,850.
+
+- **Actions:** The `actions` object contains Blink URLs for:
+
+  - **`setup`** — Creates a Lookup Table (LUT) required before opening a leveraged position. This is a one-time setup per wallet for each market.
+  - **`openPosition`** — Opens a long or short leveraged position on the token pair.
+  - **`closePosition`** — Closes an existing leveraged position and returns the remaining collateral.
+
+- **Additional Data:** The `additionalData` object contains protocol-specific metadata (if available).
