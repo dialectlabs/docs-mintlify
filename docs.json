@@ -275,7 +275,8 @@
                   "markets/market-types/introduction",
                   "markets/market-types/yield",
                   "markets/market-types/lending",
-                  "markets/market-types/loop"
+                  "markets/market-types/loop",
+                  "markets/market-types/perpetual"
                 ]
               },
               "markets/history",
