@@ -62,7 +62,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "description": "URL-encoded JSON object for filtering. For prediction markets: {\"prediction\":{\"status\":\"open\"|\"closed\"|\"settled\"}}. Default status is \"open\" for prediction markets."
+              "description": "Only for prediction markets. Use with `type=prediction`.\n\nStatus options:\n- `open` \n- `closed`\n- `settled`\n\nExample: `{\"prediction\":{\"status\":\"open\"}}`"
             }
           }
         ],
