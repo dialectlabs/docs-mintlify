@@ -6,6 +6,34 @@ rss: true
 
 <Update label="January 2026">
 
+## Introducing the Assets API
+
+We're excited to launch the [**Assets API**](https://assets.dial.to/) — a unified endpoint for token metadata, pricing, and asset information across multiple chains. No more juggling multiple data sources or maintaining separate integrations for each blockchain.
+
+### Key Benefits
+
+- **Single Integration** - Access crypto assets across major chains through one unified API
+- **Real-Time Pricing** - Get up-to-date price data with built-in caching for optimal performance
+- **Historical Data** - Track price movements over time for analytics and charting
+
+### Coverage
+
+- **Multi-Chain Support** - Solana, Ethereum, and major L1 chains are now accessible through a single API
+- **Asset Types** - Crypto tokens and real-world assets, including stocks
+- **Token Format** - For Solana and Ethereum, we use the token address as the asset ID (e.g. `solana:So11111111111111111111111111111111111111112`), for all other chains, please use the search endpoint to find the corresponding asset ID
+
+### Available Endpoints
+
+| Endpoint | Description |
+|----------|-------------|
+| [`GET /v0/search`](https://assets.dial.to/api/docs#tag/assets/GET/v0/search) | Search for assets by `name`, `ticker` or `tags` |
+| [`GET /v0/assets/{id}`](https://assets.dial.to/api/docs#tag/assets/GET/v0/assets/{id}) | Retrieve detailed metadata and pricing for a specific asset |
+| [`GET /v0/assets/{id}/history`](https://assets.dial.to/api/docs#tag/assets/GET/v0/assets/{id}/history) | Get historical price data for an asset |
+
+### Documentation
+
+Full API documentation with coverage details, caching information, and examples is available at [assets.dial.to/api/docs](https://assets.dial.to/api/docs).
+
 ## Markets API Updates
 
 Enhanced documentation with new [Market Types](/markets/market-types/introduction) coverage, explaining how different DeFi strategies work and how to use our APIs to integrate them. Each market type includes detailed guides with data structures, supported protocols, and integration examples:
@@ -14,6 +42,10 @@ Enhanced documentation with new [Market Types](/markets/market-types/introductio
 - [Lending Markets](/markets/market-types/lending) ,
 - [Loop Markets](/markets/market-types/loop), and
 - [Perpetual Markets](/markets/market-types/perpetual)
+
+### More updates: 
+- **CDN-Hosted Images** - Token images now served via CDN for improved performance
+- **Query Improvements** - API now accepts `type` and `provider` parameters as comma-separated values for flexible filtering
 
 ## Positions API Updates
 
