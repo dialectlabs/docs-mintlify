@@ -62,7 +62,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "description": "Only for prediction markets. Use with `type=prediction`.\n\nStatus options:\n- `open` \n- `closed`\n- `settled`\n\nExample: `{\"prediction\":{\"status\":\"open\"}}`"
+              "description": "Comma-separated list, only for prediction markets. Use with `type=prediction`.\n\nStatus options:\n- `open` \n- `closed`\n- `settled`\n\nExamples:\n- `{\"prediction\":{\"status\":[\"open\"]}}`\n- `{\"prediction\":{\"status\":[\"open\", \"closed\"]}}`"
             }
           }
         ],
