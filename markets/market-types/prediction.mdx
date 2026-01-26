@@ -1,0 +1,371 @@
+---
+title: Prediction Markets
+description: "Get real-time market data for prediction markets on Solana."
+tag: "NEW"
+---
+
+<img
+  src="https://res.cloudinary.com/dnxjhra4h/image/upload/v1767979604/market-type-prediction_z9uy4f.png"
+  alt="Prediction Market Details View"
+/>
+
+Prediction markets allow users to bet on the outcomes of real-world events. Users can buy "Yes" or "No" outcome tokens with the price of these tokens reflecting the market's collective belief about the likelihood of an event occurring.
+
+Our Markets API provides all the information you need to build prediction market interfaces, including:
+
+- basic protocol information,
+- market title and status,
+- bid/ask prices for Yes and No outcomes,
+- trading volume and open interest,
+- outcome tokens information,
+- timing information (open, close, expirationTime), etc.
+
+By enriching the response with all of this information, it makes the API powerful enough to drive full-fledged dashboards and applications as well as smaller widgets, cards or notifications - All in a single API call!
+
+## Supported Protocols
+
+Our Markets API currently supports prediction markets from [**DFlow**](https://dflow.net), who are the official provider for [Kalshi](https://kalshi.com).
+
+If you want more information on the protocols that are supported or want to request more providers, please refer to the [Supported Protocols Section](/markets/supported-protocols) page.
+
+## Understanding Events and Markets
+
+![Expiration image for Prediction Markets and Events](https://res.cloudinary.com/dnxjhra4h/image/upload/v1769175373/prediction-events-and-markets_ticczm.png)
+When working with prediction markets, it's important to understand the distinction between **events** and **markets**:
+
+- **Markets** are the individual tradable outcomes within an event (e.g., "Democratic Party wins - Yes/No", "Republican Party wins - Yes/No")
+- **Events** are groupings of markets (e.g., "Which party will win control of the US House in 2026?")
+
+
+### Markets
+
+A single event typically has multiple markets. In our example the question "Which party will win control of the US House in 2026?" will create two markets: 
+1. Market for the **Domocratic Party** (Yes/No) and 
+2. Market for the **Republican Party** (Yes/No).
+
+For crypto specifially, it is often the case that each market gets multiple token markets on top:
+- **CASH market** — For purchasing with Phantom's stable coin
+- **USDC market** — For purchasing with USDC
+
+Which means that the API will return 4 markets for this single event:
+
+| Event | Markets | Token |
+| ----- | ------- | ------ |
+| Control of the House 2026 | Democratic Party (Yes/No) | USDC |
+|                           | Democratic Party (Yes/No) | CASH |
+|                           | Republican Party (Yes/No) | USDC |
+|                           | Republican Party (Yes/No) | CASH |
+
+
+### Events
+
+The `bundleId` field is the key to grouping markets that belong to the same underlying event. All markets for the same question share the same `bundleId`, allowing you to:
+
+- Display related bets together in your UI
+- Create "position bundles" showing all positions for a single event
+- Build event-centric dashboards similar to Kalshi's interface
+
+### Example: Grouping Political Markets
+
+Our API will return you four markets for the "Control of the House 2026" event. In order to make it easier for your users, it is recommended to group these markets by their `bundleId`. The example bleow illustrates this concept for the CASH markets:
+
+```json {5, 13} Multiple markets with same bundleId
+// Market 1: Democratic Party (Cash)
+{
+  "id": "dflow.prediction.house-2026-dem-cash",
+  "title": "Democratic Party will win control of US House",
+  "bundleId": "house-control-2026",
+  ...
+}
+
+// Market 2: Republican Party (Cash)
+{
+  "id": "dflow.prediction.house-2026-rep-cash",
+  "title": "Republican Party will win control of US House",
+  "bundleId": "house-control-2026",
+  ...
+}
+```
+
+All markets share the same `bundleId: "house-control-2026"`, indicating they belong to the same underlying event.
+
+<Tip>
+  To group markets by event in your application, filter or group the API response
+  by the `bundleId` field. This recreates the "event" view from platforms like Kalshi.
+</Tip>
+
+```typescript Grouping Markets by Event
+// Group markets by event using bundleId
+const marketsByEvent = markets.reduce((acc, market) => {
+  const eventId = market.bundleId;
+  if (!acc[eventId]) acc[eventId] = [];
+  acc[eventId].push(market);
+  return acc;
+}, {});
+```
+
+## Data Structure
+
+Below is an example of a prediction market response from the Markets API. Based on customer demand, we may add more fields to the response in the future.
+
+For the latest data structure, please have a look at our [Markets API Reference](/api-reference/markets/list-all-markets) page.
+
+<Note>
+  Please note that we do our best to design our APIs to be non-breaking. It is
+  recommended to filter the response and only include the fields / types you
+  need to ensure it won't break your application if new fields are added over
+  time.
+</Note>
+
+```json Prediction Markets Data Structure
+{
+  "id": "string",                    // Unique market identifier
+  "type": "prediction",              // Market type
+  "provider": {
+    "id": "string",                  // Protocol identifier
+    "name": "string",                // Protocol display name
+    "icon": "string"                 // Protocol icon URL
+  },
+  "title": "string",                 // Market question/title
+  "subtitle": "string",              // Additional context (optional)
+  "status": "open|closed|settled",   // Market status
+  "result": "string",                // Outcome result (when settled)
+  "volume": number,                  // Total trading volume (USD)
+  "openInterest": number,            // Open interest (USD)
+  "yesBid": number,                  // Best bid price for Yes outcome
+  "yesAsk": number,                  // Best ask price for Yes outcome
+  "noBid": number,                   // Best bid price for No outcome
+  "noAsk": number,                   // Best ask price for No outcome
+  "openTime": number,                // Unix timestamp when market opened
+  "closeTime": number,               // Unix timestamp when trading closes
+  "expirationTime": number,          // Unix timestamp when market expires
+  "yesToken": {                      // Yes outcome token
+    "address": "string",             // Token mint address
+    "symbol": "string",              // Token symbol
+    "decimals": number,              // Token decimals
+    "icon": "string",                // Token icon URL
+    "name": "string"                 // Token name
+  },
+  "noToken": {                       // No outcome token
+    "address": "string",             // Token mint address
+    "symbol": "string",              // Token symbol
+    "decimals": number,              // Token decimals
+    "icon": "string",                // Token icon URL
+    "name": "string"                 // Token name
+  },
+  "websiteUrl": "string",            // Direct link to market on protocol
+  "bundleId": "string",              // Groups markets from the same event
+  "additionalData": {}               // Protocol-specific metadata
+}
+```
+
+## Practical Example
+
+In order to better understand how the API works, let's walk through an example response for a DFlow prediction market. This example shows a political prediction market for control of the U.S. House:
+
+```json API Response for DFlow Prediction Market
+{
+  "id": "dflow.prediction.CONTROLH-2026.G7EqT9zdoRKt5RScDhpKjryEnT2SVjAViBJb34smb6SH",
+  "type": "prediction",
+  "provider": {
+    "id": "dflow",
+    "name": "DFlow",
+    "icon": "https://imagedelivery.net/C7jfNnfrjpAYWW6YevrFDg/d5d0e3f9-72f3-4a19-a415-6994f32c1f00/public"
+  },
+  "title": "Will Republicans win the House in 2026?",
+  "subtitle": "",
+  "status": "open",
+  "volume": 1858086,
+  "openInterest": 1113892,
+  "yesBid": 0.23,
+  "yesAsk": 0.24,
+  "noBid": 0.76,
+  "noAsk": 0.77,
+  "openTime": 1730905200,
+  "closeTime": 1801494000,
+  "expirationTime": 1801494000,
+  "yesToken": {
+    "address": "7Ady9N19XAAcqPLWwSe7ngPbxegMgvEQd55V4bR4jN2z",
+    "symbol": "DFlowYU0114",
+    "decimals": 6,
+    "icon": "https://kalshi-public-docs.s3.amazonaws.com/series-images-webp/CONTROLH.webp",
+    "name": "Yes Republican Party"
+  },
+  "noToken": {
+    "address": "8XctSiRJZhLA6QaB3p61iZwE1PCTQbbhFaDSEufkwzDQ",
+    "symbol": "DFlowNU0114",
+    "decimals": 6,
+    "icon": "https://kalshi-public-docs.s3.amazonaws.com/series-images-webp/CONTROLH.webp",
+    "name": "No Republican Party"
+  },
+  "bundleId": "dflow.prediction.CONTROLH-2026",
+  "additionalData": {
+    "ticker": "CONTROLH-2026-R",
+    "eventTicker": "CONTROLH-2026",
+    "marketLedger": "G7EqT9zdoRKt5RScDhpKjryEnT2SVjAViBJb34smb6SH",
+    "purchaseToken": {
+      "icon": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "symbol": "USDC",
+      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "decimals": 6
+    },
+    "redemptionStatus": "pending"
+  }
+}
+```
+
+
+### Understanding the Response
+
+What you can see here is the original response from the API. As mentioned in the introduction section, this response is powerful enough to drive full-fledged dashboards and applications.
+
+Let's break it down into its components:
+
+- **Market Identity:**
+  - `id`: Unique identifier combining protocol, market type, and market slug
+  - `type`: Market category (always `prediction` for prediction markets)
+  - `provider`: Protocol information for branding in your UI
+  - `title`: The market question users are betting on
+  - `subtitle`: Additional context about the market (optional)
+  - `websiteUrl`: Direct link to the market on the protocol's website
+
+- **Market Status:**
+  - `status`: Current state of the market
+    - `open` — Market is active and accepting trades
+    - `closed` — Trading has ended, awaiting settlement
+    - `settled` — Outcome has been determined and payouts processed
+  - `result`: The final outcome (only present when settled)
+
+- **Pricing (Implied Probabilities):**
+  - `yesBid` (0.23) / `yesAsk` (0.24) — Bid/ask prices for Yes tokens, implying ~23-24% probability
+  - `noBid` (0.76) / `noAsk` (0.77) — Bid/ask prices for No tokens, implying ~76-77% probability
+
+  **Note:** Prices represent implied probabilities. A Yes price of 0.23 means the market implies a 23% chance of the outcome occurring.
+
+- **Market Metrics:**
+  - `volume` ($1.86M) — Total trading volume in USD
+  - `openInterest` ($1.11M) — Total value of outstanding positions
+
+- **Timing:**
+  - `openTime` — When the market opened for trading (Unix timestamp)
+  - `closeTime` — When trading will close (Unix timestamp)
+  - `expirationTime` — When the market will be settled (Unix timestamp)
+
+- **Outcome Tokens:**
+  - `yesToken` / `noToken` — Token information for each outcome, including mint addresses for on-chain interaction
+
+- **Bundle ID:**
+  - `bundleId` ("dflow.prediction.CONTROLH-2026") — Groups markets belonging to the same underlying event. All markets with the same bundleId are related (e.g., different party outcomes for the same election, or the same market with different purchase tokens).
+
+- **Additional Data:** The `additionalData` object contains protocol-specific metadata. See [Protocol-Specific Additional Data](#protocol-specific-additional-data) for details.
+
+## Filtering Prediction Markets
+
+If you are only interested in specific prediction markets, you can use the `filters` parameter to refine your API requests.
+
+<video
+  src="https://res.cloudinary.com/dnxjhra4h/video/upload/v1769017673/prediction-markets-filter_tst9ux.mp4"
+  controls
+/>
+
+<Note>
+  Filters only work for `prediction` market type. Make sure to set this type
+  before sending your request.
+</Note>
+
+As of now, we support filtering by the following status values:
+
+- `open`
+- `closed`
+- `settled`
+
+**Examples:**
+
+- Open only: `{"prediction":{"status":["open"]}}`
+- Exclude settled: `{"prediction":{"status":["open","closed"]}}`
+
+If you need more filter options, please [reach out](https://form.typeform.com/to/zHHLsFUV) to us.
+
+## Tracking Prediction Positions
+
+Our [Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address) simplifies position tracking for prediction markets. Without it, tracking DFlow positions requires multiple steps:
+
+1. Fetch all token accounts for a wallet
+2. Get tokenized account mints
+3. Use DFlow's endpoint to filter outcome token mints
+4. Fetch market details for those mints
+
+The Positions API simplifies this to a single call.
+
+### Fetching Positions
+
+<CodeGroup>
+```typescript TypeScript
+const response = await fetch(
+  'https://markets.dial.to/api/v0/positions/owners?walletAddresses=YOUR_WALLET&type=prediction',
+  {
+    headers: {
+      'x-dialect-api-key': 'YOUR_API_KEY'
+    }
+  }
+);
+
+const data = await response.json();
+console.log(data.positions);
+```
+
+```bash cURL
+curl 'https://markets.dial.to/api/v0/positions/owners?walletAddresses=YOUR_WALLET&type=prediction' \
+  --header 'x-dialect-api-key: YOUR_API_KEY'
+```
+</CodeGroup>
+
+### Grouping Positions by Event
+
+Use the `bundleId` field to group a user's positions that belong to the same underlying event:
+
+```typescript Grouping Positions by Event
+// Group positions by event using bundleId
+const positionsByEvent = positions.reduce((acc, position) => {
+  const eventId = position.bundleId;
+  if (!acc[eventId]) acc[eventId] = [];
+  acc[eventId].push(position);
+  return acc;
+}, {});
+```
+
+
+## Protocol-Specific Additional Data
+
+The `additionalData` field contains DFlow-specific metadata that may be useful for advanced integrations:
+
+```json DFlow Additional Data
+{
+  "additionalData": {
+    "ticker": "CONTROLH-2026-R",
+    "eventTicker": "CONTROLH-2026",
+    "marketLedger": "G7EqT9zdoRKt5RScDhpKjryEnT2SVjAViBJb34smb6SH",
+    "purchaseToken": {
+      "icon": "https://...",
+      "symbol": "USDC",
+      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "decimals": 6
+    },
+    "redemptionStatus": "pending"
+  }
+}
+```
+
+| Field | Description |
+| ----- | ----------- |
+| `ticker` | Kalshi's / DFlow's specific market identifier (e.g., "CONTROLH-2026-R" for Republicans) |
+| `eventTicker` | Event-level identifier — all markets in the same event share this ticker |
+| `marketLedger` | On-chain address of the market ledger that handles positions and redemptions |
+| `purchaseToken` | The token used to purchase outcome tokens (USDC or CASH) |
+| `redemptionStatus` | Current redemption state: `null`, `"pending"`, or `"redeemed"` |
+
+<Note>
+  The `eventTicker` in `additionalData` corresponds conceptually to the `bundleId`
+  field. Both can be used to identify markets that belong together.
+</Note>
+
