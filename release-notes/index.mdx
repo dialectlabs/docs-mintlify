@@ -4,13 +4,34 @@ description: "Latest updates and feature releases from the Dialect team"
 rss: true
 ---
 
-<Update label="January 2026">
+<Update label="January 26, 2026">
+
+## Prediction Markets Documentation
+
+Added documentation for [Prediction Markets](/markets/market-types/prediction) - a new market type enabling users to trade on the outcomes of real-world events. The guide covers how prediction markets work, supported protocols, and integration examples for building prediction market experiences.
+
+## Assets API Updates
+
+Enhanced [search](https://assets.dial.to/api/docs#tag/assets/GET/v0/search) capabilities for the Assets API:
+
+- **Expanded Data Sources** - Search now queries additional data providers for improved asset discovery
+- **Improved Data Quality** - Various changes to reach enhanced metadata accuracy and consistency across search results
+- **Metadata Fallback Chain** - Added fallback logic to ensure asset metadata is always available even when primary sources are unavailable
+
+## Positions API Updates
+
+- **Prediction Markets GA** - Prediction market position tracking is now generally available. The `prediction_beta` filter parameter introduced on January 13 is no longer required. [Learn more](/api-reference/positions/list-all-market-positions-by-wallet-address)
+- **Market Type Filtering** - Filter positions by market type using the new `type` parameter. Supported types: `yield`, `lending`, `loop`, `perpetual`, `reward`, and `prediction`. Currently supports filtering by one type per request. [Learn more](/api-reference/positions/list-all-market-positions-by-wallet-address)
+
+</Update>
+
+<Update label="January 19, 2026">
 
 ## Introducing the Assets API
 
 We're excited to launch the [**Assets API**](https://assets.dial.to/) — a unified endpoint for token metadata, pricing, and asset information across multiple chains. No more juggling multiple data sources or maintaining separate integrations for each blockchain.
 
-### Key Benefits
+## Key Benefits
 
 - **Single Integration** - Access crypto assets across major chains through one unified API
 - **Real-Time Pricing** - Get up-to-date price data with built-in caching for optimal performance
@@ -36,17 +57,20 @@ Full API documentation with coverage details, caching information, and examples 
 
 ## Markets API Updates
 
-Enhanced documentation with new [Market Types](/markets/market-types/introduction) coverage, explaining how different DeFi strategies work and how to use our APIs to integrate them. Each market type includes detailed guides with data structures, supported protocols, and integration examples:
+- **Market Types**: Enhanced documentation with new [Market Types](/markets/market-types/introduction) coverage, explaining how different DeFi strategies work and how to use our APIs to integrate them. Each market type includes detailed guides with data structures, supported protocols, and integration examples:
 
-- [Yield Markets](/markets/market-types/yield),
-- [Lending Markets](/markets/market-types/lending) ,
-- [Loop Markets](/markets/market-types/loop), and
-- [Perpetual Markets](/markets/market-types/perpetual)
+  - [Yield Markets](/markets/market-types/yield),
+  - [Lending Markets](/markets/market-types/lending),
+  - [Loop Markets](/markets/market-types/loop), and
+  - [Perpetual Markets](/markets/market-types/perpetual)
 
-### More updates:
 - **Pagination Support** - Markets endpoint now supports cursor-based pagination with configurable limits for efficient data retrieval
 - **CDN-Hosted Images** - Token images now served via CDN for improved performance
 - **Query Improvements** - API now accepts `type` and `provider` parameters as comma-separated values for flexible filtering
+
+</Update>
+
+<Update label="January 13, 2026">
 
 ## Positions API Updates
 
@@ -60,6 +84,21 @@ Documentation improvements and enhanced protocol coverage:
 
 - **Supported Protocols Documentation** - Updated supported protocols page with current protocol coverage and capabilities
 - **Documentation Fixes** - Fixed broken links and improved documentation clarity across multiple endpoints
+
+</Update>
+
+<Update label="January 6, 2026">
+
+## Happy New Year from the Dialect Team!
+
+Wishing everyone a fantastic 2026! We're excited to kick off the new year with continued improvements to our APIs and documentation. Thank you for building with Dialect — here's to another year of shipping great products together.
+
+## New Release Notes Format
+From now on our release notes will be structrued as a changlog with weekly updates. Instead of creating one entry per month and updating weekly, we will be transparently logging all changes made each week. This will provide better visibility into our development process and allow you to track improvements more granularly.
+
+## Positions API Updates
+
+- **Atomic Rewards** - Positions API now returns atomic reward entries instead of reward arrays, with a new dedicated reward position type that ensures rewards remain visible even after positions are closed. [Learn more](/markets/rewards#positions-api-rewards)
 
 </Update>
 
