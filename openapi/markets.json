@@ -25,7 +25,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "description": "Comma-separated list of market types (lending, yield, loop, perpetual, prediction)"
+              "description": "Comma separated list of market types (`lending`, `yield`, `loop`, `perpetual`, `prediction`)."
             },
             "example": "yield, lending"
           },
@@ -2688,7 +2688,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "description": "Comma separated list of position types (`lending`, `yield`, `loop`, `reward`, `prediction_beta`). \n\nNote: `prediction_beta` is experimental, and prediction positions are returned only if `prediction_beta` is specified. Currently only supports one position type. If no position type is specified, all position types are returned (except `prediction` positions)."
+              "description": "Comma separated list of position types (`lending`, `yield`, `loop`, `reward`, `prediction`). Currently only supports one position type. If no position type is specified, all position types are returned."
             },
             "allowEmptyValue": true,
             "allowReserved": true
