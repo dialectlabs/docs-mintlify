@@ -299,6 +299,8 @@ The Positions API simplifies this to a single call.
 
 ### Fetching Positions
 
+Our Positions API is designed to return you all positions for a given wallet address. Then you can add the `type=prediction` parameter to filter the positions by market type.
+
 <CodeGroup>
 ```typescript TypeScript
 const response = await fetch(
@@ -338,7 +340,7 @@ const positionsByEvent = positions.reduce((acc, position) => {
 
 ### Filtering for Active Positions
 
-The Positions API returns all positions, including those in settled markets. To get only positions in markets that are still actively trading, filter by `market.status`:
+By default, the Positions API returns all positions. To get only positions in markets that are still actively trading, filter by `market.status`:
 
 ```typescript Filtering for Active Positions
 // Filter for positions in open markets only
