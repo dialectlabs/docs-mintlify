@@ -36,26 +36,26 @@ When working with prediction markets, it's important to understand the distincti
 - **Markets** are the individual tradable outcomes within an event (e.g., "Democratic Party wins - Yes/No", "Republican Party wins - Yes/No")
 - **Events** are groupings of markets (e.g., "Which party will win control of the US House in 2026?")
 
-
 ### Markets
 
-A single event typically has multiple markets. In our example the question "Which party will win control of the US House in 2026?" will create two markets: 
-1. Market for the **Domocratic Party** (Yes/No) and 
+A single event typically has multiple markets. In our example the question "Which party will win control of the US House in 2026?" will create two markets:
+
+1. Market for the **Domocratic Party** (Yes/No) and
 2. Market for the **Republican Party** (Yes/No).
 
 For crypto specifially, it is often the case that each market gets multiple token markets on top:
+
 - **CASH market** — For purchasing with Phantom's stable coin
 - **USDC market** — For purchasing with USDC
 
 Which means that the API will return 4 markets for this single event:
 
-| Event | Markets | Token |
-| ----- | ------- | ------ |
-| Control of the House 2026 | Democratic Party (Yes/No) | USDC |
-|                           | Democratic Party (Yes/No) | CASH |
-|                           | Republican Party (Yes/No) | USDC |
-|                           | Republican Party (Yes/No) | CASH |
-
+| Event                     | Markets                   | Token |
+| ------------------------- | ------------------------- | ----- |
+| Control of the House 2026 | Democratic Party (Yes/No) | USDC  |
+|                           | Democratic Party (Yes/No) | CASH  |
+|                           | Republican Party (Yes/No) | USDC  |
+|                           | Republican Party (Yes/No) | CASH  |
 
 ### Events
 
@@ -90,8 +90,9 @@ Our API will return you four markets for the "Control of the House 2026" event. 
 All markets share the same `bundleId: "house-control-2026"`, indicating they belong to the same underlying event.
 
 <Tip>
-  To group markets by event in your application, filter or group the API response
-  by the `bundleId` field. This recreates the "event" view from platforms like Kalshi.
+  To group markets by event in your application, filter or group the API
+  response by the `bundleId` field. This recreates the "event" view from
+  platforms like Kalshi.
 </Tip>
 
 ```typescript Grouping Markets by Event
@@ -214,7 +215,6 @@ In order to better understand how the API works, let's walk through an example r
 }
 ```
 
-
 ### Understanding the Response
 
 What you can see here is the original response from the API. As mentioned in the introduction section, this response is powerful enough to drive full-fledged dashboards and applications.
@@ -312,12 +312,14 @@ const response = await fetch(
 
 const data = await response.json();
 console.log(data.positions);
-```
+
+````
 
 ```bash cURL
 curl 'https://markets.dial.to/api/v0/positions/owners?walletAddresses=YOUR_WALLET&type=prediction' \
   --header 'x-dialect-api-key: YOUR_API_KEY'
-```
+````
+
 </CodeGroup>
 
 ### Grouping Positions by Event
@@ -334,6 +336,29 @@ const positionsByEvent = positions.reduce((acc, position) => {
 }, {});
 ```
 
+### Filtering for Active Positions
+
+The Positions API returns all positions, including those in settled markets. To get only positions in markets that are still actively trading, filter by `market.status`:
+
+```typescript Filtering for Active Positions
+// Filter for positions in open markets only
+const activePositions = positions.filter(
+  (position) => position.market.status === "open",
+);
+```
+
+The `market.status` field indicates the current state of the market:
+
+| Status    | Description                                             |
+| --------- | ------------------------------------------------------- |
+| `open`    | Market is active and accepting trades                   |
+| `closed`  | Trading has ended, awaiting settlement                  |
+| `settled` | Outcome has been determined, position may be redeemable |
+
+<Tip>
+  Server-side filtering for positions by status is coming soon via the `filters`
+  parameter. For now, use client-side filtering as shown above.
+</Tip>
 
 ## Protocol-Specific Additional Data
 
@@ -356,16 +381,15 @@ The `additionalData` field contains DFlow-specific metadata that may be useful f
 }
 ```
 
-| Field | Description |
-| ----- | ----------- |
-| `ticker` | Kalshi's / DFlow's specific market identifier (e.g., "CONTROLH-2026-R" for Republicans) |
-| `eventTicker` | Event-level identifier — all markets in the same event share this ticker |
-| `marketLedger` | On-chain address of the market ledger that handles positions and redemptions |
-| `purchaseToken` | The token used to purchase outcome tokens (USDC or CASH) |
-| `redemptionStatus` | Current redemption state: `null`, `"pending"`, or `"redeemed"` |
+| Field              | Description                                                                             |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| `ticker`           | Kalshi's / DFlow's specific market identifier (e.g., "CONTROLH-2026-R" for Republicans) |
+| `eventTicker`      | Event-level identifier — all markets in the same event share this ticker                |
+| `marketLedger`     | On-chain address of the market ledger that handles positions and redemptions            |
+| `purchaseToken`    | The token used to purchase outcome tokens (USDC or CASH)                                |
+| `redemptionStatus` | Current redemption state: `open` or `pending`                                           |
 
 <Note>
-  The `eventTicker` in `additionalData` corresponds conceptually to the `bundleId`
-  field. Both can be used to identify markets that belong together.
+  The `eventTicker` in `additionalData` corresponds conceptually to the
+  `bundleId` field. Both can be used to identify markets that belong together.
 </Note>
-
