@@ -88,6 +88,9 @@
                               "type": {
                                 "const": "lending"
                               },
+                              "productName": {
+                                "type": "string"
+                              },
                               "provider": {
                                 "type": "object",
                                 "properties": {
@@ -243,9 +246,6 @@
                                 "type": "number"
                               },
                               "maxBorrow": {
-                                "type": "number"
-                              },
-                              "oraclePrice": {
                                 "type": "number"
                               },
                               "rewards": {
@@ -459,6 +459,9 @@
                               "type": {
                                 "const": "yield"
                               },
+                              "productName": {
+                                "type": "string"
+                              },
                               "provider": {
                                 "type": "object",
                                 "properties": {
@@ -669,6 +672,9 @@
                               "type": {
                                 "const": "loop"
                               },
+                              "productName": {
+                                "type": "string"
+                              },
                               "provider": {
                                 "type": "object",
                                 "properties": {
@@ -849,6 +855,9 @@
                               },
                               "type": {
                                 "const": "perpetual"
+                              },
+                              "productName": {
+                                "type": "string"
                               },
                               "provider": {
                                 "type": "object",
@@ -1206,9 +1215,10 @@
                   "markets": [
                     {
                       "id": "string",
-                      "type": "lending",
+                      "type": "string",
+                      "productName": "string",
                       "provider": {
-                        "id": "kamino",
+                        "id": "string",
                         "name": "string",
                         "icon": "string"
                       },
@@ -1224,7 +1234,7 @@
                         "decimals": 1,
                         "icon": "string"
                       },
-                      "websiteUrl": "https://example.com",
+                      "websiteUrl": "string",
                       "depositApy": 1,
                       "baseDepositApy": 1,
                       "baseDepositApy30d": 1,
@@ -1243,7 +1253,7 @@
                       "maxBorrow": 1,
                       "rewards": [
                         {
-                          "type": "deposit",
+                          "type": "string",
                           "apy": 1,
                           "token": {
                             "address": "string",
@@ -1257,9 +1267,7 @@
                       "maxLtv": 0,
                       "liquidationLtv": 0,
                       "liquidationPenalty": 0,
-                      "additionalData": {
-                        "propertyName*": "anything"
-                      },
+                      "additionalData": {},
                       "actions": {
                         "deposit": {
                           "blinkUrl": "string"
@@ -1304,6 +1312,9 @@
                           },
                           "type": {
                             "const": "lending"
+                          },
+                          "productName": {
+                            "type": "string"
                           },
                           "provider": {
                             "type": "object",
@@ -1459,9 +1470,6 @@
                             "type": "number"
                           },
                           "maxBorrow": {
-                            "type": "number"
-                          },
-                          "oraclePrice": {
                             "type": "number"
                           },
                           "rewards": {
@@ -1677,6 +1685,9 @@
                           "type": {
                             "const": "yield"
                           },
+                          "productName": {
+                            "type": "string"
+                          },
                           "provider": {
                             "type": "object",
                             "properties": {
@@ -1889,6 +1900,9 @@
                           "type": {
                             "const": "loop"
                           },
+                          "productName": {
+                            "type": "string"
+                          },
                           "provider": {
                             "type": "object",
                             "properties": {
@@ -2072,6 +2086,9 @@
                           "type": {
                             "const": "perpetual"
                           },
+                          "productName": {
+                            "type": "string"
+                          },
                           "provider": {
                             "type": "object",
                             "properties": {
@@ -2254,7 +2271,7 @@
                         "decimals": 1,
                         "icon": "string"
                       },
-                      "websiteUrl": "https://example.com",
+                      "websiteUrl": "string",
                       "depositApy": 1,
                       "baseDepositApy": 1,
                       "baseDepositApy30d": 1,
@@ -2318,7 +2335,7 @@
                         "decimals": 1,
                         "icon": "string"
                       },
-                      "websiteUrl": "https://example.com",
+                      "websiteUrl": "string",
                       "depositApy": 1,
                       "baseDepositApy": 1,
                       "baseDepositApy30d": 1,
@@ -2363,7 +2380,7 @@
                         "decimals": 1,
                         "icon": "string"
                       },
-                      "websiteUrl": "https://example.com",
+                      "websiteUrl": "string",
                       "depositApy": 1,
                       "depositApy30d": 1,
                       "depositApy90d": 1,
@@ -2406,7 +2423,7 @@
                         "decimals": 1,
                         "icon": "string"
                       },
-                      "websiteUrl": "https://example.com",
+                      "websiteUrl": "string",
                       "liquidity": {
                         "longUsd": 1,
                         "shortUsd": 1
@@ -2824,6 +2841,9 @@
                                   "type": {
                                     "const": "lending"
                                   },
+                                  "productName": {
+                                    "type": "string"
+                                  },
                                   "provider": {
                                     "type": "object",
                                     "properties": {
@@ -2955,9 +2975,6 @@
                                     "minimum": 0,
                                     "maximum": 100,
                                     "description": "Percentage ratio of deposited value taken as a penalty and given to liquidators when position is liquidated"
-                                  },
-                                  "oraclePrice": {
-                                    "type": "number"
                                   },
                                   "rewards": {
                                     "type": "array",
@@ -3225,6 +3242,9 @@
                                   },
                                   "type": {
                                     "const": "yield"
+                                  },
+                                  "productName": {
+                                    "type": "string"
                                   },
                                   "provider": {
                                     "type": "object",
@@ -3511,6 +3531,9 @@
                                   },
                                   "type": {
                                     "const": "loop"
+                                  },
+                                  "productName": {
+                                    "type": "string"
                                   },
                                   "provider": {
                                     "type": "object",
@@ -4071,7 +4094,7 @@
                       "marketId": "string",
                       "ownerAddress": "string",
                       "bundleId": "string",
-                      "websiteUrl": "https://example.com",
+                      "websiteUrl": "string",
                       "side": "deposit",
                       "rewards": [
                         {
@@ -4121,7 +4144,7 @@
                           "decimals": 1,
                           "icon": "string"
                         },
-                        "websiteUrl": "https://example.com",
+                        "websiteUrl": "string",
                         "depositApy": 1,
                         "baseDepositApy": 1,
                         "baseDepositApy30d": 1,
