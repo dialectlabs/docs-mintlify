@@ -4,6 +4,35 @@ description: "Latest updates and feature releases from the Dialect team"
 rss: true
 ---
 
+<Update label="February 2, 2026">
+
+## Dialect Developer Updates on Telegram 🚀🚀🚀
+
+We've launched an official developer updates channel on Telegram. Get bite sized, dev friendly summaries of our weekly release notes delivered directly to your inbox.
+
+[Join the channel](https://t.me/+cpAV3GVEpvpiNjIy) to stay up to date with the latest features, API improvements, and more.
+
+## Prediction Markets Documentation Updates
+
+Enhanced the [Prediction Markets](/markets/market-types/prediction) documentation with examples for filtering positions by `market.status` (`open`, `closed`, `settled`) on the [Positions endpoint](/api-reference/positions/list-all-market-positions-by-wallet-address).
+
+Have feedback on what additional filtering you'd like to see? [Let us know](https://form.typeform.com/to/zHHLsFUV).
+
+## Markets API Updates
+
+- **New Field: `productName`** - All market types now include a `productName` field for better identification of specific market products
+- **Removed `oraclePrice`** - The `oraclePrice` parameter has been removed from lending markets
+- **New Field: `marketName`** - All loop (multiply) market types now include a `marketName` field in the `additionalData` object for better identification of specific market names
+
+For full details, please refer to the [Markets API Reference](/api-reference/markets/list-all-markets) page.
+
+## Standard Blinks Library Updates
+
+- **MarginFi SDK** - Updated to the latest MarginFi SDK with new implementation details for improved reliability
+- **Jupiter API Migration** - Migrated lend and swap functionality to Jupiter's new APIs
+
+</Update>
+
 <Update label="January 26, 2026">
 
 ## Prediction Markets Documentation
@@ -45,11 +74,11 @@ We're excited to launch the [**Assets API**](https://assets.dial.to/) — a unif
 
 ### Available Endpoints
 
-| Endpoint | Description |
-|----------|-------------|
-| [`GET /v0/search`](https://assets.dial.to/api/docs#tag/assets/GET/v0/search) | Search for assets by `name`, `ticker` or `tags` |
-| [`GET /v0/assets/{id}`](https://assets.dial.to/api/docs#tag/assets/GET/v0/assets/{id}) | Retrieve detailed metadata and pricing for a specific asset |
-| [`GET /v0/assets/{id}/history`](https://assets.dial.to/api/docs#tag/assets/GET/v0/assets/{id}/history) | Get historical price data for an asset |
+| Endpoint                                                                                               | Description                                                 |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| [`GET /v0/search`](https://assets.dial.to/api/docs#tag/assets/GET/v0/search)                           | Search for assets by `name`, `ticker` or `tags`             |
+| [`GET /v0/assets/{id}`](https://assets.dial.to/api/docs#tag/assets/GET/v0/assets/{id})                 | Retrieve detailed metadata and pricing for a specific asset |
+| [`GET /v0/assets/{id}/history`](https://assets.dial.to/api/docs#tag/assets/GET/v0/assets/{id}/history) | Get historical price data for an asset                      |
 
 ### Documentation
 
@@ -94,6 +123,7 @@ Documentation improvements and enhanced protocol coverage:
 Wishing everyone a fantastic 2026! We're excited to kick off the new year with continued improvements to our APIs and documentation. Thank you for building with Dialect — here's to another year of shipping great products together.
 
 ## New Release Notes Format
+
 From now on our release notes will be structrued as a changlog with weekly updates. Instead of creating one entry per month and updating weekly, we will be transparently logging all changes made each week. This will provide better visibility into our development process and allow you to track improvements more granularly.
 
 ## Positions API Updates
