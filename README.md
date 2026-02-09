@@ -63,6 +63,6 @@ If you have any questions or need assistance, please reach out to us:
 
 - Discord: [Dialect Discord Server](https://discord.gg/saydialect)
 - Twitter: [@saydialect](https://twitter.com/saydialect)
-- Email: hello@dialect.to
+- Email: [bjoern@dialect.to](mailto:bjoern@dialect.to?subject=Dialect%20Docs%20—%20Getting%20in%20Touch)
 
 We look forward to seeing what you build with Dialect!
