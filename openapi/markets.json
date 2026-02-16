@@ -3892,6 +3892,12 @@
                               "amountUsd": {
                                 "type": "number"
                               },
+                              "costBasisTotal": {
+                                "type": "number"
+                              },
+                              "costBasisAvg": {
+                                "type": "number"
+                              },
                               "market": {
                                 "type": "object",
                                 "properties": {
