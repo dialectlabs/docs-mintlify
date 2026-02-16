@@ -3,7 +3,6 @@ title: Prediction Markets
 description: "Get real-time market data for prediction markets on Solana."
 tag: "NEW"
 ---
-
 <img
   src="https://res.cloudinary.com/dnxjhra4h/image/upload/v1767979604/market-type-prediction_z9uy4f.png"
   alt="Prediction Market Details View"
@@ -23,7 +22,6 @@ Our Markets API provides all the information you need to build prediction market
 By enriching the response with all of this information, it makes the API powerful enough to drive full-fledged dashboards and applications as well as smaller widgets, cards or notifications - All in a single API call!
 
 ## Supported Protocols
-
 Our Markets API currently supports prediction markets from [**DFlow**](https://dflow.net), who are the official provider for [Kalshi](https://kalshi.com).
 
 If you want more information on the protocols that are supported or want to request more providers, please refer to the [Supported Protocols Section](/markets/supported-protocols) page.
@@ -363,6 +361,92 @@ The `market.status` field indicates the current state of the market:
 </Tip>
 
 If yo need more filtering options, please [reach out](https://form.typeform.com/to/zHHLsFUV) to us.
+
+### Cost Basis
+
+The Positions API includes cost basis data for prediction market positions, giving you insight into a user's average entry price and total capital committed to a position. It answers the question: “How much did I spend to acquire the tokens I currently hold?” 
+
+Cost basis is calculated using the **average cost method**, which is the same approach used by traditional brokerages.
+
+
+#### Response Fields
+
+The following fields are included on each prediction position:
+
+| Field            | Type     | Description                                                                  |
+| ---------------- | -------- | ---------------------------------------------------------------------------- |
+| `costBasisTotal` | `number` | Total capital committed to the position (sum of all buys at their prices)    |
+| `costBasisAvg`   | `number` | Average price paid per token (total cost basis divided by current quantity)   |
+
+#### Example Response
+
+Here is an example of a prediction position response that includes cost basis data:
+
+```json {15-18} Prediction Position with Cost Basis
+{
+  "id": "dflow.prediction.KXNCAAMBGAME-26FEB13MASSAKR.GKmqm1hCPznFXK3Qku7y6PT2aDutRHiENvgT5mkkYzKf.yes.6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+  "type": "prediction",
+  "ownerAddress": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+  "bundleId": "dflow.prediction.KXNCAAMBGAME-26FEB13MASSAKR",
+  "marketId": "dflow.prediction.KXNCAAMBGAME-26FEB13MASSAKR.GKmqm1hCPznFXK3Qku7y6PT2aDutRHiENvgT5mkkYzKf",
+  "token": {
+    "address": "G5ntr63hgHAhJjNkJgfumexUDpVbz2z8FaoqRhnMxe9w",
+    "symbol": "DFlowYC66dc",
+    "decimals": 6,
+    "icon": "https://kalshi-public-docs.s3.amazonaws.com/series-images-webp/KXNCAAMBGAME.webp",
+    "name": "Yes Akron"
+  },
+  "side": "yes",
+  "amount": 2,
+  "amountUsd": 2,
+  "costBasisTotal": 1.772609,
+  "costBasisAvg": 0.8863045,
+  "additionalData": {},
+  "market": {
+    // more market data
+  }
+}
+```
+
+In this example:
+- The user holds **2 "Yes Akron" tokens** (`amount: 2`) worth **$2.00** (`amountUsd: 2`)
+- Their total capital committed is **$1.77** (`costBasisTotal: 1.772609`)
+- Their average entry price is **$0.89 per token** (`costBasisAvg: 0.8863045`)
+- Since the market settled as "yes" and each token pays out $1.00, this position is profitable
+
+#### How Cost Basis is Calculated
+
+Cost basis tracks two values per position: the **total capital** (`costBasisTotal`) committed and the **average price per token** (`costBasisAvg`). These values evolve with every trade event:
+
+|                      | Buy                      | Sell                           | Full Exit      |
+| -------------------- | ------------------------ | ------------------------------ | -------------- |
+| **Amount**           | + buy amount             | - sell amount                  | Resets to 0    |
+| **Total Cost Basis** | + buy amount × buy price | - sell amount × current avg cost | Resets to 0    |
+| **Avg Cost Basis**   | Recomputed (total / amount) | Unchanged                   | Resets to null |
+
+Note that the sell price does not affect cost basis. Sells are treated purely as inventory reductions at average cost. When quantity reaches zero (full exit), any subsequent buys are treated as a new position with no historical carryover.
+
+
+**Transfers**
+
+Besides trades, positions can also change through token transfers. Here is how transfers affect cost basis:
+
+- **Inbound transfers** are treated as buy events at the current average cost basis. If no position exists yet (i.e., the transfer is the first event for this wallet), the current market price is used instead.
+- **Outbound transfers** are treated as sell events, reducing both quantity and total cost basis.
+
+**Example**
+
+Here is a step-by-step example showing how cost basis evolves across multiple trades:
+
+| Event               | Quantity | Total Cost Basis | Avg Cost Basis |
+| ------------------- | -------- | ---------------- | -------------- |
+| Buy 100 @ $0.25     | 100      | $25.00           | $0.25          |
+| Buy 50 @ $0.40      | 150      | $45.00           | $0.30          |
+| Sell 50 @ $0.50     | 100      | $30.00           | $0.30          |
+| Sell 100 (full exit) | 0       | $0.00            | null           |
+| Buy 200 @ $0.60     | 200      | $120.00          | $0.60          |
+
+Notice that after the full exit, the new buy starts fresh with no carryover from the previous trading episode.
 
 ## Protocol-Specific Additional Data
 
