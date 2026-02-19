@@ -241,7 +241,10 @@
           },
           {
             "group": "LULO",
-            "openapi": "https://lulo-blinks-preview.dialect.workers.dev/api/openapi.json"
+            "openapi": {
+              "source": "https://lulo-blinks-preview.dialect.workers.dev/api/openapi.json",
+              "directory": "standard-blinks-library/lulo"
+            }
           },
           {
             "group": "MARGINFI",
