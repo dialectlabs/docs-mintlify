@@ -18,18 +18,7 @@ jobs:
       - name: Fetch specs
         run: |
           declare -A SPECS=(
-            [openapi/lulo.json]="https://lulo.dial.to/api/openapi.json"
-            [openapi/marginfi.json]="https://marginfi.dial.to/api/openapi.json"
-            [openapi/kamino.json]="https://kamino.dial.to/api/openapi.json"
-            [openapi/jupiter.json]="https://jupiter.dial.to/api/openapi.json"
-            [openapi/raydium.json]="https://raydium.dial.to/api/openapi.json"
-            [openapi/save.json]="https://save.dial.to/api/openapi.json"
-            [openapi/defituna.json]="https://defituna.dial.to/api/openapi.json"
-            [openapi/deficarrot.json]="https://deficarrot.dial.to/api/openapi.json"
-            [openapi/drift.json]="https://drift.dial.to/api/openapi.json"
-            [openapi/meteora.json]="https://meteora.dial.to/api/openapi.json"
-            [openapi/orca.json]="https://orca.dial.to/api/openapi.json"
-            [openapi/solana.json]="https://solana-sbl.dial.to/api/openapi.json"
+            [openapi/lulo.json]="https://lulo-blinks-preview.dialect.workers.dev/api/openapi.json"
           )
 
           for file in "${!SPECS[@]}"; do
