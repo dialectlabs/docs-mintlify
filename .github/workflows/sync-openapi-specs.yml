@@ -1,0 +1,59 @@
+name: Sync OpenAPI Specs
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # Daily at 9 AM UTC
+  workflow_dispatch: # Also manually triggerable
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch specs
+        run: |
+          declare -A SPECS=(
+            [openapi/lulo.json]="https://lulo.dial.to/api/openapi.json"
+            [openapi/marginfi.json]="https://marginfi.dial.to/api/openapi.json"
+            [openapi/kamino.json]="https://kamino.dial.to/api/openapi.json"
+            [openapi/jupiter.json]="https://jupiter.dial.to/api/openapi.json"
+            [openapi/raydium.json]="https://raydium.dial.to/api/openapi.json"
+            [openapi/save.json]="https://save.dial.to/api/openapi.json"
+            [openapi/defituna.json]="https://defituna.dial.to/api/openapi.json"
+            [openapi/deficarrot.json]="https://deficarrot.dial.to/api/openapi.json"
+            [openapi/drift.json]="https://drift.dial.to/api/openapi.json"
+            [openapi/meteora.json]="https://meteora.dial.to/api/openapi.json"
+            [openapi/orca.json]="https://orca.dial.to/api/openapi.json"
+            [openapi/solana.json]="https://solana-sbl.dial.to/api/openapi.json"
+          )
+
+          for file in "${!SPECS[@]}"; do
+            url="${SPECS[$file]}"
+            echo "Fetching $url"
+            if curl -sf --max-time 30 "$url" | jq '.' > "${file}.tmp"; then
+              mv "${file}.tmp" "$file"
+              echo "✓ $file updated"
+            else
+              rm -f "${file}.tmp"
+              echo "✗ Failed to fetch $url — keeping existing file"
+            fi
+          done
+
+      - name: Open PR if anything changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: sync openapi specs"
+          branch: chore/sync-openapi-specs
+          delete-branch: true
+          title: "chore: sync openapi specs"
+          body: |
+            Automated daily sync of OpenAPI specs from live APIs.
+
+            Review the diff and merge when ready — Mintlify will rebuild automatically.
+          labels: automated
