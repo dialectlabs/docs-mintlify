@@ -241,10 +241,7 @@
           },
           {
             "group": "LULO",
-            "openapi": {
-              "source": "https://lulo-blinks-preview.dialect.workers.dev/api/openapi.json",
-              "directory": "standard-blinks-library/lulo"
-            }
+            "openapi": "https://petstore3.swagger.io/api/v3/openapi.json"
           },
           {
             "group": "MARGINFI",
