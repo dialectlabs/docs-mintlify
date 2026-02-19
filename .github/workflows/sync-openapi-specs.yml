@@ -1,0 +1,48 @@
+name: Sync OpenAPI Specs
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # Daily at 9 AM UTC
+  workflow_dispatch: # Also manually triggerable
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch specs
+        run: |
+          declare -A SPECS=(
+            [openapi/lulo.json]="https://lulo-blinks-preview.dialect.workers.dev/api/openapi.json"
+          )
+
+          for file in "${!SPECS[@]}"; do
+            url="${SPECS[$file]}"
+            echo "Fetching $url"
+            if curl -sf --max-time 30 "$url" | jq '.' > "${file}.tmp"; then
+              mv "${file}.tmp" "$file"
+              echo "✓ $file updated"
+            else
+              rm -f "${file}.tmp"
+              echo "✗ Failed to fetch $url — keeping existing file"
+            fi
+          done
+
+      - name: Open PR if anything changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: sync openapi specs"
+          branch: chore/sync-openapi-specs
+          delete-branch: true
+          title: "chore: sync openapi specs"
+          body: |
+            Automated daily sync of OpenAPI specs from live APIs.
+
+            Review the diff and merge when ready — Mintlify will rebuild automatically.
+          labels: automated
