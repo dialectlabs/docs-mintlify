@@ -64,3 +64,4 @@ jobs:
 
             Review the diff and merge when ready — Mintlify will rebuild automatically.
           labels: automated
+          reviewers: bjoerndotsol
