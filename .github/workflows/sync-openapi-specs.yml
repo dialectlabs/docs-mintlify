@@ -33,14 +33,32 @@ jobs:
             fi
           done
 
+      - name: Compute PR metadata
+        id: pr
+        run: |
+          protocols=$(git diff --name-only | grep '^openapi/' | sed 's|openapi/||;s|\.json||' | tr '\n' ' ' | xargs | tr ' ' ',')
+          if [ -z "$protocols" ]; then
+            echo "No changes detected"
+            exit 0
+          fi
+
+          count=$(echo "$protocols" | tr ',' '\n' | grep -c .)
+          readable=$(echo "$protocols" | tr ',' '\n' | paste -sd ', ')
+
+          if [ "$count" -eq 1 ]; then
+            echo "title=chore: update openapi spec for $readable" >> $GITHUB_OUTPUT
+          else
+            echo "title=chore: update openapi specs for $readable" >> $GITHUB_OUTPUT
+          fi
+
       - name: Open PR if anything changed
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: sync openapi specs"
+          commit-message: "${{ steps.pr.outputs.title }}"
           branch: chore/sync-openapi-specs
           delete-branch: true
-          title: "chore: sync openapi specs"
+          title: "${{ steps.pr.outputs.title }}"
           body: |
             Automated daily sync of OpenAPI specs from live APIs.
 
