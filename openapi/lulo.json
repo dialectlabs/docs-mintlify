@@ -1,24 +1,23 @@
 {
-  "openapi": "3.1.1",
-  "x-mcp": {
-    "enabled": true
-  },
   "info": {
     "title": "Lulo Blinks",
     "version": "0.0.1"
   },
   "servers": [
     {
-      "url": "https://lulo.dial.to/api"
+      "url": "https://lulo-blinks-preview.dialect.workers.dev/api"
     }
   ],
+  "openapi": "3.1.1",
   "paths": {
     "/v0/deposit/{token}/{type}": {
       "get": {
         "operationId": "v0.deposit.getDepositTokenBlink",
         "summary": "Deposit",
-        "description": "Get metadata for depositing a token, such as USDC, into Lulo.",
-        "tags": ["Deposit"],
+        "description": "Get metadata for depositing a token into Lulo.",
+        "tags": [
+          "Deposit"
+        ],
         "parameters": [
           {
             "name": "token",
@@ -30,21 +29,24 @@
               "default": "USDC",
               "example": "USDC"
             },
-            "example": "USDC",
-            "x-default": "USDC"
+            "x-default": "USDC",
+            "example": "USDC"
           },
           {
             "name": "type",
             "in": "path",
             "required": true,
             "schema": {
-              "enum": ["protected", "regular"],
+              "enum": [
+                "protected",
+                "regular"
+              ],
               "description": "Deposit type: protected (PUSD) or regular (LUSD)",
               "default": "protected",
               "example": "protected"
             },
-            "example": "protected",
-            "x-default": "protected"
+            "x-default": "protected",
+            "example": "protected"
           }
         ],
         "responses": {
@@ -99,18 +101,34 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": ["name", "type", "label"]
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
                                 }
                               }
                             },
-                            "required": ["type", "href", "label"]
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
                           }
                         }
                       },
-                      "required": ["actions"]
+                      "required": [
+                        "actions"
+                      ]
                     }
                   },
-                  "required": ["title", "description", "label", "icon", "links"]
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
                 }
               }
             }
@@ -121,7 +139,9 @@
         "operationId": "v0.deposit.depositToken",
         "summary": "Deposit",
         "description": "Generate a transaction for depositing a token into Lulo.",
-        "tags": ["Deposit"],
+        "tags": [
+          "Deposit"
+        ],
         "parameters": [
           {
             "name": "token",
@@ -133,21 +153,24 @@
               "default": "USDC",
               "example": "USDC"
             },
-            "example": "USDC",
-            "x-default": "USDC"
+            "x-default": "USDC",
+            "example": "USDC"
           },
           {
             "name": "type",
             "in": "path",
             "required": true,
             "schema": {
-              "enum": ["protected", "regular"],
+              "enum": [
+                "protected",
+                "regular"
+              ],
               "description": "Deposit type: protected (PUSD) or regular (LUSD)",
               "default": "protected",
               "example": "protected"
             },
-            "example": "protected",
-            "x-default": "protected"
+            "x-default": "protected",
+            "example": "protected"
           },
           {
             "name": "amount",
@@ -160,7 +183,9 @@
               "description": "The amount to deposit. Human readable value, e.g. 100 USDC",
               "default": 1,
               "example": 1
-            }
+            },
+            "x-default": 1,
+            "example": 1
           },
           {
             "name": "percentage",
@@ -184,7 +209,9 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
+                    "enum": [
+                      "transaction"
+                    ],
                     "default": "transaction",
                     "example": "transaction"
                   },
@@ -195,7 +222,10 @@
                     "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
-                "required": ["type", "account"]
+                "required": [
+                  "type",
+                  "account"
+                ]
               }
             }
           }
@@ -215,7 +245,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["type", "transaction"]
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
                 }
               }
             }
@@ -228,7 +261,9 @@
         "operationId": "v0.withdraw.getWithdrawTokenBlink",
         "summary": "Withdraw",
         "description": "Get metadata for withdrawing a token from Lulo.",
-        "tags": ["Withdraw"],
+        "tags": [
+          "Withdraw"
+        ],
         "parameters": [
           {
             "name": "token",
@@ -240,21 +275,24 @@
               "default": "USDC",
               "example": "USDC"
             },
-            "example": "USDC",
-            "x-default": "USDC"
+            "x-default": "USDC",
+            "example": "USDC"
           },
           {
             "name": "type",
             "in": "path",
             "required": true,
             "schema": {
-              "enum": ["protected", "regular"],
-              "description": "Withdraw type: protected or regular",
+              "enum": [
+                "protected",
+                "regular"
+              ],
+              "description": "Withdraw type: protected (PUSD) or regular (LUSD)",
               "default": "protected",
               "example": "protected"
             },
-            "example": "protected",
-            "x-default": "protected"
+            "x-default": "protected",
+            "example": "protected"
           }
         ],
         "responses": {
@@ -309,18 +347,34 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": ["name", "type", "label"]
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
                                 }
                               }
                             },
-                            "required": ["type", "href", "label"]
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
                           }
                         }
                       },
-                      "required": ["actions"]
+                      "required": [
+                        "actions"
+                      ]
                     }
                   },
-                  "required": ["title", "description", "label", "icon", "links"]
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
                 }
               }
             }
@@ -331,7 +385,9 @@
         "operationId": "v0.withdraw.withdrawToken",
         "summary": "Withdraw",
         "description": "Generate a transaction for withdrawing a token from Lulo.",
-        "tags": ["Withdraw"],
+        "tags": [
+          "Withdraw"
+        ],
         "parameters": [
           {
             "name": "token",
@@ -343,21 +399,24 @@
               "default": "USDC",
               "example": "USDC"
             },
-            "example": "USDC",
-            "x-default": "USDC"
+            "x-default": "USDC",
+            "example": "USDC"
           },
           {
             "name": "type",
             "in": "path",
             "required": true,
             "schema": {
-              "enum": ["protected", "regular"],
-              "description": "Withdraw type: protected or regular",
+              "enum": [
+                "protected",
+                "regular"
+              ],
+              "description": "Withdraw type: protected (PUSD) or regular (LUSD)",
               "default": "protected",
               "example": "protected"
             },
-            "example": "protected",
-            "x-default": "protected"
+            "x-default": "protected",
+            "example": "protected"
           },
           {
             "name": "amount",
@@ -382,7 +441,9 @@
               "description": "The percentage of balance to withdraw",
               "default": 100,
               "example": 100
-            }
+            },
+            "x-default": 100,
+            "example": 100
           }
         ],
         "requestBody": {
@@ -394,7 +455,9 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
+                    "enum": [
+                      "transaction"
+                    ],
                     "default": "transaction",
                     "example": "transaction"
                   },
@@ -405,7 +468,10 @@
                     "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
-                "required": ["type", "account"]
+                "required": [
+                  "type",
+                  "account"
+                ]
               }
             }
           }
@@ -425,7 +491,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["type", "transaction"]
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
                 }
               }
             }
@@ -438,7 +507,9 @@
         "operationId": "v0.withdraw.getCompleteRegularWithdrawalBlink",
         "summary": "Complete Regular Withdrawal",
         "description": "Get metadata for withdrawing a token from Lulo Regular after cooldown period.",
-        "tags": ["Withdraw"],
+        "tags": [
+          "Withdraw"
+        ],
         "parameters": [
           {
             "name": "token",
@@ -450,8 +521,8 @@
               "default": "USDC",
               "example": "USDC"
             },
-            "example": "USDC",
-            "x-default": "USDC"
+            "x-default": "USDC",
+            "example": "USDC"
           }
         ],
         "responses": {
@@ -506,18 +577,34 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": ["name", "type", "label"]
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
                                 }
                               }
                             },
-                            "required": ["type", "href", "label"]
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
                           }
                         }
                       },
-                      "required": ["actions"]
+                      "required": [
+                        "actions"
+                      ]
                     }
                   },
-                  "required": ["title", "description", "label", "icon", "links"]
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
                 }
               }
             }
@@ -528,7 +615,9 @@
         "operationId": "v0.withdraw.completeRegularWithdrawal",
         "summary": "Complete Regular Withdrawal",
         "description": "Generate a transaction for withdrawing a token from Lulo Regular after cooldown period.",
-        "tags": ["Withdraw"],
+        "tags": [
+          "Withdraw"
+        ],
         "parameters": [
           {
             "name": "token",
@@ -540,8 +629,8 @@
               "default": "USDC",
               "example": "USDC"
             },
-            "example": "USDC",
-            "x-default": "USDC"
+            "x-default": "USDC",
+            "example": "USDC"
           },
           {
             "name": "withdrawalId",
@@ -555,9 +644,10 @@
               "maximum": 9007199254740991,
               "description": "The pending withdrawal ID",
               "default": 1,
-              "example": 1,
-              "examples": [1, 2, 3]
-            }
+              "example": 1
+            },
+            "x-default": 1,
+            "example": 1
           }
         ],
         "requestBody": {
@@ -569,7 +659,9 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
+                    "enum": [
+                      "transaction"
+                    ],
                     "default": "transaction",
                     "example": "transaction"
                   },
@@ -580,7 +672,10 @@
                     "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
-                "required": ["type", "account"]
+                "required": [
+                  "type",
+                  "account"
+                ]
               }
             }
           }
@@ -600,7 +695,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["type", "transaction"]
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
                 }
               }
             }
@@ -608,5 +706,8 @@
         }
       }
     }
+  },
+  "x-mcp": {
+    "enabled": true
   }
 }
