@@ -64,6 +64,14 @@
               "type": "string",
               "description": "Comma-separated list, only for prediction markets. Use with `type=prediction`.\n\nStatus options:\n- `open` \n- `closed`\n- `settled`\n\nExamples:\n- `{\"prediction\":{\"status\":[\"open\"]}}`\n- `{\"prediction\":{\"status\":[\"open\", \"closed\"]}}`"
             }
+          },
+          {
+            "name": "asset",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "Comma separated list of mint addresses."
+            }
           }
         ],
         "responses": {
@@ -2500,13 +2508,9 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "style": "form",
-            "explode": true
+              "type": "string",
+              "description": "Comma separated list of position IDs."
+            }
           },
           {
             "name": "resolution",
