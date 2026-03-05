@@ -364,7 +364,7 @@ If yo need more filtering options, please [reach out](https://form.typeform.com/
 
 ### Cost Basis
 
-The Positions API includes cost basis data for prediction market positions, giving you insight into a user's average entry price and total capital committed to a position. It answers the question: “How much did I spend to acquire the tokens I currently hold?” 
+The Positions API includes cost basis data for prediction market positions, giving you insight into a user's average entry price and total capital committed to a position. It answers the question: **“How much did I spend to acquire the tokens I currently hold?”**
 
 Cost basis is calculated using the **average cost method**, which is the same approach used by traditional brokerages.
 
@@ -447,6 +447,69 @@ Here is a step-by-step example showing how cost basis evolves across multiple tr
 | Buy 200 @ $0.60     | 200      | $120.00          | $0.60          |
 
 Notice that after the full exit, the new buy starts fresh with no carryover from the previous trading episode.
+
+### PnL
+
+PnL allows the user to see how their positions are performing. It answers the question: **Am I profitable or am I loosing money?**
+
+PnL is only available on **active positions**. Once a user redeems their outcome tokens in full, the position is closed and no longer returned by the [Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address). A dedicated PnL history endpoint will be released in the next days.
+
+#### Response Fields
+
+Each prediction position includes a `pnl` object containing the following fields:
+
+| Field               | Type     | Description                                                                                    |
+| ------------------- | -------- | ------------------------------------------------------------------------------------------------ |
+| `unrealized`        | `number` | Current gain or loss on shares still held   |
+| `unrealizedPct`     | `number` | Unrealized PnL as a percentage                            |
+| `realized`          | `number` | Profit or loss locked in from shares already sold                                                |
+| `total`             | `number` | Combined PnL for the current position                                  |
+| `totalLifetime`     | `number` | Cumulative total PnL including already closed positions                |
+| `realizedLifetime`  | `number` | Cumulative realized PnL including fully closed positions            |
+
+<Note>
+  `total` and `totalLifetime` differ when a user has fully exited and re-entered a position. `total` reflects the current open position only, while `totalLifetime` carries forward gains and losses from previous closed episodes.
+</Note>
+
+#### Example Response
+
+```json {12-19} Prediction Position with PnL
+{
+  "id": "dflow.prediction.KXFEDCHAIRNOM-29.6Ryen6J3RETCd4oqaViA6QsPxvxSPjLYxcPDLHa7qK19.yes.6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+  "type": "prediction",
+  "ownerAddress": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+  "bundleId": "dflow.prediction.KXFEDCHAIRNOM-29",
+  "marketId": "dflow.prediction.KXFEDCHAIRNOM-29.6Ryen6J3RETCd4oqaViA6QsPxvxSPjLYxcPDLHa7qK19",
+  "side": "yes",
+  "amount": 1,
+  "amountUsd": 0.93,
+  "costBasisTotal": 0.95,
+  "costBasisAvg": 0.95,
+  "pnl": {
+    "unrealized": -0.02,
+    "unrealizedPct": -0.024,
+    "realized": 0,
+    "total": -0.02,
+    "realizedLifetime": 0,
+    "totalLifetime": -0.02
+  },
+  "market": {
+    // market data
+  }
+}
+```
+
+In this example:
+- The user holds **1 Yes token** currently worth **\$0.93** (`amountUsd`)
+- Their cost basis is **\$0.95** (`costBasisTotal`), reflecting the buying price of the token
+- No shares have been sold yet, so: 
+  - `realized` PnL is **\$0** and 
+  - `unrealized` PnL is **-\$0.02** (current value minus cost basis)
+  - `total` is **-\$0.02**
+
+<Note>
+**Unrealized PnL** is calculated using the **bid-side price** of the outcome token, which represents what a user would actually receive if they sold their position today.
+</Note>
 
 ## Protocol-Specific Additional Data
 
