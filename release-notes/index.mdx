@@ -4,6 +4,16 @@ description: "Latest updates and feature releases from the Dialect team"
 rss: true
 ---
 
+<Update label="March 9, 2026">
+
+## Markets API Updates
+
+- **Asset Filter Update** - Asset filtering on [`GET /v0/markets`](/api-reference/markets/list-all-markets) now requires an explicit `type` parameter and excludes prediction markets, as filtering by a common asset like USDC across prediction markets would return unmanageable amounts of data.
+- **New PnL Endpoint** - New [`GET /v0/positions/pnl`](/api-reference/positions/pnl) endpoint returns realized and unrealized PnL for prediction market positions, including closed positions. [Learn more](/markets/market-types/prediction)
+- **Capital Tracking Fields** - Both `/v0/positions/pnl` and `/v0/positions/owners` now include capital fields (`invested`, `investedLifetime`, `netFlow`, `netFlowLifetime`) per prediction position, giving the data needed to show users their current exposure and whether they've broken even.
+
+</Update>
+
 <Update label="March 2, 2026">
 
 ## Developer Tooling
@@ -16,7 +26,7 @@ rss: true
 
 ## Markets API Updates
 
-- **Asset Filter** - [`GET /v0/markets`](/api-reference/markets/list-all-markets) now accepts an `asset` query parameter to filter markets by mint address (comma-separated, combinable with existing filters). 
+- **Asset Filter** - [`GET /v0/markets`](/api-reference/markets/list-all-markets) now accepts an `asset` query parameter to filter markets by mint address (comma-separated, combinable with existing filters).
 
 - **Lulo Market Updates** - Added missing `websiteUrl` field to Lulo markets and renamed `productName` from `Boosted` to `Boost`
 
