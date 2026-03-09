@@ -70,7 +70,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "description": "Comma separated list of mint addresses."
+              "description": "Comma-separated list of token mint addresses. Not supported for prediction markets. Requires an explicit `type` filter that excludes prediction (e.g. `type=lending,yield,loop,perpetual`)."
             }
           }
         ],
@@ -4203,6 +4203,143 @@
                         }
                       }
                     }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/positions/pnl": {
+      "get": {
+        "operationId": "positionsV0Api.positionsPnl",
+        "summary": "Get PnL data for wallet positions",
+        "description": "Computes realized and unrealized PnL for all pnl-able positions (currently DFlow prediction only), including closed positions.",
+        "tags": ["Positions"],
+        "parameters": [
+          {
+            "name": "walletAddresses",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Comma separated list of owner addresses. Currently only supports one address.",
+              "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+              "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "currency": {
+                      "const": "USD",
+                      "description": "Currency of the PnL values"
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "Total PnL for all positions within the current session, unrealized + realized PnL"
+                    },
+                    "realized": {
+                      "type": "number",
+                      "description": "Realized PnL for all positions within the current session"
+                    },
+                    "unrealized": {
+                      "type": "number",
+                      "description": "Unrealized PnL for all positions. If position is closed, this field will be empty."
+                    },
+                    "realizedLifetime": {
+                      "type": "number",
+                      "description": "Realized PnL for all positions across all sessions"
+                    },
+                    "totalLifetime": {
+                      "type": "number",
+                      "description": "Total PnL for all positions across all sessions, unrealized + realized lifetime PnL"
+                    },
+                    "positions": {
+                      "type": "array",
+                      "description": "List of positions that contribute to PnL calculations. Each position is a separate entry.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "positionId": {
+                            "type": "string"
+                          },
+                          "marketId": {
+                            "type": "string"
+                          },
+                          "ownerAddress": {
+                            "type": "string"
+                          },
+                          "total": {
+                            "type": "number",
+                            "description": "Total PnL for the active position, unrealized + realized PnL"
+                          },
+                          "realized": {
+                            "type": "number",
+                            "description": "Realized PnL for the active position"
+                          },
+                          "unrealized": {
+                            "type": "number",
+                            "description": "Unrealized PnL for the active position. If position is closed, this field will be undefined."
+                          },
+                          "realizedLifetime": {
+                            "type": "number",
+                            "description": "Realized PnL for positions across all re-entries for this market"
+                          },
+                          "totalLifetime": {
+                            "type": "number",
+                            "description": "Total PnL for positions across all re-entries for this market, unrealized + realized lifetime PnL"
+                          },
+                          "capital": {
+                            "type": "object",
+                            "properties": {
+                              "invested": {
+                                "type": "number",
+                                "description": "Sum of all buy costs within the active position"
+                              },
+                              "investedLifetime": {
+                                "type": "number",
+                                "description": "Sum of all buy costs across all re-entries for this market"
+                              },
+                              "netFlow": {
+                                "type": "number",
+                                "description": "Net capital flow within the active position: sell proceeds minus buy costs. Negative means own capital is still locked in the position; positive means the initial investment has been fully recouped with additional realized returns"
+                              },
+                              "netFlowLifetime": {
+                                "type": "number",
+                                "description": "Net capital flow across all re-entries for this market: sell proceeds minus buy costs. Negative means own capital is still locked in the position; positive means the initial investment has been fully recouped with additional realized returns"
+                              }
+                            },
+                            "required": ["invested", "investedLifetime", "netFlow", "netFlowLifetime"]
+                          }
+                        },
+                        "required": [
+                          "positionId",
+                          "marketId",
+                          "ownerAddress",
+                          "total",
+                          "realized",
+                          "realizedLifetime",
+                          "totalLifetime"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "currency",
+                    "total",
+                    "realized",
+                    "unrealized",
+                    "realizedLifetime",
+                    "totalLifetime",
+                    "positions"
                   ]
                 }
               }
