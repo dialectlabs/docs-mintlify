@@ -2,7 +2,7 @@ name: Sync OpenAPI Specs
 
 on:
   schedule:
-    - cron: '0 9 * * *' # Daily at 9 AM UTC
+    - cron: "0 9 * * *" # Daily at 9 AM UTC
   workflow_dispatch: # Also manually triggerable
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
       - name: Fetch specs
         run: |
           declare -A SPECS=(
-            [openapi/lulo.json]="https://lulo-blinks-preview.dialect.workers.dev/api/openapi.json"
+            [openapi/lulo.json]="https://lulo.dial.to/api/openapi.json"
           )
 
           for file in "${!SPECS[@]}"; do
