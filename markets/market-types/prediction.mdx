@@ -3,6 +3,7 @@ title: Prediction Markets
 description: "Get real-time market data for prediction markets on Solana."
 tag: "NEW"
 ---
+
 <img
   src="https://res.cloudinary.com/dnxjhra4h/image/upload/v1767979604/market-type-prediction_z9uy4f.png"
   alt="Prediction Market Details View"
@@ -22,6 +23,7 @@ Our Markets API provides all the information you need to build prediction market
 By enriching the response with all of this information, it makes the API powerful enough to drive full-fledged dashboards and applications as well as smaller widgets, cards or notifications - All in a single API call!
 
 ## Supported Protocols
+
 Our Markets API currently supports prediction markets from [**DFlow**](https://dflow.net), who are the official provider for [Kalshi](https://kalshi.com).
 
 If you want more information on the protocols that are supported or want to request more providers, please refer to the [Supported Protocols Section](/markets/supported-protocols) page.
@@ -368,15 +370,14 @@ The Positions API includes cost basis data for prediction market positions, givi
 
 Cost basis is calculated using the **average cost method**, which is the same approach used by traditional brokerages.
 
-
 #### Response Fields
 
 The following fields are included on each prediction position:
 
-| Field            | Type     | Description                                                                  |
-| ---------------- | -------- | ---------------------------------------------------------------------------- |
-| `costBasisTotal` | `number` | Total capital committed to the position (sum of all buys at their prices)    |
-| `costBasisAvg`   | `number` | Average price paid per token (total cost basis divided by current quantity)   |
+| Field            | Type     | Description                                                                 |
+| ---------------- | -------- | --------------------------------------------------------------------------- |
+| `costBasisTotal` | `number` | Total capital committed to the position (sum of all buys at their prices)   |
+| `costBasisAvg`   | `number` | Average price paid per token (total cost basis divided by current quantity) |
 
 #### Example Response
 
@@ -409,6 +410,7 @@ Here is an example of a prediction position response that includes cost basis da
 ```
 
 In this example:
+
 - The user holds **2 "Yes Akron" tokens** (`amount: 2`) worth **$2.00** (`amountUsd: 2`)
 - Their total capital committed is **$1.77** (`costBasisTotal: 1.772609`)
 - Their average entry price is **$0.89 per token** (`costBasisAvg: 0.8863045`)
@@ -418,14 +420,13 @@ In this example:
 
 Cost basis tracks two values per position: the **total capital** (`costBasisTotal`) committed and the **average price per token** (`costBasisAvg`). These values evolve with every trade event:
 
-|                      | Buy                      | Sell                           | Full Exit      |
-| -------------------- | ------------------------ | ------------------------------ | -------------- |
-| **Amount**           | + buy amount             | - sell amount                  | Resets to 0    |
-| **Total Cost Basis** | + buy amount × buy price | - sell amount × current avg cost | Resets to 0    |
-| **Avg Cost Basis**   | Recomputed (total / amount) | Unchanged                   | Resets to null |
+|                      | Buy                         | Sell                             | Full Exit      |
+| -------------------- | --------------------------- | -------------------------------- | -------------- |
+| **Amount**           | + buy amount                | - sell amount                    | Resets to 0    |
+| **Total Cost Basis** | + buy amount × buy price    | - sell amount × current avg cost | Resets to 0    |
+| **Avg Cost Basis**   | Recomputed (total / amount) | Unchanged                        | Resets to null |
 
 Note that the sell price does not affect cost basis. Sells are treated purely as inventory reductions at average cost. When quantity reaches zero (full exit), any subsequent buys are treated as a new position with no historical carryover.
-
 
 **Transfers**
 
@@ -438,19 +439,19 @@ Besides trades, positions can also change through token transfers. Here is how t
 
 Here is a step-by-step example showing how cost basis evolves across multiple trades:
 
-| Event               | Quantity | Total Cost Basis | Avg Cost Basis |
-| ------------------- | -------- | ---------------- | -------------- |
-| Buy 100 @ $0.25     | 100      | $25.00           | $0.25          |
-| Buy 50 @ $0.40      | 150      | $45.00           | $0.30          |
-| Sell 50 @ $0.50     | 100      | $30.00           | $0.30          |
-| Sell 100 (full exit) | 0       | $0.00            | null           |
-| Buy 200 @ $0.60     | 200      | $120.00          | $0.60          |
+| Event                | Quantity | Total Cost Basis | Avg Cost Basis |
+| -------------------- | -------- | ---------------- | -------------- |
+| Buy 100 @ $0.25      | 100      | $25.00           | $0.25          |
+| Buy 50 @ $0.40       | 150      | $45.00           | $0.30          |
+| Sell 50 @ $0.50      | 100      | $30.00           | $0.30          |
+| Sell 100 (full exit) | 0        | $0.00            | null           |
+| Buy 200 @ $0.60      | 200      | $120.00          | $0.60          |
 
 Notice that after the full exit, the new buy starts fresh with no carryover from the previous trading episode.
 
 ### PnL
 
-PnL allows the user to see how their positions are performing. It answers the question: **Am I profitable or am I loosing money?**
+PnL allows the user to see how their positions are performing. It answers the question: **"Am I profitable or am I loosing money?"**
 
 PnL is only available on **active positions**. Once a user redeems their outcome tokens in full, the position is closed and no longer returned by the [Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address). A dedicated PnL history endpoint will be released in the next days.
 
@@ -458,17 +459,20 @@ PnL is only available on **active positions**. Once a user redeems their outcome
 
 Each prediction position includes a `pnl` object containing the following fields:
 
-| Field               | Type     | Description                                                                                    |
-| ------------------- | -------- | ------------------------------------------------------------------------------------------------ |
-| `unrealized`        | `number` | Current gain or loss on shares still held   |
-| `unrealizedPct`     | `number` | Unrealized PnL as a percentage                            |
-| `realized`          | `number` | Profit or loss locked in from shares already sold                                                |
-| `total`             | `number` | Combined PnL for the current position                                  |
-| `totalLifetime`     | `number` | Cumulative total PnL including already closed positions                |
-| `realizedLifetime`  | `number` | Cumulative realized PnL including fully closed positions            |
+| Field              | Type     | Description                                              |
+| ------------------ | -------- | -------------------------------------------------------- |
+| `unrealized`       | `number` | Current gain or loss on shares still held                |
+| `unrealizedPct`    | `number` | Unrealized PnL as a percentage                           |
+| `realized`         | `number` | Profit or loss locked in from shares already sold        |
+| `total`            | `number` | Combined PnL for the current position                    |
+| `totalLifetime`    | `number` | Cumulative total PnL including already closed positions  |
+| `realizedLifetime` | `number` | Cumulative realized PnL including fully closed positions |
 
 <Note>
-  `total` and `totalLifetime` differ when a user has fully exited and re-entered a position. `total` reflects the current open position only, while `totalLifetime` carries forward gains and losses from previous closed episodes.
+  `total` and `totalLifetime` differ when a user has fully exited and re-entered
+  a position. `total` reflects the current open position only, while
+  `totalLifetime` carries forward gains and losses from previous closed
+  episodes.
 </Note>
 
 #### Example Response
@@ -500,16 +504,130 @@ Each prediction position includes a `pnl` object containing the following fields
 ```
 
 In this example:
+
 - The user holds **1 Yes token** currently worth **\$0.93** (`amountUsd`)
 - Their cost basis is **\$0.95** (`costBasisTotal`), reflecting the buying price of the token
-- No shares have been sold yet, so: 
-  - `realized` PnL is **\$0** and 
+- No shares have been sold yet, so:
+  - `realized` PnL is **\$0** and
   - `unrealized` PnL is **-\$0.02** (current value minus cost basis)
   - `total` is **-\$0.02**
 
 <Note>
-**Unrealized PnL** is calculated using the **bid-side price** of the outcome token, which represents what a user would actually receive if they sold their position today.
+  **Unrealized PnL** is calculated using the **bid-side price** of the outcome
+  token, which represents what a user would actually receive if they sold their
+  position today.
 </Note>
+
+### Capital
+
+The `capital` object is available on each position in the [PnL endpoint](/api-reference/positions/get-pnl-data-for-wallet-positions) and answers the question: **"Have I broken even yet, and how much of my own money is still at stake?"**
+
+Unlike PnL, capital values are **price-agnostic**. They only change when you buy or sell, not when the market moves. This makes the `capital` object a stable measure of your cash commitment to a position.
+
+#### How it differs from PnL and Cost Basis
+
+| Metric             | Changes on price move? | Changes on buy? | Changes on sell?    |
+| ------------------ | ---------------------- | --------------- | ------------------- |
+| `pnl.unrealized`   | Yes                    | Yes             | Yes                 |
+| `costBasisTotal`   | No                     | Yes             | Yes (adjusted down) |
+| `capital.invested` | No                     | Yes (increases) | No                  |
+| `capital.netFlow`  | No                     | Yes (decreases) | Yes (increases)     |
+
+#### Response Fields
+
+| Field                      | Type     | Description                                                                                            |
+| -------------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| `capital.invested`         | `number` | Sum of all buy costs for the active position. Increases with every buy, never decreases.               |
+| `capital.investedLifetime` | `number` | Sum of all buy costs across all re-entries for this market.                                            |
+| `capital.netFlow`          | `number` | Net capital flow for the active position: sell proceeds minus buy costs. See below for interpretation. |
+| `capital.netFlowLifetime`  | `number` | Net capital flow across all re-entries for this market.                                                |
+
+#### Example Response
+
+```json {11-16} Position with Capital Object (from PnL endpoint)
+{
+  "positionId": "dflow.prediction.KXFEDCHAIRNOM-29.6Ryen6J3RETCd4oqaViA6QsPxvxSPjLYxcPDLHa7qK19.yes.6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+  "marketId": "dflow.prediction.KXFEDCHAIRNOM-29.6Ryen6J3RETCd4oqaViA6QsPxvxSPjLYxcPDLHa7qK19",
+  "ownerAddress": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
+  "total": 0.05,
+  "realized": 0,
+  "unrealized": 0.05,
+  "pnl": {
+    // pnl data from above
+  },
+  "capital": {
+    "invested": 0.95,
+    "investedLifetime": 0.95,
+    "netFlow": -0.95,
+    "netFlowLifetime": -0.95
+  },
+  "realizedLifetime": 0,
+  "totalLifetime": 0.05
+}
+```
+
+#### Understanding netFlow
+
+`netFlow` is calculated as **sell proceeds − buy costs**. Think of it as the line your P&L cannot cross — it tracks whether you've recouped your original investment through sales:
+
+| netFlow value | What it means                                                                                       |
+| ------------- | --------------------------------------------------------------------------------------------------- |
+| Negative      | Your own capital is still locked in the position. You haven't sold enough to cover what you put in. |
+| Zero          | **Breakeven.** You've fully recovered your initial investment through sells.                        |
+| Positive      | You've recouped your initial investment and the remaining amount is additional realized returns.    |
+
+`netFlow` is unaffected by price changes. It only moves when you execute a trade:
+
+- **Buy** → `netFlow` decreases (more of your capital is committed)
+- **Sell** → `netFlow` increases (capital is returned to you)
+
+#### Example
+
+Here is a step-by-step example showing how `invested` and `netFlow` evolve across multiple trades, assuming an initial buy of $100:
+
+| Event         | invested | netFlow | Interpretation                                      |
+| ------------- | -------- | ------- | --------------------------------------------------- |
+| Buy $100      | $100     | -$100   | All capital locked in position                      |
+| Buy $100 more | $200     | -$200   | More capital committed (DCA)                        |
+| Sell for $75  | $200     | -$125   | Still $125 of own capital in position               |
+| Sell for $125 | $200     | $0      | **Breakeven** — initial investment fully recouped   |
+| Sell for $50  | $200     | +$50    | $50 above initial investment — pure realized profit |
+
+Note that `invested` only ever increases with buys, regardless of how much you sell. It represents the cumulative cash you've committed, not the current exposure.
+
+### Dedicated PnL Endpoint
+
+Beyond the `pnl` object available on each position, we provide a dedicated [PnL endpoint](/api-reference/positions/get-pn-l-data-for-wallet-positions) that returns aggregated PnL across all a wallet's positions along with the full `capital` breakdown per position.
+
+```typescript Fetching PnL Data
+const response = await fetch(
+  "https://markets.dial.to/api/v0/positions/pnl?walletAddresses=YOUR_WALLET",
+  {
+    headers: {
+      "x-dialect-api-key": "YOUR_API_KEY",
+    },
+  },
+);
+
+const data = await response.json();
+
+// Top-level aggregates across all positions
+console.log(data.total); // Total PnL (realized + unrealized)
+console.log(data.realized); // Realized PnL for active positions
+console.log(data.realizedLifetime); // Realized PnL including closed positions
+
+// Per-position breakdown including capital
+data.positions.forEach((position) => {
+  console.log(position.capital.invested); // How much was put in
+  console.log(position.capital.netFlow); // Breakeven indicator
+});
+```
+
+<Tip>
+  Use `capital.netFlow` to show users how far they are from breakeven. A value
+  of `0` means they've fully recouped their initial investment through sells.
+  Anything above `0` is pure realized profit they can treat as "house money."
+</Tip>
 
 ## Protocol-Specific Additional Data
 
