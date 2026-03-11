@@ -213,51 +213,51 @@
           },
           {
             "group": "JUPITER",
-            "openapi": "./openapi/jupiter.json"
+            "openapi": { "source": "./openapi/jupiter.json", "directory": "api-reference/jupiter" }
           },
           {
             "group": "RAYDIUM",
-            "openapi": "./openapi/raydium.json"
+            "openapi": { "source": "./openapi/raydium.json", "directory": "api-reference/raydium" }
           },
           {
             "group": "SAVE",
-            "openapi": "./openapi/save.json"
+            "openapi": { "source": "./openapi/save.json", "directory": "api-reference/save" }
           },
           {
             "group": "DEFITUNA",
-            "openapi": "./openapi/defituna.json"
+            "openapi": { "source": "./openapi/defituna.json", "directory": "api-reference/defituna" }
           },
           {
             "group": "DEFICARROT",
-            "openapi": "./openapi/deficarrot.json"
+            "openapi": { "source": "./openapi/deficarrot.json", "directory": "api-reference/deficarrot" }
           },
           {
             "group": "DRIFT",
-            "openapi": "./openapi/drift.json"
+            "openapi": { "source": "./openapi/drift.json", "directory": "api-reference/drift" }
           },
           {
             "group": "KAMINO",
-            "openapi": "./openapi/kamino.json"
+            "openapi": { "source": "./openapi/kamino.json", "directory": "api-reference/kamino" }
           },
           {
             "group": "LULO",
-            "openapi": "./openapi/lulo.json"
+            "openapi": { "source": "./openapi/lulo.json", "directory": "api-reference/lulo" }
           },
           {
             "group": "MARGINFI",
-            "openapi": "./openapi/marginfi.json"
+            "openapi": { "source": "./openapi/marginfi.json", "directory": "api-reference/marginfi" }
           },
           {
             "group": "METEORA",
-            "openapi": "./openapi/meteora.json"
+            "openapi": { "source": "./openapi/meteora.json", "directory": "api-reference/meteora" }
           },
           {
             "group": "ORCA",
-            "openapi": "./openapi/orca.json"
+            "openapi": { "source": "./openapi/orca.json", "directory": "api-reference/orca" }
           },
           {
             "group": "SOLANA",
-            "openapi": "./openapi/solana.json"
+            "openapi": { "source": "./openapi/solana.json", "directory": "api-reference/solana" }
           }
         ]
       },
@@ -306,5 +306,77 @@
       "discord": "https://discord.gg/saydialect",
       "youtube": "https://www.youtube.com/@dialectlabs"
     }
-  }
+  },
+  "redirects": [
+    { "source": "/api-reference/swap/swap-token", "destination": "/api-reference/jupiter/swap/swap-token" },
+    { "source": "/api-reference/swap/swap-token-amount", "destination": "/api-reference/jupiter/swap/swap-token-amount" },
+    { "source": "/api-reference/lend-earn/deposit", "destination": "/api-reference/jupiter/lend-earn/deposit" },
+    { "source": "/api-reference/lend-earn/withdraw", "destination": "/api-reference/jupiter/lend-earn/withdraw" },
+    { "source": "/api-reference/lend-borrow/deposit", "destination": "/api-reference/jupiter/lend-borrow/deposit" },
+    { "source": "/api-reference/lend-borrow/withdraw", "destination": "/api-reference/jupiter/lend-borrow/withdraw" },
+    { "source": "/api-reference/lend-borrow/borrow", "destination": "/api-reference/jupiter/lend-borrow/borrow" },
+    { "source": "/api-reference/lend-borrow/repay", "destination": "/api-reference/jupiter/lend-borrow/repay" },
+
+    { "source": "/api-reference/clmm/clmm-add-liquidity", "destination": "/api-reference/raydium/clmm/clmm-add-liquidity" },
+    { "source": "/api-reference/clmm/clmm-remove-liquidity", "destination": "/api-reference/raydium/clmm/clmm-remove-liquidity" },
+    { "source": "/api-reference/amm/amm-add-liquidity", "destination": "/api-reference/raydium/amm/amm-add-liquidity" },
+    { "source": "/api-reference/amm/amm-remove-liquidity", "destination": "/api-reference/raydium/amm/amm-remove-liquidity" },
+    { "source": "/api-reference/farm/ray-stake", "destination": "/api-reference/raydium/farm/ray-stake" },
+    { "source": "/api-reference/farm/ray-unstake", "destination": "/api-reference/raydium/farm/ray-unstake" },
+
+    { "source": "/api-reference/lending/lending-deposit-token", "destination": "/api-reference/save/lending/lending-deposit-token" },
+    { "source": "/api-reference/lending/lending-withdraw-token", "destination": "/api-reference/save/lending/lending-withdraw-token" },
+
+    { "source": "/api-reference/lend/lend-deposit", "destination": "/api-reference/defituna/lend/lend-deposit" },
+    { "source": "/api-reference/lend/lend-withdraw", "destination": "/api-reference/defituna/lend/lend-withdraw" },
+
+    { "source": "/api-reference/earn/get-mint-blink", "destination": "/api-reference/deficarrot/lend/lend-deposit" },
+    { "source": "/api-reference/earn/mint-operation", "destination": "/api-reference/deficarrot/lend/lend-deposit" },
+    { "source": "/api-reference/earn/get-redeem-blink", "destination": "/api-reference/deficarrot/lend/lend-withdraw" },
+    { "source": "/api-reference/earn/redeem-operation", "destination": "/api-reference/deficarrot/lend/lend-withdraw" },
+
+    { "source": "/api-reference/vaults/strategy-vault-deposit", "destination": "/api-reference/drift/vaults/strategy-vault-deposit" },
+    { "source": "/api-reference/vaults/strategy-vault-request-withdraw", "destination": "/api-reference/drift/vaults/strategy-vault-request-withdraw" },
+    { "source": "/api-reference/vaults/strategy-vault-withdraw", "destination": "/api-reference/drift/vaults/strategy-vault-withdraw" },
+
+    { "source": "/api-reference/markets/market-reserve-deposit", "destination": "/api-reference/kamino/markets/market-reserve-deposit" },
+    { "source": "/api-reference/markets/market-reserve-withdraw", "destination": "/api-reference/kamino/markets/market-reserve-withdraw" },
+    { "source": "/api-reference/markets/market-reserve-metadata", "destination": "/api-reference/kamino/markets/market-reserve-metadata" },
+    { "source": "/api-reference/markets/market-reserve-redirect", "destination": "/api-reference/kamino/markets/market-reserve-redirect" },
+    { "source": "/api-reference/markets/get-market-reserve-claim-rewards-blink", "destination": "/api-reference/kamino/markets/get-market-reserve-claim-rewards-blink" },
+    { "source": "/api-reference/markets/market-reserve-claim-rewards-operation", "destination": "/api-reference/kamino/markets/market-reserve-claim-rewards-operation" },
+    { "source": "/api-reference/liquidity/liquidity-vault-deposit", "destination": "/api-reference/kamino/liquidity/liquidity-vault-deposit" },
+    { "source": "/api-reference/liquidity/liquidity-vault-withdraw", "destination": "/api-reference/kamino/liquidity/liquidity-vault-withdraw" },
+    { "source": "/api-reference/multiply/multiply-setup", "destination": "/api-reference/kamino/multiply/multiply-setup" },
+    { "source": "/api-reference/multiply/multiply-deposit", "destination": "/api-reference/kamino/multiply/multiply-deposit" },
+    { "source": "/api-reference/multiply/multiply-withdraw", "destination": "/api-reference/kamino/multiply/multiply-withdraw" },
+    { "source": "/api-reference/leverage/leverage-setup", "destination": "/api-reference/kamino/leverage/leverage-setup" },
+    { "source": "/api-reference/leverage/leverage-open-position", "destination": "/api-reference/kamino/leverage/leverage-open-position" },
+    { "source": "/api-reference/leverage/leverage-close-position", "destination": "/api-reference/kamino/leverage/leverage-close-position" },
+    { "source": "/api-reference/farms/claim-farm-rewards", "destination": "/api-reference/kamino/farms/claim-farm-rewards" },
+    { "source": "/api-reference/lend/get-lend-vault-deposit-blink", "destination": "/api-reference/kamino/lend/get-lend-vault-deposit-blink" },
+    { "source": "/api-reference/lend/lend-vault-deposit-operation", "destination": "/api-reference/kamino/lend/lend-vault-deposit-operation" },
+    { "source": "/api-reference/lend/get-lend-vault-withdraw-blink", "destination": "/api-reference/kamino/lend/get-lend-vault-withdraw-blink" },
+    { "source": "/api-reference/lend/lend-vault-withdraw-operation", "destination": "/api-reference/kamino/lend/lend-vault-withdraw-operation" },
+    { "source": "/api-reference/lend/get-lend-vault-claim-rewards-blink", "destination": "/api-reference/kamino/lend/get-lend-vault-claim-rewards-blink" },
+    { "source": "/api-reference/lend/lend-vault-claim-rewards-operation", "destination": "/api-reference/kamino/lend/lend-vault-claim-rewards-operation" },
+
+    { "source": "/api-reference/deposit/deposit", "destination": "/api-reference/lulo/deposit/deposit" },
+    { "source": "/api-reference/withdraw/withdraw", "destination": "/api-reference/lulo/withdraw/withdraw" },
+    { "source": "/api-reference/withdraw/complete-regular-withdrawal", "destination": "/api-reference/lulo/withdraw/complete-regular-withdrawal" },
+
+    { "source": "/api-reference/lend/lend-deposit-token", "destination": "/api-reference/marginfi/lend/lend-deposit" },
+    { "source": "/api-reference/lend/lend-withdraw-token", "destination": "/api-reference/marginfi/lend/lend-withdraw" },
+
+    { "source": "/api-reference/dbc/dbc-launch-token", "destination": "/api-reference/meteora/dbc/dbc-launch-token" },
+    { "source": "/api-reference/dlmm/dlmm-add-liquidity", "destination": "/api-reference/meteora/dlmm/dlmm-add-liquidity" },
+    { "source": "/api-reference/dlmm/dlmm-remove-liquidity", "destination": "/api-reference/meteora/dlmm/dlmm-remove-liquidity" },
+
+    { "source": "/api-reference/pools/pools-open-position", "destination": "/api-reference/orca/pools/pools-open-position" },
+    { "source": "/api-reference/pools/pools-add-liquidity", "destination": "/api-reference/orca/pools/pools-add-liquidity" },
+    { "source": "/api-reference/pools/pools-remove-liquidity", "destination": "/api-reference/orca/pools/pools-remove-liquidity" },
+    { "source": "/api-reference/pools/pools-close-position", "destination": "/api-reference/orca/pools/pools-close-position" },
+
+    { "source": "/api-reference/transfer/transfer-token", "destination": "/api-reference/solana/transfer/transfer-token" }
+  ]
 }
