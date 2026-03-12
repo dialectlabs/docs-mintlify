@@ -1,10 +1,6 @@
 {
-  "openapi": "3.1.0",
-  "x-mcp": {
-    "enabled": true
-  },
   "info": {
-    "title": "DeFiTuna Blinks",
+    "title": "Defituna Blinks API",
     "version": "0.0.1"
   },
   "servers": [
@@ -12,10 +8,11 @@
       "url": "https://defituna.dial.to/api"
     }
   ],
+  "openapi": "3.1.1",
   "paths": {
     "/v0/lend/{poolToken}/deposit": {
       "get": {
-        "operationId": "v0.getLendDepositBlink",
+        "operationId": "defituna.v0.getLendDepositBlink",
         "summary": "Lend Deposit",
         "description": "Get metadata for depositing a token into DeFiTuna.",
         "tags": [
@@ -30,10 +27,10 @@
               "type": "string",
               "description": "Token mint address",
               "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
             },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
           }
         ],
         "responses": {
@@ -65,7 +62,10 @@
                             "type": "object",
                             "properties": {
                               "type": {
-                                "const": "transaction"
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
                               },
                               "href": {
                                 "type": "string"
@@ -120,10 +120,13 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/defituna/lend/deposit-get"
         }
       },
       "post": {
-        "operationId": "v0.lendDeposit",
+        "operationId": "defituna.v0.lendDeposit",
         "summary": "Lend Deposit",
         "description": "Generate a transaction for depositing a token into DeFiTuna.",
         "tags": [
@@ -138,10 +141,10 @@
               "type": "string",
               "description": "Token mint address",
               "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
             },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
           },
           {
             "name": "percentage",
@@ -155,7 +158,9 @@
               "example": 10
             },
             "allowEmptyValue": true,
-            "allowReserved": true
+            "allowReserved": true,
+            "x-default": 10,
+            "example": 10
           },
           {
             "name": "amount",
@@ -212,6 +217,37 @@
                     },
                     "transaction": {
                       "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
                     }
                   },
                   "required": [
@@ -222,12 +258,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/defituna/lend/deposit-post"
         }
       }
     },
     "/v0/lend/{poolToken}/withdraw": {
       "get": {
-        "operationId": "v0.getLendWithdrawBlink",
+        "operationId": "defituna.v0.getLendWithdrawBlink",
         "summary": "Lend Withdraw",
         "description": "Get metadata for withdrawing a token from DeFiTuna.",
         "tags": [
@@ -242,10 +281,10 @@
               "type": "string",
               "description": "Token mint address",
               "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
             },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
           }
         ],
         "responses": {
@@ -277,7 +316,10 @@
                             "type": "object",
                             "properties": {
                               "type": {
-                                "const": "transaction"
+                                "enum": [
+                                  "transaction",
+                                  "external-link"
+                                ]
                               },
                               "href": {
                                 "type": "string"
@@ -332,10 +374,13 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/defituna/lend/withdraw-get"
         }
       },
       "post": {
-        "operationId": "v0.lendWithdraw",
+        "operationId": "defituna.v0.lendWithdraw",
         "summary": "Lend Withdraw",
         "description": "Generate a transaction for withdrawing a token from DeFiTuna.",
         "tags": [
@@ -350,10 +395,10 @@
               "type": "string",
               "description": "Token mint address",
               "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
             },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
           },
           {
             "name": "percentage",
@@ -367,7 +412,9 @@
               "example": 10
             },
             "allowEmptyValue": true,
-            "allowReserved": true
+            "allowReserved": true,
+            "x-default": 10,
+            "example": 10
           },
           {
             "name": "amount",
@@ -424,6 +471,37 @@
                     },
                     "transaction": {
                       "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "next"
+                      ]
+                    },
+                    "dialectExperimental": {
+                      "type": "object",
+                      "properties": {
+                        "reference": {
+                          "type": "string"
+                        }
+                      }
                     }
                   },
                   "required": [
@@ -434,11 +512,14 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/defituna/lend/withdraw-post"
         }
       }
     }
   },
-  "components": {
-    "schemas": {}
+  "x-mcp": {
+    "enabled": true
   }
 }
