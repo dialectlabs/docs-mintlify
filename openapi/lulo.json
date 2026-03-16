@@ -12,7 +12,7 @@
   "paths": {
     "/v0/deposit/{token}/{type}": {
       "get": {
-        "operationId": "v0.deposit.getDepositTokenBlink",
+        "operationId": "lulo.v0.deposit.getDepositTokenBlink",
         "summary": "Deposit",
         "description": "Get metadata for depositing a token into Lulo.",
         "tags": [
@@ -133,10 +133,13 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/lulo/deposit/deposit-get"
         }
       },
       "post": {
-        "operationId": "v0.deposit.depositToken",
+        "operationId": "lulo.v0.deposit.depositToken",
         "summary": "Deposit",
         "description": "Generate a transaction for depositing a token into Lulo.",
         "tags": [
@@ -253,12 +256,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/lulo/deposit/deposit-post"
         }
       }
     },
     "/v0/withdraw/{token}/{type}": {
       "get": {
-        "operationId": "v0.withdraw.getWithdrawTokenBlink",
+        "operationId": "lulo.v0.withdraw.getWithdrawTokenBlink",
         "summary": "Withdraw",
         "description": "Get metadata for withdrawing a token from Lulo.",
         "tags": [
@@ -379,10 +385,13 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/lulo/withdraw/withdraw-get"
         }
       },
       "post": {
-        "operationId": "v0.withdraw.withdrawToken",
+        "operationId": "lulo.v0.withdraw.withdrawToken",
         "summary": "Withdraw",
         "description": "Generate a transaction for withdrawing a token from Lulo.",
         "tags": [
@@ -499,12 +508,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/lulo/withdraw/withdraw-post"
         }
       }
     },
     "/v0/withdraw/{token}/regular/complete": {
       "get": {
-        "operationId": "v0.withdraw.getCompleteRegularWithdrawalBlink",
+        "operationId": "lulo.v0.withdraw.getCompleteRegularWithdrawalBlink",
         "summary": "Complete Regular Withdrawal",
         "description": "Get metadata for withdrawing a token from Lulo Regular after cooldown period.",
         "tags": [
@@ -609,10 +621,13 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/lulo/withdraw/complete-get"
         }
       },
       "post": {
-        "operationId": "v0.withdraw.completeRegularWithdrawal",
+        "operationId": "lulo.v0.withdraw.completeRegularWithdrawal",
         "summary": "Complete Regular Withdrawal",
         "description": "Generate a transaction for withdrawing a token from Lulo Regular after cooldown period.",
         "tags": [
@@ -703,6 +718,9 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/lulo/withdraw/complete-post"
         }
       }
     }
