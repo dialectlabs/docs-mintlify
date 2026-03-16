@@ -34,7 +34,7 @@
     "tabs": [
       {
         "tab": "Introduction",
-        "pages": ["index"]
+        "pages": ["index", "request-api-keys"]
       },
       {
         "tab": "Alerts & Events",
@@ -44,6 +44,7 @@
             "pages": [
               "alerts/index",
               "alerts/quick-start",
+              "alerts/api-keys",
               "alerts/blinks-in-alerts",
               "alerts/faq"
             ]
@@ -208,7 +209,8 @@
             "pages": [
               "standard-blinks-library/index",
               "standard-blinks-library/why-sbl",
-              "standard-blinks-library/quick-start"
+              "standard-blinks-library/quick-start",
+              "standard-blinks-library/api-keys"
             ]
           },
           {
@@ -269,6 +271,7 @@
             "pages": [
               "markets/index",
               "markets/quick-start",
+              "markets/api-keys",
               {
                 "group": "Market Types",
                 "pages": [
