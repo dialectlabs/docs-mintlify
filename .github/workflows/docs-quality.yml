@@ -1,0 +1,43 @@
+name: Docs Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    name: Docs Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Mintlify CLI
+        run: npm install -g mintlify
+
+      - name: Accessibility check
+        id: a11y
+        run: mint a11y 2>&1 | tee a11y-output.txt
+        continue-on-error: true
+
+      - name: Broken links check
+        id: broken-links
+        run: mint broken-links 2>&1 | tee broken-links-output.txt
+        continue-on-error: true
+
+      - name: Comment results on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const a11y = fs.readFileSync('a11y-output.txt', 'utf8');
+            const links = fs.readFileSync('broken-links-output.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `### Docs Quality Gate\n\n**Accessibility**\n\`\`\`\n${a11y}\n\`\`\`\n\n**Broken Links**\n\`\`\`\n${links}\n\`\`\``
+            })
