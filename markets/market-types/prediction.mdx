@@ -288,7 +288,7 @@ If you need more filter options, please [reach out](https://form.typeform.com/to
 
 ## Tracking Prediction Positions
 
-Our [Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address) and [PnL API](/api-reference/positions/get-pn-l-data-for-wallet-positions) give you everything you need to track a user's prediction market activity. Without them, tracking DFlow positions requires multiple steps:
+Our [Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address) and [PnL API](/api-reference/positions/get-pnl-data-for-wallet-positions) give you everything you need to track a user's prediction market activity. Without them, tracking DFlow positions requires multiple steps:
 
 1. Fetch all token accounts for a wallet
 2. Get tokenized account mints
@@ -453,7 +453,7 @@ Notice that after the full exit, the new buy starts fresh with no carryover from
 
 PnL allows the user to see how their positions are performing. It answers the question: **"Am I profitable or am I loosing money?"**
 
-The [Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address) returns PnL for **active positions** only. Once a user fully redeems their outcome tokens, the position is closed and no longer returned. Use the [PnL API](/api-reference/positions/get-pn-l-data-for-wallet-positions) to access PnL across all positions, including closed ones.
+The [Positions API](/api-reference/positions/list-all-market-positions-by-wallet-address) returns PnL for **active positions** only. Once a user fully redeems their outcome tokens, the position is closed and no longer returned. Use the [PnL API](/api-reference/positions/get-pnl-data-for-wallet-positions) to access PnL across all positions, including closed ones.
 
 #### Response Fields
 
