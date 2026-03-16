@@ -33,7 +33,7 @@ const response = await fetch(
   'https://markets.dial.to/api/v0/markets?type=yield&provider=kamino',
   {
     headers: {
-      'x-dialect-api-key': 'pk_demo'
+      'x-dialect-client-key': 'pk_demo'
     }
   }
 );
@@ -44,12 +44,12 @@ console.log(data.markets);
 
 ```bash cURL
 curl 'https://markets.dial.to/api/v0/markets?type=yield&provider=kamino' \
-  --header 'x-dialect-api-key: pk_demo'
+  --header 'x-dialect-client-key: pk_demo'
 ```
 </CodeGroup>
 
 <Tip>
-The `pk_demo` key is for testing purposes only. [Request your own API key](/markets/api-keys) for production use.
+The `pk_demo` key is for testing purposes only. [Request your own client key](/markets/api-keys) for production use.
 </Tip>
 
 ### Understanding Market Data
@@ -278,7 +278,7 @@ const response = await fetch(
   'https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176',
   {
     headers: {
-      'x-dialect-api-key': 'pk_demo'
+      'x-dialect-client-key': 'pk_demo'
     }
   }
 );
@@ -289,12 +289,12 @@ console.log(data.positions);
 
 ```bash cURL
 curl 'https://markets.dial.to/api/v0/positions/owners?walletAddresses=6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176' \
-  --header 'x-dialect-api-key: pk_demo'
+  --header 'x-dialect-client-key: pk_demo'
 ```
 </CodeGroup>
 
 <Tip>
-The `pk_demo` key is for testing purposes only. [Request your own API key](/markets/api-keys) for production use.
+The `pk_demo` key is for testing purposes only. [Request your own client key](/markets/api-keys) for production use.
 </Tip>
 
 Position data includes:

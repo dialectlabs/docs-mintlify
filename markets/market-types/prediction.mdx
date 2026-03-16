@@ -307,7 +307,7 @@ const response = await fetch(
   'https://markets.dial.to/api/v0/positions/owners?walletAddresses=YOUR_WALLET&type=prediction',
   {
     headers: {
-      'x-dialect-api-key': 'YOUR_API_KEY'
+      'x-dialect-client-key': 'YOUR_CLIENT_KEY'
     }
   }
 );
@@ -319,7 +319,7 @@ console.log(data.positions);
 
 ```bash cURL
 curl 'https://markets.dial.to/api/v0/positions/owners?walletAddresses=YOUR_WALLET&type=prediction' \
-  --header 'x-dialect-api-key: YOUR_API_KEY'
+  --header 'x-dialect-client-key: YOUR_CLIENT_KEY'
 ````
 
 </CodeGroup>

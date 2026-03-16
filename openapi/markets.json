@@ -27,16 +27,20 @@
               "type": "string",
               "description": "Comma separated list of market types (`lending`, `yield`, `loop`, `perpetual`, `prediction`)."
             },
-            "example": "yield, lending"
+            "example": "yield, lending",
+            "allowEmptyValue": true,
+            "allowReserved": true
           },
           {
             "name": "provider",
             "in": "query",
             "schema": {
               "type": "string",
-              "description": "Comma-separated list of provider IDs (kamino, lulo, marginfi, jupiter, defituna, carrot, dflow)"
+              "description": "Comma separated list of provider IDs (`marginfi`, `kamino`, `lulo`, `jupiter`, `defituna`, `carrot`, `dflow`)."
             },
-            "example": "marginfi, kamino"
+            "example": "marginfi, kamino",
+            "allowEmptyValue": true,
+            "allowReserved": true
           },
           {
             "name": "cursor",
@@ -62,16 +66,20 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "description": "Comma-separated list, only for prediction markets. Use with `type=prediction`.\n\nStatus options:\n- `open` \n- `closed`\n- `settled`\n\nExamples:\n- `{\"prediction\":{\"status\":[\"open\"]}}`\n- `{\"prediction\":{\"status\":[\"open\", \"closed\"]}}`"
-            }
+              "description": "URL-encoded JSON object for filtering markets. Use with `type=prediction`.\n\nStatus options:\n- `open` \n- `closed`\n- `settled`\n\nExamples:\n- `{\"prediction\":{\"status\":[\"open\"]}}`\n- `{\"prediction\":{\"status\":[\"open\", \"closed\"]}}`"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
           },
           {
             "name": "asset",
             "in": "query",
             "schema": {
               "type": "string",
-              "description": "Comma-separated list of token mint addresses. Not supported for prediction markets. Requires an explicit `type` filter that excludes prediction (e.g. `type=lending,yield,loop,perpetual`)."
-            }
+              "description": "Filter by token mint address (comma-separated). Not supported for prediction markets. Requires an explicit `type` filter that excludes prediction (e.g. `type=lending,yield,loop,perpetual`)."
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
           }
         ],
         "responses": {
@@ -1289,6 +1297,133 @@
                       }
                     }
                   ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/markets/history": {
+      "get": {
+        "operationId": "marketsV0Api.marketsHistory",
+        "summary": "Get historical market snapshots",
+        "description": "Fetch market snapshots within a time range for one or more markets. Optionally interpolate to a uniform time grid.",
+        "tags": ["Markets"],
+        "parameters": [
+          {
+            "name": "marketIds",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Comma separated list of market IDs."
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "x-native-type": "date",
+              "description": "Start time of the snapshot. Date or datetime in RFC 3339 format",
+              "default": "2025-06-01T00:00:00Z",
+              "example": "2025-06-01T00:00:00Z"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "x-native-type": "date",
+              "description": "End time of the snapshot. Date or datetime in RFC 3339 format. Defaults to current time if not provided",
+              "default": "2025-10-09T23:59:59Z",
+              "example": "2025-10-09T23:59:59Z"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "resolution",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": ["1h", "1d"],
+              "description": "Time interval for historical snapshots. Controls the granularity of data points returned."
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "markets": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "history": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "timestamp": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "x-native-type": "date"
+                                    },
+                                    "depositApy": {
+                                      "anyOf": [
+                                        { "type": "number" },
+                                        { "type": "null" }
+                                      ]
+                                    },
+                                    "totalDeposit": {
+                                      "anyOf": [
+                                        { "type": "number" },
+                                        { "type": "null" }
+                                      ]
+                                    },
+                                    "totalDepositUsd": {
+                                      "anyOf": [
+                                        { "type": "number" },
+                                        { "type": "null" }
+                                      ]
+                                    }
+                                  },
+                                  "required": ["timestamp"]
+                                }
+                              }
+                            },
+                            "required": ["id", "history"]
+                          }
+                        }
+                      },
+                      "required": ["markets"]
+                    }
+                  },
+                  "required": ["data"]
                 }
               }
             }
@@ -4351,16 +4486,16 @@
   },
   "security": [
     {
-      "apiKey": []
+      "clientKey": []
     }
   ],
   "components": {
     "securitySchemes": {
-      "apiKey": {
+      "clientKey": {
         "type": "apiKey",
-        "name": "x-dialect-api-key",
+        "name": "x-dialect-client-key",
         "in": "header",
-        "description": "API key for the Markets API",
+        "description": "Client key for the Markets API",
         "x-default": "pk_demo"
       }
     }
