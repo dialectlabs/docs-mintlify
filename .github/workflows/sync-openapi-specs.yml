@@ -3,7 +3,7 @@ name: Sync OpenAPI Specs
 on:
   schedule:
     - cron: "0 9 * * *" # Daily at 9 AM UTC
-  workflow_dispatch: # Also manually triggerable
+  workflow_dispatch:
 
 jobs:
   sync:
@@ -36,6 +36,23 @@ jobs:
             fi
           done
 
+      - name: Install Mintlify CLI
+        run: npm install -g mintlify
+
+      - name: Validate OpenAPI specs
+        id: validate
+        continue-on-error: true
+        run: |
+          results=""
+          for file in openapi/*.json; do
+            output=$(mint openapi-check "$file" 2>&1)
+            if [ $? -eq 0 ]; then icon="✅"; else icon="❌"; fi
+            results="${results}${icon} **${file}**\n\`\`\`\n${output}\n\`\`\`\n\n"
+          done
+          echo "results<<EOF" >> $GITHUB_OUTPUT
+          printf "$results" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Compute PR metadata
         id: pr
         run: |
@@ -66,5 +83,8 @@ jobs:
             Automated daily sync of OpenAPI specs from live APIs.
 
             Review the diff and merge when ready — Mintlify will rebuild automatically.
+
+            ### OpenAPI Validation
+            ${{ steps.validate.outputs.results }}
           labels: automated
           reviewers: bjoerndotsol
