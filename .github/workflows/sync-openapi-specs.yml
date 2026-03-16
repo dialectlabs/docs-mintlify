@@ -19,6 +19,9 @@ jobs:
         run: |
           declare -A SPECS=(
             [openapi/lulo.json]="https://lulo.dial.to/api/openapi.json"
+            [openapi/marginfi.json]="https://marginfi.dial.to/api/openapi.json"
+            [openapi/defituna.json]="https://defituna.dial.to/api/openapi.json"
+            [openapi/deficarrot.json]="https://deficarrot.dial.to/api/openapi.json"
           )
 
           for file in "${!SPECS[@]}"; do

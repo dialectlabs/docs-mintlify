@@ -9,7 +9,7 @@ rss: true
 ## Markets API Updates
 
 - **Asset Filter Update** - Asset filtering on [`GET /v0/markets`](/api-reference/markets/list-all-markets) now requires an explicit `type` parameter and excludes prediction markets, as filtering by a common asset like USDC across prediction markets would return unmanageable amounts of data.
-- **New PnL Endpoint** - New [`GET /v0/positions/pnl`](/api-reference/positions/pnl) endpoint returns realized and unrealized PnL for prediction market positions, including closed positions. [Learn more](/markets/market-types/prediction)
+- **New PnL Endpoint** - New [`GET /v0/positions/pnl`](/api-reference/positions/get-pnl-data-for-wallet-positions) endpoint returns realized and unrealized PnL for prediction market positions, including closed positions. [Learn more](/markets/market-types/prediction)
 - **Capital Tracking Fields** - Both `/v0/positions/pnl` and `/v0/positions/owners` now include capital fields (`invested`, `investedLifetime`, `netFlow`, `netFlowLifetime`) per prediction position, giving the data needed to show users their current exposure and whether they've broken even.
 
 </Update>
@@ -232,7 +232,7 @@ Enhanced documentation, protocol improvements, and new protocol support:
 
 - **Kamino Borrow Blinks** - Added support for Kamino Borrow full lifecycle support. Repay with collateral operations now fully withdraw tokens, and borrow operations may leave trace dust amounts. We also did improvements to the blinks to ensure they are more reliable and secure
 - **Lulo Protocol Improvements** - Added improved error handling and retry logic for Lulo protocol operations
-- **DeFiCarrot Integration** - Added DeFiCarrot blinks allowing users to mint and redeem CRT tokens right from the protocol [View API docs](/api-reference/mint/get-mint-blink)
+- **DeFiCarrot Integration** - Added DeFiCarrot blinks allowing users to mint and redeem CRT tokens right from the protocol [View API docs](/api-reference/earn/get-mint-blink)
 - **Why SBL Section** - Added new documentation explaining the benefits and use cases for Standard Blinks Library, helping developers understand when and why to use SBL [View guide](/standard-blinks-library/why-sbl)
 - **Quick Start Guide** - New quick start guide to help developers integrate SBL faster [View guide](/standard-blinks-library/quick-start)
 - **Kamino Account Closure Notification** - Added a notification to the Kamino withdraw endpoints, informing devs that our blinks will automatically close the account when the withdrawal amount is >= 99.9% [View API docs](/api-reference/markets/market-reserve-withdraw)
@@ -304,7 +304,7 @@ Enhanced market data with historical APY tracking and expanded protocol coverage
 Enhanced protocol support and infrastructure improvements:
 
 - **DeFiTuna Integration** - Added DeFiTuna lending protocol with deposit and withdraw blinks for earning yield on deposits. [View API docs](/api-reference/lend/lend-deposit)
-- **Full Jupiter Borrow Support** - Jupiter Borrow now supports the full lending lifecycle with deposit, withdraw, borrow, and repay blinks so that you can build complete DeFi lending experiences. [View API docs](/api-reference/lend-borrow/borrow-deposit)
+- **Full Jupiter Borrow Support** - Jupiter Borrow now supports the full lending lifecycle with deposit, withdraw, borrow, and repay blinks so that you can build complete DeFi lending experiences. [View API docs](/api-reference/lend-borrow/deposit)
 - **Jupiter API Migration** - Updated Jupiter Swap blink to use the latest Jupiter API endpoints ensuring continued reliability and compatibility. [View Docs](/api-reference/swap/swap-token)
 - **Kamino Lend Vaults** - Added Kamino Lend support with deposit, withdraw and claim rewards blinks [View API docs](/api-reference/lend/get-lend-vault-deposit-blink)
 - **Kamino Farms** - Added Kamino Farms support enabling users to claim rewards from farming positions. [View API docs](/api-reference/farms/claim-farm-rewards)
@@ -334,8 +334,8 @@ Blinks in Alerts lets you embed blockchain actions directly into our alerts stac
 Continued expansion of our production-ready protocol integrations with enhanced transaction capabilities and new lending protocol support:
 
 - **Kamino Multiply Enhancement** - Multiply deposit blinks now support returning multiple transactions in a single call, enabling combined operations like account creation and deposit simultaneously
-- **Jupiter Lend Earn Blinks** - Added Jupiter Earn lending protocol with support for deposit and withdrawal actions [Go to Jupiter Earn endpoints](/api-reference/lend/earn-deposit)
-- **Jupiter Lend Borrow Blinks** - Added deposit functionality for Jupiter's lending protocol. Please make sure you read the notes before integrating. [View more](/api-reference/lend/borrow-deposit)
+- **Jupiter Lend Earn Blinks** - Added Jupiter Earn lending protocol with support for deposit and withdrawal actions [Go to Jupiter Earn endpoints](/api-reference/lend-earn/deposit)
+- **Jupiter Lend Borrow Blinks** - Added deposit functionality for Jupiter's lending protocol. Please make sure you read the notes before integrating. [View more](/api-reference/lend-borrow/deposit)
 - **OpenAPI Enhancements** - Added percentage preset values across all protocol endpoints (Jupiter, Drift, Kamino, Orca, Raydium, Save, Meteora, MarginFi, Lulo) for improved API testing experience
 - **MarginFi Withdraw Fix** - Resolved critical production issue preventing withdrawals from MarginFi lending positions
 
@@ -418,7 +418,7 @@ We've launched our [**Events System**](/alerts/events) - providing real-time det
 
 - **Real-time Event Detection** - Advanced sliding window analysis for price changes and filtering for newly-launched tokens
 - **Price Change Events** - Configurable thresholds and time periods with precise percentage-based detection. [View Price Change Events docs](/alerts/events/price-change)
-- **New Token Events** - Community audit criteria and advanced filtering for token launches. [View New Token Events docs](/alerts/events/new-tokens)
+- **New Token Events** - Community audit criteria and advanced filtering for token launches. [View New Token Events docs](/alerts/events/trending-token)
 - **Webhook Integration** - Direct webhook delivery or integration with Dialect's Alert Stack for multi-channel notifications
 - **Beta Access** - Currently requires early access request. [Get started with Events](/alerts/events)
 
@@ -458,7 +458,7 @@ Major widget redesign with enhanced user experience and v2 API migration:
 
 We've launched our new **Positions API** - a unified way to track wallet positions across multiple DeFi protocols. Instead of querying each protocol individually, developers can now get position data through a single API endpoint.
 
-- **New API Launch** - Real-time per-wallet positions tracking across multiple DeFi protocols with unified data access. [View API reference](/api-reference/positions)
+- **New API Launch** - Real-time per-wallet positions tracking across multiple DeFi protocols with unified data access. [View API reference](/api-reference/positions/list-all-market-positions-by-wallet-address)
 - **Demo Integration** - Funded demo wallet with active Kamino positions for realistic API testing
 - **Enhanced Protocol Support** - Added Kamino Lending and Lulo protocol support to position tracking documentation
 
@@ -508,7 +508,7 @@ We've launched our **Model Context Protocol (MCP)** integration, bringing conver
 - Built-in documentation search with AI-powered contextual results
 - Perfect for rapid Blinks development and API integration
 
-Learn more in the [MCP docs](/mcp).
+Learn more in the [MCP docs](/mcp-server).
 
 ## Markets API (Beta) Launch
 

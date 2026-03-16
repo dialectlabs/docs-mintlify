@@ -34,7 +34,7 @@
     "tabs": [
       {
         "tab": "Introduction",
-        "pages": ["index"]
+        "pages": ["index", "request-api-keys"]
       },
       {
         "tab": "Alerts & Events",
@@ -44,6 +44,7 @@
             "pages": [
               "alerts/index",
               "alerts/quick-start",
+              "alerts/api-keys",
               "alerts/blinks-in-alerts",
               "alerts/faq"
             ]
@@ -208,7 +209,8 @@
             "pages": [
               "standard-blinks-library/index",
               "standard-blinks-library/why-sbl",
-              "standard-blinks-library/quick-start"
+              "standard-blinks-library/quick-start",
+              "standard-blinks-library/api-keys"
             ]
           },
           {
@@ -269,6 +271,7 @@
             "pages": [
               "markets/index",
               "markets/quick-start",
+              "markets/api-keys",
               {
                 "group": "Market Types",
                 "pages": [
@@ -298,6 +301,64 @@
       }
     ]
   },
+  "redirects": [
+    {
+      "source": "/alerts/events/trending-tokens-events",
+      "destination": "/alerts/events/trending-token"
+    },
+    {
+      "source": "/alerts/events/new-tokens",
+      "destination": "/alerts/events/trending-token"
+    },
+    {
+      "source": "/alerts/integrate-inbox/sdk/index",
+      "destination": "/alerts/integrate-inbox/sdk/setup-configuration"
+    },
+    {
+      "source": "/blinks/blinks-scaffolds",
+      "destination": "/blinks/blinks-starters"
+    },
+    {
+      "source": "/blinks/blinks-scaffolds/index",
+      "destination": "/blinks/blinks-starters"
+    },
+    {
+      "source": "/api-guide",
+      "destination": "/standard-blinks-library"
+    },
+    {
+      "source": "/api-guide/standard-blinks-library",
+      "destination": "/standard-blinks-library"
+    },
+    {
+      "source": "/api-reference/positions/pnl",
+      "destination": "/api-reference/positions/get-pnl-data-for-wallet-positions"
+    },
+    {
+      "source": "/api-reference/mint/get-mint-blink",
+      "destination": "/api-reference/earn/get-mint-blink"
+    },
+    {
+      "source": "/api-reference/lend-borrow/borrow-deposit",
+      "destination": "/api-reference/lend-borrow/deposit"
+    },
+    {
+      "source": "/api-reference/lend/earn-deposit",
+      "destination": "/api-reference/lend-earn/deposit"
+    },
+    {
+      "source": "/api-reference/lend/borrow-deposit",
+      "destination": "/api-reference/lend-borrow/deposit"
+    },
+    {
+      "source": "/api-reference/positions",
+      "destination": "/api-reference/positions/list-all-market-positions-by-wallet-address"
+    },
+    {
+      "source": "/mcp",
+      "destination": "/mcp-server"
+    }
+  ],
   "footer": {
     "socials": {
       "website": "https://www.dialect.to/",
