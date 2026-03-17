@@ -38,7 +38,9 @@ jobs:
           done
 
       - name: Install Mintlify CLI
-        run: npm install -g mintlify
+        run: |
+          npm install -g mintlify
+          echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
 
       - name: Validate OpenAPI specs
         id: validate
