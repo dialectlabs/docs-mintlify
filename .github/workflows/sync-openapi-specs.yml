@@ -25,6 +25,7 @@ jobs:
             [openapi/solana.json]="https://solana-sbl.dial.to/api/openapi.json"
             [openapi/save.json]="https://save.dial.to/api/openapi.json"
             [openapi/raydium.json]="https://raydium.dial.to/api/openapi.json"
+            [openapi/drift.json]="https://drift.dial.to/api/openapi.json"
           )
 
           for file in "${!SPECS[@]}"; do
