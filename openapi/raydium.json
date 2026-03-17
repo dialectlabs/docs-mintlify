@@ -1,8 +1,4 @@
 {
-  "openapi": "3.1.1",
-  "x-mcp": {
-    "enabled": true
-  },
   "info": {
     "title": "Raydium Blinks API",
     "version": "0.0.1"
@@ -12,12 +8,13 @@
       "url": "https://raydium.dial.to/api"
     }
   ],
+  "openapi": "3.1.1",
   "paths": {
     "/v0/clmm/{poolId}/add-liquidity": {
       "get": {
-        "operationId": "v0.clmm.addLiquidityGetBlink",
-        "summary": "CLMM Add Liquidity",
-        "description": "Get metadata for adding liquidity into Raydium's CLMM.",
+        "operationId": "raydium.v0.clmm.addLiquidityGetBlink",
+        "summary": "Add Liquidity",
+        "description": "Get a blink for adding liquidity to a CLMM pool",
         "tags": [
           "CLMM"
         ],
@@ -29,14 +26,8 @@
             "schema": {
               "type": "string",
               "description": "The raydium Concentrated Liquidity Pool ID",
-              "default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-              "x-example": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-              "examples": [
-                "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
-              ]
-            },
-            "example": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-            "x-default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+              "default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+            }
           }
         ],
         "responses": {
@@ -48,20 +39,16 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string",
-                      "example": "Add Liquidity to Raydium"
+                      "type": "string"
                     },
                     "description": {
-                      "type": "string",
-                      "example": "Add liquidity to earn fees and rewards"
+                      "type": "string"
                     },
                     "label": {
-                      "type": "string",
-                      "example": "Add Liquidity"
+                      "type": "string"
                     },
                     "icon": {
-                      "type": "string",
-                      "example": "https://raydium.dial.to/icon.png"
+                      "type": "string"
                     },
                     "links": {
                       "type": "object",
@@ -72,16 +59,13 @@
                             "type": "object",
                             "properties": {
                               "type": {
-                                "const": "transaction",
-                                "example": "transaction"
+                                "const": "transaction"
                               },
                               "href": {
-                                "type": "string",
-                                "example": "/v0/clmm/8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj/add-liquidity"
+                                "type": "string"
                               },
                               "label": {
-                                "type": "string",
-                                "example": "Add Liquidity"
+                                "type": "string"
                               },
                               "parameters": {
                                 "type": "array",
@@ -89,16 +73,13 @@
                                   "type": "object",
                                   "properties": {
                                     "name": {
-                                      "type": "string",
-                                      "example": "amount"
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": "string",
-                                      "example": "number"
+                                      "type": "string"
                                     },
                                     "label": {
-                                      "type": "string",
-                                      "example": "Amount"
+                                      "type": "string"
                                     }
                                   },
                                   "required": [
@@ -133,12 +114,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/clmm/add-liquidity-get"
         }
       },
       "post": {
-        "operationId": "v0.clmm.addLiquidity",
-        "summary": "CLMM Add Liquidity",
-        "description": "Generate a transaction for adding liquidity into Raydium's CLMM.",
+        "operationId": "raydium.v0.clmm.addLiquidity",
+        "summary": "Add Liquidity",
+        "description": "Add liquidity to a CLMM pool",
         "tags": [
           "CLMM"
         ],
@@ -150,14 +134,8 @@
             "schema": {
               "type": "string",
               "description": "The raydium Concentrated Liquidity Pool ID",
-              "default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-              "x-example": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-              "examples": [
-                "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
-              ]
-            },
-            "example": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-            "x-default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+              "default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+            }
           },
           {
             "name": "amount",
@@ -180,8 +158,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of liquidity to add",
-              "default": 10,
-              "example": 10
+              "default": 10
             }
           },
           {
@@ -191,8 +168,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "description": "The address of the position to add liquidity to. If not provided, first available position will be used.",
-              "example": "9aYp9rT7wD6H8HCFpXgJGfHdmVfLJVKzZgRxvQcDfGHj"
+              "description": "The address of the position to add liquidity to. If not provided, first available position will be used."
             }
           }
         ],
@@ -205,36 +181,21 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction",
-                    "examples": [
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
-              },
-              "examples": {
-                "addLiquidity": {
-                  "summary": "Add liquidity transaction",
-                  "value": {
-                    "type": "transaction",
-                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                  }
-                }
               }
             }
           }
@@ -248,13 +209,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "type": "string",
-                      "enum": ["transaction"],
-                      "example": "transaction"
+                      "const": "transaction"
                     },
                     "transaction": {
-                      "type": "string",
-                      "example": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -265,14 +223,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/clmm/add-liquidity-post"
         }
       }
     },
     "/v0/clmm/{poolId}/remove-liquidity": {
       "get": {
-        "operationId": "v0.clmm.removeLiquidityGetBlink",
-        "summary": "CLMM Remove Liquidity",
-        "description": "Get metadata for removing liquidity from Raydium's CLMM.",
+        "operationId": "raydium.v0.clmm.removeLiquidityGetBlink",
+        "summary": "Remove Liquidity",
+        "description": "Get a blink for removing liquidity from a CLMM pool",
         "tags": [
           "CLMM"
         ],
@@ -284,14 +245,8 @@
             "schema": {
               "type": "string",
               "description": "The raydium Concentrated Liquidity Pool ID",
-              "default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-              "x-example": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-              "examples": [
-                "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
-              ]
-            },
-            "example": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-            "x-default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+              "default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+            }
           }
         ],
         "responses": {
@@ -303,20 +258,16 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string",
-                      "example": "Add Liquidity to Raydium"
+                      "type": "string"
                     },
                     "description": {
-                      "type": "string",
-                      "example": "Add liquidity to earn fees and rewards"
+                      "type": "string"
                     },
                     "label": {
-                      "type": "string",
-                      "example": "Add Liquidity"
+                      "type": "string"
                     },
                     "icon": {
-                      "type": "string",
-                      "example": "https://raydium.dial.to/icon.png"
+                      "type": "string"
                     },
                     "links": {
                       "type": "object",
@@ -327,16 +278,13 @@
                             "type": "object",
                             "properties": {
                               "type": {
-                                "const": "transaction",
-                                "example": "transaction"
+                                "const": "transaction"
                               },
                               "href": {
-                                "type": "string",
-                                "example": "/v0/clmm/8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj/add-liquidity"
+                                "type": "string"
                               },
                               "label": {
-                                "type": "string",
-                                "example": "Add Liquidity"
+                                "type": "string"
                               },
                               "parameters": {
                                 "type": "array",
@@ -344,16 +292,13 @@
                                   "type": "object",
                                   "properties": {
                                     "name": {
-                                      "type": "string",
-                                      "example": "amount"
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": "string",
-                                      "example": "number"
+                                      "type": "string"
                                     },
                                     "label": {
-                                      "type": "string",
-                                      "example": "Amount"
+                                      "type": "string"
                                     }
                                   },
                                   "required": [
@@ -388,12 +333,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/clmm/remove-liquidity-get"
         }
       },
       "post": {
-        "operationId": "v0.clmm.removeLiquidity",
-        "summary": "CLMM Remove Liquidity",
-        "description": "Generate a transaction for removing liquidity from Raydium's CLMM.",
+        "operationId": "raydium.v0.clmm.removeLiquidity",
+        "summary": "Remove Liquidity",
+        "description": "Remove liquidity from a CLMM pool",
         "tags": [
           "CLMM"
         ],
@@ -405,14 +353,8 @@
             "schema": {
               "type": "string",
               "description": "The raydium Concentrated Liquidity Pool ID",
-              "default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-              "x-example": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-              "examples": [
-                "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
-              ]
-            },
-            "example": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj",
-            "x-default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+              "default": "8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"
+            }
           },
           {
             "name": "percentage",
@@ -425,11 +367,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of liquidity to remove",
-              "default": 10,
-              "example": 10,
-              "examples": [
-                50
-              ]
+              "default": 50
             }
           },
           {
@@ -440,8 +378,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "description": "The address of the position to remove liquidity from. If not provided, first available position will be used.",
-              "example": "9aYp9rT7wD6H8HCFpXgJGfHdmVfLJVKzZgRxvQcDfGHj"
+              "description": "The address of the position to remove liquidity from. If not provided, first available position will be used."
             }
           }
         ],
@@ -454,36 +391,21 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction",
-                    "examples": [
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
-              },
-              "examples": {
-                "addLiquidity": {
-                  "summary": "Add liquidity transaction",
-                  "value": {
-                    "type": "transaction",
-                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                  }
-                }
               }
             }
           }
@@ -497,13 +419,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "type": "string",
-                      "enum": ["transaction"],
-                      "example": "transaction"
+                      "const": "transaction"
                     },
                     "transaction": {
-                      "type": "string",
-                      "example": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -514,14 +433,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/clmm/remove-liquidity-post"
         }
       }
     },
     "/v0/amm/{poolId}/add-liquidity": {
       "get": {
-        "operationId": "v0.amm.addLiquidityGetBlink",
-        "summary": "AMM Add Liquidity",
-        "description": "Get metadata for adding liquidity into Raydium's AMM.",
+        "operationId": "raydium.v0.amm.addLiquidityGetBlink",
+        "summary": "Add Liquidity",
+        "description": "Get a blink for adding liquidity to a Standard AMM pool",
         "tags": [
           "AMM"
         ],
@@ -533,14 +455,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the Standard AMM pool",
-              "default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-              "x-example": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-              "examples": [
-                "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
-              ]
-            },
-            "example": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-            "x-default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+              "default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+            }
           }
         ],
         "responses": {
@@ -552,20 +468,16 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string",
-                      "example": "Add Liquidity to Raydium"
+                      "type": "string"
                     },
                     "description": {
-                      "type": "string",
-                      "example": "Add liquidity to earn fees and rewards"
+                      "type": "string"
                     },
                     "label": {
-                      "type": "string",
-                      "example": "Add Liquidity"
+                      "type": "string"
                     },
                     "icon": {
-                      "type": "string",
-                      "example": "https://raydium.dial.to/icon.png"
+                      "type": "string"
                     },
                     "links": {
                       "type": "object",
@@ -576,16 +488,13 @@
                             "type": "object",
                             "properties": {
                               "type": {
-                                "const": "transaction",
-                                "example": "transaction"
+                                "const": "transaction"
                               },
                               "href": {
-                                "type": "string",
-                                "example": "/v0/clmm/8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj/add-liquidity"
+                                "type": "string"
                               },
                               "label": {
-                                "type": "string",
-                                "example": "Add Liquidity"
+                                "type": "string"
                               },
                               "parameters": {
                                 "type": "array",
@@ -593,16 +502,13 @@
                                   "type": "object",
                                   "properties": {
                                     "name": {
-                                      "type": "string",
-                                      "example": "amount"
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": "string",
-                                      "example": "number"
+                                      "type": "string"
                                     },
                                     "label": {
-                                      "type": "string",
-                                      "example": "Amount"
+                                      "type": "string"
                                     }
                                   },
                                   "required": [
@@ -637,12 +543,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/amm/add-liquidity-get"
         }
       },
       "post": {
-        "operationId": "v0.amm.addLiquidity",
-        "summary": "AMM Add Liquidity",
-        "description": "Generate a transaction for adding liquidity into Raydium's AMM.",
+        "operationId": "raydium.v0.amm.addLiquidity",
+        "summary": "Add Liquidity",
+        "description": "Add liquidity to a Standard AMM pool",
         "tags": [
           "AMM"
         ],
@@ -654,14 +563,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the Standard AMM pool",
-              "default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-              "x-example": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-              "examples": [
-                "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
-              ]
-            },
-            "example": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-            "x-default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+              "default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+            }
           },
           {
             "name": "percentage",
@@ -673,8 +576,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of liquidity to add",
-              "default": 10,
-              "example": 10
+              "default": 10
             }
           },
           {
@@ -698,36 +600,21 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction",
-                    "examples": [
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
-              },
-              "examples": {
-                "addLiquidity": {
-                  "summary": "Add liquidity transaction",
-                  "value": {
-                    "type": "transaction",
-                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                  }
-                }
               }
             }
           }
@@ -741,13 +628,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "type": "string",
-                      "enum": ["transaction"],
-                      "example": "transaction"
+                      "const": "transaction"
                     },
                     "transaction": {
-                      "type": "string",
-                      "example": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -758,14 +642,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/amm/add-liquidity-post"
         }
       }
     },
     "/v0/amm/{poolId}/remove-liquidity": {
       "get": {
-        "operationId": "v0.amm.removeLiquidityGetBlink",
-        "summary": "AMM Remove Liquidity",
-        "description": "Get metadata for removing liquidity from Raydium's AMM.",
+        "operationId": "raydium.v0.amm.removeLiquidityGetBlink",
+        "summary": "Remove Liquidity",
+        "description": "Get a blink for removing liquidity from a Standard AMM pool",
         "tags": [
           "AMM"
         ],
@@ -777,14 +664,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the Standard AMM pool",
-              "default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-              "x-example": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-              "examples": [
-                "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
-              ]
-            },
-            "example": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-            "x-default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+              "default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+            }
           }
         ],
         "responses": {
@@ -796,20 +677,16 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string",
-                      "example": "Add Liquidity to Raydium"
+                      "type": "string"
                     },
                     "description": {
-                      "type": "string",
-                      "example": "Add liquidity to earn fees and rewards"
+                      "type": "string"
                     },
                     "label": {
-                      "type": "string",
-                      "example": "Add Liquidity"
+                      "type": "string"
                     },
                     "icon": {
-                      "type": "string",
-                      "example": "https://raydium.dial.to/icon.png"
+                      "type": "string"
                     },
                     "links": {
                       "type": "object",
@@ -820,16 +697,13 @@
                             "type": "object",
                             "properties": {
                               "type": {
-                                "const": "transaction",
-                                "example": "transaction"
+                                "const": "transaction"
                               },
                               "href": {
-                                "type": "string",
-                                "example": "/v0/clmm/8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj/add-liquidity"
+                                "type": "string"
                               },
                               "label": {
-                                "type": "string",
-                                "example": "Add Liquidity"
+                                "type": "string"
                               },
                               "parameters": {
                                 "type": "array",
@@ -837,16 +711,13 @@
                                   "type": "object",
                                   "properties": {
                                     "name": {
-                                      "type": "string",
-                                      "example": "amount"
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": "string",
-                                      "example": "number"
+                                      "type": "string"
                                     },
                                     "label": {
-                                      "type": "string",
-                                      "example": "Amount"
+                                      "type": "string"
                                     }
                                   },
                                   "required": [
@@ -881,12 +752,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/amm/remove-liquidity-get"
         }
       },
       "post": {
-        "operationId": "v0.amm.removeLiquidity",
-        "summary": "AMM Remove Liquidity",
-        "description": "Generate a transaction for removing liquidity from Raydium's AMM.",
+        "operationId": "raydium.v0.amm.removeLiquidity",
+        "summary": "Remove Liquidity",
+        "description": "Remove liquidity from a Standard AMM pool",
         "tags": [
           "AMM"
         ],
@@ -898,14 +772,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the Standard AMM pool",
-              "default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-              "x-example": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-              "examples": [
-                "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
-              ]
-            },
-            "example": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2",
-            "x-default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+              "default": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2"
+            }
           },
           {
             "name": "percentage",
@@ -918,8 +786,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of liquidity to remove",
-              "default": 10,
-              "example": 10
+              "default": 50
             }
           }
         ],
@@ -932,36 +799,21 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction",
-                    "examples": [
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
-              },
-              "examples": {
-                "addLiquidity": {
-                  "summary": "Add liquidity transaction",
-                  "value": {
-                    "type": "transaction",
-                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                  }
-                }
               }
             }
           }
@@ -975,13 +827,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "type": "string",
-                      "enum": ["transaction"],
-                      "example": "transaction"
+                      "const": "transaction"
                     },
                     "transaction": {
-                      "type": "string",
-                      "example": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -992,14 +841,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/amm/remove-liquidity-post"
         }
       }
     },
     "/v0/farm/RAY/stake": {
       "get": {
-        "operationId": "v0.farm.stakeRAYGetBlink",
+        "operationId": "raydium.v0.farm.stakeRAYGetBlink",
         "summary": "RAY Stake",
-        "description": "Get metadata for staking RAY.",
+        "description": "Stake RAY in Raydium Farm product",
         "tags": [
           "Farm"
         ],
@@ -1012,20 +864,16 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string",
-                      "example": "Add Liquidity to Raydium"
+                      "type": "string"
                     },
                     "description": {
-                      "type": "string",
-                      "example": "Add liquidity to earn fees and rewards"
+                      "type": "string"
                     },
                     "label": {
-                      "type": "string",
-                      "example": "Add Liquidity"
+                      "type": "string"
                     },
                     "icon": {
-                      "type": "string",
-                      "example": "https://raydium.dial.to/icon.png"
+                      "type": "string"
                     },
                     "links": {
                       "type": "object",
@@ -1036,16 +884,13 @@
                             "type": "object",
                             "properties": {
                               "type": {
-                                "const": "transaction",
-                                "example": "transaction"
+                                "const": "transaction"
                               },
                               "href": {
-                                "type": "string",
-                                "example": "/v0/clmm/8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj/add-liquidity"
+                                "type": "string"
                               },
                               "label": {
-                                "type": "string",
-                                "example": "Add Liquidity"
+                                "type": "string"
                               },
                               "parameters": {
                                 "type": "array",
@@ -1053,16 +898,13 @@
                                   "type": "object",
                                   "properties": {
                                     "name": {
-                                      "type": "string",
-                                      "example": "amount"
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": "string",
-                                      "example": "number"
+                                      "type": "string"
                                     },
                                     "label": {
-                                      "type": "string",
-                                      "example": "Amount"
+                                      "type": "string"
                                     }
                                   },
                                   "required": [
@@ -1097,12 +939,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/farm/stake-get"
         }
       },
       "post": {
-        "operationId": "v0.farm.stakeRAY",
+        "operationId": "raydium.v0.farm.stakeRAY",
         "summary": "RAY Stake",
-        "description": "Generate a transaction for staking RAY.",
+        "description": "Stake RAY in Raydium Farm product. Either percentage or amount is required.",
         "tags": [
           "Farm"
         ],
@@ -1117,8 +962,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of RAY to stake",
-              "default": 10,
-              "example": 10
+              "default": 10
             }
           },
           {
@@ -1142,36 +986,21 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction",
-                    "examples": [
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
-              },
-              "examples": {
-                "addLiquidity": {
-                  "summary": "Add liquidity transaction",
-                  "value": {
-                    "type": "transaction",
-                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                  }
-                }
               }
             }
           }
@@ -1185,13 +1014,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "type": "string",
-                      "enum": ["transaction"],
-                      "example": "transaction"
+                      "const": "transaction"
                     },
                     "transaction": {
-                      "type": "string",
-                      "example": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -1202,14 +1028,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/farm/stake-post"
         }
       }
     },
     "/v0/farm/RAY/unstake": {
       "get": {
-        "operationId": "v0.farm.unstakeRAYGetBlink",
+        "operationId": "raydium.v0.farm.unstakeRAYGetBlink",
         "summary": "RAY Unstake",
-        "description": "Get metadata for unstaking RAY.",
+        "description": "Unstake RAY in Raydium Farm product",
         "tags": [
           "Farm"
         ],
@@ -1222,20 +1051,16 @@
                   "type": "object",
                   "properties": {
                     "title": {
-                      "type": "string",
-                      "example": "Add Liquidity to Raydium"
+                      "type": "string"
                     },
                     "description": {
-                      "type": "string",
-                      "example": "Add liquidity to earn fees and rewards"
+                      "type": "string"
                     },
                     "label": {
-                      "type": "string",
-                      "example": "Add Liquidity"
+                      "type": "string"
                     },
                     "icon": {
-                      "type": "string",
-                      "example": "https://raydium.dial.to/icon.png"
+                      "type": "string"
                     },
                     "links": {
                       "type": "object",
@@ -1246,16 +1071,13 @@
                             "type": "object",
                             "properties": {
                               "type": {
-                                "const": "transaction",
-                                "example": "transaction"
+                                "const": "transaction"
                               },
                               "href": {
-                                "type": "string",
-                                "example": "/v0/clmm/8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj/add-liquidity"
+                                "type": "string"
                               },
                               "label": {
-                                "type": "string",
-                                "example": "Add Liquidity"
+                                "type": "string"
                               },
                               "parameters": {
                                 "type": "array",
@@ -1263,16 +1085,13 @@
                                   "type": "object",
                                   "properties": {
                                     "name": {
-                                      "type": "string",
-                                      "example": "amount"
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": "string",
-                                      "example": "number"
+                                      "type": "string"
                                     },
                                     "label": {
-                                      "type": "string",
-                                      "example": "Amount"
+                                      "type": "string"
                                     }
                                   },
                                   "required": [
@@ -1307,12 +1126,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/farm/unstake-get"
         }
       },
       "post": {
-        "operationId": "v0.farm.unstakeRAY",
+        "operationId": "raydium.v0.farm.unstakeRAY",
         "summary": "RAY Unstake",
-        "description": "Generate a transaction for unstaking RAY.",
+        "description": "Unstake RAY in Raydium Farm product. Either percentage or amount is required.",
         "tags": [
           "Farm"
         ],
@@ -1327,8 +1149,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of RAY to unstake",
-              "default": 10,
-              "example": 10
+              "default": 10
             }
           },
           {
@@ -1352,36 +1173,21 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction",
-                    "examples": [
+                    "enum": [
                       "transaction"
-                    ]
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "examples": [
-                      "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                    ]
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
                   "type",
                   "account"
                 ]
-              },
-              "examples": {
-                "addLiquidity": {
-                  "summary": "Add liquidity transaction",
-                  "value": {
-                    "type": "transaction",
-                    "account": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                  }
-                }
               }
             }
           }
@@ -1395,13 +1201,10 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "type": "string",
-                      "enum": ["transaction"],
-                      "example": "transaction"
+                      "const": "transaction"
                     },
                     "transaction": {
-                      "type": "string",
-                      "example": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDArczbMia1tLmq7zz4DinMNN0pJ1JtLdqIJPUw931mdvp9vlLgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8FZAz9nIL9hGE4x5rKjjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgAB"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -1412,8 +1215,14 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/raydium/farm/unstake-post"
         }
       }
     }
+  },
+  "x-mcp": {
+    "enabled": true
   }
 }
