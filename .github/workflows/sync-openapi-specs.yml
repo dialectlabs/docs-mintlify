@@ -37,18 +37,13 @@ jobs:
             fi
           done
 
-      - name: Install Mintlify CLI
-        run: |
-          npm install -g mintlify
-          echo "$(npm config get prefix)/bin" >> $GITHUB_PATH
-
       - name: Validate OpenAPI specs
         id: validate
         continue-on-error: true
         run: |
           results=""
           for file in openapi/*.json; do
-            output=$(mint openapi-check "$file" 2>&1)
+            output=$(npx mintlify openapi-check "$file" 2>&1)
             if [ $? -eq 0 ]; then icon="✅"; else icon="❌"; fi
             results="${results}${icon} **${file}**\n\`\`\`\n${output}\n\`\`\`\n\n"
           done
