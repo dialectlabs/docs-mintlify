@@ -1,231 +1,227 @@
 {
-    "openapi": "3.1.1",
-    "x-mcp": {
-        "enabled": true
-    },
-    "info": {
-        "title": "Solana Blinks",
-        "version": "0.0.1"
-    },
-    "servers": [
-        {
-            "url": "https://solana-sbl.dial.to/api"
-        }
-    ],
-    "paths": {
-        "/v0/transfer/{token}": {
-            "get": {
-                "operationId": "v0.transfer.getTransferTokenBlink",
-                "summary": "Transfer Token",
-                "description": "Get metadata for transferring a token on Solana.",
-                "tags": [
-                    "Transfer"
-                ],
-                "parameters": [
-                    {
-                        "name": "token",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "description": "Token to transfer. Can be human readable symbol or mint address",
-                            "default": "USDC",
-                            "x-example": "USDC"
-                        },
-                        "example": "USDC",
-                        "x-default": "USDC"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "title": {
-                                            "type": "string"
-                                        },
-                                        "description": {
-                                            "type": "string"
-                                        },
-                                        "label": {
-                                            "type": "string"
-                                        },
-                                        "icon": {
-                                            "type": "string"
-                                        },
-                                        "links": {
-                                            "type": "object",
-                                            "properties": {
-                                                "actions": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                            "type": {
-                                                                "const": "transaction"
-                                                            },
-                                                            "href": {
-                                                                "type": "string"
-                                                            },
-                                                            "label": {
-                                                                "type": "string"
-                                                            },
-                                                            "parameters": {
-                                                                "type": "array",
-                                                                "items": {
-                                                                    "type": "object",
-                                                                    "properties": {
-                                                                        "name": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "type": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "label": {
-                                                                            "type": "string"
-                                                                        }
-                                                                    },
-                                                                    "required": [
-                                                                        "name",
-                                                                        "type",
-                                                                        "label"
-                                                                    ]
-                                                                }
-                                                            }
-                                                        },
-                                                        "required": [
-                                                            "type",
-                                                            "href",
-                                                            "label"
-                                                        ]
-                                                    }
-                                                }
-                                            },
-                                            "required": [
-                                                "actions"
-                                            ]
-                                        }
-                                    },
-                                    "required": [
-                                        "title",
-                                        "description",
-                                        "label",
-                                        "icon",
-                                        "links"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "operationId": "v0.transfer.transferTokens",
-                "summary": "Transfer Token",
-                "description": "Generate a transaction for transferring a token on Solana.",
-                "tags": [
-                    "Transfer"
-                ],
-                "parameters": [
-                    {
-                        "name": "token",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "description": "Token to transfer. Can be human readable symbol or mint address",
-                            "default": "USDC",
-                            "x-example": "USDC"
-                        },
-                        "example": "USDC",
-                        "x-default": "USDC"
-                    },
-                    {
-                        "name": "to",
-                        "in": "query",
-                        "required": true,
-                        "style": "deepObject",
-                        "explode": true,
-                        "schema": {
-                            "type": "string",
-                            "description": "The address to transfer the tokens to",
-                            "default": "6tBUD4bQzNehG3hQVtVFaGxre2P8rQoH99pubRtgSbSb",
-                            "example": "6tBUD4bQzNehG3hQVtVFaGxre2P8rQoH99pubRtgSbSb"
-                        }
-                    },
-                    {
-                        "name": "amount",
-                        "in": "query",
-                        "required": true,
-                        "style": "deepObject",
-                        "explode": true,
-                        "schema": {
-                            "type": "number",
-                            "minimum": 0,
-                            "description": "The amount to transfer. Human readable value, e.g. 100 USDC",
-                            "default": 100,
-                            "example": 100
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "type": {
-                                        "type": "string",
-                                        "enum": [
-                                            "transaction"
-                                        ],
-                                        "default": "transaction",
-                                        "example": "transaction"
-                                    },
-                                    "account": {
-                                        "type": "string",
-                                        "description": "The public key of the account that executes the transaction",
-                                        "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                                        "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
-                                    }
-                                },
-                                "required": [
-                                    "type",
-                                    "account"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "const": "transaction"
-                                        },
-                                        "transaction": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "type",
-                                        "transaction"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+  "info": {
+    "title": "Solana Blinks API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://solana-sbl.dial.to/api"
     }
+  ],
+  "openapi": "3.1.1",
+  "paths": {
+    "/v0/transfer/{token}": {
+      "get": {
+        "operationId": "solana.transfer.getTransferTokenBlink",
+        "summary": "Transfer Token",
+        "description": "Get a blink for transferring a token",
+        "tags": [
+          "Transfer"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token to transfer. Can be human readable symbol or mint address",
+              "default": "USDC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "transaction"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "parameters": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "type",
+                                    "label"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "description",
+                    "label",
+                    "icon",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "href": "api-reference/solana/transfer/transfer-get"
+        }
+      },
+      "post": {
+        "operationId": "solana.transfer.transferTokens",
+        "summary": "Transfer Token",
+        "description": "Transfer any Solana tokens to any address",
+        "tags": [
+          "Transfer"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token to transfer. Can be human readable symbol or mint address",
+              "default": "SOL"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "The address to transfer the tokens to",
+              "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "description": "The amount to transfer. Human readable value, e.g. 100 USDC",
+              "default": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "transaction"
+                    ],
+                    "default": "transaction"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "The public key of the account that executes the transaction",
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                  }
+                },
+                "required": [
+                  "type",
+                  "account"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "transaction"
+                    },
+                    "transaction": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "transaction"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-mint": {
+          "href": "api-reference/solana/transfer/transfer-post"
+        }
+      }
+    }
+  },
+  "x-mcp": {
+    "enabled": true
+  }
 }
