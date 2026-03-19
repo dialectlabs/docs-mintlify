@@ -1,8 +1,4 @@
 {
-  "openapi": "3.1.1",
-  "x-mcp": {
-    "enabled": true
-  },
   "info": {
     "title": "Drift Blinks API",
     "version": "0.0.1"
@@ -12,12 +8,13 @@
       "url": "https://drift.dial.to/api"
     }
   ],
+  "openapi": "3.1.1",
   "paths": {
     "/v0/vaults/strategy-vaults/{vaultId}/deposit": {
       "get": {
-        "operationId": "v0.vaults.getDepositStrategyVaultBlink",
+        "operationId": "drift.v0.vaults.getDepositStrategyVaultBlink",
         "summary": "Strategy Vault Deposit",
-        "description": "Get metadata for depositing a token into Drift's strategy vault.",
+        "description": "Get a blink for depositing to a strategy vault",
         "tags": [
           "Vaults"
         ],
@@ -29,11 +26,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
-            },
-            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+            }
           }
         ],
         "responses": {
@@ -120,12 +114,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/drift/vaults/deposit-get"
         }
       },
       "post": {
-        "operationId": "v0.vaults.depositStrategyVault",
+        "operationId": "drift.v0.vaults.depositStrategyVault",
         "summary": "Strategy Vault Deposit",
-        "description": "Generate a transaction for depositing a token into Drift's strategy vault.",
+        "description": "Deposit to a strategy vault",
         "tags": [
           "Vaults"
         ],
@@ -137,11 +134,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
-            },
-            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            }
           },
           {
             "name": "percentage",
@@ -153,8 +147,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of funds to use",
-              "default": 10,
-              "example": 10
+              "default": 10
             }
           },
           {
@@ -181,14 +174,12 @@
                     "enum": [
                       "transaction"
                     ],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -222,14 +213,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/drift/vaults/deposit-post"
         }
       }
     },
     "/v0/vaults/strategy-vaults/{vaultId}/request-withdraw": {
       "get": {
-        "operationId": "v0.vaults.getRequestWithdrawStrategyVaultBlink",
-        "summary": "Strategy Vault Request Withdraw",
-        "description": "Get metadata for requesting a token withdraw from Drift's strategy vault.",
+        "operationId": "drift.v0.vaults.getRequestWithdrawStrategyVaultBlink",
+        "summary": "Request Withdraw",
+        "description": "Get a blink for requesting withdrawal from a strategy vault",
         "tags": [
           "Vaults"
         ],
@@ -241,11 +235,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
-            },
-            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+            }
           }
         ],
         "responses": {
@@ -332,12 +323,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/drift/vaults/request-withdraw-get"
         }
       },
       "post": {
-        "operationId": "v0.vaults.requestWithdrawStrategyVault",
-        "summary": "Strategy Vault Request Withdraw",
-        "description": "Generate a transaction for requesting a token withdraw from Drift's strategy vault.",
+        "operationId": "drift.v0.vaults.requestWithdrawStrategyVault",
+        "summary": "Request Withdraw",
+        "description": "Request withdrawal from a strategy vault",
         "tags": [
           "Vaults"
         ],
@@ -349,11 +343,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
-            },
-            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            }
           },
           {
             "name": "percentage",
@@ -365,8 +356,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of funds to use",
-              "default": 10,
-              "example": 10
+              "default": 10
             }
           },
           {
@@ -393,14 +383,12 @@
                     "enum": [
                       "transaction"
                     ],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -434,14 +422,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/drift/vaults/request-withdraw-post"
         }
       }
     },
     "/v0/vaults/strategy-vaults/{vaultId}/withdraw": {
       "get": {
-        "operationId": "v0.vaults.getWithdrawStrategyVaultBlink",
-        "summary": "Strategy Vault Withdraw",
-        "description": "Get metadata for withdrawing a token from Drift's strategy vault.",
+        "operationId": "drift.v0.vaults.getWithdrawStrategyVaultBlink",
+        "summary": "Withdraw",
+        "description": "Get a blink for withdrawing from a strategy vault",
         "tags": [
           "Vaults"
         ],
@@ -453,11 +444,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
-            },
-            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+            }
           }
         ],
         "responses": {
@@ -544,12 +532,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/drift/vaults/withdraw-get"
         }
       },
       "post": {
-        "operationId": "v0.vaults.withdrawStrategyVault",
-        "summary": "Strategy Vault Withdraw",
-        "description": "Generate a transaction for withdrawing a token from Drift's strategy vault.",
+        "operationId": "drift.v0.vaults.withdrawStrategyVault",
+        "summary": "Withdraw",
+        "description": "Withdraw from a strategy vault",
         "tags": [
           "Vaults"
         ],
@@ -561,11 +552,8 @@
             "schema": {
               "type": "string",
               "description": "ID of the strategy vault",
-              "default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-              "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
-            },
-            "example": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp",
-            "x-default": "6L2VV9ngPXfg9aXLuVTGdvYmekkPhWDaEZ3BGB6nfLKp"
+              "default": "EuSLjg23BrtwYAk1t4TFe5ArYSXCVXLBqrHRBfWQiTeJ"
+            }
           }
         ],
         "requestBody": {
@@ -580,14 +568,12 @@
                     "enum": [
                       "transaction"
                     ],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -621,8 +607,14 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/drift/vaults/withdraw-post"
         }
       }
     }
+  },
+  "x-mcp": {
+    "enabled": true
   }
 }

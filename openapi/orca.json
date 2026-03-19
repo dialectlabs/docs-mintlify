@@ -1,10 +1,6 @@
 {
-  "openapi": "3.1.1",
-  "x-mcp": {
-    "enabled": true
-  },
   "info": {
-    "title": "Orca Blinks",
+    "title": "Orca Blinks API",
     "version": "0.0.1"
   },
   "servers": [
@@ -12,12 +8,13 @@
       "url": "https://orca.dial.to/api"
     }
   ],
+  "openapi": "3.1.1",
   "paths": {
     "/v0/pools/{tokenA}/{tokenB}/open-position": {
       "get": {
-        "operationId": "v0.pools.getOpenPositionBlink",
-        "summary": "Pools Open Position",
-        "description": "Get metadata for opening a position in an Orca's Pool.",
+        "operationId": "orca.v0.pools.getOpenPositionBlink",
+        "summary": "Open Position",
+        "description": "Get a blink for opening a position",
         "tags": [
           "Pools"
         ],
@@ -29,11 +26,8 @@
             "schema": {
               "type": "string",
               "description": "Token A address",
-              "default": "So11111111111111111111111111111111111111112",
-              "x-example": "So11111111111111111111111111111111111111112"
-            },
-            "example": "So11111111111111111111111111111111111111112",
-            "x-default": "So11111111111111111111111111111111111111112"
+              "default": "So11111111111111111111111111111111111111112"
+            }
           },
           {
             "name": "tokenB",
@@ -42,11 +36,8 @@
             "schema": {
               "type": "string",
               "description": "Token B address",
-              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-            },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            }
           }
         ],
         "responses": {
@@ -133,12 +124,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/orca/pools/open-position-get"
         }
       },
       "post": {
-        "operationId": "v0.pools.openPosition",
-        "summary": "Pools Open Position",
-        "description": "Generate a transaction for opening a position in an Orca's Pool. If lower and upper prices are provided, it will open a position with a specific price range. Otherwise, it will open a full range position.",
+        "operationId": "orca.v0.pools.openPosition",
+        "summary": "Open Position",
+        "description": "Open position. If lowerPrice and upperPrice are provided, open a position with a specific price range. If not, open a full range position.",
         "tags": [
           "Pools"
         ],
@@ -150,11 +144,8 @@
             "schema": {
               "type": "string",
               "description": "The token A address",
-              "default": "So11111111111111111111111111111111111111112",
-              "x-example": "So11111111111111111111111111111111111111112"
-            },
-            "example": "So11111111111111111111111111111111111111112",
-            "x-default": "So11111111111111111111111111111111111111112"
+              "default": "So11111111111111111111111111111111111111112"
+            }
           },
           {
             "name": "tokenB",
@@ -163,11 +154,8 @@
             "schema": {
               "type": "string",
               "description": "The token B address",
-              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-              "x-example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-            },
-            "example": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "x-default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              "default": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            }
           },
           {
             "name": "amount",
@@ -189,8 +177,7 @@
               "maximum": 100,
               "exclusiveMinimum": 0,
               "description": "The percentage of token amount to deposit",
-              "default": 10,
-              "example": 10
+              "default": 25
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -230,14 +217,12 @@
                     "enum": [
                       "transaction"
                     ],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -271,14 +256,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/orca/pools/open-position-post"
         }
       }
     },
     "/v0/pools/positions/{positionAddress}/add-liquidity": {
       "get": {
-        "operationId": "v0.pools.getAddLiquidityBlink",
-        "summary": "Pools Add Liquidity",
-        "description": "Get metadata for adding liquidity into an Orca's Pool.",
+        "operationId": "orca.v0.pools.getAddLiquidityBlink",
+        "summary": "Add Liquidity",
+        "description": "Get a blink for adding liquidity to a position",
         "tags": [
           "Pools"
         ],
@@ -290,11 +278,8 @@
             "schema": {
               "type": "string",
               "description": "The position address",
-              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
-            },
-            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+            }
           }
         ],
         "responses": {
@@ -381,12 +366,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/orca/pools/add-liquidity-get"
         }
       },
       "post": {
-        "operationId": "v0.pools.addLiquidity",
-        "summary": "Pools Add Liquidity",
-        "description": "Generate a transaction for adding liquidity into an Orca's Pool.",
+        "operationId": "orca.v0.pools.addLiquidity",
+        "summary": "Add Liquidity",
+        "description": "Add liquidity to a position.",
         "tags": [
           "Pools"
         ],
@@ -398,11 +386,8 @@
             "schema": {
               "type": "string",
               "description": "The position address",
-              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
-            },
-            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+            }
           },
           {
             "name": "amount",
@@ -424,8 +409,7 @@
               "maximum": 100,
               "exclusiveMinimum": 0,
               "description": "The percentage of token amount to add",
-              "default": 10,
-              "example": 10
+              "default": 25
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -443,14 +427,12 @@
                     "enum": [
                       "transaction"
                     ],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -484,14 +466,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/orca/pools/add-liquidity-post"
         }
       }
     },
     "/v0/pools/positions/{positionAddress}/remove-liquidity": {
       "get": {
-        "operationId": "v0.pools.getRemoveLiquidityBlink",
-        "summary": "Pools Remove Liquidity",
-        "description": "Get metadata for removing liquidity from an Orca's Pool.",
+        "operationId": "orca.v0.pools.getRemoveLiquidityBlink",
+        "summary": "Remove Liquidity",
+        "description": "Get a blink for removing liquidity from a position",
         "tags": [
           "Pools"
         ],
@@ -503,11 +488,8 @@
             "schema": {
               "type": "string",
               "description": "The position address",
-              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
-            },
-            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+            }
           }
         ],
         "responses": {
@@ -594,12 +576,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/orca/pools/remove-liquidity-get"
         }
       },
       "post": {
-        "operationId": "v0.pools.removeLiquidity",
-        "summary": "Pools Remove Liquidity",
-        "description": "Generate a transaction for removing liquidity from an Orca's Pool.",
+        "operationId": "orca.v0.pools.removeLiquidity",
+        "summary": "Remove Liquidity",
+        "description": "Remove liquidity from a position.",
         "tags": [
           "Pools"
         ],
@@ -611,11 +596,8 @@
             "schema": {
               "type": "string",
               "description": "The position address",
-              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
-            },
-            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+            }
           },
           {
             "name": "amount",
@@ -637,8 +619,7 @@
               "maximum": 100,
               "exclusiveMinimum": 0,
               "description": "The percentage of position liquidity to remove",
-              "default": 10,
-              "example": 10
+              "default": 25
             },
             "allowEmptyValue": true,
             "allowReserved": true
@@ -656,14 +637,12 @@
                     "enum": [
                       "transaction"
                     ],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -697,14 +676,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/orca/pools/remove-liquidity-post"
         }
       }
     },
     "/v0/pools/positions/{positionAddress}/close-position": {
       "get": {
-        "operationId": "v0.pools.getClosePositionBlink",
-        "summary": "Pools Close Position",
-        "description": "Get metadata for closing a position and withdrawing all liquidity from an Orca's Pool.",
+        "operationId": "orca.v0.pools.getClosePositionBlink",
+        "summary": "Close Position",
+        "description": "Get a blink for closing a position",
         "tags": [
           "Pools"
         ],
@@ -716,11 +698,8 @@
             "schema": {
               "type": "string",
               "description": "The position address",
-              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
-            },
-            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+            }
           }
         ],
         "responses": {
@@ -807,12 +786,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/orca/pools/close-position-get"
         }
       },
       "post": {
-        "operationId": "v0.pools.closePosition",
-        "summary": "Pools Close Position",
-        "description": "Generate a transaction for closing a position and withdrawing all liquidity from an Orca's Pool.",
+        "operationId": "orca.v0.pools.closePosition",
+        "summary": "Close Position",
+        "description": "Close a position and withdraw all liquidity.",
         "tags": [
           "Pools"
         ],
@@ -824,11 +806,8 @@
             "schema": {
               "type": "string",
               "description": "The position address",
-              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-              "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
-            },
-            "example": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH",
-            "x-default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+              "default": "5tvCtzYWEiB4j3zunXoZmCn6DsviNeibt1MRZrCDXnKH"
+            }
           }
         ],
         "requestBody": {
@@ -843,14 +822,12 @@
                     "enum": [
                       "transaction"
                     ],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -884,8 +861,14 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/orca/pools/close-position-post"
         }
       }
     }
+  },
+  "x-mcp": {
+    "enabled": true
   }
 }
