@@ -29,6 +29,7 @@ jobs:
             [openapi/orca.json]="https://orca.dial.to/api/openapi.json"
             [openapi/meteora.json]="https://meteora.dial.to/api/openapi.json"
             [openapi/kamino.json]="https://kamino.dial.to/api/openapi.json"
+            [openapi/markets.json]="https://markets.dial.to/api/openapi.json"
             [openapi/jupiter.json]="https://jupiter.dial.to/api/openapi.json"
           )
 
