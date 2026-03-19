@@ -1,8 +1,4 @@
 {
-  "openapi": "3.1.1",
-  "x-mcp": {
-    "enabled": true
-  },
   "info": {
     "title": "Meteora Blinks",
     "version": "0.0.1"
@@ -12,12 +8,13 @@
       "url": "https://meteora.dial.to/api"
     }
   ],
+  "openapi": "3.1.1",
   "paths": {
     "/v0/bonding-curve/launch-token": {
       "get": {
-        "operationId": "v0.bondingCurve.getLaunchTokenBlink",
-        "summary": "DBC Launch Token",
-        "description": "Get metadata for launching a token with Meteora's Dynamic Bonding Curve program.",
+        "operationId": "meteora.v0.bondingCurve.getLaunchTokenBlink",
+        "summary": "Launch Token",
+        "description": "Get a blink for launching a token on Meteora Dynamic Bonding Curve",
         "tags": [
           "DBC"
         ],
@@ -30,11 +27,8 @@
             "schema": {
               "type": "string",
               "description": "Pool configuration address",
-              "default": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o",
-              "example": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o"
-            },
-            "example": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o",
-            "x-default": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o"
+              "default": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o"
+            }
           }
         ],
         "responses": {
@@ -121,12 +115,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/meteora/dbc/launch-token-get"
         }
       },
       "post": {
-        "operationId": "v0.bondingCurve.launchToken",
-        "summary": "DBC Launch Token",
-        "description": "Generate a transaction for launching a token with Meteora's Dynamic Bonding Curve program.",
+        "operationId": "meteora.v0.bondingCurve.launchToken",
+        "summary": "Launch Token",
+        "description": "Launch a token on Meteora Dynamic Bonding Curve",
         "tags": [
           "DBC"
         ],
@@ -140,8 +137,7 @@
             "schema": {
               "type": "string",
               "description": "Token name",
-              "default": "My Token",
-              "example": "My Token"
+              "default": "My Token"
             }
           },
           {
@@ -154,8 +150,7 @@
               "type": "string",
               "maxLength": 10,
               "description": "Token symbol",
-              "default": "TOKEN",
-              "example": "TOKEN"
+              "default": "TOKEN"
             }
           },
           {
@@ -168,8 +163,7 @@
               "type": "string",
               "format": "uri",
               "description": "Token image URI",
-              "default": "https://example.com/token.png",
-              "example": "https://example.com/token.png"
+              "default": "https://example.com/token.png"
             }
           },
           {
@@ -181,8 +175,7 @@
             "schema": {
               "type": "string",
               "description": "Token description",
-              "default": "A new token on Meteora",
-              "example": "A new token on Meteora"
+              "default": "A new token on Meteora"
             }
           },
           {
@@ -194,11 +187,8 @@
             "schema": {
               "type": "string",
               "description": "Pool configuration address",
-              "default": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o",
-              "example": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o"
-            },
-            "example": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o",
-            "x-default": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o"
+              "default": "5r9i4RV1h7fRkJch76H54nbVMtBgur8HQPikmMGyvL2o"
+            }
           }
         ],
         "requestBody": {
@@ -210,15 +200,15 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "enum": [
+                      "transaction"
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -275,14 +265,126 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/meteora/dbc/launch-token-post"
+        }
+      }
+    },
+    "/v0/bonding-curve/success": {
+      "post": {
+        "operationId": "meteora.v0.bondingCurve.getLaunchTokenSuccessBlink",
+        "summary": "Launch Success",
+        "description": "Action-chained endpoint called automatically after a successful Launch Token transaction. The previous response provides a `links.next.href` containing the mint, ticker, and name as query params. Returns a success blink with a link to trade the newly launched token.",
+        "tags": [
+          "DBC"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mint": {
+                    "type": "string",
+                    "description": "Token mint address (provided by the Launch Token response via action chaining)",
+                    "default": "5EFQN3ffHAtfF8mqT6LP1oS92SdTQ63GNGq1SpJiS8sw"
+                  },
+                  "ticker": {
+                    "type": "string",
+                    "description": "Token ticker/symbol",
+                    "default": "TOKEN"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Token name",
+                    "default": "My Token"
+                  }
+                },
+                "required": [
+                  "mint",
+                  "ticker",
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "post"
+                    },
+                    "icon": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "actions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "const": "inline-link"
+                              },
+                              "href": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "href",
+                              "label"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "actions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "icon",
+                    "title",
+                    "description",
+                    "label",
+                    "links"
+                  ]
+                }
+              }
+            }
+          }
         }
       }
     },
     "/v0/dlmm/{dlmmPool}/add-liquidity": {
       "get": {
-        "operationId": "v0.dlmm.getAddLiquidityBlink",
-        "summary": "DLMM Add Liquidity",
-        "description": "Get metadata for adding liquidity into Meteora's DLMM.",
+        "operationId": "meteora.v0.dlmm.getAddLiquidityBlink",
+        "summary": "Add Liquidity",
+        "description": "Get a blink for adding liquidity to a DLMM pool",
         "tags": [
           "DLMM"
         ],
@@ -294,11 +396,8 @@
             "schema": {
               "type": "string",
               "description": "DLMM pool address",
-              "default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y",
-              "example": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
-            },
-            "example": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y",
-            "x-default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
+              "default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
+            }
           }
         ],
         "responses": {
@@ -385,12 +484,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/meteora/dlmm/add-liquidity-get"
         }
       },
       "post": {
-        "operationId": "v0.dlmm.addLiquidityToDlmm",
-        "summary": "DLMM Add Liquidity",
-        "description": "Generate a transaction for adding liquidity into Meteora's DLMM.",
+        "operationId": "meteora.v0.dlmm.addLiquidityToDlmm",
+        "summary": "Add Liquidity",
+        "description": "Add liquidity to a DLMM pool",
         "tags": [
           "DLMM"
         ],
@@ -402,11 +504,8 @@
             "schema": {
               "type": "string",
               "description": "DLMM pool address",
-              "default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y",
-              "example": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
-            },
-            "example": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y",
-            "x-default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
+              "default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
+            }
           },
           {
             "name": "amount",
@@ -418,8 +517,7 @@
               "type": "number",
               "minimum": 0,
               "description": "The amount of tokenX to add",
-              "default": 0.01,
-              "example": 0.01
+              "default": 0.01
             }
           }
         ],
@@ -432,15 +530,15 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "enum": [
+                      "transaction"
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -474,14 +572,17 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/meteora/dlmm/add-liquidity-post"
         }
       }
     },
     "/v0/dlmm/{dlmmPool}/remove-liquidity": {
       "get": {
-        "operationId": "v0.dlmm.getRemoveLiquidityBlink",
-        "summary": "DLMM Remove Liquidity",
-        "description": "Get metadata for removing liquidity from Meteora's DLMM.",
+        "operationId": "meteora.v0.dlmm.getRemoveLiquidityBlink",
+        "summary": "Remove Liquidity",
+        "description": "Get a blink for removing liquidity from a DLMM pool",
         "tags": [
           "DLMM"
         ],
@@ -493,11 +594,8 @@
             "schema": {
               "type": "string",
               "description": "DLMM pool address",
-              "default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y",
-              "example": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
-            },
-            "example": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y",
-            "x-default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
+              "default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
+            }
           }
         ],
         "responses": {
@@ -584,12 +682,15 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/meteora/dlmm/remove-liquidity-get"
         }
       },
       "post": {
-        "operationId": "v0.dlmm.removeLiquidityFromDlmm",
-        "summary": "DLMM Remove Liquidity",
-        "description": "Generate a transaction for removing liquidity from Meteora's DLMM.",
+        "operationId": "meteora.v0.dlmm.removeLiquidityFromDlmm",
+        "summary": "Remove Liquidity",
+        "description": "Remove liquidity from a DLMM pool",
         "tags": [
           "DLMM"
         ],
@@ -601,11 +702,8 @@
             "schema": {
               "type": "string",
               "description": "DLMM pool address",
-              "default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y",
-              "example": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
-            },
-            "example": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y",
-            "x-default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
+              "default": "BGm1tav58oGcsQJehL9WXBFXF7D27vZsKefj4xJKD5Y"
+            }
           },
           {
             "name": "percentage",
@@ -618,8 +716,7 @@
               "minimum": 0,
               "maximum": 100,
               "description": "The percentage of liquidity to remove (0-100)",
-              "default": 10,
-              "example": 10
+              "default": 10
             }
           }
         ],
@@ -632,15 +729,15 @@
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["transaction"],
-                    "default": "transaction",
-                    "example": "transaction"
+                    "enum": [
+                      "transaction"
+                    ],
+                    "default": "transaction"
                   },
                   "account": {
                     "type": "string",
                     "description": "The public key of the account that executes the transaction",
-                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176",
-                    "example": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
+                    "default": "6JpNV6DK88auwzKVizdeT4Bw3D44sam5GqjcPCJ7y176"
                   }
                 },
                 "required": [
@@ -674,8 +771,14 @@
               }
             }
           }
+        },
+        "x-mint": {
+          "href": "api-reference/meteora/dlmm/remove-liquidity-post"
         }
       }
     }
+  },
+  "x-mcp": {
+    "enabled": true
   }
 }
