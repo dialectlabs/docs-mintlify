@@ -9,16 +9,16 @@ rss: true
 ## Standard Blinks Library Updates
 
 - **OpenAPI Automation** - Automated OpenAPI spec generation rolled out across all protocol integrations. Each protocol now auto-generates validated, Mintlify-compatible API documentation:
-  - [Kamino](/api-reference/kamino)
-  - [Meteora](/api-reference/meteora)
-  - [Orca](/api-reference/orca)
-  - [Drift](/api-reference/drift)
-  - [Raydium](/api-reference/raydium)
-  - [Save](/api-reference/save)
-  - [MarginFi](/api-reference/marginfi)
-  - [Lulo](/api-reference/lulo)
-  - [DefiCarrot](/api-reference/deficarrot)
-  - [DefiTuna](/api-reference/defituna)
+  - [Kamino](/api-reference/markets/market-reserve-deposit)
+  - [Meteora](/api-reference/dbc/dbc-launch-token)
+  - [Orca](/api-reference/pools/pools-open-position)
+  - [Drift](/api-reference/vaults/strategy-vault-deposit)
+  - [Raydium](/api-reference/raydium/clmm/add-liquidity-get)
+  - [Save](/api-reference/save/lending/deposit-get)
+  - [MarginFi](/api-reference/marginfi/lend/deposit-get)
+  - [Lulo](/api-reference/lulo/deposit/deposit-get)
+  - [DefiCarrot](/api-reference/deficarrot/earn/mint-get)
+  - [DefiTuna](/api-reference/defituna/lend/deposit-get)
 - **Kamino SDK Bugfix**: Fixed an SDK bump issue in Kamino Blinks along with general refactoring improvements.
 - **Protocol API Namespace Restructure**: API reference URLs restructured from flat `api-reference/{tag}/{operation}` to namespaced `api-reference/{protocol}/{tag}/{operation}`, resolving URL collisions between protocols sharing the same tag names (e.g. "Lend" used by DefiTuna, MarginFi, and Kamino). Redirects in place for all legacy URLs.
 
@@ -252,7 +252,7 @@ Enhanced documentation, protocol improvements, and new protocol support:
 
 - **Kamino Borrow Blinks** - Added support for Kamino Borrow full lifecycle support. Repay with collateral operations now fully withdraw tokens, and borrow operations may leave trace dust amounts. We also did improvements to the blinks to ensure they are more reliable and secure
 - **Lulo Protocol Improvements** - Added improved error handling and retry logic for Lulo protocol operations
-- **DeFiCarrot Integration** - Added DeFiCarrot blinks allowing users to mint and redeem CRT tokens right from the protocol [View API docs](/api-reference/earn/get-mint-blink)
+- **DeFiCarrot Integration** - Added DeFiCarrot blinks allowing users to mint and redeem CRT tokens right from the protocol [View API docs](/api-reference/deficarrot/earn/mint-get)
 - **Why SBL Section** - Added new documentation explaining the benefits and use cases for Standard Blinks Library, helping developers understand when and why to use SBL [View guide](/standard-blinks-library/why-sbl)
 - **Quick Start Guide** - New quick start guide to help developers integrate SBL faster [View guide](/standard-blinks-library/quick-start)
 - **Kamino Account Closure Notification** - Added a notification to the Kamino withdraw endpoints, informing devs that our blinks will automatically close the account when the withdrawal amount is >= 99.9% [View API docs](/api-reference/markets/market-reserve-withdraw)
@@ -323,7 +323,7 @@ Enhanced market data with historical APY tracking and expanded protocol coverage
 
 Enhanced protocol support and infrastructure improvements:
 
-- **DeFiTuna Integration** - Added DeFiTuna lending protocol with deposit and withdraw blinks for earning yield on deposits. [View API docs](/api-reference/lend/lend-deposit)
+- **DeFiTuna Integration** - Added DeFiTuna lending protocol with deposit and withdraw blinks for earning yield on deposits. [View API docs](/api-reference/defituna/lend/deposit-get)
 - **Full Jupiter Borrow Support** - Jupiter Borrow now supports the full lending lifecycle with deposit, withdraw, borrow, and repay blinks so that you can build complete DeFi lending experiences. [View API docs](/api-reference/lend-borrow/deposit)
 - **Jupiter API Migration** - Updated Jupiter Swap blink to use the latest Jupiter API endpoints ensuring continued reliability and compatibility. [View Docs](/api-reference/swap/swap-token)
 - **Kamino Lend Vaults** - Added Kamino Lend support with deposit, withdraw and claim rewards blinks [View API docs](/api-reference/lend/get-lend-vault-deposit-blink)
@@ -504,7 +504,7 @@ Continued expansion of our production-ready protocol integrations with enhanced 
 - **Kamino Multiply Blinks** - Added Kamino multiply blinks to enable leveraged DeFi strategies through the Standard Blinks Library
 - **Jupiter Integration** - Added Jupiter token swap APIs to Standard Blinks Library. [View Jupiter API docs](/api-reference/swap/swap-token)
 - **One-Click API Testing** - All Standard Blinks Library endpoints now include prefilled demo values. Developers can test any endpoint immediately by clicking "Try the API" - no need for existing DeFi positions or manual data entry
-- **Save Protocol** - Added lending protocol support with protected and boosted deposits. [View Save API docs](/api-reference/lending/lending-deposit-token)
+- **Save Protocol** - Added lending protocol support with protected and boosted deposits. [View Save API docs](/api-reference/save/lending/deposit-get)
 - **Enhanced Orca Endpoints** - Updated Orca APIs with position parameter support, reducing required inputs for streamlined integration
 
 ## Developer Experience Updates
